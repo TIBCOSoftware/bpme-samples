@@ -1,0 +1,58 @@
+/*
+* Copyright © 2021. TIBCO Software Inc.
+* This file is subject to the license terms contained
+* in the license file that is distributed with this file.
+*/
+
+.login-logo {
+    padding: 5px 0;
+    min-height: 200px;
+    text-align: center;
+    /* Mask: */
+}
+
+.login-logo img {
+    max-width: 250px;
+}
+
+.list {
+    margin-bottom: 0;
+}
+
+.btn-primary {
+    --background: var(--ion-color-primary-button);
+    box-shadow: 0 0 20px 1px #D5D5D5;
+    /* Sign in: */
+    font-size: 18px;
+    color: #FFFFFF;
+    --background-activated: var(--ion-color-primary-button);
+    --background-focused: var(--ion-color-primary-button);
+    --background-hover: var(--ion-color-primary-button);
+}
+
+ion-button {
+    margin-top: 40px;
+    --border-radius: 25px;
+}
+
+.subtitle:after {
+    content: "";
+    display: block;
+    margin: 0 auto;
+    width: 15%;
+    padding-top: 20px;
+    border-bottom: 1px solid var(--ion-color-primary);
+}
+
+[center] {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%;
+}
+
+.cred-validation p {
+    padding-left: 0px;
+    font-size: 12px;
+}

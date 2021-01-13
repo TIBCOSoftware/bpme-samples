@@ -1,0 +1,97 @@
+Index: src/app/pages/find-customer/find-customer.page.ts
+===================================================================
+--- src/app/pages/find-customer/find-customer.page.ts	(revision 4520)
++++ src/app/pages/find-customer/find-customer.page.ts	(working copy)
+@@ -3,6 +3,7 @@
+ import {PfInstanceConfig} from '../../providers/models/pfInstance.config';
+ import {PFEInstanceInfo} from '../../providers/models/instanceInfo';
+ import {PageFlowData} from '../../providers/models/PageFlowData.model';
++import {LoadingService} from "../../services/loading.service";
+ 
+ @Component({
+   selector: 'app-find-customer',
+@@ -23,7 +24,7 @@
+   @ViewChild("tibcoFormContainer", {"static": false})
+   tibcoFormContainer: ElementRef;
+ 
+-  constructor(public pfService:PageFlowService,    private ref: ChangeDetectorRef,) { }
++  constructor(public pfService:PageFlowService,    private ref: ChangeDetectorRef, public loading:LoadingService) { }
+   
+ 
+   ngOnInit() {
+@@ -31,6 +32,7 @@
+   }
+ 
+   startService(){
++    this.loading.present();
+     this.processConfig = new PfInstanceConfig();
+     // this.processConfig.moduleVersion = businessData.moduleVersion;
+     // this.processConfig.moduleName = businessData.moduleName;
+@@ -43,7 +45,7 @@
+       if (data && data.processData) {
+         if (data.processData.state.state == "COMPLETED") {
+           //this.loadForm = false;
+-          
++          this.loading.dismiss();
+         }
+       }
+       if (data && data.formData) {
+@@ -59,10 +61,12 @@
+        
+         tf.addEventListener("submit",this.submit.bind(this));
+        // this.loadForm = false;
++       this.loading.dismiss();
+        this.tibcoFormContainer.nativeElement.appendChild(tf);
+     }
+ 
+       else if(data && data.error){
++        this.loading.dismiss();
+        // this.loadForm = false;
+       }
+       else{
+@@ -78,6 +82,7 @@
+   }
+ 
+   submit($event) {
++    this.loading.present();
+     const formUpdatedData = $event.detail.form.getSerializedParameters();
+     $event.detail.form.updateDataContainer((formUpdatedData: any) => {
+       this.sendFormData.activityInfo.activityData = '{"body":' + formUpdatedData + '}';
+@@ -92,6 +97,7 @@
+       this.processInfo = data.processData;
+       this.formRenderData = data.formData; 
+       if(data.processData.state.state == "COMPLETED"){
++        this.loading.dismiss();
+         this.show = false;
+         this.ref.detectChanges();
+       }
+@@ -108,6 +114,7 @@
+         tf.addEventListener("load",this.load.bind(this));
+        
+         // this.loadForm = false;
++        this.loading.dismiss();
+        this.tibcoFormContainer.nativeElement.appendChild(tf);
+ 
+         //added the form element to dom finished
+@@ -116,11 +123,13 @@
+       }
+       else{
+         this.ref.detectChanges();
++        this.loading.dismiss();
+       }
+ 
+       }
+       else if(data && data.error){
+           this.show = false;
++          this.loading.dismiss();
+           this.ref.detectChanges();
+       }
+       else{
+@@ -128,6 +137,7 @@
+       }
+       else {
+         this.show = false;
++        this.loading.dismiss();
+         this.ref.detectChanges();
+       }
+       }

@@ -1,0 +1,7 @@
+{
+  "name": "spondulix-loan-app",
+  "type": "angular",
+  "integrations": {
+    "cordova": {}
+  }
+}

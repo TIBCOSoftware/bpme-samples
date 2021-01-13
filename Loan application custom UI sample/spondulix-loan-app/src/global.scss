@@ -1,0 +1,41 @@
+/*
+* Copyright © 2021. TIBCO Software Inc.
+* This file is subject to the license terms contained
+* in the license file that is distributed with this file.
+*/
+
+/* Core CSS required for Ionic components to work properly */
+
+@import "~@ionic/angular/css/core.css";
+
+/* Basic CSS for apps built with Ionic */
+
+@import "~@ionic/angular/css/normalize.css";
+@import "~@ionic/angular/css/structure.css";
+@import "~@ionic/angular/css/typography.css";
+
+/* Optional CSS utils that can be commented out */
+
+@import "~@ionic/angular/css/padding.css";
+@import "~@ionic/angular/css/float-elements.css";
+@import "~@ionic/angular/css/text-alignment.css";
+@import "~@ionic/angular/css/text-transformation.css";
+@import "~@ionic/angular/css/flex-utils.css";
+
+/*
+ * App CSS
+ * ----------------------------------------------------------------------------
+ * Imports a file that can contain Sass/CSS that should be used throughout
+ * the entire app.
+ */
+
+@import "./app/app.scss";
+@import url('https://fonts.googleapis.com/css2?family=Nunito&display=swap');
+* {
+    font-family: 'Nunito', sans-serif !important;
+}
+
+.loading-wrapper {
+    background: var(--ion-color-dark-contrast) !important;
+    color: var(--ion-color-light-contrast) !important;
+}

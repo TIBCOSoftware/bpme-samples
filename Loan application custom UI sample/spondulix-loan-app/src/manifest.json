@@ -1,0 +1,15 @@
+{
+  "name": "Spondulix Loan App",
+  "short_name": "Spondulix Loan App",
+  "start_url": "index.html",
+  "display": "standalone",
+  "icons": [
+    {
+      "src": "assets/img/tibco-icon.svg",
+      "sizes": "512x512",
+      "type": "image/svg"
+    }
+  ],
+  "background_color": "#ffffff",
+  "theme_color": "#387ef5"
+}
