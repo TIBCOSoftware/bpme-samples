@@ -1,0 +1,65 @@
+<!--/*
+* Copyright © 2021. TIBCO Software Inc.
+* This file is subject to the license terms contained
+* in the license file that is distributed with this file.
+*/-->
+
+<ion-content class="p-2">
+    <ion-grid center>
+        <ion-row>
+            <ion-col class="ion-align-self-center">
+                <div class="login-logo">
+                    <img src="assets/icons/illustration-login.svg" alt="logo">
+                </div>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col size="12">
+                <div class="ion-text-center">
+                    <h4 class="subtitle">To use Spondulix, sign in to your BPM account</h4>
+                </div>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col class="ion-align-self-center">
+                <form #loginForm="ngForm" novalidate>
+                    <ion-list>
+                        <ion-item class="ion-no-padding">
+                            <ion-label position="stacked" color="primary">Username</ion-label>
+                            <ion-input #myInput [(ngModel)]="login.username" name="username" type="text" #username="ngModel" spellcheck="false" autocapitalize="off" placeholder="Enter your username" required>
+                            </ion-input>
+                        </ion-item>
+
+                        <ion-text class="cred-validation" color="danger">
+                            <p [hidden]="username.valid || submitted == false" class="ion-padding-start">
+                                Required
+                            </p>
+                        </ion-text>
+
+                        <ion-item class="ion-no-padding">
+                            <ion-label position="stacked" color="primary">Password</ion-label>
+                            <ion-input [(ngModel)]="login.password" name="password" type="password" #password="ngModel" placeholder="Enter your password" required>
+                            </ion-input>
+                        </ion-item>
+
+                        <ion-text class="cred-validation" color="danger">
+                            <p [hidden]="password.valid || submitted == false" class="ion-padding-start">
+                                Required
+                            </p>
+                        </ion-text>
+                    </ion-list>
+
+                    <ion-row>
+                        <ion-col>
+                            <ion-button class="btn-primary btn-rounded" (click)="onLogin(loginForm)" type="submit" expand="block">Sign in</ion-button>
+                        </ion-col>
+                    </ion-row>
+
+                </form>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+
+
+
+</ion-content>

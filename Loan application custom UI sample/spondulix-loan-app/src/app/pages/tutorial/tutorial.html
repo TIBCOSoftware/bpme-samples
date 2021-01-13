@@ -1,0 +1,68 @@
+<!--/*
+* Copyright © 2021. TIBCO Software Inc.
+* This file is subject to the license terms contained
+* in the license file that is distributed with this file.
+*/-->
+
+<div id="custom-overlay" [style.display]="splash ? 'flex': 'none'">
+    <div class="flb">
+        <div class="Aligner-item Aligner-item--top"></div>
+        <img src="assets/img/splash/app-logo.svg">
+        <img class="powered" src="assets/img/splash/powered-by.svg">
+        <div class="Aligner-item Aligner-item--bottom"></div>
+    </div>
+</div>
+
+<ion-header no-border>
+    <ion-toolbar>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-grid center style="width: 100%;">
+        <ion-row>
+            <ion-col>
+                <ion-slides class="custom-slides" pager="true" #slides
+                            (ionSlideWillChange)="onSlideChangeStart($event)">
+                    <ion-slide>
+                        <img src="assets/icons/illus-login.svg" class="slide-image"/>
+                        <h2 class="slide-title">
+                            Sign in
+                        </h2>
+                        <p>
+                            To get started, sign in to your TIBCO BPM account.
+                        </p>
+                    </ion-slide>
+                    <ion-slide>
+                        <img src="assets/icons/illus-apply.svg" class="slide-image"/>
+                        <h2 class="slide-title">Apply for a loan</h2>
+                        <p>
+                            We’ll help you find the best available options. Use an existing bank account or add a new one.
+                        </p>
+                    </ion-slide>
+                    <ion-slide>
+                        <img src="assets/icons/illus-getmoney.svg" class="slide-image"/>
+                        <h2 class="slide-title">Get approval fast</h2>
+                        <p>
+                            We’ll help speed the approval process so you can get the funds you need as soon as possible.
+                        </p>
+                    </ion-slide>
+                </ion-slides>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+</ion-content>
+
+<ion-footer no-border>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-button color='primary' (click)="login()" [hidden]="!showSkip">Skip</ion-button>
+        </ion-buttons>
+        <ion-buttons slot="end">
+            <ion-button color='primary' (click)="next()" [hidden]="!showSkip">Next</ion-button>
+        </ion-buttons>
+        <ion-buttons slot="end">
+            <ion-button color='primary' (click)="login()" [hidden]="!showLogin">Login</ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-footer>
