@@ -6,7 +6,7 @@
  3. Ionic (v6.12.2)
   
 ### Setup  
-1. Check out the project (https://emea-swi-svn.emea.tibco.com/svn/BPMPrototyping/trunk/ACE/Apps/BorroApp) <-- Replace with GitHub repo link  
+1. Check out the project (https://github.com/tibco/bpme-samples/tree/master/loan-application-custom-ui-sample/spondulix-loan-app) <-- Replace with GitHub repo link  
 2. Run `npm install` in the project folder.
 3. Run `ng serve` command to run locally.  
   
