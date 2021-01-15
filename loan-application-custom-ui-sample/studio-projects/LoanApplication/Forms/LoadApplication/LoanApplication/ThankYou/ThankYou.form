@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form:form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:et="http://www.tibco.com/forms/model/elemtypes" xmlns:form="http://www.tibco.com/forms/model/form" xmlns:gwt="http://www.tibco.com/forms/model/gwt" xmlns:ionic="http://tibco.com/forms/samples/ionic" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xsi:schemaLocation="http://tibco.com/forms/samples/ionic Loan.library.ecore" generated="true" formatVersion="11.0.0">
+  <form:externalResources>
+    <form:externalResource name="resource.common" uri="pathmap://FORMS_RESOURCES/common.properties" internal="true" localized="true"/>
+    <form:externalResource name="resource.form" uri="LoadApplication/LoanApplication/ThankYou/ThankYou.properties" sfRelative="true" internal="true" localized="true"/>
+    <form:externalResource name="resource.LoanApplication" uri="css/LoanApplication.css" sfRelative="true"/>
+    <form:externalResource name="resource.LoanApplicationUtil" uri="js/LoanApplicationUtil.js" sfRelative="true"/>
+  </form:externalResources>
+  <form:dataModel>
+    <form:parameter name="data.logOff" label="LogOff" dataType="uml:PrimitiveType pathmap://BOM_TYPES/BomPrimitiveTypes.library.uml#_pSJ7cHvAEdy0U8_1u7Q20g" isArray="false" inout="OUT"/>
+  </form:dataModel>
+  <form:actions/>
+  <form:rules>
+    <form:rule name="rule.onLogoffSelect" label="On Log off Select">
+      <form:event source="#control.logoff" eventType="pathmap://FORMS_LIBRARIES/Standard.library.elemtypes#select" subject="form.control.logoff.select"/>
+      <form:action xsi:type="form:ScriptAction" name="action.onLogoffSelectAction" label="On Log off Select Action">
+        <form:script>data.logOff = true;&#xD;
+</form:script>
+      </form:action>
+      <form:action name="action.rule1" ref="pathmap://FORMS_LIBRARIES/Standard.library.elemtypes#action.submit" label="rule1"/>
+    </form:rule>
+    <form:rule name="rule.onApplyforanewloanSelect" label="On Apply for a new loan Select">
+      <form:event source="#control.applyforanewloan" eventType="pathmap://FORMS_LIBRARIES/Standard.library.elemtypes#select" subject="form.control.applyforanewloan.select"/>
+      <form:action xsi:type="form:ScriptAction" name="action.onApplyforanewloanSelectAction" label="On Apply for a new loan Select Action">
+        <form:script>data.logOff = false;&#xD;
+</form:script>
+      </form:action>
+      <form:action name="action.rule11" ref="pathmap://FORMS_LIBRARIES/Standard.library.elemtypes#action.submit" label="rule1 1"/>
+    </form:rule>
+    <form:rule name="rule.onThankYouControlUpdate" label="On Thank You Control Update">
+      <form:event source="#control.thankYou" eventType="pathmap://FORMS_LIBRARIES/Standard.library.elemtypes#update" subject="form.control.thankYou.update"/>
+      <form:event source="#//@form" eventType="pathmap://FORMS_LIBRARIES/Standard.library.elemtypes#open" subject="form.open"/>
+      <form:action xsi:type="form:ScriptAction" name="action.onThankYouControlUpdateAction" label="On Thank You Control Update Action">
+        <form:script>// onThankYouControlUpdate(resource, control);&#xD;
+control.thankYou.title = bpm.forms.Util.substitute(resource.form.control_thankYou_property_title, new Array(control.thankYou.value));&#xD;
+</form:script>
+      </form:action>
+    </form:rule>
+  </form:rules>
+  <form:bindings/>
+  <form:defaults>
+    <form:labelProperties position="top"/>
+  </form:defaults>
+  <form:pane elementType="form:PaneType pathmap://FORMS_UI_ELEMENT_TYPES/UIElementTypes.library.elemtypes#com.tibco.forms.panes.vertical" name="pane.content" paneType="com.tibco.forms.panes.vertical">
+    <form:label>Thank You</form:label>
+    <form:visible>true</form:visible>
+    <form:enabled>true</form:enabled>
+    <form:labelProperties visible="false"/>
+    <form:defaults>
+      <form:labelProperties position="left"/>
+    </form:defaults>
+    <form:control elementType="form:ControlType Loan.library.elemtypes#forms.samples.ionic.library.controls.ionicCard?p=LoanLibrary%26s=.forms%2Fcomponents%26t=form%3aControlType%26q=%26n=forms.samples.ionic.library.controls.ionicCard?" controlType="forms.samples.ionic.library.controls.ionicCard" name="control.thankYou">
+      <form:propertySet xsi:type="ionic:IonicCardPropertySet">
+        <ionic:title>Thank you</ionic:title>
+        <ionic:subtitle></ionic:subtitle>
+        <ionic:icon>/icons/illustration-thank-you.svg</ionic:icon>
+        <ionic:content>Your loan application is complete </ionic:content>
+        <ionic:showIconOnTop>false</ionic:showIconOnTop>
+      </form:propertySet>
+      <form:label>Thank You</form:label>
+      <form:visible>true</form:visible>
+      <form:enabled>true</form:enabled>
+      <form:required>false</form:required>
+      <form:value>User</form:value>
+    </form:control>
+    <form:control elementType="form:ControlType Loan.library.elemtypes#forms.samples.ionic.library.controls.ionicButton?p=LoanLibrary%26s=.forms%2Fcomponents%26t=form%3aControlType%26q=%26n=forms.samples.ionic.library.controls.ionicButton?" controlType="forms.samples.ionic.library.controls.ionicButton" name="control.applyforanewloan">
+      <form:propertySet xsi:type="ionic:IonicButtonPropertySet"/>
+      <form:label>Apply for a new loan</form:label>
+      <form:visible>true</form:visible>
+      <form:enabled>true</form:enabled>
+      <form:required>false</form:required>
+    </form:control>
+    <form:control elementType="form:ControlType Loan.library.elemtypes#forms.samples.ionic.library.controls.ionicButton?p=LoanLibrary%26s=.forms%2Fcomponents%26t=form%3aControlType%26q=%26n=forms.samples.ionic.library.controls.ionicButton?" controlType="forms.samples.ionic.library.controls.ionicButton" name="control.logoff">
+      <form:propertySet xsi:type="ionic:IonicButtonPropertySet">
+        <ionic:color>8</ionic:color>
+      </form:propertySet>
+      <form:label>Sign out</form:label>
+      <form:visible>true</form:visible>
+      <form:enabled>true</form:enabled>
+      <form:required>false</form:required>
+    </form:control>
+  </form:pane>
+</form:form>

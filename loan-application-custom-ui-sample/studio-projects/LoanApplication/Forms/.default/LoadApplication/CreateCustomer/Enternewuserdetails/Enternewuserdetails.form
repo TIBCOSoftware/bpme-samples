@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form:form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:et="http://www.tibco.com/forms/model/elemtypes" xmlns:form="http://www.tibco.com/forms/model/form" xmlns:gwt="http://www.tibco.com/forms/model/gwt" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmlns:xpdl2="http://www.wfmc.org/2008/XPDL2.1" generated="true" generatorSource="LoanApplication.xpdl#_6Q3o59iOEeqatKvhXZfngw?p=LoanApplication%26s=Process%20Packages%26t=xpdl2%3aActivity%26q=LoadApplication%3a%3aCreateCustomer%26n=Enternewuserdetails?" formatVersion="11.0.0">
+  <form:externalResources>
+    <form:externalResource name="resource.common" uri="pathmap://FORMS_RESOURCES/common.properties" internal="true" localized="true"/>
+    <form:externalResource name="resource.form" uri=".default/LoadApplication/CreateCustomer/Enternewuserdetails/Enternewuserdetails.properties" sfRelative="true" internal="true" localized="true"/>
+  </form:externalResources>
+  <form:dataModel>
+    <form:parameter generated="true" generatorSource="LoanApplication.xpdl#_6Q3o9diOEeqatKvhXZfngw?p=LoanApplication%26s=Process%20Packages%26t=xpdl2%3aDataField%26q=LoadApplication%3a%3aCreateCustomer%26n=CustomerDetails?" name="data.CustomerDetails" label="Customer Details" dataType="uml:Class LoanData.bom#_G2UikNXTEeqPDptWnp5KOA?p=LoanData%26s=Business%20Objects%26t=uml%3aClass%26q=com.borro.loandata%26n=Customer?" inout="INOUT"/>
+  </form:dataModel>
+  <form:actions/>
+  <form:rules>
+    <form:rule generated="true" name="rule.cancel" label="Cancel">
+      <form:event source="#control.cancel" eventType="pathmap://FORMS_LIBRARIES/Standard.library.elemtypes#select" subject="form.control.cancel.select"/>
+      <form:action ref="pathmap://FORMS_LIBRARIES/Standard.library.elemtypes#action.cancel"/>
+    </form:rule>
+    <form:rule generated="true" name="rule.submit" label="Submit">
+      <form:event source="#control.submit" eventType="pathmap://FORMS_LIBRARIES/Standard.library.elemtypes#select" subject="form.control.submit.select"/>
+      <form:action ref="pathmap://FORMS_LIBRARIES/Standard.library.elemtypes#action.submit"/>
+    </form:rule>
+  </form:rules>
+  <form:bindings>
+    <form:binding generated="true" direction="bothways" name="_SiqMsFceEeuinuGe7RPTTQ">
+      <form:source target="data.CustomerDetails" feature="http://www.tibco.com/forms/model/form#//Datum/value" data="form.data.CustomerDetails.value"/>
+      <form:destination target="pane.CustomerDetails" feature="http://www.tibco.com/forms/model/elemtypes#//SingletonPanePropertySet/value" data="form.pane.CustomerDetails.value"/>
+    </form:binding>
+    <form:binding generated="true" direction="sourceToDest" name="_SiqzwFceEeuinuGe7RPTTQ">
+      <form:source target="pane.CustomerDetails" feature="http://www.tibco.com/forms/model/elemtypes#//SingletonPanePropertySet/value LoanData.bom#_IRZZcNXTEeqPDptWnp5KOA?p=LoanData%26s=Business%20Objects%26t=uml%3aProperty%26q=com.borro.loandata%3a%3aCustomer%26n=customerID?" data="form.pane.CustomerDetails.value.customerID"/>
+      <form:destination target="control.CustomerDetails_customerID" feature="http://www.tibco.com/forms/model/form#//Control/value" data="form.control.CustomerDetails_customerID.value"/>
+    </form:binding>
+    <form:binding generated="true" direction="bothways" name="_SiqzwVceEeuinuGe7RPTTQ">
+      <form:source target="pane.CustomerDetails" feature="http://www.tibco.com/forms/model/elemtypes#//SingletonPanePropertySet/value LoanData.bom#_eN5tANXTEeqPDptWnp5KOA?p=LoanData%26s=Business%20Objects%26t=uml%3aProperty%26q=com.borro.loandata%3a%3aCustomer%26n=title?" data="form.pane.CustomerDetails.value.title"/>
+      <form:destination target="control.CustomerDetails_title" feature="http://www.tibco.com/forms/model/form#//Control/value" data="form.control.CustomerDetails_title.value"/>
+    </form:binding>
+    <form:binding generated="true" direction="bothways" name="_Sira0FceEeuinuGe7RPTTQ">
+      <form:source target="pane.CustomerDetails" feature="http://www.tibco.com/forms/model/elemtypes#//SingletonPanePropertySet/value LoanData.bom#_kE8Y4NXTEeqPDptWnp5KOA?p=LoanData%26s=Business%20Objects%26t=uml%3aProperty%26q=com.borro.loandata%3a%3aCustomer%26n=firstName?" data="form.pane.CustomerDetails.value.firstName"/>
+      <form:destination target="control.CustomerDetails_firstName" feature="http://www.tibco.com/forms/model/form#//Control/value" data="form.control.CustomerDetails_firstName.value"/>
+    </form:binding>
+    <form:binding generated="true" direction="bothways" name="_SisB4FceEeuinuGe7RPTTQ">
+      <form:source target="pane.CustomerDetails" feature="http://www.tibco.com/forms/model/elemtypes#//SingletonPanePropertySet/value LoanData.bom#_qK-jANXTEeqPDptWnp5KOA?p=LoanData%26s=Business%20Objects%26t=uml%3aProperty%26q=com.borro.loandata%3a%3aCustomer%26n=lastName?" data="form.pane.CustomerDetails.value.lastName"/>
+      <form:destination target="control.CustomerDetails_lastName" feature="http://www.tibco.com/forms/model/form#//Control/value" data="form.control.CustomerDetails_lastName.value"/>
+    </form:binding>
+    <form:binding generated="true" direction="bothways" name="_SisB4VceEeuinuGe7RPTTQ">
+      <form:source target="pane.CustomerDetails" feature="http://www.tibco.com/forms/model/elemtypes#//SingletonPanePropertySet/value LoanData.bom#_z7HnYNXTEeqPDptWnp5KOA?p=LoanData%26s=Business%20Objects%26t=uml%3aProperty%26q=com.borro.loandata%3a%3aCustomer%26n=email?" data="form.pane.CustomerDetails.value.email"/>
+      <form:destination target="control.CustomerDetails_email" feature="http://www.tibco.com/forms/model/form#//Control/value" data="form.control.CustomerDetails_email.value"/>
+    </form:binding>
+    <form:binding generated="true" direction="bothways" name="_Siso8FceEeuinuGe7RPTTQ">
+      <form:source target="pane.CustomerDetails" feature="http://www.tibco.com/forms/model/elemtypes#//SingletonPanePropertySet/value LoanData.bom#__BamYNXTEeqPDptWnp5KOA?p=LoanData%26s=Business%20Objects%26t=uml%3aProperty%26q=com.borro.loandata%3a%3aCustomer%26n=dateofbirth?" data="form.pane.CustomerDetails.value.dateofbirth"/>
+      <form:destination target="control.CustomerDetails_dateofbirth" feature="http://www.tibco.com/forms/model/form#//Control/value" data="form.control.CustomerDetails_dateofbirth.value"/>
+    </form:binding>
+    <form:binding generated="true" direction="bothways" name="_SitQAFceEeuinuGe7RPTTQ">
+      <form:source target="pane.CustomerDetails" feature="http://www.tibco.com/forms/model/elemtypes#//SingletonPanePropertySet/value LoanData.bom#_WNcoINXUEeqPDptWnp5KOA?p=LoanData%26s=Business%20Objects%26t=uml%3aProperty%26q=com.borro.loandata%3a%3aCustomer%26n=phoneNumber?" data="form.pane.CustomerDetails.value.phoneNumber"/>
+      <form:destination target="control.CustomerDetails_phoneNumber" feature="http://www.tibco.com/forms/model/form#//Control/value" data="form.control.CustomerDetails_phoneNumber.value"/>
+    </form:binding>
+    <form:binding generated="true" direction="bothways" name="_SitQAVceEeuinuGe7RPTTQ">
+      <form:source target="pane.CustomerDetails" feature="http://www.tibco.com/forms/model/elemtypes#//SingletonPanePropertySet/value LoanData.bom#_oi0c8NXUEeqPDptWnp5KOA?p=LoanData%26s=Business%20Objects%26t=uml%3aProperty%26q=com.borro.loandata%3a%3aCustomer%26n=address?" data="form.pane.CustomerDetails.value.address"/>
+      <form:destination target="control.CustomerDetails_address" feature="http://www.tibco.com/forms/model/form#//Control/value" data="form.control.CustomerDetails_address.value"/>
+    </form:binding>
+    <form:binding generated="true" direction="bothways" name="_Sit3EFceEeuinuGe7RPTTQ">
+      <form:source target="pane.CustomerDetails" feature="http://www.tibco.com/forms/model/elemtypes#//SingletonPanePropertySet/value LoanData.bom#_MWTucNXVEeqPDptWnp5KOA?p=LoanData%26s=Business%20Objects%26t=uml%3aProperty%26q=com.borro.loandata%3a%3aCustomer%26n=employmentStatus?" data="form.pane.CustomerDetails.value.employmentStatus"/>
+      <form:destination target="control.CustomerDetails_employmentStatus" feature="http://www.tibco.com/forms/model/form#//Control/value" data="form.control.CustomerDetails_employmentStatus.value"/>
+    </form:binding>
+    <form:binding generated="true" direction="bothways" name="_Sit3EVceEeuinuGe7RPTTQ">
+      <form:source target="pane.CustomerDetails" feature="http://www.tibco.com/forms/model/elemtypes#//SingletonPanePropertySet/value LoanData.bom#_fXvYANXVEeqPDptWnp5KOA?p=LoanData%26s=Business%20Objects%26t=uml%3aProperty%26q=com.borro.loandata%3a%3aCustomer%26n=occupation?" data="form.pane.CustomerDetails.value.occupation"/>
+      <form:destination target="control.CustomerDetails_occupation" feature="http://www.tibco.com/forms/model/form#//Control/value" data="form.control.CustomerDetails_occupation.value"/>
+    </form:binding>
+    <form:binding generated="true" direction="bothways" name="_SiueIFceEeuinuGe7RPTTQ">
+      <form:source target="pane.CustomerDetails" feature="http://www.tibco.com/forms/model/elemtypes#//SingletonPanePropertySet/value LoanData.bom#_xgshcNXVEeqPDptWnp5KOA?p=LoanData%26s=Business%20Objects%26t=uml%3aProperty%26q=com.borro.loandata%3a%3aCustomer%26n=employerBusinessName?" data="form.pane.CustomerDetails.value.employerBusinessName"/>
+      <form:destination target="control.CustomerDetails_employerBusinessName" feature="http://www.tibco.com/forms/model/form#//Control/value" data="form.control.CustomerDetails_employerBusinessName.value"/>
+    </form:binding>
+    <form:binding generated="true" direction="bothways" name="_SivFMFceEeuinuGe7RPTTQ">
+      <form:source target="pane.CustomerDetails" feature="http://www.tibco.com/forms/model/elemtypes#//SingletonPanePropertySet/value LoanData.bom#_AYElYNXWEeqPDptWnp5KOA?p=LoanData%26s=Business%20Objects%26t=uml%3aProperty%26q=com.borro.loandata%3a%3aCustomer%26n=annualIncome?" data="form.pane.CustomerDetails.value.annualIncome"/>
+      <form:destination target="control.CustomerDetails_annualIncome" feature="http://www.tibco.com/forms/model/form#//Control/value" data="form.control.CustomerDetails_annualIncome.value"/>
+    </form:binding>
+    <form:binding generated="true" direction="bothways" name="_SivFMVceEeuinuGe7RPTTQ">
+      <form:source target="pane.CustomerDetails" feature="http://www.tibco.com/forms/model/elemtypes#//SingletonPanePropertySet/value LoanData.bom#_qrknQNXWEeqPDptWnp5KOA?p=LoanData%26s=Business%20Objects%26t=uml%3aProperty%26q=com.borro.loandata%3a%3aCustomer%26n=status?" data="form.pane.CustomerDetails.value.status"/>
+      <form:destination target="control.CustomerDetails_status" feature="http://www.tibco.com/forms/model/form#//Control/value" data="form.control.CustomerDetails_status.value"/>
+    </form:binding>
+  </form:bindings>
+  <form:defaults>
+    <form:labelProperties position="top"/>
+  </form:defaults>
+  <form:pane elementType="form:PaneType pathmap://FORMS_UI_ELEMENT_TYPES/UIElementTypes.library.elemtypes#com.tibco.forms.panes.vertical" name="pane.content" paneType="com.tibco.forms.panes.vertical">
+    <form:label>Enter New User Details</form:label>
+    <form:visible>true</form:visible>
+    <form:enabled>true</form:enabled>
+    <form:labelProperties visible="true"/>
+    <form:defaults>
+      <form:labelProperties position="top"/>
+    </form:defaults>
+    <form:pane generated="true" generatorSource="LoanApplication.xpdl#_6Q3o9diOEeqatKvhXZfngw?p=LoanApplication%26s=Process%20Packages%26t=xpdl2%3aDataField%26q=LoadApplication%3a%3aCreateCustomer%26n=CustomerDetails?" elementType="form:PaneType pathmap://FORMS_UI_ELEMENT_TYPES/UIElementTypes.library.elemtypes#com.tibco.forms.panes.vertical" dataType="uml:Class LoanData.bom#_G2UikNXTEeqPDptWnp5KOA?p=LoanData%26s=Business%20Objects%26t=uml%3aClass%26q=com.borro.loandata%26n=Customer?" name="pane.CustomerDetails" paneType="com.tibco.forms.panes.vertical">
+      <form:label>Customer Details</form:label>
+      <form:hint/>
+      <form:visible>true</form:visible>
+      <form:enabled>true</form:enabled>
+      <form:defaults>
+        <form:labelProperties position="left"/>
+      </form:defaults>
+      <form:control generated="true" generatorSource="LoanData.bom#_IRZZcNXTEeqPDptWnp5KOA?p=LoanData%26s=Business%20Objects%26t=uml%3aProperty%26q=com.borro.loandata%3a%3aCustomer%26n=customerID?" elementType="form:ControlType pathmap://FORMS_UI_ELEMENT_TYPES/UIElementTypes.library.elemtypes#com.tibco.forms.controls.textinput" readOnly="true" controlType="com.tibco.forms.controls.textinput" name="control.CustomerDetails_customerID">
+        <form:propertySet xsi:type="et:TextPropertySet">
+          <et:displayLength>40</et:displayLength>
+          <et:maxLength>50</et:maxLength>
+        </form:propertySet>
+        <form:label>CustomerID</form:label>
+        <form:hint/>
+        <form:visible>true</form:visible>
+        <form:enabled>true</form:enabled>
+        <form:required>false</form:required>
+      </form:control>
+      <form:control generated="true" generatorSource="LoanData.bom#_eN5tANXTEeqPDptWnp5KOA?p=LoanData%26s=Business%20Objects%26t=uml%3aProperty%26q=com.borro.loandata%3a%3aCustomer%26n=title?" elementType="form:ControlType pathmap://FORMS_UI_ELEMENT_TYPES/UIElementTypes.library.elemtypes#com.tibco.forms.controls.textinput" controlType="com.tibco.forms.controls.textinput" name="control.CustomerDetails_title">
+        <form:propertySet xsi:type="et:TextPropertySet">
+          <et:displayLength>40</et:displayLength>
+          <et:maxLength>50</et:maxLength>
+        </form:propertySet>
+        <form:label>Title</form:label>
+        <form:hint/>
+        <form:visible>true</form:visible>
+        <form:enabled>true</form:enabled>
+        <form:required>false</form:required>
+      </form:control>
+      <form:control generated="true" generatorSource="LoanData.bom#_kE8Y4NXTEeqPDptWnp5KOA?p=LoanData%26s=Business%20Objects%26t=uml%3aProperty%26q=com.borro.loandata%3a%3aCustomer%26n=firstName?" elementType="form:ControlType pathmap://FORMS_UI_ELEMENT_TYPES/UIElementTypes.library.elemtypes#com.tibco.forms.controls.textinput" controlType="com.tibco.forms.controls.textinput" name="control.CustomerDetails_firstName">
+        <form:propertySet xsi:type="et:TextPropertySet">
+          <et:displayLength>40</et:displayLength>
+          <et:maxLength>50</et:maxLength>
+        </form:propertySet>
+        <form:label>First Name</form:label>
+        <form:hint/>
+        <form:visible>true</form:visible>
+        <form:enabled>true</form:enabled>
+        <form:required>true</form:required>
+      </form:control>
+      <form:control generated="true" generatorSource="LoanData.bom#_qK-jANXTEeqPDptWnp5KOA?p=LoanData%26s=Business%20Objects%26t=uml%3aProperty%26q=com.borro.loandata%3a%3aCustomer%26n=lastName?" elementType="form:ControlType pathmap://FORMS_UI_ELEMENT_TYPES/UIElementTypes.library.elemtypes#com.tibco.forms.controls.textinput" controlType="com.tibco.forms.controls.textinput" name="control.CustomerDetails_lastName">
+        <form:propertySet xsi:type="et:TextPropertySet">
+          <et:displayLength>40</et:displayLength>
+          <et:maxLength>50</et:maxLength>
+        </form:propertySet>
+        <form:label>Last Name</form:label>
+        <form:hint/>
+        <form:visible>true</form:visible>
+        <form:enabled>true</form:enabled>
+        <form:required>true</form:required>
+      </form:control>
+      <form:control generated="true" generatorSource="LoanData.bom#_z7HnYNXTEeqPDptWnp5KOA?p=LoanData%26s=Business%20Objects%26t=uml%3aProperty%26q=com.borro.loandata%3a%3aCustomer%26n=email?" elementType="form:ControlType pathmap://FORMS_UI_ELEMENT_TYPES/UIElementTypes.library.elemtypes#com.tibco.forms.controls.textinput" controlType="com.tibco.forms.controls.textinput" name="control.CustomerDetails_email">
+        <form:propertySet xsi:type="et:TextPropertySet">
+          <et:displayLength>40</et:displayLength>
+          <et:maxLength>50</et:maxLength>
+        </form:propertySet>
+        <form:label>Email</form:label>
+        <form:hint/>
+        <form:visible>true</form:visible>
+        <form:enabled>true</form:enabled>
+        <form:required>true</form:required>
+      </form:control>
+      <form:control generated="true" generatorSource="LoanData.bom#__BamYNXTEeqPDptWnp5KOA?p=LoanData%26s=Business%20Objects%26t=uml%3aProperty%26q=com.borro.loandata%3a%3aCustomer%26n=dateofbirth?" elementType="form:ControlType pathmap://FORMS_UI_ELEMENT_TYPES/UIElementTypes.library.elemtypes#com.tibco.forms.controls.date" controlType="com.tibco.forms.controls.date" name="control.CustomerDetails_dateofbirth">
+        <form:propertySet xsi:type="et:DatePropertySet">
+          <et:minRelative>true</et:minRelative>
+          <et:maxRelative>true</et:maxRelative>
+          <et:year min="-20" max="20"/>
+        </form:propertySet>
+        <form:label>Date of birth</form:label>
+        <form:hint/>
+        <form:visible>true</form:visible>
+        <form:enabled>true</form:enabled>
+        <form:required>true</form:required>
+      </form:control>
+      <form:control generated="true" generatorSource="LoanData.bom#_WNcoINXUEeqPDptWnp5KOA?p=LoanData%26s=Business%20Objects%26t=uml%3aProperty%26q=com.borro.loandata%3a%3aCustomer%26n=phoneNumber?" elementType="form:ControlType pathmap://FORMS_UI_ELEMENT_TYPES/UIElementTypes.library.elemtypes#com.tibco.forms.controls.textinput" controlType="com.tibco.forms.controls.textinput" name="control.CustomerDetails_phoneNumber">
+        <form:propertySet xsi:type="et:TextPropertySet">
+          <et:numeric>true</et:numeric>
+          <et:formatRef>resource.common.format_decimal</et:formatRef>
+        </form:propertySet>
+        <form:label>Phone Number</form:label>
+        <form:hint/>
+        <form:visible>true</form:visible>
+        <form:enabled>true</form:enabled>
+        <form:required>true</form:required>
+      </form:control>
+      <form:control generated="true" generatorSource="LoanData.bom#_oi0c8NXUEeqPDptWnp5KOA?p=LoanData%26s=Business%20Objects%26t=uml%3aProperty%26q=com.borro.loandata%3a%3aCustomer%26n=address?" elementType="form:ControlType pathmap://FORMS_UI_ELEMENT_TYPES/UIElementTypes.library.elemtypes#com.tibco.forms.controls.textinput" controlType="com.tibco.forms.controls.textinput" name="control.CustomerDetails_address">
+        <form:propertySet xsi:type="et:TextPropertySet">
+          <et:displayLength>40</et:displayLength>
+          <et:maxLength>50</et:maxLength>
+        </form:propertySet>
+        <form:label>Address</form:label>
+        <form:hint/>
+        <form:visible>true</form:visible>
+        <form:enabled>true</form:enabled>
+        <form:required>true</form:required>
+      </form:control>
+      <form:control generated="true" generatorSource="LoanData.bom#_MWTucNXVEeqPDptWnp5KOA?p=LoanData%26s=Business%20Objects%26t=uml%3aProperty%26q=com.borro.loandata%3a%3aCustomer%26n=employmentStatus?" elementType="form:ControlType pathmap://FORMS_UI_ELEMENT_TYPES/UIElementTypes.library.elemtypes#com.tibco.forms.controls.optionlist" controlType="com.tibco.forms.controls.optionlist" name="control.CustomerDetails_employmentStatus">
+        <form:propertySet xsi:type="et:MultiChoicePropertySet">
+          <et:choiceType>enumeration</et:choiceType>
+          <et:choiceEnumeration>LoanData.bom#_9M9wwNXUEeqPDptWnp5KOA?p=LoanData%26s=Business%20Objects%26t=uml%3aEnumeration%26q=com.borro.loandata%26n=EmploymentStatus?</et:choiceEnumeration>
+        </form:propertySet>
+        <form:label>Employment Status</form:label>
+        <form:hint/>
+        <form:visible>true</form:visible>
+        <form:enabled>true</form:enabled>
+        <form:required>true</form:required>
+      </form:control>
+      <form:control generated="true" generatorSource="LoanData.bom#_fXvYANXVEeqPDptWnp5KOA?p=LoanData%26s=Business%20Objects%26t=uml%3aProperty%26q=com.borro.loandata%3a%3aCustomer%26n=occupation?" elementType="form:ControlType pathmap://FORMS_UI_ELEMENT_TYPES/UIElementTypes.library.elemtypes#com.tibco.forms.controls.textinput" controlType="com.tibco.forms.controls.textinput" name="control.CustomerDetails_occupation">
+        <form:propertySet xsi:type="et:TextPropertySet">
+          <et:displayLength>40</et:displayLength>
+          <et:maxLength>50</et:maxLength>
+        </form:propertySet>
+        <form:label>Occupation</form:label>
+        <form:hint/>
+        <form:visible>true</form:visible>
+        <form:enabled>true</form:enabled>
+        <form:required>true</form:required>
+      </form:control>
+      <form:control generated="true" generatorSource="LoanData.bom#_xgshcNXVEeqPDptWnp5KOA?p=LoanData%26s=Business%20Objects%26t=uml%3aProperty%26q=com.borro.loandata%3a%3aCustomer%26n=employerBusinessName?" elementType="form:ControlType pathmap://FORMS_UI_ELEMENT_TYPES/UIElementTypes.library.elemtypes#com.tibco.forms.controls.textinput" controlType="com.tibco.forms.controls.textinput" name="control.CustomerDetails_employerBusinessName">
+        <form:propertySet xsi:type="et:TextPropertySet">
+          <et:displayLength>40</et:displayLength>
+          <et:maxLength>50</et:maxLength>
+        </form:propertySet>
+        <form:label>Employer/Business Name</form:label>
+        <form:hint/>
+        <form:visible>true</form:visible>
+        <form:enabled>true</form:enabled>
+        <form:required>false</form:required>
+      </form:control>
+      <form:control generated="true" generatorSource="LoanData.bom#_AYElYNXWEeqPDptWnp5KOA?p=LoanData%26s=Business%20Objects%26t=uml%3aProperty%26q=com.borro.loandata%3a%3aCustomer%26n=annualIncome?" elementType="form:ControlType pathmap://FORMS_UI_ELEMENT_TYPES/UIElementTypes.library.elemtypes#com.tibco.forms.controls.textinput" controlType="com.tibco.forms.controls.textinput" name="control.CustomerDetails_annualIncome">
+        <form:propertySet xsi:type="et:TextPropertySet">
+          <et:numeric>true</et:numeric>
+          <et:formatRef>resource.common.format_decimal</et:formatRef>
+        </form:propertySet>
+        <form:label>Annual Income</form:label>
+        <form:hint/>
+        <form:visible>true</form:visible>
+        <form:enabled>true</form:enabled>
+        <form:required>true</form:required>
+      </form:control>
+      <form:control generated="true" generatorSource="LoanData.bom#_qrknQNXWEeqPDptWnp5KOA?p=LoanData%26s=Business%20Objects%26t=uml%3aProperty%26q=com.borro.loandata%3a%3aCustomer%26n=status?" elementType="form:ControlType pathmap://FORMS_UI_ELEMENT_TYPES/UIElementTypes.library.elemtypes#com.tibco.forms.controls.optionlist" controlType="com.tibco.forms.controls.optionlist" name="control.CustomerDetails_status">
+        <form:propertySet xsi:type="et:MultiChoicePropertySet">
+          <et:choiceType>enumeration</et:choiceType>
+          <et:choiceEnumeration>LoanData.bom#_yGC0wNXWEeqPDptWnp5KOA?p=LoanData%26s=Business%20Objects%26t=uml%3aEnumeration%26q=com.borro.loandata%26n=CustomerStatus?</et:choiceEnumeration>
+        </form:propertySet>
+        <form:label>Status</form:label>
+        <form:hint/>
+        <form:visible>true</form:visible>
+        <form:enabled>true</form:enabled>
+        <form:required>true</form:required>
+      </form:control>
+    </form:pane>
+  </form:pane>
+  <form:pane gwt:toolbar="true" styleClass="toolbar" elementType="form:PaneType pathmap://FORMS_UI_ELEMENT_TYPES/UIElementTypes.library.elemtypes#com.tibco.forms.panes.horizontal" name="pane.toolbar" paneType="com.tibco.forms.panes.horizontal">
+    <form:label>Toolbar</form:label>
+    <form:visible>true</form:visible>
+    <form:enabled>true</form:enabled>
+    <form:labelProperties visible="false"/>
+    <form:control elementType="form:ControlType pathmap://FORMS_UI_ELEMENT_TYPES/UIElementTypes.library.elemtypes#com.tibco.forms.controls.button" controlType="com.tibco.forms.controls.button" name="control.cancel">
+      <form:propertySet xsi:type="et:ButtonPropertySet"/>
+      <form:label>Cancel</form:label>
+      <form:visible>true</form:visible>
+      <form:enabled>true</form:enabled>
+      <form:required>false</form:required>
+    </form:control>
+    <form:control elementType="form:ControlType pathmap://FORMS_UI_ELEMENT_TYPES/UIElementTypes.library.elemtypes#com.tibco.forms.controls.button" controlType="com.tibco.forms.controls.button" name="control.submit">
+      <form:propertySet xsi:type="et:ButtonPropertySet">
+        <et:type>primary</et:type>
+      </form:propertySet>
+      <form:label>Submit</form:label>
+      <form:visible>true</form:visible>
+      <form:enabled>true</form:enabled>
+      <form:required>false</form:required>
+    </form:control>
+  </form:pane>
+  <form:pane elementType="form:PaneType pathmap://FORMS_UI_ELEMENT_TYPES/UIElementTypes.library.elemtypes#com.tibco.forms.panes.messages" name="pane.messages" paneType="com.tibco.forms.panes.messages">
+    <form:propertySet xsi:type="et:MessagesPanePropertySet"/>
+    <form:label>Invalid Entries</form:label>
+    <form:visible>true</form:visible>
+    <form:enabled>true</form:enabled>
+    <form:labelProperties visible="false"/>
+  </form:pane>
+</form:form>

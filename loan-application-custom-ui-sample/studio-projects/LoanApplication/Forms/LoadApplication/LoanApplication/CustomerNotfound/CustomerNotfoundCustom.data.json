@@ -1,0 +1,24 @@
+{
+    "body": {
+        "inputs": [
+
+        ],
+        "outputs": [
+
+        ],
+        "inouts": [
+            {
+                "name":"EmailAddress",
+                "simple": [
+                    "johndoe@example.com"
+                ]
+            },
+            {
+                "name":"LastName",
+                "simple": [
+                    "Doe"
+                ]
+            }
+        ]
+    }
+}

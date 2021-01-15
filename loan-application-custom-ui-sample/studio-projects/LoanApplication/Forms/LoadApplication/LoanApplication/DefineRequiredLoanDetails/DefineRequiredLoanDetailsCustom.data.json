@@ -1,0 +1,54 @@
+{
+    "body": {
+        "inputs": [
+            {
+                "name":"MaximumTerm",
+                "simple": [
+                    24
+                ]
+            },
+            {
+                "name":"InterestRate",
+                "simple": [
+                    12.45
+                ]
+            },
+            {
+                "name":"MinimumTerm",
+                "simple": [
+                    3
+                ]
+            },
+            {
+                "name":"MinimumAmount",
+                "simple": [
+                    2000.00
+                ]
+            },
+            {
+                "name":"MaximumAmount",
+                "simple": [
+                    80000.00
+                ]
+            }
+        ],
+        "outputs": [
+
+        ],
+        "inouts": [
+            {
+                "name":"LoanDetails",
+                "structured": [
+                    {
+                        "applicationID": "applicationID",
+                        "amount": 64293,
+                        "months": 18,
+                        "reason": "FURNITURE",
+                        "date": "2020-08-14",
+                        "status": "PREQUAIFICATION"
+                    }
+                ]
+            }
+        ]
+    }
+}

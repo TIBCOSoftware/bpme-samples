@@ -1,0 +1,11 @@
+{
+  "pane_content_label": "Thank You",
+  "control_thankYou_property_content": "Your loan application is complete ",
+  "form_action_error_message": "Error in script for action {0} ({1}): {2}",
+  "control_logoff_label": "Sign out",
+  "form_required_message": "{0} is a required field.",
+  "control_thankYou_property_title": "Thank you",
+  "control_thankYou_label": "Thank You",
+  "control_applyforanewloan_label": "Apply for a new loan",
+  "form_validation_error_message": "Error in script for validation {0} of Control {1} ({2}): {3}"
+}

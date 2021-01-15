@@ -1,0 +1,345 @@
+<?xml version="1.0" encoding="ASCII"?>
+<lib:Library xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:lib="http://www.tibco.com/forms/2013/Library" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" name="IonicComponents" qualifier="forms.samples.ionic.library" nsPrefix="ionic" nsURI="http://tibco.com/forms/samples/ionic">
+  <drawer label="Ionic Components" name="drawer.IonicComponents"/>
+  <resource name="resource.cssLoanLibrary" relativeURI="css/LoanLibrary.css"/>
+  <component xsi:type="lib:ControlType" label="Ionic Input" canvasIcon="icons/IonicInput.png" paletteIcon16="icons/IonicInput_16.png" paletteIcon24="icons/IonicInput_24.png" hint="A custom component that uses Ionic input field" constructorClass="forms.samples.ionic.library.IonInput" drawer="drawer.IonicComponents" name="controls.ionicInput">
+    <renderMode>normal</renderMode>
+    <capabilities xsi:type="lib:ControlCapabilities">
+      <label>component</label>
+      <hint>form</hint>
+      <invalid>form</invalid>
+      <invalid>component</invalid>
+      <readOnly>component</readOnly>
+      <disabled>component</disabled>
+      <invisible>form</invisible>
+      <required>component</required>
+      <focus>component</focus>
+    </capabilities>
+    <dataType xsi:type="uml:PrimitiveType" href="pathmap://BOM_TYPES/BomPrimitiveTypes.library.uml#_AGoC4HcNEdytQ9AWEvOuug"/>
+    <resource name="resource.ionicInputWrapper" relativeURI="js-components/IonicInputWrapper.js"/>
+    <event href="pathmap://FORMS_LIBRARIES/Standard.library#update"/>
+    <property label="Placeholder" name="placeholder" externalize="true" defaultValueLiteral="">
+      <dataType xsi:type="uml:PrimitiveType" href="pathmap://BOM_TYPES/BomPrimitiveTypes.library.uml#_AGoC4HcNEdytQ9AWEvOuug"/>
+    </property>
+    <superType xsi:type="lib:ControlType" href="pathmap://FORMS_LIBRARIES/Standard.library#com.tibco.forms.controls.custom"/>
+  </component>
+  <component xsi:type="lib:ControlType" label="Ionic Button" canvasIcon="icons/IonicButton.png" paletteIcon16="icons/IonicButton_16.png" paletteIcon24="icons/IonicButton_24.png" hint="A custom component that uses Ionic button" constructorClass="forms.samples.ionic.library.IonButton" drawer="drawer.IonicComponents" name="controls.ionicButton">
+    <renderMode>normal</renderMode>
+    <capabilities xsi:type="lib:ControlCapabilities">
+      <label>component</label>
+      <hint>form</hint>
+      <invalid>form</invalid>
+      <readOnly>component</readOnly>
+      <disabled>component</disabled>
+      <invisible>form</invisible>
+      <required>form</required>
+      <focus>component</focus>
+    </capabilities>
+    <dataType xsi:type="uml:PrimitiveType" href="pathmap://BOM_TYPES/BomPrimitiveTypes.library.uml#_AGoC4HcNEdytQ9AWEvOuug"/>
+    <resource name="resource.ionicButtonWrapper" relativeURI="js-components/IonicButtonWrapper.js"/>
+    <event href="pathmap://FORMS_LIBRARIES/Standard.library#select"/>
+    <property label="Color" name="color" description="1=primary, 2=secondary, 3=tertiary, 4=success, 5=warning, 6=danger, 7=light, 8=medium, 9=dark" bindable="true">
+      <dataType xsi:type="uml:PrimitiveType" href="pathmap://BOM_TYPES/BomPrimitiveTypes.library.uml#_gzTqYHvBEdy0U8_1u7Q20g"/>
+    </property>
+    <superType xsi:type="lib:ControlType" href="pathmap://FORMS_LIBRARIES/Standard.library#com.tibco.forms.controls.custom"/>
+  </component>
+  <component xsi:type="lib:ControlType" label="Ionic Text Area" canvasIcon="icons/IonicTextArea.png" paletteIcon16="icons/IonicTextArea_16.png" paletteIcon24="icons/IonicTextArea_24.png" hint="A custom component that uses Ionic text area field" constructorClass="forms.samples.ionic.library.IonTextArea" drawer="drawer.IonicComponents" name="controls.ionicTextarea">
+    <renderMode>normal</renderMode>
+    <capabilities xsi:type="lib:ControlCapabilities">
+      <label>component</label>
+      <hint>form</hint>
+      <invalid>form</invalid>
+      <invalid>component</invalid>
+      <readOnly>component</readOnly>
+      <disabled>component</disabled>
+      <invisible>form</invisible>
+      <required>component</required>
+      <focus>component</focus>
+    </capabilities>
+    <dataType xsi:type="uml:PrimitiveType" href="pathmap://BOM_TYPES/BomPrimitiveTypes.library.uml#_AGoC4HcNEdytQ9AWEvOuug"/>
+    <resource name="resource.ionicTextArea" relativeURI="js-components/IonicTextAreaWrapper.js"/>
+    <event href="pathmap://FORMS_LIBRARIES/Standard.library#update"/>
+    <superType xsi:type="lib:ControlType" href="pathmap://FORMS_LIBRARIES/Standard.library#com.tibco.forms.controls.custom"/>
+  </component>
+  <component xsi:type="lib:ControlType" label="Ionic Range" canvasIcon="icons/IonicRange.png" paletteIcon16="icons/IonicRange_16.png" paletteIcon24="icons/IonicRange_24.png" hint="A custom component that uses Ionic range field" constructorClass="forms.samples.ionic.library.IonRange" drawer="drawer.IonicComponents" name="controls.ionicRange">
+    <renderMode>normal</renderMode>
+    <capabilities xsi:type="lib:ControlCapabilities">
+      <label>component</label>
+      <hint>form</hint>
+      <invalid>component</invalid>
+      <readOnly>component</readOnly>
+      <disabled>component</disabled>
+      <invisible>form</invisible>
+      <required>form</required>
+      <focus>component</focus>
+    </capabilities>
+    <dataType xsi:type="uml:PrimitiveType" href="pathmap://BOM_TYPES/BomPrimitiveTypes.library.uml#_gzTqYHvBEdy0U8_1u7Q20g"/>
+    <resource name="resource.ionicRangeWrapper" relativeURI="js-components/IonicRangeWrapper.js"/>
+    <event href="pathmap://FORMS_LIBRARIES/Standard.library#update"/>
+    <property label="Lower Range" name="lowerRange" bindable="true">
+      <dataType xsi:type="uml:PrimitiveType" href="pathmap://BOM_TYPES/BomPrimitiveTypes.library.uml#_gzTqYHvBEdy0U8_1u7Q20g"/>
+    </property>
+    <property label="Upper Range" name="upperRange" bindable="true">
+      <dataType xsi:type="uml:PrimitiveType" href="pathmap://BOM_TYPES/BomPrimitiveTypes.library.uml#_gzTqYHvBEdy0U8_1u7Q20g"/>
+    </property>
+    <property label="Dual Knobs" name="dualKnobs">
+      <dataType xsi:type="uml:PrimitiveType" href="pathmap://BOM_TYPES/BomPrimitiveTypes.library.uml#_pSJ7cHvAEdy0U8_1u7Q20g"/>
+    </property>
+    <property label="Steps" name="steps">
+      <dataType xsi:type="uml:PrimitiveType" href="pathmap://BOM_TYPES/BomPrimitiveTypes.library.uml#_gzTqYHvBEdy0U8_1u7Q20g"/>
+    </property>
+    <superType xsi:type="lib:ControlType" href="pathmap://FORMS_LIBRARIES/Standard.library#com.tibco.forms.controls.custom"/>
+  </component>
+  <component xsi:type="lib:ControlType" label="Ionic Select" canvasIcon="icons/IonicSelect.png" paletteIcon16="icons/IonicSelect_16.png" paletteIcon24="icons/IonicSelect_24.png" hint="A custom component that uses Ionic select field" constructorClass="forms.samples.ionic.library.IonSelect" drawer="drawer.IonicComponents" name="controls.ionicSelect">
+    <renderMode>normal</renderMode>
+    <capabilities xsi:type="lib:ControlCapabilities">
+      <label>component</label>
+      <hint>form</hint>
+      <invalid>form</invalid>
+      <invalid>component</invalid>
+      <readOnly>component</readOnly>
+      <disabled>component</disabled>
+      <invisible>form</invisible>
+      <required>component</required>
+      <focus>component</focus>
+    </capabilities>
+    <dataType xsi:type="uml:PrimitiveType" href="pathmap://BOM_TYPES/BomPrimitiveTypes.library.uml#_AGoC4HcNEdytQ9AWEvOuug"/>
+    <resource name="resource.ionicSelectWrapper" relativeURI="js-components/IonicSelectWrapper.js"/>
+    <event href="pathmap://FORMS_LIBRARIES/Standard.library#update"/>
+    <property label="Select Option Labels" name="selectOptionLabels" multivalued="true" bindable="true" externalize="true">
+      <dataType xsi:type="uml:PrimitiveType" href="pathmap://BOM_TYPES/BomPrimitiveTypes.library.uml#_AGoC4HcNEdytQ9AWEvOuug"/>
+    </property>
+    <property label="Select Option Values" name="selectOptionValues" multivalued="true" bindable="true">
+      <dataType xsi:type="uml:PrimitiveType" href="pathmap://BOM_TYPES/BomPrimitiveTypes.library.uml#_AGoC4HcNEdytQ9AWEvOuug"/>
+    </property>
+    <superType xsi:type="lib:ControlType" href="pathmap://FORMS_LIBRARIES/Standard.library#com.tibco.forms.controls.custom"/>
+  </component>
+  <component xsi:type="lib:ControlType" label="Ionic Note" canvasIcon="icons/IonicNote.png" paletteIcon16="icons/IonicNote_16.png" paletteIcon24="icons/IonicNote_24.png" hint="A custom component that uses Ionic note" constructorClass="forms.samples.ionic.library.IonNote" drawer="drawer.IonicComponents" name="controls.ionicNote">
+    <renderMode>normal</renderMode>
+    <capabilities xsi:type="lib:ControlCapabilities">
+      <label>component</label>
+      <hint>form</hint>
+      <invalid>form</invalid>
+      <readOnly>component</readOnly>
+      <disabled>component</disabled>
+      <invisible>form</invisible>
+      <required>form</required>
+      <focus>component</focus>
+    </capabilities>
+    <dataType xsi:type="uml:PrimitiveType" href="pathmap://BOM_TYPES/BomPrimitiveTypes.library.uml#_AGoC4HcNEdytQ9AWEvOuug"/>
+    <resource name="resource.ionicNoteWrapper" relativeURI="js-components/IonicNoteWrapper.js"/>
+    <event href="pathmap://FORMS_LIBRARIES/Standard.library#update"/>
+    <property label="Color" name="color" description="1=primary, 2=secondary, 3=tertiary, 4=success, 5=warning, 6=danger, 7=light, 8=medium, 9=dark" bindable="true">
+      <dataType xsi:type="uml:PrimitiveType" href="pathmap://BOM_TYPES/BomPrimitiveTypes.library.uml#_gzTqYHvBEdy0U8_1u7Q20g"/>
+    </property>
+    <superType xsi:type="lib:ControlType" href="pathmap://FORMS_LIBRARIES/Standard.library#com.tibco.forms.controls.custom"/>
+  </component>
+  <component xsi:type="lib:ControlType" label="Ionic Searchbar" canvasIcon="icons/IonicSearchbar.png" paletteIcon16="icons/IonicSearchbar_16.png" paletteIcon24="icons/IonicSearchbar_24.png" hint="A custom component that uses Ionic searchbar" constructorClass="forms.samples.ionic.library.IonicSearchbar" drawer="drawer.IonicComponents" name="controls.ionicSearchBar">
+    <renderMode>normal</renderMode>
+    <capabilities xsi:type="lib:ControlCapabilities">
+      <label>component</label>
+      <hint>form</hint>
+      <invalid>form</invalid>
+      <readOnly>component</readOnly>
+      <disabled>component</disabled>
+      <invisible>form</invisible>
+      <required>form</required>
+      <focus>component</focus>
+    </capabilities>
+    <dataType xsi:type="uml:PrimitiveType" href="pathmap://BOM_TYPES/BomPrimitiveTypes.library.uml#_AGoC4HcNEdytQ9AWEvOuug"/>
+    <resource name="resource.ionicSearchbarWrapper" relativeURI="js-components/IonicSearchbarWrapper.js"/>
+    <event href="pathmap://FORMS_LIBRARIES/Standard.library#update"/>
+    <property label="Search Placeholder" name="searchPlaceHolder" externalize="true">
+      <dataType xsi:type="uml:PrimitiveType" href="pathmap://BOM_TYPES/BomPrimitiveTypes.library.uml#_AGoC4HcNEdytQ9AWEvOuug"/>
+    </property>
+    <property label="Searchbar Item Labels" name="searchbarItemLabels" multivalued="true" bindable="true" externalize="true">
+      <dataType xsi:type="uml:PrimitiveType" href="pathmap://BOM_TYPES/BomPrimitiveTypes.library.uml#_AGoC4HcNEdytQ9AWEvOuug"/>
+    </property>
+    <property label="Searchbar Item Values" name="searchbarItemValues" multivalued="true" bindable="true" externalize="true">
+      <dataType xsi:type="uml:PrimitiveType" href="pathmap://BOM_TYPES/BomPrimitiveTypes.library.uml#_AGoC4HcNEdytQ9AWEvOuug"/>
+    </property>
+    <superType xsi:type="lib:ControlType" href="pathmap://FORMS_LIBRARIES/Standard.library#com.tibco.forms.controls.custom"/>
+  </component>
+  <component xsi:type="lib:ControlType" label="Ionic Card" canvasIcon="icons/IonicCard.png" paletteIcon16="icons/IonicCard_16.png" paletteIcon24="icons/IonicCard_24.png" hint="A custom component that uses Ionic card" constructorClass="forms.samples.ionic.library.FormHeader" drawer="drawer.IonicComponents" name="controls.ionicCard">
+    <renderMode>normal</renderMode>
+    <capabilities xsi:type="lib:ControlCapabilities">
+      <label>component</label>
+      <hint>form</hint>
+      <invalid>form</invalid>
+      <readOnly>component</readOnly>
+      <disabled>component</disabled>
+      <invisible>form</invisible>
+      <required>form</required>
+      <focus>component</focus>
+    </capabilities>
+    <dataType xsi:type="uml:PrimitiveType" href="pathmap://BOM_TYPES/BomPrimitiveTypes.library.uml#_AGoC4HcNEdytQ9AWEvOuug"/>
+    <resource name="resource.formHeader" relativeURI="js-components/IonicCardWrapper.js"/>
+    <event href="pathmap://FORMS_LIBRARIES/Standard.library#update"/>
+    <property label="Title" name="title" bindable="true" externalize="true">
+      <dataType xsi:type="uml:PrimitiveType" href="pathmap://BOM_TYPES/BomPrimitiveTypes.library.uml#_AGoC4HcNEdytQ9AWEvOuug"/>
+    </property>
+    <property label="Sub Title" name="subtitle" bindable="true">
+      <dataType xsi:type="uml:PrimitiveType" href="pathmap://BOM_TYPES/BomPrimitiveTypes.library.uml#_AGoC4HcNEdytQ9AWEvOuug"/>
+    </property>
+    <property label="Icon" name="icon" bindable="true">
+      <dataType xsi:type="uml:PrimitiveType" href="pathmap://BOM_TYPES/BomPrimitiveTypes.library.uml#_QY6JoNyzEd2GZPqUy0hUvg"/>
+    </property>
+    <property label="Content" name="content" bindable="true" externalize="true">
+      <dataType xsi:type="uml:PrimitiveType" href="pathmap://BOM_TYPES/BomPrimitiveTypes.library.uml#_AGoC4HcNEdytQ9AWEvOuug"/>
+    </property>
+    <property label="Show Icon On Top" name="showIconOnTop" description="If set to false, icon will appear before content" bindable="true" defaultValueLiteral="true">
+      <dataType xsi:type="uml:PrimitiveType" href="pathmap://BOM_TYPES/BomPrimitiveTypes.library.uml#_pSJ7cHvAEdy0U8_1u7Q20g"/>
+    </property>
+    <superType xsi:type="lib:ControlType" href="pathmap://FORMS_LIBRARIES/Standard.library#com.tibco.forms.controls.custom"/>
+  </component>
+  <component xsi:type="lib:ControlType" label="Ionic Grid of Cards" multivalued="true" canvasIcon="icons/IonicGridOfCards.png" paletteIcon16="icons/IonicGridOfCards_16.png" paletteIcon24="icons/IonicGridOfCards_24.png" hint="A custom component that uses Ionic grid of cards. Value is an array of string, each item stringified json object(e.g icon)" constructorClass="forms.samples.ionic.library.GridOfCards" drawer="drawer.IonicComponents" name="controls.ionicGridOfCards">
+    <renderMode>normal</renderMode>
+    <capabilities xsi:type="lib:ControlCapabilities">
+      <label>component</label>
+      <hint>form</hint>
+      <invalid>form</invalid>
+      <readOnly>component</readOnly>
+      <disabled>component</disabled>
+      <invisible>form</invisible>
+      <required>form</required>
+      <focus>component</focus>
+    </capabilities>
+    <dataType xsi:type="uml:PrimitiveType" href="pathmap://BOM_TYPES/BomPrimitiveTypes.library.uml#_AGoC4HcNEdytQ9AWEvOuug"/>
+    <resource name="resource.gridOfCardsWrapper" relativeURI="js-components/IonicGridOfCardsWrapper.js"/>
+    <event href="pathmap://FORMS_LIBRARIES/Standard.library#update"/>
+    <event href="pathmap://FORMS_LIBRARIES/Standard.library#select"/>
+    <property label="Columns" name="columns" required="true" defaultValueLiteral="1">
+      <dataType xsi:type="uml:PrimitiveType" href="pathmap://BOM_TYPES/BomPrimitiveTypes.library.uml#_gzTqYHvBEdy0U8_1u7Q20g"/>
+    </property>
+    <property label="Selected Card Name" name="selectedCardName" bindable="true">
+      <dataType xsi:type="uml:PrimitiveType" href="pathmap://BOM_TYPES/BomPrimitiveTypes.library.uml#_AGoC4HcNEdytQ9AWEvOuug"/>
+    </property>
+    <superType xsi:type="lib:ControlType" href="pathmap://FORMS_LIBRARIES/Standard.library#com.tibco.forms.controls.custom"/>
+  </component>
+  <component xsi:type="lib:ControlType" label="Ionic Grid of Advanced Cards" multivalued="true" canvasIcon="icons/IonicGridOfAdvancedCards.png" paletteIcon16="icons/IonicGridOfAdvancedCards_16.png" paletteIcon24="icons/IonicGridOfAdvancedCards_24.png" hint="A more advanced Ionic grid of cards than the other one(i.e ionicGridOfCards). Value is an array of string, each item stringified json object(e.g icon)" constructorClass="forms.samples.ionic.library.GridOfAdvancedCards" drawer="drawer.IonicComponents" name="controls.ionicGridOfAdvancedCards">
+    <renderMode>normal</renderMode>
+    <capabilities xsi:type="lib:ControlCapabilities">
+      <label>component</label>
+      <hint>form</hint>
+      <invalid>form</invalid>
+      <readOnly>component</readOnly>
+      <disabled>component</disabled>
+      <invisible>form</invisible>
+      <required>form</required>
+      <focus>component</focus>
+    </capabilities>
+    <dataType xsi:type="uml:PrimitiveType" href="pathmap://BOM_TYPES/BomPrimitiveTypes.library.uml#_AGoC4HcNEdytQ9AWEvOuug"/>
+    <resource name="resource.gridOfAdvancedCardsWrapper" relativeURI="js-components/IonicGridOfAdvancedCardsWrapper.js"/>
+    <event href="pathmap://FORMS_LIBRARIES/Standard.library#update"/>
+    <event href="pathmap://FORMS_LIBRARIES/Standard.library#select"/>
+    <property label="Always Show Detail" name="alwaysShowDetail">
+      <dataType xsi:type="uml:PrimitiveType" href="pathmap://BOM_TYPES/BomPrimitiveTypes.library.uml#_pSJ7cHvAEdy0U8_1u7Q20g"/>
+    </property>
+    <property label="Selectable" name="selectable">
+      <dataType xsi:type="uml:PrimitiveType" href="pathmap://BOM_TYPES/BomPrimitiveTypes.library.uml#_pSJ7cHvAEdy0U8_1u7Q20g"/>
+    </property>
+    <property label="Selection Index" name="selectionIndex" bindable="true">
+      <dataType xsi:type="uml:PrimitiveType" href="pathmap://BOM_TYPES/BomPrimitiveTypes.library.uml#_BRY7wHvBEdy0U8_1u7Q20g"/>
+    </property>
+    <superType xsi:type="lib:ControlType" href="pathmap://FORMS_LIBRARIES/Standard.library#com.tibco.forms.controls.custom"/>
+  </component>
+  <component xsi:type="lib:ControlType" label="Ionic Datetime Time Zone" canvasIcon="icons/IonicDatetimeTZ.png" paletteIcon16="icons/IonicDatetimeTZ_16.png" paletteIcon24="icons/IonicDatetimeTZ_24.png" hint="A custom component that uses Ionic datetime field" constructorClass="forms.samples.ionic.library.IonDatetime" drawer="drawer.IonicComponents" name="controls.ionicDatetimeTZ">
+    <renderMode>normal</renderMode>
+    <capabilities xsi:type="lib:ControlCapabilities">
+      <label>component</label>
+      <hint>form</hint>
+      <invalid>form</invalid>
+      <invalid>component</invalid>
+      <readOnly>component</readOnly>
+      <disabled>component</disabled>
+      <invisible>form</invisible>
+      <required>component</required>
+      <focus>component</focus>
+    </capabilities>
+    <dataType xsi:type="uml:PrimitiveType" href="pathmap://BOM_TYPES/BomPrimitiveTypes.library.uml#_UcSGcIvhEd68OqPx9MxH3A"/>
+    <resource name="resource.ionicDatetimeTZWrapper" relativeURI="js-components/IonicDatetimeWrapper.js"/>
+    <event href="pathmap://FORMS_LIBRARIES/Standard.library#update"/>
+    <property label="Display Format" name="displayFormat" externalize="true">
+      <dataType xsi:type="uml:PrimitiveType" href="pathmap://BOM_TYPES/BomPrimitiveTypes.library.uml#_AGoC4HcNEdytQ9AWEvOuug"/>
+    </property>
+    <property label="Picker Format" name="pickerFormat" externalize="true">
+      <dataType xsi:type="uml:PrimitiveType" href="pathmap://BOM_TYPES/BomPrimitiveTypes.library.uml#_AGoC4HcNEdytQ9AWEvOuug"/>
+    </property>
+    <property label="Placeholder" name="placeholder" externalize="true">
+      <dataType xsi:type="uml:PrimitiveType" href="pathmap://BOM_TYPES/BomPrimitiveTypes.library.uml#_AGoC4HcNEdytQ9AWEvOuug"/>
+    </property>
+    <property label="Max" name="max" description="The maximum datetime allowed e.g. 1996-12-19">
+      <dataType xsi:type="uml:PrimitiveType" href="pathmap://BOM_TYPES/BomPrimitiveTypes.library.uml#_AGoC4HcNEdytQ9AWEvOuug"/>
+    </property>
+    <property label="Min" name="min" description="The minimum datetime allowed e.g1996-12-19">
+      <dataType xsi:type="uml:PrimitiveType" href="pathmap://BOM_TYPES/BomPrimitiveTypes.library.uml#_AGoC4HcNEdytQ9AWEvOuug"/>
+    </property>
+    <superType xsi:type="lib:ControlType" href="pathmap://FORMS_LIBRARIES/Standard.library#com.tibco.forms.controls.custom"/>
+  </component>
+  <component xsi:type="lib:ControlType" label="Ionic Date" canvasIcon="icons/IonicDate.png" paletteIcon16="icons/IonicDate_16.png" paletteIcon24="icons/IonicDate_24.png" hint="A custom component that uses Ionic date field" constructorClass="forms.samples.ionic.library.IonDatetime" drawer="drawer.IonicComponents" name="controls.ionicDate">
+    <renderMode>normal</renderMode>
+    <capabilities xsi:type="lib:ControlCapabilities">
+      <label>component</label>
+      <hint>form</hint>
+      <invalid>form</invalid>
+      <invalid>component</invalid>
+      <readOnly>component</readOnly>
+      <disabled>component</disabled>
+      <invisible>form</invisible>
+      <required>component</required>
+      <focus>component</focus>
+    </capabilities>
+    <dataType xsi:type="uml:PrimitiveType" href="pathmap://BOM_TYPES/BomPrimitiveTypes.library.uml#_AmUlgHvBEdy0U8_1u7Q20g"/>
+    <resource name="resource.ionicDateWrapper" relativeURI="js-components/IonicDatetimeWrapper.js"/>
+    <event href="pathmap://FORMS_LIBRARIES/Standard.library#update"/>
+    <property label="Display Format" name="displayFormat" externalize="true">
+      <dataType xsi:type="uml:PrimitiveType" href="pathmap://BOM_TYPES/BomPrimitiveTypes.library.uml#_AGoC4HcNEdytQ9AWEvOuug"/>
+    </property>
+    <property label="Picker Format" name="pickerFormat" externalize="true">
+      <dataType xsi:type="uml:PrimitiveType" href="pathmap://BOM_TYPES/BomPrimitiveTypes.library.uml#_AGoC4HcNEdytQ9AWEvOuug"/>
+    </property>
+    <property label="Placeholder" name="placeholder" externalize="true">
+      <dataType xsi:type="uml:PrimitiveType" href="pathmap://BOM_TYPES/BomPrimitiveTypes.library.uml#_AGoC4HcNEdytQ9AWEvOuug"/>
+    </property>
+    <property label="Max" name="max" description="The maximum datetime allowed e.g. 1996-12-19">
+      <dataType xsi:type="uml:PrimitiveType" href="pathmap://BOM_TYPES/BomPrimitiveTypes.library.uml#_AGoC4HcNEdytQ9AWEvOuug"/>
+    </property>
+    <property label="Min" name="min" description="The minimum datetime allowed e.g1996-12-19">
+      <dataType xsi:type="uml:PrimitiveType" href="pathmap://BOM_TYPES/BomPrimitiveTypes.library.uml#_AGoC4HcNEdytQ9AWEvOuug"/>
+    </property>
+    <superType xsi:type="lib:ControlType" href="pathmap://FORMS_LIBRARIES/Standard.library#com.tibco.forms.controls.custom"/>
+  </component>
+  <component xsi:type="lib:ControlType" label="Ionic Time" canvasIcon="icons/IonicTime.png" paletteIcon16="icons/IonicTime_16.png" paletteIcon24="icons/IonicTime_24.png" hint="A custom component that uses Ionic time field" constructorClass="forms.samples.ionic.library.IonDatetime" drawer="drawer.IonicComponents" name="controls.ionicTime">
+    <renderMode>normal</renderMode>
+    <capabilities xsi:type="lib:ControlCapabilities">
+      <label>component</label>
+      <hint>form</hint>
+      <invalid>form</invalid>
+      <invalid>component</invalid>
+      <readOnly>component</readOnly>
+      <disabled>component</disabled>
+      <invisible>form</invisible>
+      <required>component</required>
+      <focus>component</focus>
+    </capabilities>
+    <dataType xsi:type="uml:PrimitiveType" href="pathmap://BOM_TYPES/BomPrimitiveTypes.library.uml#_BAs0YHvBEdy0U8_1u7Q20g"/>
+    <resource name="resource.ionicTimeWrapper" relativeURI="js-components/IonicDatetimeWrapper.js"/>
+    <event href="pathmap://FORMS_LIBRARIES/Standard.library#update"/>
+    <property label="Display Format" name="displayFormat" externalize="true">
+      <dataType xsi:type="uml:PrimitiveType" href="pathmap://BOM_TYPES/BomPrimitiveTypes.library.uml#_AGoC4HcNEdytQ9AWEvOuug"/>
+    </property>
+    <property label="Picker Format" name="pickerFormat" externalize="true">
+      <dataType xsi:type="uml:PrimitiveType" href="pathmap://BOM_TYPES/BomPrimitiveTypes.library.uml#_AGoC4HcNEdytQ9AWEvOuug"/>
+    </property>
+    <property label="Placeholder" name="placeholder" externalize="true">
+      <dataType xsi:type="uml:PrimitiveType" href="pathmap://BOM_TYPES/BomPrimitiveTypes.library.uml#_AGoC4HcNEdytQ9AWEvOuug"/>
+    </property>
+    <property label="Max" name="max" description="The maximum datetime allowed e.g. 1996-12-19">
+      <dataType xsi:type="uml:PrimitiveType" href="pathmap://BOM_TYPES/BomPrimitiveTypes.library.uml#_AGoC4HcNEdytQ9AWEvOuug"/>
+    </property>
+    <property label="Min" name="min" description="The minimum datetime allowed e.g1996-12-19">
+      <dataType xsi:type="uml:PrimitiveType" href="pathmap://BOM_TYPES/BomPrimitiveTypes.library.uml#_AGoC4HcNEdytQ9AWEvOuug"/>
+    </property>
+    <superType xsi:type="lib:ControlType" href="pathmap://FORMS_LIBRARIES/Standard.library#com.tibco.forms.controls.custom"/>
+  </component>
+</lib:Library>

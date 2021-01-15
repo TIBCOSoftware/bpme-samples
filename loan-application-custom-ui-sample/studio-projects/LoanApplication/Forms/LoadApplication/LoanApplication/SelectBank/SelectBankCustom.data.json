@@ -1,0 +1,28 @@
+{
+    "body": {
+        "inputs": [
+
+        ],
+        "outputs": [
+
+        ],
+        "inouts": [
+            {
+                "name":"NewAccountDetails",
+                "structured": [
+                    {
+                        "accountId": "accountId",
+                        "bankName": "ALPHABANK",
+                        "sortCode": "sortCode",
+                        "accountNumber": "accountNumber",
+                        "currency": "currency",
+                        "accountType": "accountType",
+                        "accountSubType": "accountSubType",
+                        "openingDate": "openingDate",
+                        "accountState": "USED"
+                    }
+                ]
+            }
+        ]
+    }
+}

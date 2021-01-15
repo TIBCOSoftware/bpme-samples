@@ -1,0 +1,14 @@
+{
+  "pane_content_label": "No Loans Existing",
+  "control_welcome_label": "Welcome",
+  "control_welcome_property_content": "Ready to apply for a new loan? We’ll help you check your eligibility and choose the product that’s right for you.",
+  "control_gridOfAdvancedCards_label": "Grid Of Advanced Cards",
+  "control_welcomeback_property_title": "Welcome back, {0}",
+  "control_welcome_property_title": "Welcome, \u003cspan color\u003d\"primary\"\u003e{0}\u003c/span\u003e",
+  "form_validation_error_message": "Error in script for validation {0} of Control {1} ({2}): {3}",
+  "control_welcomeback_property_content": "",
+  "form_action_error_message": "Error in script for action {0} ({1}): {2}",
+  "form_required_message": "{0} is a required field.",
+  "control_welcomeback_label": "Welcome back",
+  "control_applyforanewloan_label": "Get started"
+}

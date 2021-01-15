@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form:form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:et="http://www.tibco.com/forms/model/elemtypes" xmlns:form="http://www.tibco.com/forms/model/form" xmlns:gwt="http://www.tibco.com/forms/model/gwt" xmlns:ionic="http://tibco.com/forms/samples/ionic" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmlns:xpdl2="http://www.wfmc.org/2008/XPDL2.1" xsi:schemaLocation="http://tibco.com/forms/samples/ionic Loan.library.ecore" generated="true" generatorSource="LoanApplication.xpdl#_N779gOBfEeqsffVtNmTiKA?p=LoanApplication%26s=Process%20Packages%26t=xpdl2%3aActivity%26q=LoadApplication%3a%3aLoanApplication%26n=ViewAccountDetails?" formatVersion="11.0.0">
+  <form:externalResources>
+    <form:externalResource name="resource.common" uri="pathmap://FORMS_RESOURCES/common.properties" internal="true" localized="true"/>
+    <form:externalResource name="resource.form" uri="LoadApplication/LoanApplication/ViewAccountDetails/ViewAccountDetails.properties" sfRelative="true" internal="true" localized="true"/>
+    <form:externalResource name="resource.LoanApplicationUtil" uri="js/LoanApplicationUtil.js" sfRelative="true"/>
+    <form:externalResource name="resource.LoanApplication" uri="css/LoanApplication.css" sfRelative="true"/>
+  </form:externalResources>
+  <form:dataModel>
+    <form:parameter generated="true" generatorSource="LoanApplication.xpdl#_eZ2mENiLEeqatKvhXZfngw?p=LoanApplication%26s=Process%20Packages%26t=xpdl2%3aDataField%26q=LoadApplication%3a%3aLoanApplication%26n=NewAccountDetails?" name="data.NewAccountDetails" label="New Account Details" dataType="uml:Class LoanData.bom#_o5MIMNiKEeqatKvhXZfngw?p=LoanData%26s=Business%20Objects%26t=uml%3aClass%26q=com.borro.loandata%26n=AccountDetails?" inout="INOUT"/>
+  </form:dataModel>
+  <form:actions/>
+  <form:rules>
+    <form:rule name="rule.homeAction" label="HomeAction">
+      <form:event source="#control.verifyandcontinue" eventType="pathmap://FORMS_LIBRARIES/Standard.library.elemtypes#select" subject="form.control.verifyandcontinue.select"/>
+      <form:action name="action.rule1" ref="pathmap://FORMS_LIBRARIES/Standard.library.elemtypes#action.submit" label="rule1"/>
+    </form:rule>
+    <form:rule name="rule.onViewAccountDetailsOpen" label="On View Account Details Open">
+      <form:event source="#//@form" eventType="pathmap://FORMS_LIBRARIES/Standard.library.elemtypes#open" subject="form.open"/>
+      <form:action xsi:type="form:ScriptAction" name="action.onViewAccountDetailsOpenAction" label="On View Account Details Open Action">
+        <form:script>// onViewAccountDetailsOpen(factory, pkg, context.form, resource, data, control);&#xD;
+if (data.NewAccountDetails != null) {&#xD;
+	control.formHeader1.icon = &quot;/icons/&quot; + data.NewAccountDetails.bankName.toLowerCase() + &quot;.svg&quot;;&#xD;
+	var bank = data.NewAccountDetails.bankName;&#xD;
+	for (var idx = 0 ; idx &lt; control.bankNameOptions.optionValues.length; idx++) {&#xD;
+		if (control.bankNameOptions.optionValues[idx] == data.NewAccountDetails.bankName) {&#xD;
+			bank = control.bankNameOptions.optionLabels[idx];&#xD;
+			break;&#xD;
+		}&#xD;
+	}&#xD;
+	control.bank.value = bank;&#xD;
+	var accountState = data.NewAccountDetails.accountState;&#xD;
+	for (var idx = 0; idx &lt; control.accountStatusOptions.optionValues; idx++) {&#xD;
+		if (control.accountStatusOptions.optionValues[idx] == data.NewAccountDetails.accountState) {&#xD;
+			accountState = control.accountStatusOptions.optionLabels[idx];&#xD;
+			break;&#xD;
+		}&#xD;
+	}&#xD;
+	control.accountstatus.value = accountState;&#xD;
+	if (data.NewAccountDetails.openingDate != null || data.NewAccountDetails.openingDate != 'undefined') {&#xD;
+		control.openingdate.value = bpm.forms.Util.formatDate(resource.common.date_format, data.NewAccountDetails.openingDate);&#xD;
+	}&#xD;
+}</form:script>
+      </form:action>
+    </form:rule>
+  </form:rules>
+  <form:bindings>
+    <form:binding direction="bothways" name="_ShZt0OIBEeqVwdri8Vkw8Q">
+      <form:source target="data.NewAccountDetails" feature="http://www.tibco.com/forms/model/form#//Datum/value LoanData.bom#_tC1eINiKEeqatKvhXZfngw?p=LoanData%26s=Business%20Objects%26t=uml%3aProperty%26q=com.borro.loandata%3a%3aAccountDetails%26n=accountNumber?" data="form.data.NewAccountDetails.value.accountNumber"></form:source>
+      <form:destination target="control.accountnumber" feature="http://www.tibco.com/forms/model/form#//Control/value" data="form.control.accountnumber.value"></form:destination>
+    </form:binding>
+    <form:binding direction="bothways" name="_YXNqoOIBEeqVwdri8Vkw8Q">
+      <form:source target="data.NewAccountDetails" feature="http://www.tibco.com/forms/model/form#//Datum/value LoanData.bom#_tojaUNiKEeqatKvhXZfngw?p=LoanData%26s=Business%20Objects%26t=uml%3aProperty%26q=com.borro.loandata%3a%3aAccountDetails%26n=accountType?" data="form.data.NewAccountDetails.value.accountType"></form:source>
+      <form:destination target="control.accounttype" feature="http://www.tibco.com/forms/model/form#//Control/value" data="form.control.accounttype.value"></form:destination>
+    </form:binding>
+    <form:binding direction="bothways" name="_czzKsOIBEeqVwdri8Vkw8Q">
+      <form:source target="data.NewAccountDetails" feature="http://www.tibco.com/forms/model/form#//Datum/value LoanData.bom#_ARPzwNiLEeqatKvhXZfngw?p=LoanData%26s=Business%20Objects%26t=uml%3aProperty%26q=com.borro.loandata%3a%3aAccountDetails%26n=sortCode?" data="form.data.NewAccountDetails.value.sortCode"></form:source>
+      <form:destination target="control.sortcode" feature="http://www.tibco.com/forms/model/form#//Control/value" data="form.control.sortcode.value"></form:destination>
+    </form:binding>
+    <form:binding direction="bothways" name="_mE1RMOIBEeqVwdri8Vkw8Q">
+      <form:source target="data.NewAccountDetails" feature="http://www.tibco.com/forms/model/form#//Datum/value LoanData.bom#_tVWKcNiKEeqatKvhXZfngw?p=LoanData%26s=Business%20Objects%26t=uml%3aProperty%26q=com.borro.loandata%3a%3aAccountDetails%26n=currency?" data="form.data.NewAccountDetails.value.currency"></form:source>
+      <form:destination target="control.currency" feature="http://www.tibco.com/forms/model/form#//Control/value" data="form.control.currency.value"></form:destination>
+    </form:binding>
+    <form:binding direction="bothways" name="_oKCqMOIBEeqVwdri8Vkw8Q">
+      <form:source target="data.NewAccountDetails" feature="http://www.tibco.com/forms/model/form#//Datum/value LoanData.bom#_-445sNiKEeqatKvhXZfngw?p=LoanData%26s=Business%20Objects%26t=uml%3aProperty%26q=com.borro.loandata%3a%3aAccountDetails%26n=accountSubType?" data="form.data.NewAccountDetails.value.accountSubType"></form:source>
+      <form:destination target="control.accountsubtype" feature="http://www.tibco.com/forms/model/form#//Control/value" data="form.control.accountsubtype.value"></form:destination>
+    </form:binding>
+  </form:bindings>
+  <form:defaults>
+    <form:labelProperties position="top"/>
+  </form:defaults>
+  <form:pane generated="true" generatorSource="LoanApplication.xpdl#_eZ2mENiLEeqatKvhXZfngw?p=LoanApplication%26s=Process%20Packages%26t=xpdl2%3aDataField%26q=LoadApplication%3a%3aLoanApplication%26n=NewAccountDetails?" syncFlags="983040" elementType="form:PaneType pathmap://FORMS_UI_ELEMENT_TYPES/UIElementTypes.library.elemtypes#com.tibco.forms.panes.vertical" name="pane.content" paneType="com.tibco.forms.panes.vertical">
+    <form:label>View Account Details</form:label>
+    <form:hint></form:hint>
+    <form:visible>true</form:visible>
+    <form:enabled>true</form:enabled>
+    <form:labelProperties visible="false"/>
+    <form:defaults>
+      <form:labelProperties position="top"/>
+    </form:defaults>
+    <form:control styleClass="pane_viewAccountDetails" elementType="form:ControlType Loan.library.elemtypes#forms.samples.ionic.library.controls.ionicCard?p=LoanLibrary%26s=.forms%2Fcomponents%26t=form%3aControlType%26q=%26n=forms.samples.ionic.library.controls.ionicCard?" controlType="forms.samples.ionic.library.controls.ionicCard" name="control.formHeader1">
+      <form:propertySet xsi:type="ionic:IonicCardPropertySet">
+        <ionic:icon>/icons/alphabank.svg</ionic:icon>
+      </form:propertySet>
+      <form:label>Form Header 1</form:label>
+      <form:visible>true</form:visible>
+      <form:enabled>true</form:enabled>
+      <form:required>false</form:required>
+    </form:control>
+    <form:control elementType="form:ControlType Loan.library.elemtypes#forms.samples.ionic.library.controls.ionicNote?p=LoanLibrary%26s=.forms%2Fcomponents%26t=form%3aControlType%26q=%26n=forms.samples.ionic.library.controls.ionicNote?" controlType="forms.samples.ionic.library.controls.ionicNote" name="control.bank">
+      <form:propertySet xsi:type="ionic:IonicNotePropertySet"/>
+      <form:label>Bank</form:label>
+      <form:visible>true</form:visible>
+      <form:enabled>true</form:enabled>
+      <form:required>false</form:required>
+    </form:control>
+    <form:control elementType="form:ControlType Loan.library.elemtypes#forms.samples.ionic.library.controls.ionicNote?p=LoanLibrary%26s=.forms%2Fcomponents%26t=form%3aControlType%26q=%26n=forms.samples.ionic.library.controls.ionicNote?" controlType="forms.samples.ionic.library.controls.ionicNote" name="control.accountnumber">
+      <form:propertySet xsi:type="ionic:IonicNotePropertySet"/>
+      <form:label>Account number</form:label>
+      <form:visible>true</form:visible>
+      <form:enabled>true</form:enabled>
+      <form:required>false</form:required>
+    </form:control>
+    <form:control elementType="form:ControlType Loan.library.elemtypes#forms.samples.ionic.library.controls.ionicNote?p=LoanLibrary%26s=.forms%2Fcomponents%26t=form%3aControlType%26q=%26n=forms.samples.ionic.library.controls.ionicNote?" controlType="forms.samples.ionic.library.controls.ionicNote" name="control.accounttype">
+      <form:propertySet xsi:type="ionic:IonicNotePropertySet"/>
+      <form:label>Account type</form:label>
+      <form:visible>true</form:visible>
+      <form:enabled>true</form:enabled>
+      <form:required>false</form:required>
+    </form:control>
+    <form:control elementType="form:ControlType Loan.library.elemtypes#forms.samples.ionic.library.controls.ionicNote?p=LoanLibrary%26s=.forms%2Fcomponents%26t=form%3aControlType%26q=%26n=forms.samples.ionic.library.controls.ionicNote?" controlType="forms.samples.ionic.library.controls.ionicNote" name="control.sortcode">
+      <form:propertySet xsi:type="ionic:IonicNotePropertySet"/>
+      <form:label>Sort code</form:label>
+      <form:visible>true</form:visible>
+      <form:enabled>true</form:enabled>
+      <form:required>false</form:required>
+    </form:control>
+    <form:control elementType="form:ControlType Loan.library.elemtypes#forms.samples.ionic.library.controls.ionicNote?p=LoanLibrary%26s=.forms%2Fcomponents%26t=form%3aControlType%26q=%26n=forms.samples.ionic.library.controls.ionicNote?" controlType="forms.samples.ionic.library.controls.ionicNote" name="control.accountstatus">
+      <form:propertySet xsi:type="ionic:IonicNotePropertySet"/>
+      <form:label>Account status</form:label>
+      <form:visible>true</form:visible>
+      <form:enabled>true</form:enabled>
+      <form:required>false</form:required>
+    </form:control>
+    <form:control elementType="form:ControlType Loan.library.elemtypes#forms.samples.ionic.library.controls.ionicNote?p=LoanLibrary%26s=.forms%2Fcomponents%26t=form%3aControlType%26q=%26n=forms.samples.ionic.library.controls.ionicNote?" controlType="forms.samples.ionic.library.controls.ionicNote" name="control.currency">
+      <form:propertySet xsi:type="ionic:IonicNotePropertySet"/>
+      <form:label>Currency</form:label>
+      <form:visible>true</form:visible>
+      <form:enabled>true</form:enabled>
+      <form:required>false</form:required>
+    </form:control>
+    <form:control elementType="form:ControlType Loan.library.elemtypes#forms.samples.ionic.library.controls.ionicNote?p=LoanLibrary%26s=.forms%2Fcomponents%26t=form%3aControlType%26q=%26n=forms.samples.ionic.library.controls.ionicNote?" controlType="forms.samples.ionic.library.controls.ionicNote" name="control.accountsubtype">
+      <form:propertySet xsi:type="ionic:IonicNotePropertySet"/>
+      <form:label>Account sub-type</form:label>
+      <form:visible>true</form:visible>
+      <form:enabled>true</form:enabled>
+      <form:required>false</form:required>
+    </form:control>
+    <form:control elementType="form:ControlType Loan.library.elemtypes#forms.samples.ionic.library.controls.ionicNote?p=LoanLibrary%26s=.forms%2Fcomponents%26t=form%3aControlType%26q=%26n=forms.samples.ionic.library.controls.ionicNote?" controlType="forms.samples.ionic.library.controls.ionicNote" name="control.openingdate">
+      <form:propertySet xsi:type="ionic:IonicNotePropertySet"/>
+      <form:label>Date opened</form:label>
+      <form:visible>true</form:visible>
+      <form:enabled>true</form:enabled>
+      <form:required>false</form:required>
+    </form:control>
+    <form:control elementType="form:ControlType Loan.library.elemtypes#forms.samples.ionic.library.controls.ionicButton?p=LoanLibrary%26s=.forms%2Fcomponents%26t=form%3aControlType%26q=%26n=forms.samples.ionic.library.controls.ionicButton?" controlType="forms.samples.ionic.library.controls.ionicButton" name="control.verifyandcontinue">
+      <form:propertySet xsi:type="ionic:IonicButtonPropertySet"/>
+      <form:label>Continue</form:label>
+      <form:visible>true</form:visible>
+      <form:enabled>true</form:enabled>
+      <form:labelProperties visible="false"/>
+      <form:required>false</form:required>
+    </form:control>
+    <form:control elementType="form:ControlType pathmap://FORMS_UI_ELEMENT_TYPES/UIElementTypes.library.elemtypes#com.tibco.forms.controls.optionlist" controlType="com.tibco.forms.controls.optionlist" name="control.accountStatusOptions">
+      <form:propertySet xsi:type="et:MultiChoicePropertySet">
+        <et:choiceType>enumeration</et:choiceType>
+        <et:choiceEnumeration>LoanData.bom#_zjjWINirEeqatKvhXZfngw?p=LoanData%26s=Business%20Objects%26t=uml%3aEnumeration%26q=com.borro.loandata%26n=AccountStatus?</et:choiceEnumeration>
+      </form:propertySet>
+      <form:label>Account Status Options</form:label>
+      <form:visible>false</form:visible>
+      <form:enabled>true</form:enabled>
+    </form:control>
+    <form:control elementType="form:ControlType pathmap://FORMS_UI_ELEMENT_TYPES/UIElementTypes.library.elemtypes#com.tibco.forms.controls.optionlist" controlType="com.tibco.forms.controls.optionlist" name="control.bankNameOptions">
+      <form:propertySet xsi:type="et:MultiChoicePropertySet">
+        <et:choiceType>enumeration</et:choiceType>
+        <et:choiceEnumeration>LoanData.bom#_O4ndsNXWEeqPDptWnp5KOA?p=LoanData%26s=Business%20Objects%26t=uml%3aEnumeration%26q=com.borro.loandata%26n=Banks?</et:choiceEnumeration>
+      </form:propertySet>
+      <form:label>Bank Name Options</form:label>
+      <form:visible>false</form:visible>
+      <form:enabled>true</form:enabled>
+    </form:control>
+  </form:pane>
+</form:form>

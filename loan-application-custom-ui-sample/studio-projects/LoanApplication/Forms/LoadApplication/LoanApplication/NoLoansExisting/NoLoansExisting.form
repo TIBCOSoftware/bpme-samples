@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form:form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:et="http://www.tibco.com/forms/model/elemtypes" xmlns:form="http://www.tibco.com/forms/model/form" xmlns:gwt="http://www.tibco.com/forms/model/gwt" xmlns:ionic="http://tibco.com/forms/samples/ionic" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmlns:xpdl2="http://www.wfmc.org/2008/XPDL2.1" xsi:schemaLocation="http://tibco.com/forms/samples/ionic Loan.library.ecore" generated="true" generatorSource="LoanApplication.xpdl#_5XgcUN__EeqsffVtNmTiKA?p=LoanApplication%26s=Process%20Packages%26t=xpdl2%3aActivity%26q=LoadApplication%3a%3aLoanApplication%26n=NoLoansExisting?" formatVersion="11.0.0">
+  <form:externalResources>
+    <form:externalResource name="resource.common" uri="pathmap://FORMS_RESOURCES/common.properties" internal="true" localized="true"/>
+    <form:externalResource name="resource.form" uri="LoadApplication/LoanApplication/NoLoansExisting/NoLoansExisting.properties" sfRelative="true" internal="true" localized="true"/>
+    <form:externalResource name="resource.LoanApplicationUtil" uri="js/LoanApplicationUtil.js" sfRelative="true"/>
+    <form:externalResource name="resource.LoanApplication" uri="css/LoanApplication.css" sfRelative="true"/>
+  </form:externalResources>
+  <form:dataModel>
+    <form:parameter generated="true" generatorSource="LoanApplication.xpdl#_lIgzcN__EeqsffVtNmTiKA?p=LoanApplication%26s=Process%20Packages%26t=xpdl2%3aDataField%26q=LoadApplication%3a%3aLoanApplication%26n=LoanFound?" name="data.LoanFound" label="LoanFound" dataType="uml:PrimitiveType pathmap://BOM_TYPES/BomPrimitiveTypes.library.uml#_pSJ7cHvAEdy0U8_1u7Q20g" inout="INOUT"/>
+    <form:parameter generated="true" name="data.LastName" label="Last Name" dataType="uml:PrimitiveType pathmap://BOM_TYPES/BomPrimitiveTypes.library.uml#_AGoC4HcNEdytQ9AWEvOuug" length="50" inout="INOUT"/>
+  </form:dataModel>
+  <form:actions/>
+  <form:rules>
+    <form:rule name="rule.onApplyforanewloanClick" label="On Apply for a new loan Click">
+      <form:event source="#control.applyforanewloan" eventType="pathmap://FORMS_LIBRARIES/Standard.library.elemtypes#select" subject="form.control.applyforanewloan.select"/>
+      <form:action xsi:type="form:ScriptAction" name="action.applyforanewloanAction" label="Apply for a new loan Action" enabled="false">
+        <form:script>data.LoanFound = true;&#xD;
+</form:script>
+      </form:action>
+      <form:action name="action.rule1" ref="pathmap://FORMS_LIBRARIES/Standard.library.elemtypes#action.submit" label="rule1"/>
+    </form:rule>
+    <form:rule name="rule.onWelcomeControlUpdate" label="On Welcome Control Update">
+      <form:event source="#control.welcome" eventType="pathmap://FORMS_LIBRARIES/Standard.library.elemtypes#update" subject="form.control.welcome.update"/>
+      <form:action xsi:type="form:ScriptAction" name="action.onWelcomeControlUpdateAction" label="On Welcome Control Update Action">
+        <form:script>// onWelcomeControlUpdate(resource, control);&#xD;
+control.welcome.title = bpm.forms.Util.substitute(resource.form.control_welcome_property_title, new Array(control.welcome.value));&#xD;
+control.welcomeback.title = bpm.forms.Util.substitute(resource.form.control_welcomeback_property_title, new Array(control.welcome.value));&#xD;
+</form:script>
+      </form:action>
+    </form:rule>
+    <form:rule name="rule.ComputeVisibleofWelcomewelcome" label="Compute Visible of Welcome (welcome)">
+      <form:event source="#data.LoanFound" eventType="pathmap://FORMS_LIBRARIES/Standard.library.elemtypes#update" subject="form.data.LoanFound.update"/>
+      <form:event source="#//@form" eventType="pathmap://FORMS_LIBRARIES/Standard.library.elemtypes#open" subject="form.open"/>
+      <form:action xsi:type="form:ComputationAction" name="action.ComputeVisibleofWelcomewelcome" label="Compute Visible of Welcome (welcome)">
+        <form:script>!data.LoanFound;&#xD;
+</form:script>
+        <form:destination target="control.welcome" feature="http://www.tibco.com/forms/model/form#//UIElement/visible" data="form.control.welcome.visible"></form:destination>
+      </form:action>
+    </form:rule>
+    <form:rule name="rule.onNoLoansExistingOpen" label="On No Loans Existing Open">
+      <form:event source="#//@form" eventType="pathmap://FORMS_LIBRARIES/Standard.library.elemtypes#open" subject="form.open"/>
+      <form:action xsi:type="form:ScriptAction" name="action.onNoLoansExistingOpenAction" label="On No Loans Existing Open Action">
+        <form:script>onNoLoansExistingOpen(factory, pkg, context.form, resource, data, control, control.gridOfAdvancedCards);&#xD;
+// onWelcomeControlUpdate(resource, control);&#xD;
+control.welcome.title = bpm.forms.Util.substitute(resource.form.control_welcome_property_title, new Array(control.welcome.value));&#xD;
+control.welcomeback.title = bpm.forms.Util.substitute(resource.form.control_welcomeback_property_title, new Array(control.welcome.value));&#xD;
+</form:script>
+      </form:action>
+    </form:rule>
+  </form:rules>
+  <form:bindings>
+    <form:binding direction="sourceToDest" name="_tjFW4OEOEeqs0dx0TEYCMA">
+      <form:source target="data.LoanFound" feature="http://www.tibco.com/forms/model/form#//Datum/value" data="form.data.LoanFound.value"></form:source>
+      <form:destination target="control.welcomeback" feature="http://www.tibco.com/forms/model/form#//UIElement/visible" data="form.control.welcomeback.visible"></form:destination>
+    </form:binding>
+    <form:binding direction="sourceToDest" name="_4YdKsOEeEeqs0dx0TEYCMA">
+      <form:source target="data.LoanFound" feature="http://www.tibco.com/forms/model/form#//Datum/value" data="form.data.LoanFound.value"></form:source>
+      <form:destination target="control.gridOfAdvancedCards" feature="http://www.tibco.com/forms/model/form#//UIElement/visible" data="form.control.gridOfAdvancedCards.visible"></form:destination>
+    </form:binding>
+    <form:binding direction="bothways" name="_G1_KYOITEeq4zImvhjuNgQ">
+      <form:source target="data.LastName" feature="http://www.tibco.com/forms/model/form#//Datum/value" data="form.data.LastName.value"></form:source>
+      <form:destination target="control.welcome" feature="http://www.tibco.com/forms/model/form#//Control/value" data="form.control.welcome.value"></form:destination>
+    </form:binding>
+  </form:bindings>
+  <form:defaults>
+    <form:labelProperties position="top"/>
+  </form:defaults>
+  <form:pane elementType="form:PaneType pathmap://FORMS_UI_ELEMENT_TYPES/UIElementTypes.library.elemtypes#com.tibco.forms.panes.vertical" name="pane.content" paneType="com.tibco.forms.panes.vertical">
+    <form:label>No Loans Existing</form:label>
+    <form:visible>true</form:visible>
+    <form:enabled>true</form:enabled>
+    <form:labelProperties visible="false"/>
+    <form:defaults>
+      <form:labelProperties position="left"/>
+    </form:defaults>
+    <form:control elementType="form:ControlType Loan.library.elemtypes#forms.samples.ionic.library.controls.ionicCard?p=LoanLibrary%26s=.forms%2Fcomponents%26t=form%3aControlType%26q=%26n=forms.samples.ionic.library.controls.ionicCard?" controlType="forms.samples.ionic.library.controls.ionicCard" name="control.welcome">
+      <form:propertySet xsi:type="ionic:IonicCardPropertySet">
+        <ionic:title>Welcome, &lt;span color=&quot;primary&quot;>{0}&lt;/span></ionic:title>
+        <ionic:subtitle>You don’t currently have any loans in your portfolio</ionic:subtitle>
+        <ionic:icon>/icons/illustration-welcome-scrreen-first-time.svg</ionic:icon>
+        <ionic:content>Ready to apply for a new loan? We’ll help you check your eligibility and choose the product that’s right for you.</ionic:content>
+        <ionic:showIconOnTop>false</ionic:showIconOnTop>
+      </form:propertySet>
+      <form:label>Welcome</form:label>
+      <form:visible>false</form:visible>
+      <form:enabled>true</form:enabled>
+      <form:required>false</form:required>
+    </form:control>
+    <form:control elementType="form:ControlType Loan.library.elemtypes#forms.samples.ionic.library.controls.ionicCard?p=LoanLibrary%26s=.forms%2Fcomponents%26t=form%3aControlType%26q=%26n=forms.samples.ionic.library.controls.ionicCard?" controlType="forms.samples.ionic.library.controls.ionicCard" name="control.welcomeback">
+      <form:propertySet xsi:type="ionic:IonicCardPropertySet">
+        <ionic:title>Welcome back, {0}</ionic:title>
+        <ionic:subtitle>Below is a snapshot of your recent loan account</ionic:subtitle>
+        <ionic:content></ionic:content>
+      </form:propertySet>
+      <form:label>Welcome back</form:label>
+      <form:visible>false</form:visible>
+      <form:enabled>true</form:enabled>
+      <form:required>false</form:required>
+    </form:control>
+    <form:control elementType="form:ControlType Loan.library.elemtypes#forms.samples.ionic.library.controls.ionicGridOfAdvancedCards?p=LoanLibrary%26s=.forms%2Fcomponents%26t=form%3aControlType%26q=%26n=forms.samples.ionic.library.controls.ionicGridOfAdvancedCards?" controlType="forms.samples.ionic.library.controls.ionicGridOfAdvancedCards" name="control.gridOfAdvancedCards">
+      <form:propertySet xsi:type="ionic:IonicGridOfAdvancedCardsPropertySet"/>
+      <form:label>Grid Of Advanced Cards</form:label>
+      <form:visible>false</form:visible>
+      <form:enabled>true</form:enabled>
+      <form:required>false</form:required>
+    </form:control>
+    <form:control elementType="form:ControlType Loan.library.elemtypes#forms.samples.ionic.library.controls.ionicButton?p=LoanLibrary%26s=.forms%2Fcomponents%26t=form%3aControlType%26q=%26n=forms.samples.ionic.library.controls.ionicButton?" controlType="forms.samples.ionic.library.controls.ionicButton" name="control.applyforanewloan">
+      <form:propertySet xsi:type="ionic:IonicButtonPropertySet"/>
+      <form:label>Get started</form:label>
+      <form:visible>true</form:visible>
+      <form:enabled>true</form:enabled>
+      <form:required>false</form:required>
+    </form:control>
+  </form:pane>
+</form:form>

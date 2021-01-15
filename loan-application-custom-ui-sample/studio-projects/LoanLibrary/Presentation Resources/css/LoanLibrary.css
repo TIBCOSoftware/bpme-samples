@@ -1,0 +1,767 @@
+.invisible {
+    display: none;
+}
+
+p.ccl-ion-error {
+    font-size: 0.8em;
+    color: var(--highlight-color-invalid, #eb445a);
+}
+
+.tabs-inner {
+    height: 100%;
+    width: 100%;
+}
+
+.TibcoForms ion-card-title {
+    text-align: center
+}
+
+.line-seperator {
+    border-bottom: 1px solid var(--ion-color-light-shade);
+    width: 90%;
+    text-align: center;
+    margin-left: 5%;
+}
+
+:root .TibcoForms ion-button {
+    --background: linear-gradient(to right, #7AF6D1, #29A6AB);
+    --background-activated: linear-gradient(to right, #7AF6D1, #29A6AB);
+    --background-focused: linear-gradient(to right, #7AF6D1, #29A6AB);
+    --background-hover:linear-gradient(to right, #7AF6D1, #29A6AB);
+}
+
+.control_loanDetails ion-card {
+    box-shadow: none !important;
+}
+
+
+/* Find Customer Styles -- Start */
+
+.control_formHeader1 ion-card {
+    box-shadow: none !important;
+}
+
+.control_formHeader1.customerNotFound_img ion-card ion-card-header ion-icon {
+    height: 30vh;
+    width: 100%;
+}
+
+.control_formHeader1 ion-card ion-card-content {
+    text-align: center;
+    font-size: 16px;
+}
+
+.control_formHeader1 ion-card ion-card-title {
+    text-align: center;
+    font-size: 18px;
+}
+
+.control_formHeader1 ion-card ion-card-title:after {
+    content: "";
+    display: block;
+    margin: 0 auto;
+    width: 15%;
+    padding-top: 20px;
+    border-bottom: 1px solid var(--ion-color-primary);
+}
+
+.control_confirmProceed ion-button {
+    font-size: 18px;
+    margin-top: 32px;
+    --background: var(--ion-color-primary-button) !important;
+    color: #fff;
+    --background-activated: var(--ion-color-primary-button);
+    --background-focused: var(--ion-color-primary-button);
+    --background-hover: var(--ion-color-primary-button);
+    --border-radius: 25px;
+    margin-left: 18px;
+}
+
+.control_backtologin ion-button {
+    font-size: 18px;
+    margin-top: 32px;
+    margin-left: 18px;
+}
+
+
+/* Find Customer Styles -- End */
+
+
+/* Define Loan Styles -- Start */
+
+.defineLoan_header ion-card ion-card-title {
+    font-size: 30px;
+}
+
+.control_applyforloan ion-button {
+    font-size: 18px;
+    margin-top: 32px;
+    --background: var(--ion-color-primary-button);
+    color: #fff;
+    --background-activated: var(--ion-color-primary-button);
+    --background-focused: var(--ion-color-primary-button);
+    --background-hover: var(--ion-color-primary-button);
+    --border-radius: 25px;
+    margin-left: 18px;
+}
+
+.control_amountRange ion-item, .control_tenure.control-custom-ionicrange ion-item {
+    height: 18px;
+}
+
+.control_amountRange ion-range {
+    --bar-background-active: var(--ion-color-primary-button);
+    margin: 0px 10px;
+}
+
+.control_tenure ion-range {
+    margin: 0px 10px;
+}
+
+.control-custom-ionicrange ion-item > ion-label {
+	position: absolute;
+    font-size: 14px !important;
+    top: -34px;
+    
+}
+
+
+/*  Define Loan Styles -- End */
+
+
+/* Define My Loans -- Start */
+
+.myLoans .control_applyforanewloan {
+    z-index: 99999;
+    height: 115px;
+    position: fixed;
+    bottom: 1px;
+    background: var(--ion-color-dark-contrast);
+    width: 100%;
+    padding: -15px 10px 5px 10px !important;
+    border-top: 2px solid #eee;
+}
+
+.myLoans .control_applyforanewloan ion-button {
+    font-size: 18px;
+    margin-top: 32px;
+    --background: var(--ion-color-primary-button);
+    color: #fff;
+    --background-activated: var(--ion-color-primary-button);
+    --background-focused: var(--ion-color-primary-button);
+    --background-hover: var(--ion-color-primary-button);
+    --border-radius: 25px;
+}
+
+.control_gridOfAdvancedCards ion-card.card-selected {
+    border: 2px solid var(--ion-color-primary);
+}
+
+.control_gridOfAdvancedCards ion-card ion-text {
+    display: block;
+    margin: 5px;
+    width: 100px;
+}
+
+.control_gridOfAdvancedCards ion-card ion-text:nth-of-type(1) {
+    font-size: 10px;
+}
+
+.control_gridOfAdvancedCards ion-card ion-text:nth-of-type(2) {
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.control_gridOfAdvancedCards ion-card .statusLabel {
+    width: fit-content;
+    padding: 4px;
+    border-radius: 6px;
+    float: right;
+    margin-left: -14px;
+}
+
+.approved {
+    background: var(--ion-color-primary-shade);
+    color: var(--ion-color-primary);
+}
+
+.decisionpending {
+    background: #fcf1d5;
+    color: #d1aa55;
+}
+
+.rejected {
+    background: #fff3f3;
+    color: #eb6969;
+}
+
+.prequaification {
+    background: var(--ion-color-light-tint);
+    color: var(--ion-color-light-contrast);
+}
+
+.myLoans .card-icon-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.myLoans .card-icon-container .card-icon {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    padding: 10px;
+}
+
+.myLoans .card-icon-container .card-icon.card-icon-approved {
+    border: 2px solid var(--ion-color-primary);
+}
+
+.myLoans .card-icon-container .card-icon.card-icon-decisionpending {
+    border: 2px solid #d1aa55;
+}
+
+.myLoans .card-icon-container .card-icon.card-icon-rejected {
+    border: 2px solid #eb6969;
+}
+
+.myLoans .card-icon-container .card-icon.card-icon-prequaification {
+    border: 2px solid var(--ion-color-light-contrast);
+}
+
+
+/*  Define My Loans -- End */
+
+
+/*View customer details--- start*/
+
+.customer-item {
+    font-size: 14px;
+}
+
+.customer-item .item-label {
+    color: grey;
+}
+
+.card-bank-logo {
+    width: 40px;
+    height: 40px;
+    position: relative;
+    bottom: 20px;
+}
+
+
+/*View customer details--- end*/
+
+
+/*select form css  -- start */
+
+.select-screen ion-button {
+    margin-top: 80%;
+}
+
+.control_selectabank ion-row {
+    width: 100%;
+    height: 100%;
+    margin-bottom: 10px;
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: row;
+}
+
+.control_selectabank ion-row ion-col ion-card {
+    box-shadow: 0px 0px 15px #f2f2f2;
+}
+
+.control_selectabank ion-grid {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.control_selectabank ion-card {
+    width: 100%;
+    height: 80%;
+    text-align: center;
+    min-height: 100px;
+    max-height: 250px;
+    padding: 10%;
+    margin: 0;
+}
+
+.control_selectabank ion-icon {
+    background: #fff;
+    border: solid 1px #f2f2f2;
+    width: 50%;
+    height: 50%;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.control_selectabank span {
+    display: block;
+}
+
+.control-custom-ionicsearchbar .forms-span-panel {
+    position: relative;
+}
+
+.control_searchyourbankinbeowlist ion-searchbar .searchbar-input-container .searchbar-search-icon {
+    position: relative;
+    float: right;
+    top: -27px;
+    margin-right: 10px;
+}
+
+.control_searchyourbankinbeowlist ion-searchbar {
+    --background: white;
+}
+
+.control_searchyourbankinbeowlist ion-searchbar .searchbar-input-container {
+    border: 1px solid var(--ion-color-light-shade);
+    border-radius: 36px;
+    padding: 10px 30px 10px 5px;
+    height: 50px;
+    width: 98%;
+}
+
+.control_searchyourbankinbeowlist ion-searchbar .searchbar-input-container input {
+    background: var(--ion-color-dark-contrast);
+}
+
+.control_searchyourbankinbeowlist ion-searchbar.searchbar-has-focus .searchbar-input-container {
+    border: 1px solid var(--ion-color-primary);
+}
+
+.col-1 {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+}
+
+.col-1 ion-row {
+    flex: 0 0 100%;
+    margin: 0 auto;
+}
+
+.col-2 ion-row {
+    display: flex;
+}
+
+.col-2 ion-row ion-col {
+    flex: 0 0 50%;
+    padding: 15px;
+}
+
+.col-3 ion-row {
+    display: flex;
+}
+
+.col-3 ion-row ion-col {
+    flex: 0 0 30%;
+}
+
+.col-4 ion-row {
+    display: flex;
+}
+
+.col-4 ion-row ion-col {
+    flex: 0 0 25%;
+}
+
+.search-items {
+    --offset-bottom: 60% !important;
+    --padding-start: 5% !important;
+    --padding-end: 4% !important;
+    --padding-top: 2%;
+    width: 98%;
+    position: absolute;
+    top: 110px;
+    left: 48%;
+    transform: translate(-50%, -50%);
+    --offset-top: 0px !important;
+    margin-top: 27px;
+}
+
+.search-items main {
+    --box-shadow: 0px 0px 15px #f2f2f2;
+}
+
+.control_searchyourbankinbeowlist div>ion-content>ion-list ion-item {
+    border-radius: 25px;
+    /* border-bottom: 1px solid #eaeaea; */
+}
+
+.control_searchyourbankinbeowlist .item-native .item-inner {
+    /* border: none !important; */
+}
+
+
+/*select form css -- end*/
+
+
+/* Welcome Screen -- Start */
+
+.control_welcome ion-card {
+    box-shadow: none;
+}
+
+.control_welcome ion-card ion-card-title {
+    text-align: left;
+}
+
+.control_welcome ion-card>ion-card-header>ion-card-subtitle {
+    padding: 5px 2px !important;
+    text-transform: initial;
+}
+
+.control_welcome ion-card>ion-card-header>ion-card-title>span {
+    color: var(--ion-color-primary);
+}
+
+.control_welcome ion-card>ion-card-content {
+    text-align: center;
+}
+
+.control_welcome ion-icon {
+    height: 320px;
+    width: 100%;
+    justify-content: center;
+    display: flex;
+    margin: 0 auto;
+}
+
+.control_applyforanewloan ion-button {
+    font-size: 18px;
+    margin-top: 32px;
+    --background: var(--ion-color-primary-button);
+    color: #fff;
+    --background-activated: var(--ion-color-primary-button);
+    --background-focused: var(--ion-color-primary-button);
+    --background-hover: var(--ion-color-primary-button);
+    --border-radius: 25px;
+}
+
+
+/* Welcome Screen -- End */
+
+
+/* Enter Bank Details -- Start */
+
+.control_consent ion-card {
+    box-shadow: none;
+}
+
+.control_consent ion-card ion-card-title {
+    text-align: left;
+    font-size: 18px;
+}
+
+.control_consent ion-card ion-card-header {
+    padding: 0px 0px 10px;
+}
+
+.control_consent ion-card ion-card-title:after {
+    content: "";
+    display: block;
+    width: 15%;
+    padding-top: 20px;
+    border-bottom: 1px solid var(--ion-color-primary);
+}
+
+.control_consent ion-card ion-card-content {
+    background: var(--ion-color-primary-shade);
+    color: var(--ion-color-light-contrast);
+    padding-top: 18px;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+}
+
+.control_acceptcontinue ion-button {
+    font-size: 18px;
+    margin-top: 32px;
+    --background: var(--ion-color-primary-button);
+    color: #fff;
+    --background-activated: var(--ion-color-primary-button);
+    --background-focused: var(--ion-color-primary-button);
+    --background-hover: var(--ion-color-primary-button);
+    --border-radius: 25px;
+}
+
+
+/* Enter Bank Details -- End */
+
+
+/* My Accounts -- Start */
+
+.control_gridOfAdvancedCards .card-icon-container .card-icon {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    padding: 10px;
+}
+
+.control_gridOfAdvancedCards .card-icon-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.linkButton ion-button {
+    font-size: 18px;
+    margin-top: 32px;
+    --background: transparent;
+    color: var(--ion-color-primary);
+    --background-activated: transparent;
+    --background-focused: transparent;
+    --background-hover: transparent;
+    --border-radius: 25px;
+}
+
+.control_selectcontinue ion-button {
+    font-size: 18px;
+    margin-top: 32px;
+    --background: var(--ion-color-primary-button);
+    color: #fff;
+    --background-activated: var(--ion-color-primary-button);
+    --background-focused: var(--ion-color-primary-button);
+    --background-hover: var(--ion-color-primary-button);
+    --border-radius: 25px;
+}
+
+.control_gridOfAdvancedCards ion-card ion-text:nth-of-type(3) {
+    width: fit-content;
+}
+
+.statusLabel.USED {
+    background: var(--ion-color-primary-shade);
+    color: var(--ion-color-primary);
+}
+
+.statusLabel.UNUSED {
+    background: #fff3f3;
+    color: #eb6969;
+}
+
+
+/* My Accounts -- End */
+
+
+/* Loan Approved --Start */
+
+.control_gotohome ion-button {
+    font-size: 18px;
+    margin-top: 32px;
+    --background: var(--ion-color-primary-button);
+    color: #fff;
+    --background-activated: var(--ion-color-primary-button);
+    --background-focused: var(--ion-color-primary-button);
+    --background-hover: var(--ion-color-primary-button);
+    --border-radius: 25px;
+}
+
+.control_loanDetails ion-card-header {
+    padding: 0px 21px;
+}
+
+.control_loanDetails ion-card {
+    margin: 0;
+}
+
+.control_loanDetails ion-card ion-card-content {
+    display: none;
+}
+
+.control_loanDetails ion-card ion-card-subtitle:after {
+    content: "";
+    display: block;
+    width: 4%;
+    padding-top: 2px;
+    border-bottom: 1px solid var(--ion-color-primary);
+}
+
+.control_formHeader1 ion-icon {
+    width: 100%;
+    height: 10vh;
+}
+
+
+/* Loan Approved -- End */
+
+
+/* Loan Pending -- Start */
+
+.control_gotohome ion-button {
+    font-size: 18px;
+    margin-top: 32px;
+    --background: var(--ion-color-primary-button);
+    color: #fff;
+    --background-activated: var(--ion-color-primary-button);
+    --background-focused: var(--ion-color-primary-button);
+    --background-hover: var(--ion-color-primary-button);
+    --border-radius: 25px;
+}
+
+.control_loanPending ion-card-header ion-card-subtitle {
+    display: none;
+}
+
+.control_loanPending ion-card {
+    margin: 0;
+}
+
+.control_loanPending ion-card {
+    box-shadow: none;
+    text-align: center;
+}
+
+.control_loanPending ion-card ion-card-subtitle:after {
+    content: "";
+    display: block;
+    width: 4%;
+    padding-top: 2px;
+    border-bottom: 1px solid var(--ion-color-primary);
+}
+
+.control_loanPending ion-icon {
+    width: 100%;
+    height: 10vh;
+}
+
+
+/* Loan Pending -- End */
+
+
+/*Loan rejected --- Start */
+
+.control_loanrejectedheader ion-icon {
+    width: 100%;
+    height: 10vh;
+}
+
+.control_loanrejectedheader ion-card ion-card-content {
+    text-align: center;
+}
+
+.control_loanrejectedheader ion-card-header+.card-content-md {
+    text-align: center;
+}
+
+.control_rejectedDetailsheader ion-card-header {
+    padding: 0px 21px;
+}
+
+.control_rejectedDetailsheader ion-card {
+    margin: 0;
+}
+
+.control_rejectedDetailsheader ion-card ion-card-content {
+    display: none;
+}
+
+.control_rejectedDetailsheader ion-card ion-card-subtitle:after {
+    content: "";
+    display: block;
+    width: 4%;
+    padding-top: 2px;
+    border-bottom: 1px solid var(--ion-color-primary);
+}
+
+.control_rejectedDetailsheader ion-card,
+.control_loanrejectedheader ion-card {
+    box-shadow: none !important;
+}
+
+
+/*Loan rejected --- End */
+
+
+/* View Account Details -- Start */
+
+.control_customerDetails1 ion-card {
+    box-shadow: none;
+    width: 100%;
+    margin-left: 0px;
+}
+
+.control_verifyandcontinue ion-button {
+    font-size: 18px;
+    margin-top: 32px;
+    --background: var(--ion-color-primary-button);
+    color: #fff;
+    --background-activated: var(--ion-color-primary-button);
+    --background-focused: var(--ion-color-primary-button);
+    --background-hover: var(--ion-color-primary-button);
+    --border-radius: 25px;
+}
+
+.pane_viewAccountDetails ion-card ion-card-header ion-card-title,
+.pane_viewAccountDetails ion-card ion-card-content {
+    display: none;
+}
+
+.pane_viewAccountDetails ion-card>ion-card-header>ion-icon {
+    width: 50% !important;
+    height: 10vh;
+    border-radius: 4px;
+    left: 50%;
+    position: relative;
+    transform: translate(-50%, 0px);
+    border: 1px solid #f2f2f2;
+    padding: 12px;
+}
+
+
+/* View Account Details -- End */
+
+/* Thankyou Screen -- Start */
+
+.control_thankYou ion-card {
+    box-shadow: none;
+}
+
+.control_thankYou ion-card>ion-card-header>ion-card-subtitle {
+    padding: 5px 2px !important;
+    text-transform: initial;
+}
+
+.control_thankYou ion-card>ion-card-header>ion-card-title>span {
+    color: var(--ion-color-primary);
+}
+
+.control_thankYou ion-card>ion-card-content {
+    text-align: center;
+}
+
+.control_thankYou ion-icon {
+    height: 320px;
+    width: 100%;
+    justify-content: center;
+    display: flex;
+    margin: 0 auto;
+}
+
+.control_thankYou ion-button {
+    font-size: 18px;
+    margin-top: 32px;
+    --background: var(--ion-color-primary-button);
+    color: #fff;
+    --background-activated: var(--ion-color-primary-button);
+    --background-focused: var(--ion-color-primary-button);
+    --background-hover: var(--ion-color-primary-button);
+    --border-radius: 25px;
+}
+
+.control_logoff ion-button {
+	box-sizing: border-box;
+    font-size: 18px;
+    margin-top: 32px;
+    --background: transparent !important;
+    border: 2px solid var(--ion-color-primary);
+    color: var(--ion-color-dark);
+    --background-activated: transparent !important;
+    --background-focused: transparent !important;
+    --background-hover: transparent !important;
+    border-radius: 25px !important;
+}
+
+/* Thankyou Screen -- End */

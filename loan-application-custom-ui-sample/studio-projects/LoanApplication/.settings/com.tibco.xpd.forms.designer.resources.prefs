@@ -1,0 +1,14 @@
+eclipse.preferences.version=1
+previewData//Forms/LoadApplication/LoanApplication/ChallengeForLoan/ChallengeForLoan.form=ChallengeForLoanCustom.data.json
+previewData//Forms/LoadApplication/LoanApplication/CustomerIdentification/CustomerIdentification.form=CustomerIdentificationCustom.data.json
+previewData//Forms/LoadApplication/LoanApplication/CustomerNotfound/CustomerNotfound.form=CustomerNotfoundCustom.data.json
+previewData//Forms/LoadApplication/LoanApplication/DefineRequiredLoanDetails/DefineRequiredLoanDetails.form=DefineRequiredLoanDetailsCustom.data.json
+previewData//Forms/LoadApplication/LoanApplication/EnterNewAccount/EnterNewAccount.form=EnterNewAccountCustom.data.json
+previewData//Forms/LoadApplication/LoanApplication/NoLoansExisting/NoLoansExisting.form=NoLoansExistingCustom.data.json
+previewData//Forms/LoadApplication/LoanApplication/SelectAccount/SelectAccount.form=SelectAccountCustom.data.json
+previewData//Forms/LoadApplication/LoanApplication/SelectBank/SelectBank.form=SelectBankCustom.data.json
+previewData//Forms/LoadApplication/LoanApplication/ShowAcceptedLoanDetails/ShowAcceptedLoanDetails.form=ShowAcceptedLoanDetailsCustom.data.json
+previewData//Forms/LoadApplication/LoanApplication/ShowReferred/ShowReferred.form=ShowReferredCustom.data.json
+previewData//Forms/LoadApplication/LoanApplication/ShowRejected/ShowRejected.form=ShowRejectedCustom.data.json
+previewData//Forms/LoadApplication/LoanApplication/ThankYou/ThankYou.form=ThankYouCustom.data.json
+previewData//Forms/LoadApplication/LoanApplication/ViewAccountDetails/ViewAccountDetails.form=ViewAccountDetailsCustom.data.json

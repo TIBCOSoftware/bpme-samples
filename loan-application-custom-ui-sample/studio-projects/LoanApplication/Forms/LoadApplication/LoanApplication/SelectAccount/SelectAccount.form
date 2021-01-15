@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form:form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:et="http://www.tibco.com/forms/model/elemtypes" xmlns:form="http://www.tibco.com/forms/model/form" xmlns:gwt="http://www.tibco.com/forms/model/gwt" xmlns:ionic="http://tibco.com/forms/samples/ionic" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmlns:xpdl2="http://www.wfmc.org/2008/XPDL2.1" xsi:schemaLocation="http://tibco.com/forms/samples/ionic Loan.library.ecore" generated="true" generatorSource="LoanApplication.xpdl#_-GnV8NiPEeqatKvhXZfngw?p=LoanApplication%26s=Process%20Packages%26t=xpdl2%3aActivity%26q=LoadApplication%3a%3aLoanApplication%26n=SelectAccount?" formatVersion="11.0.0">
+  <form:externalResources>
+    <form:externalResource name="resource.common" uri="pathmap://FORMS_RESOURCES/common.properties" internal="true" localized="true"/>
+    <form:externalResource name="resource.form" uri="LoadApplication/LoanApplication/SelectAccount/SelectAccount.properties" sfRelative="true" internal="true" localized="true"/>
+    <form:externalResource name="resource.LoanApplicationUtil" uri="js/LoanApplicationUtil.js" sfRelative="true"/>
+    <form:externalResource name="resource.LoanApplication" uri="css/LoanApplication.css" sfRelative="true"/>
+  </form:externalResources>
+  <form:dataModel>
+    <form:parameter generated="true" generatorSource="LoanApplication.xpdl#_-zEOINxyEeq9huSL869Xyw?p=LoanApplication%26s=Process%20Packages%26t=xpdl2%3aDataField%26q=LoadApplication%3a%3aLoanApplication%26n=AccountId?" name="data.AccountId" label="AccountId" dataType="uml:PrimitiveType pathmap://BOM_TYPES/BomPrimitiveTypes.library.uml#_AGoC4HcNEdytQ9AWEvOuug" length="50" inout="INOUT"/>
+    <form:parameter generated="true" generatorSource="LoanApplication.xpdl#_eZ2mENiLEeqatKvhXZfngw?p=LoanApplication%26s=Process%20Packages%26t=xpdl2%3aDataField%26q=LoadApplication%3a%3aLoanApplication%26n=NewAccountDetails?" name="data.NewAccountDetails" label="New Account Details" dataType="uml:Class LoanData.bom#_o5MIMNiKEeqatKvhXZfngw?p=LoanData%26s=Business%20Objects%26t=uml%3aClass%26q=com.borro.loandata%26n=AccountDetails?" inout="INOUT"/>
+    <form:parameter generated="true" generatorSource="LoanApplication.xpdl#_fjzJgNizEeqDMpCuiDySLQ?p=LoanApplication%26s=Process%20Packages%26t=xpdl2%3aDataField%26q=LoadApplication%3a%3aLoanApplication%26n=CustomersAccounts?" name="data.CustomersAccounts" label="CustomersAccounts" dataType="uml:Class LoanData.bom#_o5MIMNiKEeqatKvhXZfngw?p=LoanData%26s=Business%20Objects%26t=uml%3aClass%26q=com.borro.loandata%26n=AccountDetails?" isArray="true" inout="IN"/>
+  </form:dataModel>
+  <form:actions/>
+  <form:rules>
+    <form:rule name="rule.onAddnewaccountSelect" label="On Add new account Select">
+      <form:event source="#control.addnewaccount" eventType="pathmap://FORMS_LIBRARIES/Standard.library.elemtypes#select" subject="form.control.addnewaccount.select"/>
+      <form:action xsi:type="form:ScriptAction" name="action.OnAddnewaccountSelect" label="On Add new account Select">
+        <form:script>data.AccountId = null;&#xD;
+</form:script>
+      </form:action>
+      <form:action name="action.rule1" ref="pathmap://FORMS_LIBRARIES/Standard.library.elemtypes#action.submit" label="rule1"/>
+    </form:rule>
+    <form:rule name="rule.onSelectAccountOpen" label="On Select Account Open">
+      <form:event source="#//@form" eventType="pathmap://FORMS_LIBRARIES/Standard.library.elemtypes#open" subject="form.open"/>
+      <form:action xsi:type="form:ScriptAction" name="action.onSelectAccountOpenAction" label="On Select Account Open Action">
+        <form:script>onSelectAccountOpen(factory, pkg, context.form, resource, data, control, control.gridOfAdvancedCards, control.selectcontinue, control.banks, control.accountStatus, control.sortCode, control.acsubtype, control.currency, control.openingDate);&#xD;
+</form:script>
+      </form:action>
+    </form:rule>
+    <form:rule name="rule.onGridOfAdvancedCardsSelect" label="On Grid Of Advanced Cards Select">
+      <form:event source="#control.gridOfAdvancedCards" eventType="pathmap://FORMS_LIBRARIES/Standard.library.elemtypes#select" subject="form.control.gridOfAdvancedCards.select"/>
+      <form:action xsi:type="form:ScriptAction" name="action.gridOfAdvancedCardsSelectAction" label="Grid Of Advanced Cards Select Action">
+        <form:script>data.AccountId = data.CustomersAccounts[control.gridOfAdvancedCards.selectionIndex].accountId;&#xD;
+control.selectcontinue.enabled = true;&#xD;
+</form:script>
+      </form:action>
+    </form:rule>
+    <form:rule name="rule.onSelectcontinueSelect" label="On Select &amp; continue Select">
+      <form:event source="#control.selectcontinue" eventType="pathmap://FORMS_LIBRARIES/Standard.library.elemtypes#select" subject="form.control.selectcontinue.select"/>
+      <form:action name="action.rule11" ref="pathmap://FORMS_LIBRARIES/Standard.library.elemtypes#action.submit" label="rule1 1"/>
+    </form:rule>
+  </form:rules>
+  <form:bindings/>
+  <form:defaults>
+    <form:labelProperties position="top"/>
+  </form:defaults>
+  <form:pane elementType="form:PaneType pathmap://FORMS_UI_ELEMENT_TYPES/UIElementTypes.library.elemtypes#com.tibco.forms.panes.vertical" name="pane.content" paneType="com.tibco.forms.panes.vertical">
+    <form:label>Select Account</form:label>
+    <form:visible>true</form:visible>
+    <form:enabled>true</form:enabled>
+    <form:labelProperties visible="false"/>
+    <form:defaults>
+      <form:labelProperties position="left"/>
+    </form:defaults>
+    <form:control elementType="form:ControlType Loan.library.elemtypes#forms.samples.ionic.library.controls.ionicGridOfAdvancedCards?p=LoanLibrary%26s=.forms%2Fcomponents%26t=form%3aControlType%26q=%26n=forms.samples.ionic.library.controls.ionicGridOfAdvancedCards?" controlType="forms.samples.ionic.library.controls.ionicGridOfAdvancedCards" name="control.gridOfAdvancedCards">
+      <form:propertySet xsi:type="ionic:IonicGridOfAdvancedCardsPropertySet">
+        <ionic:selectable>true</ionic:selectable>
+      </form:propertySet>
+      <form:label>Grid Of Advanced Cards</form:label>
+      <form:visible>true</form:visible>
+      <form:enabled>true</form:enabled>
+      <form:required>false</form:required>
+    </form:control>
+    <form:control styleClass="linkButton" elementType="form:ControlType Loan.library.elemtypes#forms.samples.ionic.library.controls.ionicButton?p=LoanLibrary%26s=.forms%2Fcomponents%26t=form%3aControlType%26q=%26n=forms.samples.ionic.library.controls.ionicButton?" controlType="forms.samples.ionic.library.controls.ionicButton" name="control.addnewaccount">
+      <form:propertySet xsi:type="ionic:IonicButtonPropertySet">
+        <ionic:color>8</ionic:color>
+      </form:propertySet>
+      <form:label>+ Add new account</form:label>
+      <form:visible>true</form:visible>
+      <form:enabled>true</form:enabled>
+      <form:required>false</form:required>
+    </form:control>
+    <form:control elementType="form:ControlType Loan.library.elemtypes#forms.samples.ionic.library.controls.ionicButton?p=LoanLibrary%26s=.forms%2Fcomponents%26t=form%3aControlType%26q=%26n=forms.samples.ionic.library.controls.ionicButton?" controlType="forms.samples.ionic.library.controls.ionicButton" name="control.selectcontinue">
+      <form:propertySet xsi:type="ionic:IonicButtonPropertySet"/>
+      <form:label>Select &amp; continue</form:label>
+      <form:visible>true</form:visible>
+      <form:enabled>false</form:enabled>
+      <form:required>false</form:required>
+    </form:control>
+    <form:control elementType="form:ControlType pathmap://FORMS_UI_ELEMENT_TYPES/UIElementTypes.library.elemtypes#com.tibco.forms.controls.optionlist" controlType="com.tibco.forms.controls.optionlist" name="control.banks">
+      <form:propertySet xsi:type="et:MultiChoicePropertySet">
+        <et:choiceType>enumeration</et:choiceType>
+        <et:choiceEnumeration>LoanData.bom#_O4ndsNXWEeqPDptWnp5KOA?p=LoanData%26s=Business%20Objects%26t=uml%3aEnumeration%26q=com.borro.loandata%26n=Banks?</et:choiceEnumeration>
+      </form:propertySet>
+      <form:label>Banks</form:label>
+      <form:visible>false</form:visible>
+      <form:enabled>true</form:enabled>
+    </form:control>
+    <form:control elementType="form:ControlType pathmap://FORMS_UI_ELEMENT_TYPES/UIElementTypes.library.elemtypes#com.tibco.forms.controls.optionlist" controlType="com.tibco.forms.controls.optionlist" name="control.accountStatus">
+      <form:propertySet xsi:type="et:MultiChoicePropertySet">
+        <et:choiceType>enumeration</et:choiceType>
+        <et:choiceEnumeration>LoanData.bom#_zjjWINirEeqatKvhXZfngw?p=LoanData%26s=Business%20Objects%26t=uml%3aEnumeration%26q=com.borro.loandata%26n=AccountStatus?</et:choiceEnumeration>
+      </form:propertySet>
+      <form:label>Account Status</form:label>
+      <form:visible>false</form:visible>
+      <form:enabled>true</form:enabled>
+    </form:control>
+    <form:control elementType="form:ControlType pathmap://FORMS_UI_ELEMENT_TYPES/UIElementTypes.library.elemtypes#com.tibco.forms.controls.label" controlType="com.tibco.forms.controls.label" name="control.sortCode">
+      <form:label>Sort Code</form:label>
+      <form:visible>false</form:visible>
+      <form:enabled>true</form:enabled>
+      <form:required>false</form:required>
+    </form:control>
+    <form:control elementType="form:ControlType pathmap://FORMS_UI_ELEMENT_TYPES/UIElementTypes.library.elemtypes#com.tibco.forms.controls.label" controlType="com.tibco.forms.controls.label" name="control.acsubtype">
+      <form:label>A/c subtype</form:label>
+      <form:visible>false</form:visible>
+      <form:enabled>true</form:enabled>
+      <form:required>false</form:required>
+    </form:control>
+    <form:control elementType="form:ControlType pathmap://FORMS_UI_ELEMENT_TYPES/UIElementTypes.library.elemtypes#com.tibco.forms.controls.label" controlType="com.tibco.forms.controls.label" name="control.currency">
+      <form:label>Currency</form:label>
+      <form:visible>false</form:visible>
+      <form:enabled>true</form:enabled>
+      <form:required>false</form:required>
+    </form:control>
+    <form:control elementType="form:ControlType pathmap://FORMS_UI_ELEMENT_TYPES/UIElementTypes.library.elemtypes#com.tibco.forms.controls.label" controlType="com.tibco.forms.controls.label" name="control.openingDate">
+      <form:label>Opening Date</form:label>
+      <form:visible>false</form:visible>
+      <form:enabled>true</form:enabled>
+      <form:required>false</form:required>
+    </form:control>
+  </form:pane>
+</form:form>

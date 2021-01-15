@@ -1,0 +1,82 @@
+{
+    "body": {
+        "inputs": [
+            {
+                "name":"CustomersAccounts",
+                "structured": [
+                    {
+                        "accountId": "accountId0",
+                        "bankName": "ALPHABANK",
+                        "sortCode": "12-34-56",
+                        "accountNumber": "****7393",
+                        "currency": "$ - Dollar",
+                        "accountType": "accountType0",
+                        "accountSubType": "lorem ipsum",
+                        "openingDate": "20 Mar 18",
+                        "accountState": "USED"
+                    },
+                    {
+                        "accountId": "accountId1",
+                        "bankName": "BETABANK",
+                        "sortCode": "34-56-90",
+                        "accountNumber": "****8265",
+                        "currency": "$ - Dollar",
+                        "accountType": "accountType1",
+                        "accountSubType": "lorem ipsum",
+                        "openingDate": "20 Mar 19",
+                        "accountState": "USED"
+                    },
+                    {
+                        "accountId": "accountId2",
+                        "bankName": "SIGMABANK",
+                        "sortCode": "90-87-65",
+                        "accountNumber": "****3781",
+                        "currency": "$ - Dollar",
+                        "accountType": "accountType2",
+                        "accountSubType": "lorem ipsum",
+                        "openingDate": "20 Mar 20",
+                        "accountState": "USED"
+                    },
+                    {
+                        "accountId": "accountId3",
+                        "bankName": "INFINITYBANK",
+                        "sortCode": "10-29-38",
+                        "accountNumber": "****9834",
+                        "currency": "$ - Dollar",
+                        "accountType": "accountType3",
+                        "accountSubType": "lorem ipsum",
+                        "openingDate": "18 June 20",
+                        "accountState": "USED"
+                    }
+                ]
+            }
+        ],
+        "outputs": [
+
+        ],
+        "inouts": [
+            {
+                "name":"AccountId",
+                "simple": [
+                    "accountId1"
+                ]
+            },
+            {
+                "name":"NewAccountDetails",
+                "structured": [
+                    {
+                        "accountId": "accountId",
+                        "bankName": "ALPHABANK",
+                        "sortCode": "sortCode",
+                        "accountNumber": "accountNumber",
+                        "currency": "currency",
+                        "accountType": "accountType",
+                        "accountSubType": "accountSubType",
+                        "openingDate": "openingDate",
+                        "accountState": "USED"
+                    }
+                ]
+            }
+        ]
+    }
+}
