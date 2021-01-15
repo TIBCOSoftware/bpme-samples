@@ -1,0 +1,30 @@
+{
+    "body": {
+        "inputs": [
+            {
+                "name":"LoanDetails",
+                "structured": [
+                    {
+                        "applicationID": "123",
+                        "amount": 64293,
+                        "months": 18,
+                        "reason": "FURNITURE",
+                        "date": "2020-08-18",
+                        "status": "DECISIONPENDING"
+                    }
+                ]
+            }
+        ],
+        "outputs": [
+
+        ],
+        "inouts": [
+            {
+                "name":"Proceed",
+                "simple": [
+                    true
+                ]
+            }
+        ]
+    }
+}

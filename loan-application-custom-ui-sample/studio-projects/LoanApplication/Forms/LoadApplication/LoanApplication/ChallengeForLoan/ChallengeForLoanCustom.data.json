@@ -1,0 +1,49 @@
+{
+    "body": {
+        "inputs": [
+            {
+                "name":"ExistingLoans",
+                "structured": [
+                    {
+                        "applicationID": "HL829",
+                        "amount": 25000,
+                        "months": 12,
+                        "reason": "HOMEIMPROVEMENT",
+                        "date": "2020-12-15",
+                        "status": "APPROVED"
+                    },
+                    {
+                        "applicationID": "CL132",
+                        "amount": 115000,
+                        "months": 12,
+                        "reason": "VEHICLE",
+                        "date": "2022-03-16",
+                        "status": "DECISIONPENDING"
+                    },
+                    {
+                        "applicationID": "FL003",
+                        "amount": 8000,
+                        "months": 12,
+                        "reason": "FURNITURE",
+                        "date": "2020-08-17",
+                        "status": "REJECTED"
+                    },
+                    {
+                        "applicationID": "FL003",
+                        "amount": 24000,
+                        "months": 12,
+                        "reason": "HOLIDAY",
+                        "date": "2020-08-18",
+                        "status": "PREQUAIFICATION"
+                    }
+                ]
+            }
+        ],
+        "outputs": [
+
+        ],
+        "inouts": [
+
+        ]
+    }
+}

@@ -1,0 +1,24 @@
+{
+    "body": {
+        "inputs": [
+
+        ],
+        "outputs": [
+
+        ],
+        "inouts": [
+            {
+                "name":"LoanFound",
+                "simple": [
+                    false
+                ]
+            },
+            {
+                "name":"LastName",
+                "simple": [
+                    "Test User"
+                ]
+            }
+        ]
+    }
+}

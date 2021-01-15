@@ -1,0 +1,747 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:BOMGlobalDataProfile="http:///schemas/BOMGlobalDataProfile/_-rxZEHyPEeCumvZ6xHSUiw/0" xmlns:PrimitiveTypeFacets="http:///schemas/PrimitiveTypeFacets/_8TmTUMtlEdy7K9XeCH7Hrw/0" xmlns:bomnotation="http://www.tibco.com/models/bomnotation" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:elx="http://www.tibco.com/EnumLiteralExt" xmlns:notation="http://www.eclipse.org/gmf/runtime/1.0.2/notation" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xsi:schemaLocation="http:///schemas/BOMGlobalDataProfile/_-rxZEHyPEeCumvZ6xHSUiw/0 pathmap://GLOBALDATA_PROFILES/BOMGlobalData.profile.uml#_-r7KEXyPEeCumvZ6xHSUiw http:///schemas/PrimitiveTypeFacets/_8TmTUMtlEdy7K9XeCH7Hrw/0 pathmap://BOM_TYPES/PrimitiveTypeFacets.profile.uml#_8TmTUstlEdy7K9XeCH7Hrw">
+  <uml:Model xmi:id="_mlVWMNXMEeqPDptWnp5KOA" name="com.borro.loandata">
+    <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_mlV9QNXMEeqPDptWnp5KOA" source="model.metadata">
+      <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_mlV9QdXMEeqPDptWnp5KOA" key="author" value="azureuser"/>
+      <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_mlV9QtXMEeqPDptWnp5KOA" key="created" value="1596488532755"/>
+      <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_mlV9Q9XMEeqPDptWnp5KOA" key="version" value="1000"/>
+    </eAnnotations>
+    <packagedElement xmi:type="uml:Class" xmi:id="_oHYa8NXQEeqPDptWnp5KOA" name="LoanApplication">
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_wcP0INXQEeqPDptWnp5KOA" name="applicationID" isReadOnly="true" aggregation="composite">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://BOM_TYPES/BomPrimitiveTypes.library.uml#_AGoC4HcNEdytQ9AWEvOuug?BomPrimitiveTypes%3a%3aText?"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_wfG64NXQEeqPDptWnp5KOA" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_wfG64dXQEeqPDptWnp5KOA" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_6zD28NXQEeqPDptWnp5KOA" name="amount" aggregation="composite">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://BOM_TYPES/BomPrimitiveTypes.library.uml#_gzTqYHvBEdy0U8_1u7Q20g?BomPrimitiveTypes%3a%3aDecimal?"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_6zGTMNXQEeqPDptWnp5KOA" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_6zGTMdXQEeqPDptWnp5KOA" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_KwzGANXREeqPDptWnp5KOA" name="months" aggregation="composite">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://BOM_TYPES/BomPrimitiveTypes.library.uml#_gzTqYHvBEdy0U8_1u7Q20g?BomPrimitiveTypes%3a%3aDecimal?"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_Kw07MdXREeqPDptWnp5KOA" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_Kw07MtXREeqPDptWnp5KOA" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_2LI0INXREeqPDptWnp5KOA" name="reason" type="_liYSINXREeqPDptWnp5KOA?com.borro.loandata%3a%3aReason?" aggregation="composite">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_2LKpUdXREeqPDptWnp5KOA" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_2LKpUtXREeqPDptWnp5KOA" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_DMFTMNXYEeqPDptWnp5KOA" name="customer" type="_G2UikNXTEeqPDptWnp5KOA?com.borro.loandata%3a%3aCustomer?" association="_DMEsINXYEeqPDptWnp5KOA">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_DMFTMdXYEeqPDptWnp5KOA"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_DMFTMtXYEeqPDptWnp5KOA" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_JLd7YNXbEeqPDptWnp5KOA" name="date" aggregation="composite">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://BOM_TYPES/BomPrimitiveTypes.library.uml#_AmUlgHvBEdy0U8_1u7Q20g?BomPrimitiveTypes%3a%3aDate?"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_JLfJgdXbEeqPDptWnp5KOA" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_JLfJgtXbEeqPDptWnp5KOA" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="__pA_oNXYEeqPDptWnp5KOA" name="status" type="_FSRuMNXZEeqPDptWnp5KOA?com.borro.loandata%3a%3aApplicationStatus?" aggregation="composite">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="__pDb4NXYEeqPDptWnp5KOA" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="__pDb4dXYEeqPDptWnp5KOA" value="1"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Enumeration" xmi:id="_liYSINXREeqPDptWnp5KOA" name="Reason">
+      <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_nJfZ4NXREeqPDptWnp5KOA" name="FURNITURE" classifier="_liYSINXREeqPDptWnp5KOA?com.borro.loandata%3a%3aReason?">
+        <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_nJjrUNXREeqPDptWnp5KOA" source="domain">
+          <contents xmi:type="elx:SingleValue" xmi:id="_nJjrUdXREeqPDptWnp5KOA" value="FURNITURE"/>
+        </eAnnotations>
+      </ownedLiteral>
+      <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_rBjQkNXREeqPDptWnp5KOA" name="HOMEIMPROVEMENT" classifier="_liYSINXREeqPDptWnp5KOA?com.borro.loandata%3a%3aReason?">
+        <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_rBlFwNXREeqPDptWnp5KOA" source="domain">
+          <contents xmi:type="elx:SingleValue" xmi:id="_rBlFwdXREeqPDptWnp5KOA" value="HOMEIMPROVEMENT"/>
+        </eAnnotations>
+      </ownedLiteral>
+      <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_sp7joNXREeqPDptWnp5KOA" name="PAYMENTS" classifier="_liYSINXREeqPDptWnp5KOA?com.borro.loandata%3a%3aReason?">
+        <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_sp8xwNXREeqPDptWnp5KOA" source="domain">
+          <contents xmi:type="elx:SingleValue" xmi:id="_sp8xwdXREeqPDptWnp5KOA" value="PAYMENTS"/>
+        </eAnnotations>
+      </ownedLiteral>
+      <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_waUsENXREeqPDptWnp5KOA" name="HOLIDAY" classifier="_liYSINXREeqPDptWnp5KOA?com.borro.loandata%3a%3aReason?">
+        <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_waXIUNXREeqPDptWnp5KOA" source="domain">
+          <contents xmi:type="elx:SingleValue" xmi:id="_waXIUdXREeqPDptWnp5KOA" value="HOLIDAY"/>
+        </eAnnotations>
+      </ownedLiteral>
+      <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_xgBv4NXREeqPDptWnp5KOA" name="VEHICLE" classifier="_liYSINXREeqPDptWnp5KOA?com.borro.loandata%3a%3aReason?">
+        <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_xgDlENXREeqPDptWnp5KOA" source="domain">
+          <contents xmi:type="elx:SingleValue" xmi:id="_xgDlEdXREeqPDptWnp5KOA" value="VEHICLE"/>
+        </eAnnotations>
+      </ownedLiteral>
+      <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_zV990NXREeqPDptWnp5KOA" name="OTHER" classifier="_liYSINXREeqPDptWnp5KOA?com.borro.loandata%3a%3aReason?">
+        <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_zWAaENXREeqPDptWnp5KOA" source="domain">
+          <contents xmi:type="elx:SingleValue" xmi:id="_zWAaEdXREeqPDptWnp5KOA" value="OTHER"/>
+        </eAnnotations>
+      </ownedLiteral>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_G2UikNXTEeqPDptWnp5KOA" name="Customer">
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_IRZZcNXTEeqPDptWnp5KOA" name="customerID" isReadOnly="true" aggregation="composite">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://BOM_TYPES/BomPrimitiveTypes.library.uml#_AGoC4HcNEdytQ9AWEvOuug?BomPrimitiveTypes%3a%3aText?"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_IRdq4NXTEeqPDptWnp5KOA" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_IRdq4dXTEeqPDptWnp5KOA" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_eN5tANXTEeqPDptWnp5KOA" name="title" aggregation="composite">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://BOM_TYPES/BomPrimitiveTypes.library.uml#_AGoC4HcNEdytQ9AWEvOuug?BomPrimitiveTypes%3a%3aText?"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_eN7iMdXTEeqPDptWnp5KOA"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_eN7iMtXTEeqPDptWnp5KOA" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_kE8Y4NXTEeqPDptWnp5KOA" name="firstName" aggregation="composite">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://BOM_TYPES/BomPrimitiveTypes.library.uml#_AGoC4HcNEdytQ9AWEvOuug?BomPrimitiveTypes%3a%3aText?"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_kE9nAdXTEeqPDptWnp5KOA" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_kE9nAtXTEeqPDptWnp5KOA" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_qK-jANXTEeqPDptWnp5KOA" name="lastName" aggregation="composite">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://BOM_TYPES/BomPrimitiveTypes.library.uml#_AGoC4HcNEdytQ9AWEvOuug?BomPrimitiveTypes%3a%3aText?"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_qLAYMNXTEeqPDptWnp5KOA" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_qLAYMdXTEeqPDptWnp5KOA" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_z7HnYNXTEeqPDptWnp5KOA" name="email" aggregation="composite">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://BOM_TYPES/BomPrimitiveTypes.library.uml#_AGoC4HcNEdytQ9AWEvOuug?BomPrimitiveTypes%3a%3aText?"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_z7LRwNXTEeqPDptWnp5KOA" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_z7LRwdXTEeqPDptWnp5KOA" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="__BamYNXTEeqPDptWnp5KOA" name="dateofbirth" aggregation="composite">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://BOM_TYPES/BomPrimitiveTypes.library.uml#_AmUlgHvBEdy0U8_1u7Q20g?BomPrimitiveTypes%3a%3aDate?"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="__Bfe4dXTEeqPDptWnp5KOA" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="__Bfe4tXTEeqPDptWnp5KOA" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_WNcoINXUEeqPDptWnp5KOA" name="phoneNumber" aggregation="composite">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://BOM_TYPES/BomPrimitiveTypes.library.uml#_gzTqYHvBEdy0U8_1u7Q20g?BomPrimitiveTypes%3a%3aDecimal?"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_WNkj8NXUEeqPDptWnp5KOA" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_WNkj8dXUEeqPDptWnp5KOA" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_oi0c8NXUEeqPDptWnp5KOA" name="address" aggregation="composite">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://BOM_TYPES/BomPrimitiveTypes.library.uml#_AGoC4HcNEdytQ9AWEvOuug?BomPrimitiveTypes%3a%3aText?"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_oi2SIdXUEeqPDptWnp5KOA" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_oi25MNXUEeqPDptWnp5KOA" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_MWTucNXVEeqPDptWnp5KOA" name="employmentStatus" type="_9M9wwNXUEeqPDptWnp5KOA?com.borro.loandata%3a%3aEmploymentStatus?" aggregation="composite">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_MWWKsNXVEeqPDptWnp5KOA" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_MWWKsdXVEeqPDptWnp5KOA" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_fXvYANXVEeqPDptWnp5KOA" name="occupation" aggregation="composite">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://BOM_TYPES/BomPrimitiveTypes.library.uml#_AGoC4HcNEdytQ9AWEvOuug?BomPrimitiveTypes%3a%3aText?"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_fXxNMNXVEeqPDptWnp5KOA" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_fXxNMdXVEeqPDptWnp5KOA" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_xgshcNXVEeqPDptWnp5KOA" name="employerBusinessName" aggregation="composite">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://BOM_TYPES/BomPrimitiveTypes.library.uml#_AGoC4HcNEdytQ9AWEvOuug?BomPrimitiveTypes%3a%3aText?"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_xguWoNXVEeqPDptWnp5KOA"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_xguWodXVEeqPDptWnp5KOA" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_AYElYNXWEeqPDptWnp5KOA" name="annualIncome" aggregation="composite">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://BOM_TYPES/BomPrimitiveTypes.library.uml#_gzTqYHvBEdy0U8_1u7Q20g?BomPrimitiveTypes%3a%3aDecimal?"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_AYFzgdXWEeqPDptWnp5KOA" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_AYGakNXWEeqPDptWnp5KOA" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_qrknQNXWEeqPDptWnp5KOA" name="status" type="_yGC0wNXWEeqPDptWnp5KOA?com.borro.loandata%3a%3aCustomerStatus?" aggregation="composite">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_qrmccdXWEeqPDptWnp5KOA" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_qrmcctXWEeqPDptWnp5KOA" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_DMFTM9XYEeqPDptWnp5KOA" name="application" type="_oHYa8NXQEeqPDptWnp5KOA?com.borro.loandata%3a%3aLoanApplication?" association="_DMEsINXYEeqPDptWnp5KOA">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_DMF6QNXYEeqPDptWnp5KOA"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_DMF6QdXYEeqPDptWnp5KOA" value="*"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_cEiuAdirEeqatKvhXZfngw" name="accountDetails" type="_o5MIMNiKEeqatKvhXZfngw?com.borro.loandata%3a%3aAccountDetails?" association="_cEg40NirEeqatKvhXZfngw">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cEiuAtirEeqatKvhXZfngw"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cEiuA9irEeqatKvhXZfngw" value="*"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Enumeration" xmi:id="_9M9wwNXUEeqPDptWnp5KOA" name="EmploymentStatus">
+      <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_Bs_mYNXVEeqPDptWnp5KOA" name="EMPLOYED" classifier="_9M9wwNXUEeqPDptWnp5KOA?com.borro.loandata%3a%3aEmploymentStatus?">
+        <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_BtFtANXVEeqPDptWnp5KOA" source="domain">
+          <contents xmi:type="elx:SingleValue" xmi:id="_BtFtAdXVEeqPDptWnp5KOA" value="EMPLOYED"/>
+        </eAnnotations>
+      </ownedLiteral>
+      <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_EDj1INXVEeqPDptWnp5KOA" name="SELFEMPLOYED" classifier="_9M9wwNXUEeqPDptWnp5KOA?com.borro.loandata%3a%3aEmploymentStatus?">
+        <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_EDkcMNXVEeqPDptWnp5KOA" source="domain">
+          <contents xmi:type="elx:SingleValue" xmi:id="_EDkcMdXVEeqPDptWnp5KOA" value="SELFEMPLOYED"/>
+        </eAnnotations>
+      </ownedLiteral>
+      <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_fZpAANXWEeqPDptWnp5KOA" name="UNEMPLOYED" classifier="_9M9wwNXUEeqPDptWnp5KOA?com.borro.loandata%3a%3aEmploymentStatus?">
+        <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_fZqOINXWEeqPDptWnp5KOA" source="domain">
+          <contents xmi:type="elx:SingleValue" xmi:id="_fZqOIdXWEeqPDptWnp5KOA" value="UNEMPLOYED"/>
+        </eAnnotations>
+      </ownedLiteral>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Enumeration" xmi:id="_O4ndsNXWEeqPDptWnp5KOA" name="Banks">
+      <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_P59l8NXWEeqPDptWnp5KOA" name="ALPHABANK" classifier="_O4ndsNXWEeqPDptWnp5KOA?com.borro.loandata%3a%3aBanks?">
+        <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_P5_bINXWEeqPDptWnp5KOA" source="domain">
+          <contents xmi:type="elx:SingleValue" xmi:id="_P5_bIdXWEeqPDptWnp5KOA" value="ALPHABANK"/>
+        </eAnnotations>
+      </ownedLiteral>
+      <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_RKnVgNXWEeqPDptWnp5KOA" name="BETABANK" classifier="_O4ndsNXWEeqPDptWnp5KOA?com.borro.loandata%3a%3aBanks?">
+        <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_RKojodXWEeqPDptWnp5KOA" source="domain">
+          <contents xmi:type="elx:SingleValue" xmi:id="_RKpKsNXWEeqPDptWnp5KOA" value="BETABANK"/>
+        </eAnnotations>
+      </ownedLiteral>
+      <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_w2Of8OI9EeqVM-2lpO5XLQ" name="SIGMABANK" classifier="_O4ndsNXWEeqPDptWnp5KOA?com.borro.loandata%3a%3aBanks?">
+        <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_w2e-oOI9EeqVM-2lpO5XLQ" source="domain">
+          <contents xmi:type="elx:SingleValue" xmi:id="_w2e-oeI9EeqVM-2lpO5XLQ" value="SIGMABANK"/>
+        </eAnnotations>
+      </ownedLiteral>
+      <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_yaquMOI9EeqVM-2lpO5XLQ" name="INFINITYBANK" classifier="_O4ndsNXWEeqPDptWnp5KOA?com.borro.loandata%3a%3aBanks?">
+        <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_yar8UOI9EeqVM-2lpO5XLQ" source="domain">
+          <contents xmi:type="elx:SingleValue" xmi:id="_yar8UeI9EeqVM-2lpO5XLQ" value="INFINITYBANK"/>
+        </eAnnotations>
+      </ownedLiteral>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Enumeration" xmi:id="_yGC0wNXWEeqPDptWnp5KOA" name="CustomerStatus">
+      <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_4jSlANXWEeqPDptWnp5KOA" name="ACTIVE" classifier="_yGC0wNXWEeqPDptWnp5KOA?com.borro.loandata%3a%3aCustomerStatus?">
+        <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_4jTzINXWEeqPDptWnp5KOA" source="domain">
+          <contents xmi:type="elx:SingleValue" xmi:id="_4jTzIdXWEeqPDptWnp5KOA" value="ACTIVE"/>
+        </eAnnotations>
+      </ownedLiteral>
+      <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_AO0GQNXXEeqPDptWnp5KOA" name="INACTIVE" classifier="_yGC0wNXWEeqPDptWnp5KOA?com.borro.loandata%3a%3aCustomerStatus?">
+        <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_AO1UYNXXEeqPDptWnp5KOA" source="domain">
+          <contents xmi:type="elx:SingleValue" xmi:id="_AO1UYdXXEeqPDptWnp5KOA" value="INACTIVE"/>
+        </eAnnotations>
+      </ownedLiteral>
+      <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_tl6cANXXEeqPDptWnp5KOA" name="INPROGRESS" classifier="_yGC0wNXWEeqPDptWnp5KOA?com.borro.loandata%3a%3aCustomerStatus?">
+        <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_tl7qINXXEeqPDptWnp5KOA" source="domain">
+          <contents xmi:type="elx:SingleValue" xmi:id="_tl7qIdXXEeqPDptWnp5KOA" value="INPROGRESS"/>
+        </eAnnotations>
+      </ownedLiteral>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_DMEsINXYEeqPDptWnp5KOA" memberEnd="_DMFTMNXYEeqPDptWnp5KOA?com.borro.loandata%3a%3aLoanApplication%3a%3acustomer? _DMFTM9XYEeqPDptWnp5KOA?com.borro.loandata%3a%3aCustomer%3a%3aapplication?"/>
+    <packagedElement xmi:type="uml:Enumeration" xmi:id="_FSRuMNXZEeqPDptWnp5KOA" name="ApplicationStatus">
+      <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_OPHGUNXZEeqPDptWnp5KOA" name="PREQUAIFICATION" classifier="_FSRuMNXZEeqPDptWnp5KOA?com.borro.loandata%3a%3aApplicationStatus?">
+        <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_OPHtYdXZEeqPDptWnp5KOA" source="domain">
+          <contents xmi:type="elx:SingleValue" xmi:id="_OPHtYtXZEeqPDptWnp5KOA" value="PREQUAIFICATION"/>
+        </eAnnotations>
+      </ownedLiteral>
+      <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_HHJIoNXaEeqPDptWnp5KOA" name="QUALIFICATIONCOMPLETE" classifier="_FSRuMNXZEeqPDptWnp5KOA?com.borro.loandata%3a%3aApplicationStatus?">
+        <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_HHKWwNXaEeqPDptWnp5KOA" source="domain">
+          <contents xmi:type="elx:SingleValue" xmi:id="_HHKWwdXaEeqPDptWnp5KOA" value="QUALIFICATIONCOMPLETE"/>
+        </eAnnotations>
+      </ownedLiteral>
+      <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_3xRK0NXZEeqPDptWnp5KOA" name="DECISIONPENDING" classifier="_FSRuMNXZEeqPDptWnp5KOA?com.borro.loandata%3a%3aApplicationStatus?">
+        <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_3xU1MNXZEeqPDptWnp5KOA" source="domain">
+          <contents xmi:type="elx:SingleValue" xmi:id="_3xU1MdXZEeqPDptWnp5KOA" value="DECISIONPENDING"/>
+        </eAnnotations>
+      </ownedLiteral>
+      <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_ALflINXaEeqPDptWnp5KOA" name="APPROVED" classifier="_FSRuMNXZEeqPDptWnp5KOA?com.borro.loandata%3a%3aApplicationStatus?">
+        <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_ALgzQNXaEeqPDptWnp5KOA" source="domain">
+          <contents xmi:type="elx:SingleValue" xmi:id="_ALgzQdXaEeqPDptWnp5KOA" value="APPROVED"/>
+        </eAnnotations>
+      </ownedLiteral>
+      <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_BXO_gNXaEeqPDptWnp5KOA" name="REJECTED" classifier="_FSRuMNXZEeqPDptWnp5KOA?com.borro.loandata%3a%3aApplicationStatus?">
+        <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_BXQ0sNXaEeqPDptWnp5KOA" source="domain">
+          <contents xmi:type="elx:SingleValue" xmi:id="_BXQ0sdXaEeqPDptWnp5KOA" value="REJECTED"/>
+        </eAnnotations>
+      </ownedLiteral>
+      <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_X4R4oNXcEeqPDptWnp5KOA" name="CANCELLED" classifier="_FSRuMNXZEeqPDptWnp5KOA?com.borro.loandata%3a%3aApplicationStatus?">
+        <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_X4Tt0NXcEeqPDptWnp5KOA" source="domain">
+          <contents xmi:type="elx:SingleValue" xmi:id="_X4Tt0dXcEeqPDptWnp5KOA" value="CANCELLED"/>
+        </eAnnotations>
+      </ownedLiteral>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_o5MIMNiKEeqatKvhXZfngw" name="AccountDetails">
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_CggdoNisEeqatKvhXZfngw" name="accountId" isReadOnly="true" aggregation="composite">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://BOM_TYPES/BomPrimitiveTypes.library.uml#_AGoC4HcNEdytQ9AWEvOuug?BomPrimitiveTypes%3a%3aText?"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_CghrwNisEeqatKvhXZfngw" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_CghrwdisEeqatKvhXZfngw" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_srlbwNiKEeqatKvhXZfngw" name="bankName" type="_O4ndsNXWEeqPDptWnp5KOA?com.borro.loandata%3a%3aBanks?" aggregation="composite">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_srulsdiKEeqatKvhXZfngw"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_srvMwNiKEeqatKvhXZfngw" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_ARPzwNiLEeqatKvhXZfngw" name="sortCode" aggregation="composite">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://BOM_TYPES/BomPrimitiveTypes.library.uml#_AGoC4HcNEdytQ9AWEvOuug?BomPrimitiveTypes%3a%3aText?"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_ARRB4diLEeqatKvhXZfngw"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_ARRB4tiLEeqatKvhXZfngw" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_tC1eINiKEeqatKvhXZfngw" name="accountNumber" aggregation="composite">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://BOM_TYPES/BomPrimitiveTypes.library.uml#_AGoC4HcNEdytQ9AWEvOuug?BomPrimitiveTypes%3a%3aText?"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_tC2sQdiKEeqatKvhXZfngw"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_tC2sQtiKEeqatKvhXZfngw" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_tVWKcNiKEeqatKvhXZfngw" name="currency" aggregation="composite">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://BOM_TYPES/BomPrimitiveTypes.library.uml#_AGoC4HcNEdytQ9AWEvOuug?BomPrimitiveTypes%3a%3aText?"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_tVXYkNiKEeqatKvhXZfngw"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_tVXYkdiKEeqatKvhXZfngw" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_tojaUNiKEeqatKvhXZfngw" name="accountType" aggregation="composite">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://BOM_TYPES/BomPrimitiveTypes.library.uml#_AGoC4HcNEdytQ9AWEvOuug?BomPrimitiveTypes%3a%3aText?"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_tokBYdiKEeqatKvhXZfngw"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_tokBYtiKEeqatKvhXZfngw" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_-445sNiKEeqatKvhXZfngw" name="accountSubType" aggregation="composite">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://BOM_TYPES/BomPrimitiveTypes.library.uml#_AGoC4HcNEdytQ9AWEvOuug?BomPrimitiveTypes%3a%3aText?"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_-46H0NiKEeqatKvhXZfngw"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_-46H0diKEeqatKvhXZfngw" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="__OYBgNiKEeqatKvhXZfngw" name="openingDate" aggregation="composite">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://BOM_TYPES/BomPrimitiveTypes.library.uml#_AGoC4HcNEdytQ9AWEvOuug?BomPrimitiveTypes%3a%3aText?"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="__OZPoNiKEeqatKvhXZfngw"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="__OZPodiKEeqatKvhXZfngw" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_cEiG8NirEeqatKvhXZfngw" name="customer" type="_G2UikNXTEeqPDptWnp5KOA?com.borro.loandata%3a%3aCustomer?" association="_cEg40NirEeqatKvhXZfngw">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cEiG8dirEeqatKvhXZfngw"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cEiuANirEeqatKvhXZfngw" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_vK2QgNirEeqatKvhXZfngw" name="accountState" type="_zjjWINirEeqatKvhXZfngw?com.borro.loandata%3a%3aAccountStatus?" aggregation="composite">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_vK3eodirEeqatKvhXZfngw" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_vK3eotirEeqatKvhXZfngw" value="1"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_cEg40NirEeqatKvhXZfngw" memberEnd="_cEiG8NirEeqatKvhXZfngw?com.borro.loandata%3a%3aAccountDetails%3a%3acustomer? _cEiuAdirEeqatKvhXZfngw?com.borro.loandata%3a%3aCustomer%3a%3aaccountDetails?"/>
+    <packagedElement xmi:type="uml:Enumeration" xmi:id="_zjjWINirEeqatKvhXZfngw" name="AccountStatus">
+      <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_2HAxYNirEeqatKvhXZfngw" name="USED" classifier="_zjjWINirEeqatKvhXZfngw?com.borro.loandata%3a%3aAccountStatus?">
+        <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_2HB_gNirEeqatKvhXZfngw" source="domain">
+          <contents xmi:type="elx:SingleValue" xmi:id="_2HCmkNirEeqatKvhXZfngw" value="USED"/>
+        </eAnnotations>
+      </ownedLiteral>
+      <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_2b2Y8NirEeqatKvhXZfngw" name="UNUSED" classifier="_zjjWINirEeqatKvhXZfngw?com.borro.loandata%3a%3aAccountStatus?">
+        <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_2b3AAdirEeqatKvhXZfngw" source="domain">
+          <contents xmi:type="elx:SingleValue" xmi:id="_2b3AAtirEeqatKvhXZfngw" value="UNUSED"/>
+        </eAnnotations>
+      </ownedLiteral>
+    </packagedElement>
+    <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_msSSwNXMEeqPDptWnp5KOA">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_msVWENXMEeqPDptWnp5KOA" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="pathmap://GLOBALDATA_PROFILES/BOMGlobalData.profile.uml#_-r7KEXyPEeCumvZ6xHSUiw"/>
+      </eAnnotations>
+      <appliedProfile xmi:type="uml:Profile" href="pathmap://GLOBALDATA_PROFILES/BOMGlobalData.profile.uml#_20kHsWs1EeC_hvle0zpSaA?BOM%20Global%20Data%20Profile?"/>
+    </profileApplication>
+    <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_oHcFUNXQEeqPDptWnp5KOA">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_oHcFUdXQEeqPDptWnp5KOA" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="pathmap://BOM_TYPES/PrimitiveTypeFacets.profile.uml#_8TmTUstlEdy7K9XeCH7Hrw"/>
+      </eAnnotations>
+      <appliedProfile xmi:type="uml:Profile" href="pathmap://BOM_TYPES/PrimitiveTypeFacets.profile.uml#_3A574HcJEdytQ9AWEvOuug?PrimitiveTypeFacets?"/>
+    </profileApplication>
+  </uml:Model>
+  <notation:Diagram xmi:id="_mlZAkNXMEeqPDptWnp5KOA" type="Business Object Model" element="_mlVWMNXMEeqPDptWnp5KOA?com.borro.loandata?" name="LoanData.bom" measurementUnit="Pixel">
+    <children xmi:type="notation:Node" xmi:id="_mpHqANXMEeqPDptWnp5KOA" type="1007" element="_mlVWMNXMEeqPDptWnp5KOA?com.borro.loandata?">
+      <children xmi:type="notation:Node" xmi:id="_mpI4INXMEeqPDptWnp5KOA" type="4023">
+        <styles xmi:type="notation:FontStyle" xmi:id="_mpI4IdXMEeqPDptWnp5KOA" fontName="Sans" fontHeight="10" bold="true"/>
+      </children>
+      <children xmi:type="notation:Node" xmi:id="_mpJfMNXMEeqPDptWnp5KOA" type="4024"/>
+      <children xmi:type="notation:Node" xmi:id="_mpJfMdXMEeqPDptWnp5KOA" type="4025"/>
+      <children xmi:type="notation:Node" xmi:id="_mpKGQNXMEeqPDptWnp5KOA" type="4026"/>
+      <children xmi:type="notation:Node" xmi:id="_mpKGQdXMEeqPDptWnp5KOA" type="4027"/>
+      <children xmi:type="notation:Node" xmi:id="_mpKtUNXMEeqPDptWnp5KOA" type="4028"/>
+      <children xmi:type="notation:Node" xmi:id="_mpKtUdXMEeqPDptWnp5KOA" type="4029"/>
+      <children xmi:type="notation:Node" xmi:id="_mpLUYNXMEeqPDptWnp5KOA" type="4030"/>
+      <children xmi:type="notation:Node" xmi:id="_mpLUYdXMEeqPDptWnp5KOA" type="5007">
+        <styles xmi:type="notation:DrawerStyle" xmi:id="_mpLUYtXMEeqPDptWnp5KOA"/>
+        <styles xmi:type="notation:TitleStyle" xmi:id="_mpLUY9XMEeqPDptWnp5KOA" showTitle="true"/>
+        <styles xmi:type="notation:SortingStyle" xmi:id="_mpLUZNXMEeqPDptWnp5KOA"/>
+        <styles xmi:type="notation:FilteringStyle" xmi:id="_mpLUZdXMEeqPDptWnp5KOA"/>
+      </children>
+      <styles xmi:type="notation:ShapeStyle" xmi:id="_mpHqAdXMEeqPDptWnp5KOA" fontName="Sans" fontHeight="10" fillColor="16316150" lineColor="37120"/>
+      <styles xmi:type="notation:FillStyle" xmi:id="_mpHqAtXMEeqPDptWnp5KOA"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_mpHqA9XMEeqPDptWnp5KOA" x="10" y="-25"/>
+    </children>
+    <children xmi:type="notation:Node" xmi:id="_oIIo4NXQEeqPDptWnp5KOA" type="1002" element="_oHYa8NXQEeqPDptWnp5KOA?com.borro.loandata%3a%3aLoanApplication?">
+      <children xmi:type="notation:Node" xmi:id="_oILFINXQEeqPDptWnp5KOA" type="4003"/>
+      <children xmi:type="notation:Node" xmi:id="_oILsMNXQEeqPDptWnp5KOA" type="4004"/>
+      <children xmi:type="notation:Node" xmi:id="_oILsMdXQEeqPDptWnp5KOA" type="4005"/>
+      <children xmi:type="notation:Node" xmi:id="_oILsMtXQEeqPDptWnp5KOA" type="5002">
+        <children xmi:type="notation:Node" xmi:id="_wfKlQNXQEeqPDptWnp5KOA" type="2001" element="_wcP0INXQEeqPDptWnp5KOA?com.borro.loandata%3a%3aLoanApplication%3a%3aapplicationID?">
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_wfKlQdXQEeqPDptWnp5KOA"/>
+        </children>
+        <children xmi:type="notation:Node" xmi:id="_6zJWgNXQEeqPDptWnp5KOA" type="2001" element="_6zD28NXQEeqPDptWnp5KOA?com.borro.loandata%3a%3aLoanApplication%3a%3aamount?">
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_6zJWgdXQEeqPDptWnp5KOA"/>
+        </children>
+        <children xmi:type="notation:Node" xmi:id="_Kw3-gNXREeqPDptWnp5KOA" type="2001" element="_KwzGANXREeqPDptWnp5KOA?com.borro.loandata%3a%3aLoanApplication%3a%3amonths?">
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_Kw3-gdXREeqPDptWnp5KOA"/>
+        </children>
+        <children xmi:type="notation:Node" xmi:id="_2LVocNXREeqPDptWnp5KOA" type="2001" element="_2LI0INXREeqPDptWnp5KOA?com.borro.loandata%3a%3aLoanApplication%3a%3areason?">
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_2LVocdXREeqPDptWnp5KOA"/>
+        </children>
+        <children xmi:type="notation:Node" xmi:id="_JLg-sNXbEeqPDptWnp5KOA" type="2001" element="_JLd7YNXbEeqPDptWnp5KOA?com.borro.loandata%3a%3aLoanApplication%3a%3adate?">
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_JLg-sdXbEeqPDptWnp5KOA"/>
+        </children>
+        <children xmi:type="notation:Node" xmi:id="__pFRENXYEeqPDptWnp5KOA" type="2001" element="__pA_oNXYEeqPDptWnp5KOA?com.borro.loandata%3a%3aLoanApplication%3a%3astatus?">
+          <layoutConstraint xmi:type="notation:Location" xmi:id="__pFREdXYEeqPDptWnp5KOA"/>
+        </children>
+        <styles xmi:type="notation:DrawerStyle" xmi:id="_oILsM9XQEeqPDptWnp5KOA"/>
+        <styles xmi:type="notation:SortingStyle" xmi:id="_oILsNNXQEeqPDptWnp5KOA"/>
+        <styles xmi:type="notation:FilteringStyle" xmi:id="_oILsNdXQEeqPDptWnp5KOA"/>
+      </children>
+      <children xmi:type="notation:Node" xmi:id="_oINhYNXQEeqPDptWnp5KOA" type="5003">
+        <styles xmi:type="notation:DrawerStyle" xmi:id="_oINhYdXQEeqPDptWnp5KOA"/>
+        <styles xmi:type="notation:SortingStyle" xmi:id="_oINhYtXQEeqPDptWnp5KOA"/>
+        <styles xmi:type="notation:FilteringStyle" xmi:id="_oINhY9XQEeqPDptWnp5KOA"/>
+      </children>
+      <styles xmi:type="notation:ShapeStyle" xmi:id="_oIIo4dXQEeqPDptWnp5KOA" fontName="Sans" fontHeight="10"/>
+      <styles xmi:type="bomnotation:ShapeGradientStyle" xmi:id="_oIJ3ANXQEeqPDptWnp5KOA" gradStartColor="16096809" gradEndColor="16777215"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_oIJ3AdXQEeqPDptWnp5KOA" x="364" y="57" width="291" height="233"/>
+    </children>
+    <children xmi:type="notation:Node" xmi:id="_linisNXREeqPDptWnp5KOA" type="1004" element="_liYSINXREeqPDptWnp5KOA?com.borro.loandata%3a%3aReason?">
+      <children xmi:type="notation:Node" xmi:id="_lioJwNXREeqPDptWnp5KOA" type="4015"/>
+      <children xmi:type="notation:Node" xmi:id="_lioJwdXREeqPDptWnp5KOA" type="4016"/>
+      <children xmi:type="notation:Node" xmi:id="_liow0NXREeqPDptWnp5KOA" type="4017"/>
+      <children xmi:type="notation:Node" xmi:id="_liow0dXREeqPDptWnp5KOA" type="5004">
+        <children xmi:type="notation:Node" xmi:id="_nJmuoNXREeqPDptWnp5KOA" type="2003" element="_nJfZ4NXREeqPDptWnp5KOA?com.borro.loandata%3a%3aReason%3a%3aFURNITURE?">
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_nJmuodXREeqPDptWnp5KOA"/>
+        </children>
+        <children xmi:type="notation:Node" xmi:id="_rBm68NXREeqPDptWnp5KOA" type="2003" element="_rBjQkNXREeqPDptWnp5KOA?com.borro.loandata%3a%3aReason%3a%3aHOMEIMPROVEMENT?">
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_rBm68dXREeqPDptWnp5KOA"/>
+        </children>
+        <children xmi:type="notation:Node" xmi:id="_sp9_4NXREeqPDptWnp5KOA" type="2003" element="_sp7joNXREeqPDptWnp5KOA?com.borro.loandata%3a%3aReason%3a%3aPAYMENTS?">
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_sp-m8NXREeqPDptWnp5KOA"/>
+        </children>
+        <children xmi:type="notation:Node" xmi:id="_waZkkNXREeqPDptWnp5KOA" type="2003" element="_waUsENXREeqPDptWnp5KOA?com.borro.loandata%3a%3aReason%3a%3aHOLIDAY?">
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_waZkkdXREeqPDptWnp5KOA"/>
+        </children>
+        <children xmi:type="notation:Node" xmi:id="_xgEzMNXREeqPDptWnp5KOA" type="2003" element="_xgBv4NXREeqPDptWnp5KOA?com.borro.loandata%3a%3aReason%3a%3aVEHICLE?">
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_xgEzMdXREeqPDptWnp5KOA"/>
+        </children>
+        <children xmi:type="notation:Node" xmi:id="_zWC2UNXREeqPDptWnp5KOA" type="2003" element="_zV990NXREeqPDptWnp5KOA?com.borro.loandata%3a%3aReason%3a%3aOTHER?">
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_zWC2UdXREeqPDptWnp5KOA"/>
+        </children>
+        <styles xmi:type="notation:DrawerStyle" xmi:id="_liow0tXREeqPDptWnp5KOA"/>
+        <styles xmi:type="notation:SortingStyle" xmi:id="_liow09XREeqPDptWnp5KOA"/>
+        <styles xmi:type="notation:FilteringStyle" xmi:id="_liow1NXREeqPDptWnp5KOA"/>
+      </children>
+      <styles xmi:type="notation:ShapeStyle" xmi:id="_linisdXREeqPDptWnp5KOA" fontName="Sans" fontHeight="10"/>
+      <styles xmi:type="bomnotation:ShapeGradientStyle" xmi:id="_linistXREeqPDptWnp5KOA" gradStartColor="8454143" gradEndColor="16777215"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_linis9XREeqPDptWnp5KOA" x="49" y="168" width="222" height="227"/>
+    </children>
+    <children xmi:type="notation:Node" xmi:id="_G2ndgNXTEeqPDptWnp5KOA" type="1002" element="_G2UikNXTEeqPDptWnp5KOA?com.borro.loandata%3a%3aCustomer?">
+      <children xmi:type="notation:Node" xmi:id="_G2ndhNXTEeqPDptWnp5KOA" type="4003"/>
+      <children xmi:type="notation:Node" xmi:id="_G2ndhdXTEeqPDptWnp5KOA" type="4004"/>
+      <children xmi:type="notation:Node" xmi:id="_G2ndhtXTEeqPDptWnp5KOA" type="4005"/>
+      <children xmi:type="notation:Node" xmi:id="_G2ndh9XTEeqPDptWnp5KOA" type="5002">
+        <children xmi:type="notation:Node" xmi:id="_IRh8UNXTEeqPDptWnp5KOA" type="2001" element="_IRZZcNXTEeqPDptWnp5KOA?com.borro.loandata%3a%3aCustomer%3a%3acustomerID?">
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_IRh8UdXTEeqPDptWnp5KOA"/>
+        </children>
+        <children xmi:type="notation:Node" xmi:id="_eN9-cNXTEeqPDptWnp5KOA" type="2001" element="_eN5tANXTEeqPDptWnp5KOA?com.borro.loandata%3a%3aCustomer%3a%3atitle?">
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_eN9-cdXTEeqPDptWnp5KOA"/>
+        </children>
+        <children xmi:type="notation:Node" xmi:id="_kFADQNXTEeqPDptWnp5KOA" type="2001" element="_kE8Y4NXTEeqPDptWnp5KOA?com.borro.loandata%3a%3aCustomer%3a%3afirstName?">
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_kFADQdXTEeqPDptWnp5KOA"/>
+        </children>
+        <children xmi:type="notation:Node" xmi:id="_qLCNYNXTEeqPDptWnp5KOA" type="2001" element="_qK-jANXTEeqPDptWnp5KOA?com.borro.loandata%3a%3aCustomer%3a%3alastName?">
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_qLCNYdXTEeqPDptWnp5KOA"/>
+        </children>
+        <children xmi:type="notation:Node" xmi:id="_z7NuANXTEeqPDptWnp5KOA" type="2001" element="_z7HnYNXTEeqPDptWnp5KOA?com.borro.loandata%3a%3aCustomer%3a%3aemail?">
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_z7NuAdXTEeqPDptWnp5KOA"/>
+        </children>
+        <children xmi:type="notation:Node" xmi:id="__Bh7INXTEeqPDptWnp5KOA" type="2001" element="__BamYNXTEeqPDptWnp5KOA?com.borro.loandata%3a%3aCustomer%3a%3adateofbirth?">
+          <layoutConstraint xmi:type="notation:Location" xmi:id="__Bh7IdXTEeqPDptWnp5KOA"/>
+        </children>
+        <children xmi:type="notation:Node" xmi:id="_WNnAMNXUEeqPDptWnp5KOA" type="2001" element="_WNcoINXUEeqPDptWnp5KOA?com.borro.loandata%3a%3aCustomer%3a%3aphoneNumber?">
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_WNnAMdXUEeqPDptWnp5KOA"/>
+        </children>
+        <children xmi:type="notation:Node" xmi:id="_oi4uYNXUEeqPDptWnp5KOA" type="2001" element="_oi0c8NXUEeqPDptWnp5KOA?com.borro.loandata%3a%3aCustomer%3a%3aaddress?">
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_oi4uYdXUEeqPDptWnp5KOA"/>
+        </children>
+        <children xmi:type="notation:Node" xmi:id="_MWZOANXVEeqPDptWnp5KOA" type="2001" element="_MWTucNXVEeqPDptWnp5KOA?com.borro.loandata%3a%3aCustomer%3a%3aemploymentStatus?">
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_MWZOAdXVEeqPDptWnp5KOA"/>
+        </children>
+        <children xmi:type="notation:Node" xmi:id="_fXzpcNXVEeqPDptWnp5KOA" type="2001" element="_fXvYANXVEeqPDptWnp5KOA?com.borro.loandata%3a%3aCustomer%3a%3aoccupation?">
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_fXzpcdXVEeqPDptWnp5KOA"/>
+        </children>
+        <children xmi:type="notation:Node" xmi:id="_xgxZ8NXVEeqPDptWnp5KOA" type="2001" element="_xgshcNXVEeqPDptWnp5KOA?com.borro.loandata%3a%3aCustomer%3a%3aemployerBusinessName?">
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_xgxZ8dXVEeqPDptWnp5KOA"/>
+        </children>
+        <children xmi:type="notation:Node" xmi:id="_AYIPwNXWEeqPDptWnp5KOA" type="2001" element="_AYElYNXWEeqPDptWnp5KOA?com.borro.loandata%3a%3aCustomer%3a%3aannualIncome?">
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_AYIPwdXWEeqPDptWnp5KOA"/>
+        </children>
+        <children xmi:type="notation:Node" xmi:id="_qro4sNXWEeqPDptWnp5KOA" type="2001" element="_qrknQNXWEeqPDptWnp5KOA?com.borro.loandata%3a%3aCustomer%3a%3astatus?">
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_qro4sdXWEeqPDptWnp5KOA"/>
+        </children>
+        <styles xmi:type="notation:DrawerStyle" xmi:id="_G2ndiNXTEeqPDptWnp5KOA"/>
+        <styles xmi:type="notation:SortingStyle" xmi:id="_G2ndidXTEeqPDptWnp5KOA"/>
+        <styles xmi:type="notation:FilteringStyle" xmi:id="_G2nditXTEeqPDptWnp5KOA"/>
+      </children>
+      <children xmi:type="notation:Node" xmi:id="_G2oEkNXTEeqPDptWnp5KOA" type="5003">
+        <styles xmi:type="notation:DrawerStyle" xmi:id="_G2oEkdXTEeqPDptWnp5KOA"/>
+        <styles xmi:type="notation:SortingStyle" xmi:id="_G2oEktXTEeqPDptWnp5KOA"/>
+        <styles xmi:type="notation:FilteringStyle" xmi:id="_G2oEk9XTEeqPDptWnp5KOA"/>
+      </children>
+      <styles xmi:type="notation:ShapeStyle" xmi:id="_G2ndgdXTEeqPDptWnp5KOA" fontName="Sans" fontHeight="10"/>
+      <styles xmi:type="bomnotation:ShapeGradientStyle" xmi:id="_G2ndgtXTEeqPDptWnp5KOA" gradStartColor="16096809" gradEndColor="16777215"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_G2ndg9XTEeqPDptWnp5KOA" x="867" y="56" width="391" height="479"/>
+    </children>
+    <children xmi:type="notation:Node" xmi:id="_9NNoYNXUEeqPDptWnp5KOA" type="1004" element="_9M9wwNXUEeqPDptWnp5KOA?com.borro.loandata%3a%3aEmploymentStatus?">
+      <children xmi:type="notation:Node" xmi:id="_9NNoZNXUEeqPDptWnp5KOA" type="4015"/>
+      <children xmi:type="notation:Node" xmi:id="_9NNoZdXUEeqPDptWnp5KOA" type="4016"/>
+      <children xmi:type="notation:Node" xmi:id="_9NOPcNXUEeqPDptWnp5KOA" type="4017"/>
+      <children xmi:type="notation:Node" xmi:id="_9NOPcdXUEeqPDptWnp5KOA" type="5004">
+        <children xmi:type="notation:Node" xmi:id="_BtHiMNXVEeqPDptWnp5KOA" type="2003" element="_Bs_mYNXVEeqPDptWnp5KOA?com.borro.loandata%3a%3aEmploymentStatus%3a%3aEMPLOYED?">
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_BtHiMdXVEeqPDptWnp5KOA"/>
+        </children>
+        <children xmi:type="notation:Node" xmi:id="_EDlqUNXVEeqPDptWnp5KOA" type="2003" element="_EDj1INXVEeqPDptWnp5KOA?com.borro.loandata%3a%3aEmploymentStatus%3a%3aSELFEMPLOYED?">
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_EDlqUdXVEeqPDptWnp5KOA"/>
+        </children>
+        <children xmi:type="notation:Node" xmi:id="_fZrcQNXWEeqPDptWnp5KOA" type="2003" element="_fZpAANXWEeqPDptWnp5KOA?com.borro.loandata%3a%3aEmploymentStatus%3a%3aUNEMPLOYED?">
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_fZrcQdXWEeqPDptWnp5KOA"/>
+        </children>
+        <styles xmi:type="notation:DrawerStyle" xmi:id="_9NOPctXUEeqPDptWnp5KOA"/>
+        <styles xmi:type="notation:SortingStyle" xmi:id="_9NOPc9XUEeqPDptWnp5KOA"/>
+        <styles xmi:type="notation:FilteringStyle" xmi:id="_9NOPdNXUEeqPDptWnp5KOA"/>
+      </children>
+      <styles xmi:type="notation:ShapeStyle" xmi:id="_9NNoYdXUEeqPDptWnp5KOA" fontName="Sans" fontHeight="10"/>
+      <styles xmi:type="bomnotation:ShapeGradientStyle" xmi:id="_9NNoYtXUEeqPDptWnp5KOA" gradStartColor="8454143" gradEndColor="16777215"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_9NNoY9XUEeqPDptWnp5KOA" x="1295" y="29"/>
+    </children>
+    <children xmi:type="notation:Node" xmi:id="_O40SANXWEeqPDptWnp5KOA" type="1004" element="_O4ndsNXWEeqPDptWnp5KOA?com.borro.loandata%3a%3aBanks?">
+      <children xmi:type="notation:Node" xmi:id="_O40SBNXWEeqPDptWnp5KOA" type="4015"/>
+      <children xmi:type="notation:Node" xmi:id="_O40SBdXWEeqPDptWnp5KOA" type="4016"/>
+      <children xmi:type="notation:Node" xmi:id="_O40SBtXWEeqPDptWnp5KOA" type="4017"/>
+      <children xmi:type="notation:Node" xmi:id="_O40SB9XWEeqPDptWnp5KOA" type="5004">
+        <children xmi:type="notation:Node" xmi:id="_P6ApQNXWEeqPDptWnp5KOA" type="2003" element="_P59l8NXWEeqPDptWnp5KOA?com.borro.loandata%3a%3aBanks%3a%3aALPHABANK?">
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_P6ApQdXWEeqPDptWnp5KOA"/>
+        </children>
+        <children xmi:type="notation:Node" xmi:id="_RKrm8NXWEeqPDptWnp5KOA" type="2003" element="_RKnVgNXWEeqPDptWnp5KOA?com.borro.loandata%3a%3aBanks%3a%3aBETABANK?">
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_RKrm8dXWEeqPDptWnp5KOA"/>
+        </children>
+        <children xmi:type="notation:Node" xmi:id="_w2tBEOI9EeqVM-2lpO5XLQ" type="2003" element="_w2Of8OI9EeqVM-2lpO5XLQ?com.borro.loandata%3a%3aBanks%3a%3aSIGMABANK?">
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_w2tBEeI9EeqVM-2lpO5XLQ"/>
+        </children>
+        <children xmi:type="notation:Node" xmi:id="_yaw00OI9EeqVM-2lpO5XLQ" type="2003" element="_yaquMOI9EeqVM-2lpO5XLQ?com.borro.loandata%3a%3aBanks%3a%3aINFINITYBANK?">
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_yaw00eI9EeqVM-2lpO5XLQ"/>
+        </children>
+        <styles xmi:type="notation:DrawerStyle" xmi:id="_O40SCNXWEeqPDptWnp5KOA"/>
+        <styles xmi:type="notation:SortingStyle" xmi:id="_O40SCdXWEeqPDptWnp5KOA"/>
+        <styles xmi:type="notation:FilteringStyle" xmi:id="_O40SCtXWEeqPDptWnp5KOA"/>
+      </children>
+      <styles xmi:type="notation:ShapeStyle" xmi:id="_O40SAdXWEeqPDptWnp5KOA" fontName="Sans" fontHeight="10"/>
+      <styles xmi:type="bomnotation:ShapeGradientStyle" xmi:id="_O40SAtXWEeqPDptWnp5KOA" gradStartColor="8454143" gradEndColor="16777215"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_O40SA9XWEeqPDptWnp5KOA" x="1393" y="266"/>
+    </children>
+    <children xmi:type="notation:Node" xmi:id="_yGVvsNXWEeqPDptWnp5KOA" type="1004" element="_yGC0wNXWEeqPDptWnp5KOA?com.borro.loandata%3a%3aCustomerStatus?">
+      <children xmi:type="notation:Node" xmi:id="_yGVvtNXWEeqPDptWnp5KOA" type="4015"/>
+      <children xmi:type="notation:Node" xmi:id="_yGVvtdXWEeqPDptWnp5KOA" type="4016"/>
+      <children xmi:type="notation:Node" xmi:id="_yGVvttXWEeqPDptWnp5KOA" type="4017"/>
+      <children xmi:type="notation:Node" xmi:id="_yGVvt9XWEeqPDptWnp5KOA" type="5004">
+        <children xmi:type="notation:Node" xmi:id="_4jVBQNXWEeqPDptWnp5KOA" type="2003" element="_4jSlANXWEeqPDptWnp5KOA?com.borro.loandata%3a%3aCustomerStatus%3a%3aACTIVE?">
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_4jVBQdXWEeqPDptWnp5KOA"/>
+        </children>
+        <children xmi:type="notation:Node" xmi:id="_AO2igNXXEeqPDptWnp5KOA" type="2003" element="_AO0GQNXXEeqPDptWnp5KOA?com.borro.loandata%3a%3aCustomerStatus%3a%3aINACTIVE?">
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_AO2igdXXEeqPDptWnp5KOA"/>
+        </children>
+        <children xmi:type="notation:Node" xmi:id="_tl-GYNXXEeqPDptWnp5KOA" type="2003" element="_tl6cANXXEeqPDptWnp5KOA?com.borro.loandata%3a%3aCustomerStatus%3a%3aINPROGRESS?">
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_tl-GYdXXEeqPDptWnp5KOA"/>
+        </children>
+        <styles xmi:type="notation:DrawerStyle" xmi:id="_yGWWwNXWEeqPDptWnp5KOA"/>
+        <styles xmi:type="notation:SortingStyle" xmi:id="_yGWWwdXWEeqPDptWnp5KOA"/>
+        <styles xmi:type="notation:FilteringStyle" xmi:id="_yGWWwtXWEeqPDptWnp5KOA"/>
+      </children>
+      <styles xmi:type="notation:ShapeStyle" xmi:id="_yGVvsdXWEeqPDptWnp5KOA" fontName="Sans" fontHeight="10"/>
+      <styles xmi:type="bomnotation:ShapeGradientStyle" xmi:id="_yGVvstXWEeqPDptWnp5KOA" gradStartColor="8454143" gradEndColor="16777215"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_yGVvs9XWEeqPDptWnp5KOA" x="1378" y="392"/>
+    </children>
+    <children xmi:type="notation:Node" xmi:id="_FSdUYNXZEeqPDptWnp5KOA" type="1004" element="_FSRuMNXZEeqPDptWnp5KOA?com.borro.loandata%3a%3aApplicationStatus?">
+      <children xmi:type="notation:Node" xmi:id="_FSdUZNXZEeqPDptWnp5KOA" type="4015"/>
+      <children xmi:type="notation:Node" xmi:id="_FSd7cNXZEeqPDptWnp5KOA" type="4016"/>
+      <children xmi:type="notation:Node" xmi:id="_FSd7cdXZEeqPDptWnp5KOA" type="4017"/>
+      <children xmi:type="notation:Node" xmi:id="_FSd7ctXZEeqPDptWnp5KOA" type="5004">
+        <children xmi:type="notation:Node" xmi:id="_OPJikNXZEeqPDptWnp5KOA" type="2003" element="_OPHGUNXZEeqPDptWnp5KOA?com.borro.loandata%3a%3aApplicationStatus%3a%3aPREQUAIFICATION?">
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_OPJikdXZEeqPDptWnp5KOA"/>
+        </children>
+        <children xmi:type="notation:Node" xmi:id="_HHML8NXaEeqPDptWnp5KOA" type="2003" element="_HHJIoNXaEeqPDptWnp5KOA?com.borro.loandata%3a%3aApplicationStatus%3a%3aQUALIFICATIONCOMPLETE?">
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_HHML8dXaEeqPDptWnp5KOA"/>
+        </children>
+        <children xmi:type="notation:Node" xmi:id="_3xXRcNXZEeqPDptWnp5KOA" type="2003" element="_3xRK0NXZEeqPDptWnp5KOA?com.borro.loandata%3a%3aApplicationStatus%3a%3aDECISIONPENDING?">
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_3xXRcdXZEeqPDptWnp5KOA"/>
+        </children>
+        <children xmi:type="notation:Node" xmi:id="_ALiBYNXaEeqPDptWnp5KOA" type="2003" element="_ALflINXaEeqPDptWnp5KOA?com.borro.loandata%3a%3aApplicationStatus%3a%3aAPPROVED?">
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_ALiBYdXaEeqPDptWnp5KOA"/>
+        </children>
+        <children xmi:type="notation:Node" xmi:id="_BXSC0NXaEeqPDptWnp5KOA" type="2003" element="_BXO_gNXaEeqPDptWnp5KOA?com.borro.loandata%3a%3aApplicationStatus%3a%3aREJECTED?">
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_BXSC0dXaEeqPDptWnp5KOA"/>
+        </children>
+        <children xmi:type="notation:Node" xmi:id="_X4X_QNXcEeqPDptWnp5KOA" type="2003" element="_X4R4oNXcEeqPDptWnp5KOA?com.borro.loandata%3a%3aApplicationStatus%3a%3aCANCELLED?">
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_X4X_QdXcEeqPDptWnp5KOA"/>
+        </children>
+        <styles xmi:type="notation:DrawerStyle" xmi:id="_FSd7c9XZEeqPDptWnp5KOA"/>
+        <styles xmi:type="notation:SortingStyle" xmi:id="_FSd7dNXZEeqPDptWnp5KOA"/>
+        <styles xmi:type="notation:FilteringStyle" xmi:id="_FSd7ddXZEeqPDptWnp5KOA"/>
+      </children>
+      <styles xmi:type="notation:ShapeStyle" xmi:id="_FSdUYdXZEeqPDptWnp5KOA" fontName="Sans" fontHeight="10"/>
+      <styles xmi:type="bomnotation:ShapeGradientStyle" xmi:id="_FSdUYtXZEeqPDptWnp5KOA" gradStartColor="8454143" gradEndColor="16777215"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_FSdUY9XZEeqPDptWnp5KOA" x="41" y="409" width="237" height="252"/>
+    </children>
+    <children xmi:type="notation:Node" xmi:id="_o5jUkNiKEeqatKvhXZfngw" type="1002" element="_o5MIMNiKEeqatKvhXZfngw?com.borro.loandata%3a%3aAccountDetails?">
+      <children xmi:type="notation:Node" xmi:id="_o5j7oNiKEeqatKvhXZfngw" type="4003"/>
+      <children xmi:type="notation:Node" xmi:id="_o5kisNiKEeqatKvhXZfngw" type="4004"/>
+      <children xmi:type="notation:Node" xmi:id="_o5lJwNiKEeqatKvhXZfngw" type="4005"/>
+      <children xmi:type="notation:Node" xmi:id="_o5lJwdiKEeqatKvhXZfngw" type="5002">
+        <children xmi:type="notation:Node" xmi:id="_Cgl9MNisEeqatKvhXZfngw" type="2001" element="_CggdoNisEeqatKvhXZfngw?com.borro.loandata%3a%3aAccountDetails%3a%3aaccountId?">
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_Cgl9MdisEeqatKvhXZfngw"/>
+        </children>
+        <children xmi:type="notation:Node" xmi:id="_sry3INiKEeqatKvhXZfngw" type="2001" element="_srlbwNiKEeqatKvhXZfngw?com.borro.loandata%3a%3aAccountDetails%3a%3abankName?">
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_sry3IdiKEeqatKvhXZfngw"/>
+        </children>
+        <children xmi:type="notation:Node" xmi:id="_ARXIgNiLEeqatKvhXZfngw" type="2001" element="_ARPzwNiLEeqatKvhXZfngw?com.borro.loandata%3a%3aAccountDetails%3a%3asortCode?">
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_ARXIgdiLEeqatKvhXZfngw"/>
+        </children>
+        <children xmi:type="notation:Node" xmi:id="_tC69sNiKEeqatKvhXZfngw" type="2001" element="_tC1eINiKEeqatKvhXZfngw?com.borro.loandata%3a%3aAccountDetails%3a%3aaccountNumber?">
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_tC69sdiKEeqatKvhXZfngw"/>
+        </children>
+        <children xmi:type="notation:Node" xmi:id="_tVcRENiKEeqatKvhXZfngw" type="2001" element="_tVWKcNiKEeqatKvhXZfngw?com.borro.loandata%3a%3aAccountDetails%3a%3acurrency?">
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_tVcREdiKEeqatKvhXZfngw"/>
+        </children>
+        <children xmi:type="notation:Node" xmi:id="_too54NiKEeqatKvhXZfngw" type="2001" element="_tojaUNiKEeqatKvhXZfngw?com.borro.loandata%3a%3aAccountDetails%3a%3aaccountType?">
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_too54diKEeqatKvhXZfngw"/>
+        </children>
+        <children xmi:type="notation:Node" xmi:id="_-48kENiKEeqatKvhXZfngw" type="2001" element="_-445sNiKEeqatKvhXZfngw?com.borro.loandata%3a%3aAccountDetails%3a%3aaccountSubType?">
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_-48kEdiKEeqatKvhXZfngw"/>
+        </children>
+        <children xmi:type="notation:Node" xmi:id="__OevMNiKEeqatKvhXZfngw" type="2001" element="__OYBgNiKEeqatKvhXZfngw?com.borro.loandata%3a%3aAccountDetails%3a%3aopeningDate?">
+          <layoutConstraint xmi:type="notation:Location" xmi:id="__OevMdiKEeqatKvhXZfngw"/>
+        </children>
+        <children xmi:type="notation:Node" xmi:id="_vK6h8NirEeqatKvhXZfngw" type="2001" element="_vK2QgNirEeqatKvhXZfngw?com.borro.loandata%3a%3aAccountDetails%3a%3aaccountState?">
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_vK6h8dirEeqatKvhXZfngw"/>
+        </children>
+        <styles xmi:type="notation:DrawerStyle" xmi:id="_o5lJwtiKEeqatKvhXZfngw"/>
+        <styles xmi:type="notation:SortingStyle" xmi:id="_o5lJw9iKEeqatKvhXZfngw"/>
+        <styles xmi:type="notation:FilteringStyle" xmi:id="_o5lJxNiKEeqatKvhXZfngw"/>
+      </children>
+      <children xmi:type="notation:Node" xmi:id="_o5mX4NiKEeqatKvhXZfngw" type="5003">
+        <styles xmi:type="notation:DrawerStyle" xmi:id="_o5mX4diKEeqatKvhXZfngw"/>
+        <styles xmi:type="notation:SortingStyle" xmi:id="_o5mX4tiKEeqatKvhXZfngw"/>
+        <styles xmi:type="notation:FilteringStyle" xmi:id="_o5mX49iKEeqatKvhXZfngw"/>
+      </children>
+      <styles xmi:type="notation:ShapeStyle" xmi:id="_o5jUkdiKEeqatKvhXZfngw" fontName="Segoe UI" fontHeight="10"/>
+      <styles xmi:type="bomnotation:ShapeGradientStyle" xmi:id="_o5jUktiKEeqatKvhXZfngw" gradStartColor="16096809" gradEndColor="16777215"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_o5jUk9iKEeqatKvhXZfngw" x="336" y="378" width="305" height="360"/>
+    </children>
+    <children xmi:type="notation:Node" xmi:id="_zj0b4NirEeqatKvhXZfngw" type="1004" element="_zjjWINirEeqatKvhXZfngw?com.borro.loandata%3a%3aAccountStatus?">
+      <children xmi:type="notation:Node" xmi:id="_zj1C8NirEeqatKvhXZfngw" type="4015"/>
+      <children xmi:type="notation:Node" xmi:id="_zj1qANirEeqatKvhXZfngw" type="4016"/>
+      <children xmi:type="notation:Node" xmi:id="_zj1qAdirEeqatKvhXZfngw" type="4017"/>
+      <children xmi:type="notation:Node" xmi:id="_zj2RENirEeqatKvhXZfngw" type="5004">
+        <children xmi:type="notation:Node" xmi:id="_2HFC0NirEeqatKvhXZfngw" type="2003" element="_2HAxYNirEeqatKvhXZfngw?com.borro.loandata%3a%3aAccountStatus%3a%3aUSED?">
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_2HFC0dirEeqatKvhXZfngw"/>
+        </children>
+        <children xmi:type="notation:Node" xmi:id="_2b5cQNirEeqatKvhXZfngw" type="2003" element="_2b2Y8NirEeqatKvhXZfngw?com.borro.loandata%3a%3aAccountStatus%3a%3aUNUSED?">
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_2b5cQdirEeqatKvhXZfngw"/>
+        </children>
+        <styles xmi:type="notation:DrawerStyle" xmi:id="_zj2REdirEeqatKvhXZfngw"/>
+        <styles xmi:type="notation:SortingStyle" xmi:id="_zj2REtirEeqatKvhXZfngw"/>
+        <styles xmi:type="notation:FilteringStyle" xmi:id="_zj2RE9irEeqatKvhXZfngw"/>
+      </children>
+      <styles xmi:type="notation:ShapeStyle" xmi:id="_zj0b4dirEeqatKvhXZfngw" fontName="Segoe UI" fontHeight="10"/>
+      <styles xmi:type="bomnotation:ShapeGradientStyle" xmi:id="_zj0b4tirEeqatKvhXZfngw" gradStartColor="8454143" gradEndColor="16777215"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_zj0b49irEeqatKvhXZfngw" x="1386" y="546"/>
+    </children>
+    <styles xmi:type="notation:DiagramStyle" xmi:id="_mlZAkdXMEeqPDptWnp5KOA"/>
+    <styles xmi:type="notation:FillStyle" xmi:id="_mlZAktXMEeqPDptWnp5KOA"/>
+    <edges xmi:type="notation:Edge" xmi:id="_DMnesNXYEeqPDptWnp5KOA" type="3002" element="_DMEsINXYEeqPDptWnp5KOA" source="_G2ndgNXTEeqPDptWnp5KOA" target="_oIIo4NXQEeqPDptWnp5KOA">
+      <children xmi:type="notation:Node" xmi:id="_DMoFwNXYEeqPDptWnp5KOA" type="4010">
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_DMoFwdXYEeqPDptWnp5KOA" y="-15"/>
+      </children>
+      <children xmi:type="notation:Node" xmi:id="_DMs-QNXYEeqPDptWnp5KOA" type="4011">
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_DMs-QdXYEeqPDptWnp5KOA" y="-15"/>
+      </children>
+      <children xmi:type="notation:Node" xmi:id="_DMtlUNXYEeqPDptWnp5KOA" type="4012">
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_DMtlUdXYEeqPDptWnp5KOA" x="14" y="19"/>
+      </children>
+      <children xmi:type="notation:Node" xmi:id="_DMtlUtXYEeqPDptWnp5KOA" type="4013">
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_DMtlU9XYEeqPDptWnp5KOA" y="-15"/>
+      </children>
+      <children xmi:type="notation:Node" xmi:id="_DMtlVNXYEeqPDptWnp5KOA" type="4014">
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_DMtlVdXYEeqPDptWnp5KOA" x="-19" y="15"/>
+      </children>
+      <styles xmi:type="notation:ConnectorStyle" xmi:id="_DMnesdXYEeqPDptWnp5KOA"/>
+      <styles xmi:type="notation:FontStyle" xmi:id="_DMnestXYEeqPDptWnp5KOA" fontName="Sans" fontHeight="10"/>
+      <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_DMnes9XYEeqPDptWnp5KOA" points="[-33, 15, 86, -37]$[-115, -4, 4, -56]"/>
+      <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_DNav8NXYEeqPDptWnp5KOA" id="(0.10625,0.39944903581267216)"/>
+      <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_DNav8dXYEeqPDptWnp5KOA" id="(0.8577777777777778,0.32947976878612717)"/>
+    </edges>
+    <edges xmi:type="notation:Edge" xmi:id="_cE23ENirEeqatKvhXZfngw" type="3002" element="_cEg40NirEeqatKvhXZfngw" source="_G2ndgNXTEeqPDptWnp5KOA" target="_o5jUkNiKEeqatKvhXZfngw">
+      <children xmi:type="notation:Node" xmi:id="_cE4FMNirEeqatKvhXZfngw" type="4010">
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_cE4FMdirEeqatKvhXZfngw" y="-15"/>
+      </children>
+      <children xmi:type="notation:Node" xmi:id="_cE4sQNirEeqatKvhXZfngw" type="4011">
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_cE4sQdirEeqatKvhXZfngw" y="-15"/>
+      </children>
+      <children xmi:type="notation:Node" xmi:id="_cE5TUNirEeqatKvhXZfngw" type="4012">
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_cE5TUdirEeqatKvhXZfngw" x="14" y="26"/>
+      </children>
+      <children xmi:type="notation:Node" xmi:id="_cE56YNirEeqatKvhXZfngw" type="4013">
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_cE56YdirEeqatKvhXZfngw" y="-15"/>
+      </children>
+      <children xmi:type="notation:Node" xmi:id="_cE6hcNirEeqatKvhXZfngw" type="4014">
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_cE6hcdirEeqatKvhXZfngw" x="-40" y="-42"/>
+      </children>
+      <styles xmi:type="notation:ConnectorStyle" xmi:id="_cE23EdirEeqatKvhXZfngw"/>
+      <styles xmi:type="notation:FontStyle" xmi:id="_cE23EtirEeqatKvhXZfngw" fontName="Segoe UI" fontHeight="10"/>
+      <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_cE23E9irEeqatKvhXZfngw" points="[-1, 44, -16, -206]$[-44, 153, -59, -97]"/>
+      <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_cFB2MNirEeqatKvhXZfngw" id="(0.4491803278688525,0.8880407124681934)"/>
+    </edges>
+  </notation:Diagram>
+  <BOMGlobalDataProfile:Case xmi:id="_oHaQINXQEeqPDptWnp5KOA" base_Class="_oHYa8NXQEeqPDptWnp5KOA?com.borro.loandata%3a%3aLoanApplication?" summaryAttributes=""/>
+  <PrimitiveTypeFacets:LabeledElement xmi:id="_oHd6gNXQEeqPDptWnp5KOA" displayLabel="LoanApplication" base_NamedElement="_oHYa8NXQEeqPDptWnp5KOA?com.borro.loandata%3a%3aLoanApplication?"/>
+  <BOMGlobalDataProfile:AutoCaseIdentifier xmi:id="_wfEeoNXQEeqPDptWnp5KOA" base_Property="_wcP0INXQEeqPDptWnp5KOA?com.borro.loandata%3a%3aLoanApplication%3a%3aapplicationID?"/>
+  <PrimitiveTypeFacets:LabeledElement xmi:id="_wfFswNXQEeqPDptWnp5KOA" displayLabel="ApplicationID" base_NamedElement="_wcP0INXQEeqPDptWnp5KOA?com.borro.loandata%3a%3aLoanApplication%3a%3aapplicationID?"/>
+  <PrimitiveTypeFacets:LabeledElement xmi:id="_6zFsINXQEeqPDptWnp5KOA" displayLabel="Amount" base_NamedElement="_6zD28NXQEeqPDptWnp5KOA?com.borro.loandata%3a%3aLoanApplication%3a%3aamount?"/>
+  <PrimitiveTypeFacets:LabeledElement xmi:id="_Kw07MNXREeqPDptWnp5KOA" displayLabel="Months" base_NamedElement="_KwzGANXREeqPDptWnp5KOA?com.borro.loandata%3a%3aLoanApplication%3a%3amonths?"/>
+  <PrimitiveTypeFacets:RestrictedType xmi:id="_UC9N4NXREeqPDptWnp5KOA" decimalUpper="60" decimalLower="12" decimalDefaultValue="12" base_Property="_KwzGANXREeqPDptWnp5KOA?com.borro.loandata%3a%3aLoanApplication%3a%3amonths?" booleanDefaultValue="false"/>
+  <PrimitiveTypeFacets:RestrictedType xmi:id="_a4MnYNXREeqPDptWnp5KOA" decimalUpper="80000" decimalLower="2000" decimalDefaultValue="2000" base_Property="_6zD28NXQEeqPDptWnp5KOA?com.borro.loandata%3a%3aLoanApplication%3a%3aamount?" booleanDefaultValue="false"/>
+  <PrimitiveTypeFacets:LabeledElement xmi:id="_liZgQNXREeqPDptWnp5KOA" displayLabel="Reason" base_NamedElement="_liYSINXREeqPDptWnp5KOA?com.borro.loandata%3a%3aReason?"/>
+  <PrimitiveTypeFacets:LabeledElement xmi:id="_nJhPENXREeqPDptWnp5KOA" displayLabel="Furniture" base_NamedElement="_nJfZ4NXREeqPDptWnp5KOA?com.borro.loandata%3a%3aReason%3a%3aFURNITURE?"/>
+  <PrimitiveTypeFacets:LabeledElement xmi:id="_rBkesNXREeqPDptWnp5KOA" displayLabel="Home Improvement" base_NamedElement="_rBjQkNXREeqPDptWnp5KOA?com.borro.loandata%3a%3aReason%3a%3aHOMEIMPROVEMENT?"/>
+  <PrimitiveTypeFacets:LabeledElement xmi:id="_sp8KsNXREeqPDptWnp5KOA" displayLabel="Payments" base_NamedElement="_sp7joNXREeqPDptWnp5KOA?com.borro.loandata%3a%3aReason%3a%3aPAYMENTS?"/>
+  <PrimitiveTypeFacets:LabeledElement xmi:id="_waWhQNXREeqPDptWnp5KOA" displayLabel="Holiday" base_NamedElement="_waUsENXREeqPDptWnp5KOA?com.borro.loandata%3a%3aReason%3a%3aHOLIDAY?"/>
+  <PrimitiveTypeFacets:LabeledElement xmi:id="_xgC-ANXREeqPDptWnp5KOA" displayLabel="Vehicle" base_NamedElement="_xgBv4NXREeqPDptWnp5KOA?com.borro.loandata%3a%3aReason%3a%3aVEHICLE?"/>
+  <PrimitiveTypeFacets:LabeledElement xmi:id="_zV_zANXREeqPDptWnp5KOA" displayLabel="Other" base_NamedElement="_zV990NXREeqPDptWnp5KOA?com.borro.loandata%3a%3aReason%3a%3aOTHER?"/>
+  <PrimitiveTypeFacets:LabeledElement xmi:id="_2LKpUNXREeqPDptWnp5KOA" displayLabel="Reason" base_NamedElement="_2LI0INXREeqPDptWnp5KOA?com.borro.loandata%3a%3aLoanApplication%3a%3areason?"/>
+  <BOMGlobalDataProfile:Case xmi:id="_G2VJoNXTEeqPDptWnp5KOA" base_Class="_G2UikNXTEeqPDptWnp5KOA?com.borro.loandata%3a%3aCustomer?" summaryAttributes=""/>
+  <PrimitiveTypeFacets:LabeledElement xmi:id="_G2VwsNXTEeqPDptWnp5KOA" displayLabel="Customer" base_NamedElement="_G2UikNXTEeqPDptWnp5KOA?com.borro.loandata%3a%3aCustomer?"/>
+  <BOMGlobalDataProfile:AutoCaseIdentifier xmi:id="_IRankNXTEeqPDptWnp5KOA" base_Property="_IRZZcNXTEeqPDptWnp5KOA?com.borro.loandata%3a%3aCustomer%3a%3acustomerID?"/>
+  <PrimitiveTypeFacets:LabeledElement xmi:id="_IRdD0NXTEeqPDptWnp5KOA" displayLabel="CustomerID" base_NamedElement="_IRZZcNXTEeqPDptWnp5KOA?com.borro.loandata%3a%3aCustomer%3a%3acustomerID?"/>
+  <PrimitiveTypeFacets:LabeledElement xmi:id="_eN7iMNXTEeqPDptWnp5KOA" displayLabel="Title" base_NamedElement="_eN5tANXTEeqPDptWnp5KOA?com.borro.loandata%3a%3aCustomer%3a%3atitle?"/>
+  <PrimitiveTypeFacets:LabeledElement xmi:id="_kE9nANXTEeqPDptWnp5KOA" displayLabel="First Name" base_NamedElement="_kE8Y4NXTEeqPDptWnp5KOA?com.borro.loandata%3a%3aCustomer%3a%3afirstName?"/>
+  <PrimitiveTypeFacets:LabeledElement xmi:id="_qK_xINXTEeqPDptWnp5KOA" displayLabel="Last Name" base_NamedElement="_qK-jANXTEeqPDptWnp5KOA?com.borro.loandata%3a%3aCustomer%3a%3alastName?"/>
+  <PrimitiveTypeFacets:LabeledElement xmi:id="_z7KqsNXTEeqPDptWnp5KOA" displayLabel="Email" base_NamedElement="_z7HnYNXTEeqPDptWnp5KOA?com.borro.loandata%3a%3aCustomer%3a%3aemail?"/>
+  <PrimitiveTypeFacets:LabeledElement xmi:id="__Bfe4NXTEeqPDptWnp5KOA" displayLabel="Date of birth" base_NamedElement="__BamYNXTEeqPDptWnp5KOA?com.borro.loandata%3a%3aCustomer%3a%3adateofbirth?"/>
+  <BOMGlobalDataProfile:Searchable xmi:id="_FxB5ANXUEeqPDptWnp5KOA" Searchable="true" base_Property="_qK-jANXTEeqPDptWnp5KOA?com.borro.loandata%3a%3aCustomer%3a%3alastName?"/>
+  <BOMGlobalDataProfile:Searchable xmi:id="_GXwh0NXUEeqPDptWnp5KOA" Searchable="true" base_Property="_z7HnYNXTEeqPDptWnp5KOA?com.borro.loandata%3a%3aCustomer%3a%3aemail?"/>
+  <PrimitiveTypeFacets:LabeledElement xmi:id="_WNj84NXUEeqPDptWnp5KOA" displayLabel="Phone Number" base_NamedElement="_WNcoINXUEeqPDptWnp5KOA?com.borro.loandata%3a%3aCustomer%3a%3aphoneNumber?"/>
+  <PrimitiveTypeFacets:LabeledElement xmi:id="_oi2SINXUEeqPDptWnp5KOA" displayLabel="Address" base_NamedElement="_oi0c8NXUEeqPDptWnp5KOA?com.borro.loandata%3a%3aCustomer%3a%3aaddress?"/>
+  <PrimitiveTypeFacets:LabeledElement xmi:id="_9M_l8NXUEeqPDptWnp5KOA" displayLabel="Employment Status" base_NamedElement="_9M9wwNXUEeqPDptWnp5KOA?com.borro.loandata%3a%3aEmploymentStatus?"/>
+  <PrimitiveTypeFacets:LabeledElement xmi:id="_BtFF8NXVEeqPDptWnp5KOA" displayLabel="Employed" base_NamedElement="_Bs_mYNXVEeqPDptWnp5KOA?com.borro.loandata%3a%3aEmploymentStatus%3a%3aEMPLOYED?"/>
+  <PrimitiveTypeFacets:LabeledElement xmi:id="_EDj1IdXVEeqPDptWnp5KOA" displayLabel="Self-employed" base_NamedElement="_EDj1INXVEeqPDptWnp5KOA?com.borro.loandata%3a%3aEmploymentStatus%3a%3aSELFEMPLOYED?"/>
+  <PrimitiveTypeFacets:LabeledElement xmi:id="_MWVjoNXVEeqPDptWnp5KOA" displayLabel="Employment Status" base_NamedElement="_MWTucNXVEeqPDptWnp5KOA?com.borro.loandata%3a%3aCustomer%3a%3aemploymentStatus?"/>
+  <PrimitiveTypeFacets:LabeledElement xmi:id="_fXwmINXVEeqPDptWnp5KOA" displayLabel="Occupation" base_NamedElement="_fXvYANXVEeqPDptWnp5KOA?com.borro.loandata%3a%3aCustomer%3a%3aoccupation?"/>
+  <PrimitiveTypeFacets:LabeledElement xmi:id="_xgtvkNXVEeqPDptWnp5KOA" displayLabel="Employer/Business Name" base_NamedElement="_xgshcNXVEeqPDptWnp5KOA?com.borro.loandata%3a%3aCustomer%3a%3aemployerBusinessName?"/>
+  <PrimitiveTypeFacets:LabeledElement xmi:id="_AYFzgNXWEeqPDptWnp5KOA" displayLabel="Annual Income" base_NamedElement="_AYElYNXWEeqPDptWnp5KOA?com.borro.loandata%3a%3aCustomer%3a%3aannualIncome?"/>
+  <PrimitiveTypeFacets:LabeledElement xmi:id="_O4oEwNXWEeqPDptWnp5KOA" displayLabel="Banks" base_NamedElement="_O4ndsNXWEeqPDptWnp5KOA?com.borro.loandata%3a%3aBanks?"/>
+  <PrimitiveTypeFacets:LabeledElement xmi:id="_P5-0ENXWEeqPDptWnp5KOA" displayLabel="Alpha Bank" base_NamedElement="_P59l8NXWEeqPDptWnp5KOA?com.borro.loandata%3a%3aBanks%3a%3aALPHABANK?"/>
+  <PrimitiveTypeFacets:LabeledElement xmi:id="_RKojoNXWEeqPDptWnp5KOA" displayLabel="Beta Bank" base_NamedElement="_RKnVgNXWEeqPDptWnp5KOA?com.borro.loandata%3a%3aBanks%3a%3aBETABANK?"/>
+  <PrimitiveTypeFacets:LabeledElement xmi:id="_fZpnENXWEeqPDptWnp5KOA" displayLabel="Unemployed" base_NamedElement="_fZpAANXWEeqPDptWnp5KOA?com.borro.loandata%3a%3aEmploymentStatus%3a%3aUNEMPLOYED?"/>
+  <BOMGlobalDataProfile:CaseState xmi:id="_qrlOUNXWEeqPDptWnp5KOA" base_Property="_qrknQNXWEeqPDptWnp5KOA?com.borro.loandata%3a%3aCustomer%3a%3astatus?" terminalStates="_AO0GQNXXEeqPDptWnp5KOA?com.borro.loandata%3a%3aCustomerStatus%3a%3aINACTIVE?"/>
+  <PrimitiveTypeFacets:LabeledElement xmi:id="_qrmccNXWEeqPDptWnp5KOA" displayLabel="Status" base_NamedElement="_qrknQNXWEeqPDptWnp5KOA?com.borro.loandata%3a%3aCustomer%3a%3astatus?"/>
+  <PrimitiveTypeFacets:LabeledElement xmi:id="_yGEC4NXWEeqPDptWnp5KOA" displayLabel="Customer Status" base_NamedElement="_yGC0wNXWEeqPDptWnp5KOA?com.borro.loandata%3a%3aCustomerStatus?"/>
+  <PrimitiveTypeFacets:LabeledElement xmi:id="_4jTMENXWEeqPDptWnp5KOA" displayLabel="Active" base_NamedElement="_4jSlANXWEeqPDptWnp5KOA?com.borro.loandata%3a%3aCustomerStatus%3a%3aACTIVE?"/>
+  <PrimitiveTypeFacets:LabeledElement xmi:id="_AO0tUNXXEeqPDptWnp5KOA" displayLabel="Inactive" base_NamedElement="_AO0GQNXXEeqPDptWnp5KOA?com.borro.loandata%3a%3aCustomerStatus%3a%3aINACTIVE?"/>
+  <PrimitiveTypeFacets:LabeledElement xmi:id="_tl7DENXXEeqPDptWnp5KOA" displayLabel="In Progress" base_NamedElement="_tl6cANXXEeqPDptWnp5KOA?com.borro.loandata%3a%3aCustomerStatus%3a%3aINPROGRESS?"/>
+  <PrimitiveTypeFacets:LabeledElement xmi:id="_DMGhUNXYEeqPDptWnp5KOA" displayLabel="Customer" base_NamedElement="_DMFTMNXYEeqPDptWnp5KOA?com.borro.loandata%3a%3aLoanApplication%3a%3acustomer?"/>
+  <PrimitiveTypeFacets:LabeledElement xmi:id="_DMHIYNXYEeqPDptWnp5KOA" displayLabel="Application" base_NamedElement="_DMFTM9XYEeqPDptWnp5KOA?com.borro.loandata%3a%3aCustomer%3a%3aapplication?"/>
+  <BOMGlobalDataProfile:CaseState xmi:id="__pCNwNXYEeqPDptWnp5KOA" base_Property="__pA_oNXYEeqPDptWnp5KOA?com.borro.loandata%3a%3aLoanApplication%3a%3astatus?" terminalStates="_BXO_gNXaEeqPDptWnp5KOA?com.borro.loandata%3a%3aApplicationStatus%3a%3aREJECTED? _X4R4oNXcEeqPDptWnp5KOA?com.borro.loandata%3a%3aApplicationStatus%3a%3aCANCELLED?"/>
+  <PrimitiveTypeFacets:LabeledElement xmi:id="__pC00NXYEeqPDptWnp5KOA" displayLabel="Status" base_NamedElement="__pA_oNXYEeqPDptWnp5KOA?com.borro.loandata%3a%3aLoanApplication%3a%3astatus?"/>
+  <PrimitiveTypeFacets:LabeledElement xmi:id="_FSSVQNXZEeqPDptWnp5KOA" displayLabel="Application Status" base_NamedElement="_FSRuMNXZEeqPDptWnp5KOA?com.borro.loandata%3a%3aApplicationStatus?"/>
+  <PrimitiveTypeFacets:LabeledElement xmi:id="_OPHtYNXZEeqPDptWnp5KOA" displayLabel="Pre-Quaification" base_NamedElement="_OPHGUNXZEeqPDptWnp5KOA?com.borro.loandata%3a%3aApplicationStatus%3a%3aPREQUAIFICATION?"/>
+  <PrimitiveTypeFacets:LabeledElement xmi:id="_3xRx4NXZEeqPDptWnp5KOA" displayLabel="Decision Pending" base_NamedElement="_3xRK0NXZEeqPDptWnp5KOA?com.borro.loandata%3a%3aApplicationStatus%3a%3aDECISIONPENDING?"/>
+  <PrimitiveTypeFacets:LabeledElement xmi:id="_ALgMMNXaEeqPDptWnp5KOA" displayLabel="Approved" base_NamedElement="_ALflINXaEeqPDptWnp5KOA?com.borro.loandata%3a%3aApplicationStatus%3a%3aAPPROVED?"/>
+  <PrimitiveTypeFacets:LabeledElement xmi:id="_BXQNoNXaEeqPDptWnp5KOA" displayLabel="Rejected" base_NamedElement="_BXO_gNXaEeqPDptWnp5KOA?com.borro.loandata%3a%3aApplicationStatus%3a%3aREJECTED?"/>
+  <PrimitiveTypeFacets:LabeledElement xmi:id="_HHJvsNXaEeqPDptWnp5KOA" displayLabel="Qualification Complete" base_NamedElement="_HHJIoNXaEeqPDptWnp5KOA?com.borro.loandata%3a%3aApplicationStatus%3a%3aQUALIFICATIONCOMPLETE?"/>
+  <PrimitiveTypeFacets:LabeledElement xmi:id="_JLfJgNXbEeqPDptWnp5KOA" displayLabel="Date" base_NamedElement="_JLd7YNXbEeqPDptWnp5KOA?com.borro.loandata%3a%3aLoanApplication%3a%3adate?"/>
+  <PrimitiveTypeFacets:LabeledElement xmi:id="_X4TGwNXcEeqPDptWnp5KOA" displayLabel="Cancelled" base_NamedElement="_X4R4oNXcEeqPDptWnp5KOA?com.borro.loandata%3a%3aApplicationStatus%3a%3aCANCELLED?"/>
+  <PrimitiveTypeFacets:LabeledElement xmi:id="_o5N9YNiKEeqatKvhXZfngw" displayLabel="Account Details" base_NamedElement="_o5MIMNiKEeqatKvhXZfngw?com.borro.loandata%3a%3aAccountDetails?"/>
+  <PrimitiveTypeFacets:LabeledElement xmi:id="_srulsNiKEeqatKvhXZfngw" displayLabel="Bank Name" base_NamedElement="_srlbwNiKEeqatKvhXZfngw?com.borro.loandata%3a%3aAccountDetails%3a%3abankName?"/>
+  <PrimitiveTypeFacets:LabeledElement xmi:id="_tC2sQNiKEeqatKvhXZfngw" displayLabel="AccountNumber" base_NamedElement="_tC1eINiKEeqatKvhXZfngw?com.borro.loandata%3a%3aAccountDetails%3a%3aaccountNumber?"/>
+  <PrimitiveTypeFacets:LabeledElement xmi:id="_tVWxgNiKEeqatKvhXZfngw" displayLabel="Currency" base_NamedElement="_tVWKcNiKEeqatKvhXZfngw?com.borro.loandata%3a%3aAccountDetails%3a%3acurrency?"/>
+  <PrimitiveTypeFacets:LabeledElement xmi:id="_tokBYNiKEeqatKvhXZfngw" displayLabel="Account Type" base_NamedElement="_tojaUNiKEeqatKvhXZfngw?com.borro.loandata%3a%3aAccountDetails%3a%3aaccountType?"/>
+  <PrimitiveTypeFacets:LabeledElement xmi:id="_-45gwNiKEeqatKvhXZfngw" displayLabel="Account SubType" base_NamedElement="_-445sNiKEeqatKvhXZfngw?com.borro.loandata%3a%3aAccountDetails%3a%3aaccountSubType?"/>
+  <PrimitiveTypeFacets:LabeledElement xmi:id="__OYokNiKEeqatKvhXZfngw" displayLabel="Opening Date" base_NamedElement="__OYBgNiKEeqatKvhXZfngw?com.borro.loandata%3a%3aAccountDetails%3a%3aopeningDate?"/>
+  <PrimitiveTypeFacets:LabeledElement xmi:id="_ARRB4NiLEeqatKvhXZfngw" displayLabel="SortCode" base_NamedElement="_ARPzwNiLEeqatKvhXZfngw?com.borro.loandata%3a%3aAccountDetails%3a%3asortCode?"/>
+  <PrimitiveTypeFacets:LabeledElement xmi:id="_cEj8INirEeqatKvhXZfngw" displayLabel="Customer" base_NamedElement="_cEiG8NirEeqatKvhXZfngw?com.borro.loandata%3a%3aAccountDetails%3a%3acustomer?"/>
+  <PrimitiveTypeFacets:LabeledElement xmi:id="_cEkjMNirEeqatKvhXZfngw" displayLabel="Account Details" base_NamedElement="_cEiuAdirEeqatKvhXZfngw?com.borro.loandata%3a%3aCustomer%3a%3aaccountDetails?"/>
+  <BOMGlobalDataProfile:Case xmi:id="_hxJEcNirEeqatKvhXZfngw" base_Class="_o5MIMNiKEeqatKvhXZfngw?com.borro.loandata%3a%3aAccountDetails?" summaryAttributes="accountNumber accountState accountId"/>
+  <BOMGlobalDataProfile:CaseState xmi:id="_vK23kNirEeqatKvhXZfngw" base_Property="_vK2QgNirEeqatKvhXZfngw?com.borro.loandata%3a%3aAccountDetails%3a%3aaccountState?" terminalStates="_2b2Y8NirEeqatKvhXZfngw?com.borro.loandata%3a%3aAccountStatus%3a%3aUNUSED?"/>
+  <PrimitiveTypeFacets:LabeledElement xmi:id="_vK3eoNirEeqatKvhXZfngw" displayLabel="Account State" base_NamedElement="_vK2QgNirEeqatKvhXZfngw?com.borro.loandata%3a%3aAccountDetails%3a%3aaccountState?"/>
+  <PrimitiveTypeFacets:LabeledElement xmi:id="_zjkkQNirEeqatKvhXZfngw" displayLabel="Account Status" base_NamedElement="_zjjWINirEeqatKvhXZfngw?com.borro.loandata%3a%3aAccountStatus?"/>
+  <PrimitiveTypeFacets:LabeledElement xmi:id="_2HBYcNirEeqatKvhXZfngw" displayLabel="Used" base_NamedElement="_2HAxYNirEeqatKvhXZfngw?com.borro.loandata%3a%3aAccountStatus%3a%3aUSED?"/>
+  <PrimitiveTypeFacets:LabeledElement xmi:id="_2b3AANirEeqatKvhXZfngw" displayLabel="Unused" base_NamedElement="_2b2Y8NirEeqatKvhXZfngw?com.borro.loandata%3a%3aAccountStatus%3a%3aUNUSED?"/>
+  <BOMGlobalDataProfile:AutoCaseIdentifier xmi:id="_CggdodisEeqatKvhXZfngw" base_Property="_CggdoNisEeqatKvhXZfngw?com.borro.loandata%3a%3aAccountDetails%3a%3aaccountId?"/>
+  <PrimitiveTypeFacets:LabeledElement xmi:id="_CghEsNisEeqatKvhXZfngw" displayLabel="AccountId" base_NamedElement="_CggdoNisEeqatKvhXZfngw?com.borro.loandata%3a%3aAccountDetails%3a%3aaccountId?"/>
+  <PrimitiveTypeFacets:LabeledElement xmi:id="_w2Y4AOI9EeqVM-2lpO5XLQ" displayLabel="Sigma Bank" base_NamedElement="_w2Of8OI9EeqVM-2lpO5XLQ?com.borro.loandata%3a%3aBanks%3a%3aSIGMABANK?"/>
+  <PrimitiveTypeFacets:LabeledElement xmi:id="_yarVQOI9EeqVM-2lpO5XLQ" displayLabel="Infinity Bank" base_NamedElement="_yaquMOI9EeqVM-2lpO5XLQ?com.borro.loandata%3a%3aBanks%3a%3aINFINITYBANK?"/>
+  <PrimitiveTypeFacets:LabeledElement xmi:id="_O9ERQOL6EeqB5bTGqI_NxQ" displayLabel="com.borro.loandata" base_NamedElement="_mlVWMNXMEeqPDptWnp5KOA?com.borro.loandata?"/>
+</xmi:XMI>

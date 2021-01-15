@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form:form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:et="http://www.tibco.com/forms/model/elemtypes" xmlns:form="http://www.tibco.com/forms/model/form" xmlns:gwt="http://www.tibco.com/forms/model/gwt" xmlns:ionic="http://tibco.com/forms/samples/ionic" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmlns:xpdl2="http://www.wfmc.org/2008/XPDL2.1" xsi:schemaLocation="http://tibco.com/forms/samples/ionic Loan.library.ecore" generated="true" generatorSource="LoanApplication.xpdl#_U-tFINcpEeqTOKf-7T1YEA?p=LoanApplication%26s=Process%20Packages%26t=xpdl2%3aActivity%26q=LoadApplication%3a%3aLoanApplication%26n=DefineRequiredLoanDetails?" formatVersion="11.0.0">
+  <form:externalResources>
+    <form:externalResource name="resource.common" uri="pathmap://FORMS_RESOURCES/common.properties" internal="true" localized="true"/>
+    <form:externalResource name="resource.form" uri="LoadApplication/LoanApplication/DefineRequiredLoanDetails/DefineRequiredLoanDetails.properties" sfRelative="true" internal="true" localized="true"/>
+    <form:externalResource name="resource.LoanApplicationUtil" uri="js/LoanApplicationUtil.js" sfRelative="true"/>
+    <form:externalResource name="resource.LoanApplication" uri="css/LoanApplication.css" sfRelative="true"/>
+  </form:externalResources>
+  <form:dataModel>
+    <form:parameter generated="true" generatorSource="LoanApplication.xpdl#_4_wxENi0EeqDMpCuiDySLQ?p=LoanApplication%26s=Process%20Packages%26t=xpdl2%3aDataField%26q=LoadApplication%3a%3aLoanApplication%26n=MaximumTerm?" name="data.MaximumTerm" label="Maximum Term" dataType="uml:PrimitiveType pathmap://BOM_TYPES/BomPrimitiveTypes.library.uml#_gzTqYHvBEdy0U8_1u7Q20g" decimalPlaces="0" length="10" inout="IN"/>
+    <form:parameter generated="true" generatorSource="LoanApplication.xpdl#_ht2UUNi1EeqDMpCuiDySLQ?p=LoanApplication%26s=Process%20Packages%26t=xpdl2%3aDataField%26q=LoadApplication%3a%3aLoanApplication%26n=InterestRate?" name="data.InterestRate" label="Interest Rate" dataType="uml:PrimitiveType pathmap://BOM_TYPES/BomPrimitiveTypes.library.uml#_gzTqYHvBEdy0U8_1u7Q20g" decimalPlaces="2" length="10" inout="IN"/>
+    <form:parameter generated="true" generatorSource="LoanApplication.xpdl#_1JIdwNi0EeqDMpCuiDySLQ?p=LoanApplication%26s=Process%20Packages%26t=xpdl2%3aDataField%26q=LoadApplication%3a%3aLoanApplication%26n=MinimumTerm?" name="data.MinimumTerm" label="Minimum Term" dataType="uml:PrimitiveType pathmap://BOM_TYPES/BomPrimitiveTypes.library.uml#_gzTqYHvBEdy0U8_1u7Q20g" decimalPlaces="0" length="10" inout="IN"/>
+    <form:parameter generated="true" generatorSource="LoanApplication.xpdl#_8J5KwNi0EeqDMpCuiDySLQ?p=LoanApplication%26s=Process%20Packages%26t=xpdl2%3aDataField%26q=LoadApplication%3a%3aLoanApplication%26n=MinimumAmount?" name="data.MinimumAmount" label="Minimum Amount" dataType="uml:PrimitiveType pathmap://BOM_TYPES/BomPrimitiveTypes.library.uml#_gzTqYHvBEdy0U8_1u7Q20g" decimalPlaces="2" length="10" inout="IN"/>
+    <form:parameter generated="true" generatorSource="LoanApplication.xpdl#__2uB0Ni0EeqDMpCuiDySLQ?p=LoanApplication%26s=Process%20Packages%26t=xpdl2%3aDataField%26q=LoadApplication%3a%3aLoanApplication%26n=MaximumAmount?" name="data.MaximumAmount" label="Maximum Amount" dataType="uml:PrimitiveType pathmap://BOM_TYPES/BomPrimitiveTypes.library.uml#_gzTqYHvBEdy0U8_1u7Q20g" decimalPlaces="2" length="10" inout="IN"/>
+    <form:parameter generated="true" generatorSource="LoanApplication.xpdl#_UZiRkNfkEeqvUozA_jOdNg?p=LoanApplication%26s=Process%20Packages%26t=xpdl2%3aDataField%26q=LoadApplication%3a%3aLoanApplication%26n=LoanDetails?" name="data.LoanDetails" label="Loan Details" dataType="uml:Class LoanData.bom#_oHYa8NXQEeqPDptWnp5KOA?p=LoanData%26s=Business%20Objects%26t=uml%3aClass%26q=com.borro.loandata%26n=LoanApplication?" inout="INOUT"/>
+  </form:dataModel>
+  <form:actions/>
+  <form:rules>
+    <form:rule name="rule.onLoanDetailsUpdate" label="On Loan Details Update">
+      <form:event source="#data.LoanDetails" eventType="pathmap://FORMS_LIBRARIES/Standard.library.elemtypes#update" subject="form.data.LoanDetails.update"/>
+      <form:action xsi:type="form:ScriptAction" name="action.onLoanDetailsUpdateAction" label="On Loan Details Update Action">
+        <form:script>// onDefineRequiredLoanDetails_LoanDetailsUpdateAction(factory, pkg, context.form, resource, data, control);&#xD;
+control.formHeader1.title = bpm.forms.Util.formatNumber(resource.common.format_currency, data.LoanDetails.amount);</form:script>
+      </form:action>
+    </form:rule>
+    <form:rule name="rule.onAmountRangeUpdate" label="On Amount Range Update">
+      <form:event source="#control.amountRange" eventType="pathmap://FORMS_LIBRARIES/Standard.library.elemtypes#update" subject="form.control.amountRange.update"/>
+      <form:action xsi:type="form:ScriptAction" name="action.onAmountRangeUpdateAction" label="On Amount Range Update Action">
+        <form:script>if (data.LoanDetails.amount != control.amountRange.value) {&#xD;
+	data.LoanDetails.amount = control.amountRange.value;&#xD;
+}</form:script>
+      </form:action>
+    </form:rule>
+    <form:rule name="rule.onFormLoad" label="On Form Load">
+      <form:event source="#//@form" eventType="pathmap://FORMS_LIBRARIES/Standard.library.elemtypes#open" subject="form.open"/>
+      <form:action xsi:type="form:ScriptAction" name="action.onFormLoadAction" label="On Form Load Action">
+        <form:script>// onDefineRequiredLoanDetailsOpen(factory, pkg, context.form, resource, data, control);&#xD;
+control.amountRange.lowerRange = data.MinimumAmount;&#xD;
+control.amountRange.upperRange = data.MaximumAmount;&#xD;
+control.tenure.lowerRange = data.MinimumTerm;&#xD;
+control.tenure.upperRange = data.MaximumTerm;</form:script>
+      </form:action>
+    </form:rule>
+    <form:rule name="rule.onApplyforloanClick" label="On Apply for loan Click">
+      <form:event source="#control.applyforloan" eventType="pathmap://FORMS_LIBRARIES/Standard.library.elemtypes#select" subject="form.control.applyforloan.select"/>
+      <form:action name="action.rule1" ref="pathmap://FORMS_LIBRARIES/Standard.library.elemtypes#action.submit" label="rule1"/>
+    </form:rule>
+  </form:rules>
+  <form:bindings>
+    <form:binding direction="bothways" name="_w1fhQN45EeqX_KJQqPvBrA">
+      <form:source target="data.InterestRate" feature="http://www.tibco.com/forms/model/form#//Datum/value" data="form.data.InterestRate.value"></form:source>
+      <form:destination target="control.interestrate" feature="http://www.tibco.com/forms/model/form#//Control/value" data="form.control.interestrate.value"></form:destination>
+    </form:binding>
+    <form:binding direction="bothways" name="_R4fWYN5hEeq8JLWTCxgYGQ">
+      <form:source target="data.LoanDetails" feature="http://www.tibco.com/forms/model/form#//Datum/value LoanData.bom#_KwzGANXREeqPDptWnp5KOA?p=LoanData%26s=Business%20Objects%26t=uml%3aProperty%26q=com.borro.loandata%3a%3aLoanApplication%26n=months?" data="form.data.LoanDetails.value.months"></form:source>
+      <form:destination target="control.tenure" feature="http://www.tibco.com/forms/model/form#//Control/value" data="form.control.tenure.value"></form:destination>
+    </form:binding>
+    <form:binding direction="bothways" name="_VOgP8N5hEeq8JLWTCxgYGQ">
+      <form:source target="data.LoanDetails" feature="http://www.tibco.com/forms/model/form#//Datum/value LoanData.bom#_6zD28NXQEeqPDptWnp5KOA?p=LoanData%26s=Business%20Objects%26t=uml%3aProperty%26q=com.borro.loandata%3a%3aLoanApplication%26n=amount?" data="form.data.LoanDetails.value.amount"></form:source>
+      <form:destination target="control.amountRange" feature="http://www.tibco.com/forms/model/form#//Control/value" data="form.control.amountRange.value"></form:destination>
+    </form:binding>
+    <form:binding direction="bothways" name="_HNl98OMXEeqDuLz4jHzrdA">
+      <form:source target="data.LoanDetails" feature="http://www.tibco.com/forms/model/form#//Datum/value LoanData.bom#_JLd7YNXbEeqPDptWnp5KOA?p=LoanData%26s=Business%20Objects%26t=uml%3aProperty%26q=com.borro.loandata%3a%3aLoanApplication%26n=date?" data="form.data.LoanDetails.value.date"></form:source>
+      <form:destination target="control.installmentpaydate" feature="http://www.tibco.com/forms/model/form#//Control/value" data="form.control.installmentpaydate.value"></form:destination>
+    </form:binding>
+    <form:binding direction="bothways" name="_3daJcONoEeqBhLurTBIQMA">
+      <form:source target="data.LoanDetails" feature="http://www.tibco.com/forms/model/form#//Datum/value LoanData.bom#_2LI0INXREeqPDptWnp5KOA?p=LoanData%26s=Business%20Objects%26t=uml%3aProperty%26q=com.borro.loandata%3a%3aLoanApplication%26n=reason?" data="form.data.LoanDetails.value.reason"></form:source>
+      <form:destination target="control.reasonforloan" feature="http://www.tibco.com/forms/model/form#//Control/value" data="form.control.reasonforloan.value"></form:destination>
+    </form:binding>
+  </form:bindings>
+  <form:defaults>
+    <form:labelProperties position="top"/>
+  </form:defaults>
+  <form:pane elementType="form:PaneType pathmap://FORMS_UI_ELEMENT_TYPES/UIElementTypes.library.elemtypes#com.tibco.forms.panes.vertical" name="pane.content" paneType="com.tibco.forms.panes.vertical">
+    <form:label>Create Your Loan Request</form:label>
+    <form:visible>true</form:visible>
+    <form:enabled>true</form:enabled>
+    <form:labelProperties visible="false"/>
+    <form:defaults>
+      <form:labelProperties position="left"/>
+    </form:defaults>
+    <form:control styleClass="defineLoan_header" elementType="form:ControlType Loan.library.elemtypes#forms.samples.ionic.library.controls.ionicCard?p=LoanLibrary%26s=.forms%2Fcomponents%26t=form%3aControlType%26q=%26n=forms.samples.ionic.library.controls.ionicCard?" controlType="forms.samples.ionic.library.controls.ionicCard" name="control.formHeader1">
+      <form:propertySet xsi:type="ionic:IonicCardPropertySet"/>
+      <form:label>Form Header 1</form:label>
+      <form:visible>true</form:visible>
+      <form:enabled>true</form:enabled>
+      <form:required>false</form:required>
+    </form:control>
+    <form:control elementType="form:ControlType Loan.library.elemtypes#forms.samples.ionic.library.controls.ionicRange?p=LoanLibrary%26s=.forms%2Fcomponents%26t=form%3aControlType%26q=%26n=forms.samples.ionic.library.controls.ionicRange?" controlType="forms.samples.ionic.library.controls.ionicRange" name="control.amountRange">
+      <form:propertySet xsi:type="ionic:IonicRangePropertySet">
+        <ionic:lowerRange>2000</ionic:lowerRange>
+        <ionic:upperRange>80000</ionic:upperRange>
+        <ionic:dualKnobs>true</ionic:dualKnobs>
+      </form:propertySet>
+      <form:label>Amount</form:label>
+      <form:visible>true</form:visible>
+      <form:enabled>true</form:enabled>
+      <form:required>false</form:required>
+    </form:control>
+    <form:control elementType="form:ControlType Loan.library.elemtypes#forms.samples.ionic.library.controls.ionicRange?p=LoanLibrary%26s=.forms%2Fcomponents%26t=form%3aControlType%26q=%26n=forms.samples.ionic.library.controls.ionicRange?" controlType="forms.samples.ionic.library.controls.ionicRange" name="control.tenure">
+      <form:propertySet xsi:type="ionic:IonicRangePropertySet">
+        <ionic:lowerRange>3</ionic:lowerRange>
+        <ionic:upperRange>24</ionic:upperRange>
+        <ionic:dualKnobs>true</ionic:dualKnobs>
+        <ionic:steps>3</ionic:steps>
+      </form:propertySet>
+      <form:label>Duration</form:label>
+      <form:visible>true</form:visible>
+      <form:enabled>true</form:enabled>
+      <form:required>false</form:required>
+    </form:control>
+    <form:control elementType="form:ControlType Loan.library.elemtypes#forms.samples.ionic.library.controls.ionicSelect?p=LoanLibrary%26s=.forms%2Fcomponents%26t=form%3aControlType%26q=%26n=forms.samples.ionic.library.controls.ionicSelect?" controlType="forms.samples.ionic.library.controls.ionicSelect" name="control.reasonforloan">
+      <form:propertySet xsi:type="ionic:IonicSelectPropertySet">
+        <ionic:selectOptionLabels>Furniture</ionic:selectOptionLabels>
+        <ionic:selectOptionLabels>Holiday</ionic:selectOptionLabels>
+        <ionic:selectOptionLabels>Home Improvement</ionic:selectOptionLabels>
+        <ionic:selectOptionLabels>Payments</ionic:selectOptionLabels>
+        <ionic:selectOptionLabels>Vehicle</ionic:selectOptionLabels>
+        <ionic:selectOptionLabels>Other</ionic:selectOptionLabels>
+        <ionic:selectOptionValues>FURNITURE</ionic:selectOptionValues>
+        <ionic:selectOptionValues>HOLIDAY</ionic:selectOptionValues>
+        <ionic:selectOptionValues>HOMEIMPROVEMENT</ionic:selectOptionValues>
+        <ionic:selectOptionValues>PAYMENTS</ionic:selectOptionValues>
+        <ionic:selectOptionValues>VEHICLE</ionic:selectOptionValues>
+        <ionic:selectOptionValues>OTHER</ionic:selectOptionValues>
+      </form:propertySet>
+      <form:label>Reason for loan</form:label>
+      <form:visible>true</form:visible>
+      <form:enabled>true</form:enabled>
+      <form:required>true</form:required>
+    </form:control>
+    <form:control elementType="form:ControlType Loan.library.elemtypes#forms.samples.ionic.library.controls.ionicDate?p=LoanLibrary%26s=.forms%2Fcomponents%26t=form%3aControlType%26q=%26n=forms.samples.ionic.library.controls.ionicDate?" controlType="forms.samples.ionic.library.controls.ionicDate" name="control.installmentpaydate">
+      <form:propertySet xsi:type="ionic:IonicDatePropertySet">
+        <ionic:pickerFormat></ionic:pickerFormat>
+        <ionic:placeholder></ionic:placeholder>
+        <ionic:max>2050-12-31</ionic:max>
+        <ionic:displayFormatRef>resource.common.date_format</ionic:displayFormatRef>
+      </form:propertySet>
+      <form:label>Installment pay date</form:label>
+      <form:visible>true</form:visible>
+      <form:enabled>true</form:enabled>
+      <form:required>true</form:required>
+    </form:control>
+    <form:control elementType="form:ControlType Loan.library.elemtypes#forms.samples.ionic.library.controls.ionicNote?p=LoanLibrary%26s=.forms%2Fcomponents%26t=form%3aControlType%26q=%26n=forms.samples.ionic.library.controls.ionicNote?" controlType="forms.samples.ionic.library.controls.ionicNote" name="control.interestrate">
+      <form:propertySet xsi:type="ionic:IonicNotePropertySet"/>
+      <form:label>Interest rate (%)</form:label>
+      <form:visible>true</form:visible>
+      <form:enabled>true</form:enabled>
+      <form:required>false</form:required>
+    </form:control>
+    <form:control elementType="form:ControlType Loan.library.elemtypes#forms.samples.ionic.library.controls.ionicButton?p=LoanLibrary%26s=.forms%2Fcomponents%26t=form%3aControlType%26q=%26n=forms.samples.ionic.library.controls.ionicButton?" controlType="forms.samples.ionic.library.controls.ionicButton" name="control.applyforloan">
+      <form:propertySet xsi:type="ionic:IonicButtonPropertySet"/>
+      <form:label>Submit application</form:label>
+      <form:visible>true</form:visible>
+      <form:enabled>true</form:enabled>
+      <form:required>false</form:required>
+    </form:control>
+  </form:pane>
+</form:form>

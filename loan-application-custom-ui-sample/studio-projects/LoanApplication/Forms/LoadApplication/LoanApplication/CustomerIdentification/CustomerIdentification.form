@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form:form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:et="http://www.tibco.com/forms/model/elemtypes" xmlns:form="http://www.tibco.com/forms/model/form" xmlns:gwt="http://www.tibco.com/forms/model/gwt" xmlns:ionic="http://tibco.com/forms/samples/ionic" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmlns:xpdl2="http://www.wfmc.org/2008/XPDL2.1" xsi:schemaLocation="http://tibco.com/forms/samples/ionic Loan.library.ecore" generated="true" generatorSource="LoanApplication.xpdl#_pkKfgNckEeqTOKf-7T1YEA?p=LoanApplication%26s=Process%20Packages%26t=xpdl2%3aActivity%26q=LoadApplication%3a%3aLoanApplication%26n=CustomerIdentification?" formatVersion="11.0.0">
+  <form:externalResources>
+    <form:externalResource name="resource.common" uri="pathmap://FORMS_RESOURCES/common.properties" internal="true" localized="true"/>
+    <form:externalResource name="resource.form" uri="LoadApplication/LoanApplication/CustomerIdentification/CustomerIdentification.properties" sfRelative="true" internal="true" localized="true"/>
+    <form:externalResource name="resource.LoanApplication" uri="css/LoanApplication.css" sfRelative="true"/>
+  </form:externalResources>
+  <form:dataModel>
+    <form:parameter generated="true" generatorSource="LoanApplication.xpdl#_EZSgINcrEeqTOKf-7T1YEA?p=LoanApplication%26s=Process%20Packages%26t=xpdl2%3aDataField%26q=LoadApplication%3a%3aLoanApplication%26n=NewCustomer?" name="data.NewCustomer" label="New Customer" dataType="uml:PrimitiveType pathmap://BOM_TYPES/BomPrimitiveTypes.library.uml#_pSJ7cHvAEdy0U8_1u7Q20g" inout="INOUT"/>
+    <form:parameter generated="true" generatorSource="LoanApplication.xpdl#_KyD7oNfREeqvUozA_jOdNg?p=LoanApplication%26s=Process%20Packages%26t=xpdl2%3aDataField%26q=LoadApplication%3a%3aLoanApplication%26n=LastName?" name="data.LastName" label="Last Name" dataType="uml:PrimitiveType pathmap://BOM_TYPES/BomPrimitiveTypes.library.uml#_AGoC4HcNEdytQ9AWEvOuug" length="50" inout="INOUT"/>
+    <form:parameter generated="true" generatorSource="LoanApplication.xpdl#_QyZGYNfREeqvUozA_jOdNg?p=LoanApplication%26s=Process%20Packages%26t=xpdl2%3aDataField%26q=LoadApplication%3a%3aLoanApplication%26n=EmailAddress?" name="data.EmailAddress" label="Email Address" dataType="uml:PrimitiveType pathmap://BOM_TYPES/BomPrimitiveTypes.library.uml#_AGoC4HcNEdytQ9AWEvOuug" length="50" inout="INOUT"/>
+  </form:dataModel>
+  <form:actions/>
+  <form:rules>
+    <form:rule name="rule.onConfirmProceedClick" label="On Confirm &amp; Proceed Click">
+      <form:event source="#control.confirmProceed" eventType="pathmap://FORMS_LIBRARIES/Standard.library.elemtypes#select" subject="form.control.confirmProceed.select"/>
+      <form:action name="action.rule1" ref="pathmap://FORMS_LIBRARIES/Standard.library.elemtypes#action.submit" label="rule1"/>
+    </form:rule>
+  </form:rules>
+  <form:bindings>
+    <form:binding generated="true" direction="bothways" name="_cvckYd4KEeqUfbVcVpZ8GA">
+      <form:source target="data.LastName" feature="http://www.tibco.com/forms/model/form#//Datum/value" data="form.data.LastName.value"></form:source>
+      <form:destination target="control.LastName" feature="http://www.tibco.com/forms/model/form#//Control/value" data="form.control.LastName.value"></form:destination>
+    </form:binding>
+    <form:binding generated="true" direction="bothways" name="_cvckYt4KEeqUfbVcVpZ8GA">
+      <form:source target="data.EmailAddress" feature="http://www.tibco.com/forms/model/form#//Datum/value" data="form.data.EmailAddress.value"></form:source>
+      <form:destination target="control.EmailAddress" feature="http://www.tibco.com/forms/model/form#//Control/value" data="form.control.EmailAddress.value"></form:destination>
+    </form:binding>
+  </form:bindings>
+  <form:defaults>
+    <form:labelProperties position="top"/>
+  </form:defaults>
+  <form:pane elementType="form:PaneType pathmap://FORMS_UI_ELEMENT_TYPES/UIElementTypes.library.elemtypes#com.tibco.forms.panes.vertical" name="pane.content" paneType="com.tibco.forms.panes.vertical">
+    <form:label>Verify Your Identity</form:label>
+    <form:visible>true</form:visible>
+    <form:enabled>true</form:enabled>
+    <form:labelProperties visible="false"/>
+    <form:defaults>
+      <form:labelProperties position="left"/>
+    </form:defaults>
+    <form:control elementType="form:ControlType Loan.library.elemtypes#forms.samples.ionic.library.controls.ionicCard?p=LoanLibrary%26s=.forms%2Fcomponents%26t=form%3aControlType%26q=%26n=forms.samples.ionic.library.controls.ionicCard?" controlType="forms.samples.ionic.library.controls.ionicCard" name="control.formHeader1">
+      <form:propertySet xsi:type="ionic:IonicCardPropertySet">
+        <ionic:title>Authentication</ionic:title>
+        <ionic:content>Enter your email address and last name so we can verify your identity</ionic:content>
+      </form:propertySet>
+      <form:label>Form Header 1</form:label>
+      <form:visible>false</form:visible>
+      <form:enabled>true</form:enabled>
+      <form:required>false</form:required>
+    </form:control>
+    <form:control generated="true" generatorSource="LoanApplication.xpdl#_QyZGYNfREeqvUozA_jOdNg?p=LoanApplication%26s=Process%20Packages%26t=xpdl2%3aDataField%26q=LoadApplication%3a%3aLoanApplication%26n=EmailAddress?" syncFlags="1114112" elementType="form:ControlType Loan.library.elemtypes#forms.samples.ionic.library.controls.ionicInput?p=LoanLibrary%26s=.forms%2Fcomponents%26t=form%3aControlType%26q=%26n=forms.samples.ionic.library.controls.ionicInput?" controlType="forms.samples.ionic.library.controls.ionicInput" name="control.EmailAddress">
+      <form:propertySet xsi:type="ionic:IonicInputPropertySet">
+        <ionic:placeholder>johndoe@example.com</ionic:placeholder>
+      </form:propertySet>
+      <form:label>Email address</form:label>
+      <form:hint></form:hint>
+      <form:visible>true</form:visible>
+      <form:enabled>true</form:enabled>
+      <form:required>true</form:required>
+    </form:control>
+    <form:control generated="true" generatorSource="LoanApplication.xpdl#_KyD7oNfREeqvUozA_jOdNg?p=LoanApplication%26s=Process%20Packages%26t=xpdl2%3aDataField%26q=LoadApplication%3a%3aLoanApplication%26n=LastName?" syncFlags="1114112" elementType="form:ControlType Loan.library.elemtypes#forms.samples.ionic.library.controls.ionicInput?p=LoanLibrary%26s=.forms%2Fcomponents%26t=form%3aControlType%26q=%26n=forms.samples.ionic.library.controls.ionicInput?" controlType="forms.samples.ionic.library.controls.ionicInput" name="control.LastName">
+      <form:propertySet xsi:type="ionic:IonicInputPropertySet">
+        <ionic:placeholder>Doe</ionic:placeholder>
+      </form:propertySet>
+      <form:label>Last name</form:label>
+      <form:hint></form:hint>
+      <form:visible>true</form:visible>
+      <form:enabled>true</form:enabled>
+      <form:required>true</form:required>
+    </form:control>
+    <form:control elementType="form:ControlType Loan.library.elemtypes#forms.samples.ionic.library.controls.ionicButton?p=LoanLibrary%26s=.forms%2Fcomponents%26t=form%3aControlType%26q=%26n=forms.samples.ionic.library.controls.ionicButton?" controlType="forms.samples.ionic.library.controls.ionicButton" name="control.confirmProceed">
+      <form:propertySet xsi:type="ionic:IonicButtonPropertySet"/>
+      <form:label>Continue</form:label>
+      <form:visible>true</form:visible>
+      <form:enabled>true</form:enabled>
+      <form:required>false</form:required>
+    </form:control>
+  </form:pane>
+</form:form>

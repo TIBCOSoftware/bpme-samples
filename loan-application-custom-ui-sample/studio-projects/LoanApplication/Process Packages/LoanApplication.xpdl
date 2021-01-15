@@ -1,0 +1,2241 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xpdl2:Package xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:email="http://www.tibco.com/XPD/email1.0.0" xmlns:orchestrator="http://www.tibco.com/XPD/orchestrator1.0.0" xmlns:order="http://www.tibco.com/XPD/order1.0.0" xmlns:xpdExt="http://www.tibco.com/XPD/xpdExtension1.0.0" xmlns:xpdl2="http://www.wfmc.org/2008/XPDL2.1" xsi:schemaLocation="http://www.wfmc.org/2008/XPDL2.1 http://www.wfmc.org/standards/bpmnxpdl_31.xsd" Id="_02AdoNcYEeqTOKf-7T1YEA" xpdExt:DisplayName="LoadApplication" Name="LoadApplication">
+  <xpdl2:PackageHeader xpdExt:Language="en_GB">
+    <xpdl2:XPDLVersion>2.1</xpdl2:XPDLVersion>
+    <xpdl2:Vendor>TIBCO</xpdl2:Vendor>
+    <xpdl2:Created>2020-08-05</xpdl2:Created>
+    <xpdl2:Description></xpdl2:Description>
+    <xpdl2:Documentation></xpdl2:Documentation>
+    <xpdl2:CostUnit>GBP</xpdl2:CostUnit>
+  </xpdl2:PackageHeader>
+  <xpdl2:RedefinableHeader PublicationStatus="UNDER_REVISION">
+    <xpdl2:Author>nsutton</xpdl2:Author>
+    <xpdl2:Version>1.0</xpdl2:Version>
+  </xpdl2:RedefinableHeader>
+  <xpdl2:Participants>
+    <xpdl2:Participant Id="_SNfDENcbEeqTOKf-7T1YEA" xpdExt:DisplayName="OpenBankingService" Name="OpenBankingService">
+      <xpdl2:ParticipantType Type="SYSTEM"/>
+      <xpdExt:ParticipantSharedResource>
+        <xpdExt:RestService resourceName="OpenBanking-Service"/>
+      </xpdExt:ParticipantSharedResource>
+    </xpdl2:Participant>
+    <xpdl2:Participant Id="_MC8lgN5EEeqySZ689Vlg1w" xpdExt:DisplayName="TCLAService_Consumer" Name="TCLAService_Consumer">
+      <xpdl2:ParticipantType Type="SYSTEM"/>
+      <xpdExt:ParticipantSharedResource>
+        <xpdExt:RestService resourceName="TCLA-Service"/>
+      </xpdExt:ParticipantSharedResource>
+    </xpdl2:Participant>
+    <xpdl2:Participant Id="_6mNMIOFUEeqccaeM_N3TIA" xpdExt:DisplayName="LoanOfficer" Name="LoanOfficer">
+      <xpdl2:ParticipantType Type="RESOURCE"/>
+      <xpdl2:ExternalReference location="BankOrganization.om" namespace="http://www.tibco.com/om/1.0" xref="_THVFYNXMEeqPDptWnp5KOA"/>
+    </xpdl2:Participant>
+  </xpdl2:Participants>
+  <xpdl2:Pools>
+    <xpdl2:Pool Id="_nHMHwNcZEeqTOKf-7T1YEA" xpdExt:DisplayName="Pool" Name="Pool" BoundaryVisible="true" Process="_nHHPQNcZEeqTOKf-7T1YEA">
+      <xpdl2:Lanes>
+        <xpdl2:Lane Id="_nHMHwdcZEeqTOKf-7T1YEA" xpdExt:DisplayName="Lane" Name="Lane">
+          <xpdl2:NodeGraphicsInfos>
+            <xpdl2:NodeGraphicsInfo Height="488.0"/>
+          </xpdl2:NodeGraphicsInfos>
+        </xpdl2:Lane>
+      </xpdl2:Lanes>
+      <xpdl2:NodeGraphicsInfos>
+        <xpdl2:NodeGraphicsInfo BorderColor="0,0,128" FillColor="223,179,0" IsVisible="true"/>
+      </xpdl2:NodeGraphicsInfos>
+    </xpdl2:Pool>
+    <xpdl2:Pool Id="_3Ma7YNcYEeqTOKf-7T1YEA" xpdExt:DisplayName="Pool" Name="Pool" BoundaryVisible="true" Process="_02ZfMNcYEeqTOKf-7T1YEA">
+      <xpdl2:Lanes>
+        <xpdl2:Lane Id="_3Ma7YdcYEeqTOKf-7T1YEA" xpdExt:DisplayName="Lane" Name="Lane">
+          <xpdl2:NodeGraphicsInfos>
+            <xpdl2:NodeGraphicsInfo Height="874.0"/>
+          </xpdl2:NodeGraphicsInfos>
+        </xpdl2:Lane>
+      </xpdl2:Lanes>
+      <xpdl2:NodeGraphicsInfos>
+        <xpdl2:NodeGraphicsInfo BorderColor="0,0,128" FillColor="223,179,0" IsVisible="true"/>
+      </xpdl2:NodeGraphicsInfos>
+    </xpdl2:Pool>
+    <xpdl2:Pool Id="_37OnMdiOEeqatKvhXZfngw" xpdExt:DisplayName="Pool" Name="Pool" BoundaryVisible="true" Process="_37OnMNiOEeqatKvhXZfngw">
+      <xpdl2:Lanes>
+        <xpdl2:Lane Id="_37OnMtiOEeqatKvhXZfngw" xpdExt:DisplayName="Lane" Name="Lane">
+          <xpdl2:NodeGraphicsInfos>
+            <xpdl2:NodeGraphicsInfo Height="509.0"/>
+          </xpdl2:NodeGraphicsInfos>
+        </xpdl2:Lane>
+      </xpdl2:Lanes>
+    </xpdl2:Pool>
+  </xpdl2:Pools>
+  <xpdl2:Artifacts>
+    <xpdl2:Artifact Id="_pXO5YD-0Eeug1fwgb-Mvxw" ArtifactType="Annotation" TextAnnotation="Add the rest of your loan application business process here">
+      <xpdl2:NodeGraphicsInfos>
+        <xpdl2:NodeGraphicsInfo BorderColor="0,0,128" Height="32.0" LaneId="_nHMHwdcZEeqTOKf-7T1YEA" Width="315.0">
+          <xpdl2:Coordinates XCoordinate="419.0" YCoordinate="63.0"/>
+        </xpdl2:NodeGraphicsInfo>
+      </xpdl2:NodeGraphicsInfos>
+    </xpdl2:Artifact>
+  </xpdl2:Artifacts>
+  <xpdl2:WorkflowProcesses>
+    <xpdl2:WorkflowProcess Id="_02ZfMNcYEeqTOKf-7T1YEA" xpdExt:DisplayName="LoanApplication" xpdExt:XpdModelType="PageFlow" xpdExt:PublishAsBusinessService="true" xpdExt:BusinessServiceCategory="LoanApplication/LoadApplication" Name="LoanApplication">
+      <xpdl2:ProcessHeader>
+        <xpdl2:Description></xpdl2:Description>
+      </xpdl2:ProcessHeader>
+      <xpdl2:DataFields>
+        <xpdl2:DataField Id="_W_MwgNcZEeqTOKf-7T1YEA" xpdExt:DisplayName="LoanRefs" Name="LoanRefs" IsArray="true">
+          <xpdl2:DataType>
+            <xpdl2:RecordType>
+              <xpdl2:Member>
+                <xpdl2:ExternalReference location="LoanData.bom" namespace="http://www.eclipse.org/uml2/5.0.0/UML" xref="_oHYa8NXQEeqPDptWnp5KOA"/>
+              </xpdl2:Member>
+            </xpdl2:RecordType>
+          </xpdl2:DataType>
+        </xpdl2:DataField>
+        <xpdl2:DataField Id="_EZSgINcrEeqTOKf-7T1YEA" xpdExt:DisplayName="New Customer" Name="NewCustomer">
+          <xpdl2:DataType>
+            <xpdl2:BasicType Type="BOOLEAN"/>
+          </xpdl2:DataType>
+        </xpdl2:DataField>
+        <xpdl2:DataField Id="_yxd4YNcrEeqTOKf-7T1YEA" xpdExt:DisplayName="CustomerFound" Name="CustomerFound">
+          <xpdl2:DataType>
+            <xpdl2:BasicType Type="BOOLEAN"/>
+          </xpdl2:DataType>
+        </xpdl2:DataField>
+        <xpdl2:DataField Id="_KyD7oNfREeqvUozA_jOdNg" xpdExt:DisplayName="Last Name" Name="LastName">
+          <xpdl2:DataType>
+            <xpdl2:BasicType Type="STRING">
+              <xpdl2:Length>50</xpdl2:Length>
+            </xpdl2:BasicType>
+          </xpdl2:DataType>
+        </xpdl2:DataField>
+        <xpdl2:DataField Id="_QyZGYNfREeqvUozA_jOdNg" xpdExt:DisplayName="Email Address" Name="EmailAddress">
+          <xpdl2:DataType>
+            <xpdl2:BasicType Type="STRING">
+              <xpdl2:Length>50</xpdl2:Length>
+            </xpdl2:BasicType>
+          </xpdl2:DataType>
+        </xpdl2:DataField>
+        <xpdl2:DataField Id="_DR51gNfUEeqvUozA_jOdNg" xpdExt:DisplayName="CustomerRef" Name="CustomerRef">
+          <xpdl2:DataType>
+            <xpdl2:RecordType>
+              <xpdl2:Member>
+                <xpdl2:ExternalReference location="LoanData.bom" namespace="http://www.eclipse.org/uml2/5.0.0/UML" xref="_G2UikNXTEeqPDptWnp5KOA"/>
+              </xpdl2:Member>
+            </xpdl2:RecordType>
+          </xpdl2:DataType>
+        </xpdl2:DataField>
+        <xpdl2:DataField Id="_UZiRkNfkEeqvUozA_jOdNg" xpdExt:DisplayName="Loan Details" Name="LoanDetails">
+          <xpdl2:DataType>
+            <xpdl2:ExternalReference location="LoanData.bom" namespace="http://www.eclipse.org/uml2/5.0.0/UML" xref="_oHYa8NXQEeqPDptWnp5KOA"/>
+          </xpdl2:DataType>
+        </xpdl2:DataField>
+        <xpdl2:DataField Id="_asL7YNfkEeqvUozA_jOdNg" xpdExt:DisplayName="Customer Details" Name="CustomerDetails">
+          <xpdl2:DataType>
+            <xpdl2:ExternalReference location="LoanData.bom" namespace="http://www.eclipse.org/uml2/5.0.0/UML" xref="_G2UikNXTEeqPDptWnp5KOA"/>
+          </xpdl2:DataType>
+        </xpdl2:DataField>
+        <xpdl2:DataField Id="_-YtCMNfkEeqvUozA_jOdNg" xpdExt:DisplayName="Credit Score" Name="CreditScore">
+          <xpdl2:DataType>
+            <xpdl2:BasicType Type="STRING">
+              <xpdl2:Length>50</xpdl2:Length>
+            </xpdl2:BasicType>
+          </xpdl2:DataType>
+        </xpdl2:DataField>
+        <xpdl2:DataField Id="_eZ2mENiLEeqatKvhXZfngw" xpdExt:DisplayName="New Account Details" Name="NewAccountDetails">
+          <xpdl2:DataType>
+            <xpdl2:ExternalReference location="LoanData.bom" namespace="http://www.eclipse.org/uml2/5.0.0/UML" xref="_o5MIMNiKEeqatKvhXZfngw"/>
+          </xpdl2:DataType>
+        </xpdl2:DataField>
+        <xpdl2:DataField Id="_BgH3UNivEeqatKvhXZfngw" xpdExt:DisplayName="Proceed" Name="Proceed">
+          <xpdl2:DataType>
+            <xpdl2:BasicType Type="BOOLEAN"/>
+          </xpdl2:DataType>
+        </xpdl2:DataField>
+        <xpdl2:DataField Id="_LNIn0NiyEeqDMpCuiDySLQ" xpdExt:DisplayName="LoanRef" Name="LoanRef">
+          <xpdl2:DataType>
+            <xpdl2:RecordType>
+              <xpdl2:Member>
+                <xpdl2:ExternalReference location="LoanData.bom" namespace="http://www.eclipse.org/uml2/5.0.0/UML" xref="_oHYa8NXQEeqPDptWnp5KOA"/>
+              </xpdl2:Member>
+            </xpdl2:RecordType>
+          </xpdl2:DataType>
+        </xpdl2:DataField>
+        <xpdl2:DataField Id="_UglwMNiyEeqDMpCuiDySLQ" xpdExt:DisplayName="ExistingLoans" Name="ExistingLoans" IsArray="true">
+          <xpdl2:DataType>
+            <xpdl2:ExternalReference location="LoanData.bom" namespace="http://www.eclipse.org/uml2/5.0.0/UML" xref="_oHYa8NXQEeqPDptWnp5KOA"/>
+          </xpdl2:DataType>
+        </xpdl2:DataField>
+        <xpdl2:DataField Id="_3G7SENiyEeqDMpCuiDySLQ" xpdExt:DisplayName="AccountRef" Name="AccountRef">
+          <xpdl2:DataType>
+            <xpdl2:RecordType>
+              <xpdl2:Member>
+                <xpdl2:ExternalReference location="LoanData.bom" namespace="http://www.eclipse.org/uml2/5.0.0/UML" xref="_o5MIMNiKEeqatKvhXZfngw"/>
+              </xpdl2:Member>
+            </xpdl2:RecordType>
+          </xpdl2:DataType>
+        </xpdl2:DataField>
+        <xpdl2:DataField Id="_6of7YNiyEeqDMpCuiDySLQ" xpdExt:DisplayName="AccountRefs" Name="AccountRefs" IsArray="true">
+          <xpdl2:DataType>
+            <xpdl2:RecordType>
+              <xpdl2:Member>
+                <xpdl2:ExternalReference location="LoanData.bom" namespace="http://www.eclipse.org/uml2/5.0.0/UML" xref="_o5MIMNiKEeqatKvhXZfngw"/>
+              </xpdl2:Member>
+            </xpdl2:RecordType>
+          </xpdl2:DataType>
+        </xpdl2:DataField>
+        <xpdl2:DataField Id="_fjzJgNizEeqDMpCuiDySLQ" xpdExt:DisplayName="CustomersAccounts" Name="CustomersAccounts" IsArray="true">
+          <xpdl2:DataType>
+            <xpdl2:ExternalReference location="LoanData.bom" namespace="http://www.eclipse.org/uml2/5.0.0/UML" xref="_o5MIMNiKEeqatKvhXZfngw"/>
+          </xpdl2:DataType>
+        </xpdl2:DataField>
+        <xpdl2:DataField Id="_1JIdwNi0EeqDMpCuiDySLQ" xpdExt:DisplayName="Minimum Term" Name="MinimumTerm">
+          <xpdl2:DataType>
+            <xpdl2:BasicType Type="FLOAT">
+              <xpdl2:Precision>10</xpdl2:Precision>
+              <xpdl2:Scale>0</xpdl2:Scale>
+            </xpdl2:BasicType>
+          </xpdl2:DataType>
+        </xpdl2:DataField>
+        <xpdl2:DataField Id="_4_wxENi0EeqDMpCuiDySLQ" xpdExt:DisplayName="Maximum Term" Name="MaximumTerm">
+          <xpdl2:DataType>
+            <xpdl2:BasicType Type="FLOAT">
+              <xpdl2:Precision>10</xpdl2:Precision>
+              <xpdl2:Scale>0</xpdl2:Scale>
+            </xpdl2:BasicType>
+          </xpdl2:DataType>
+        </xpdl2:DataField>
+        <xpdl2:DataField Id="_8J5KwNi0EeqDMpCuiDySLQ" xpdExt:DisplayName="Minimum Amount" Name="MinimumAmount">
+          <xpdl2:DataType>
+            <xpdl2:BasicType Type="FLOAT">
+              <xpdl2:Precision>10</xpdl2:Precision>
+              <xpdl2:Scale>2</xpdl2:Scale>
+            </xpdl2:BasicType>
+          </xpdl2:DataType>
+        </xpdl2:DataField>
+        <xpdl2:DataField Id="__2uB0Ni0EeqDMpCuiDySLQ" xpdExt:DisplayName="Maximum Amount" Name="MaximumAmount">
+          <xpdl2:DataType>
+            <xpdl2:BasicType Type="FLOAT">
+              <xpdl2:Precision>10</xpdl2:Precision>
+              <xpdl2:Scale>2</xpdl2:Scale>
+            </xpdl2:BasicType>
+          </xpdl2:DataType>
+        </xpdl2:DataField>
+        <xpdl2:DataField Id="_ht2UUNi1EeqDMpCuiDySLQ" xpdExt:DisplayName="Interest Rate" Name="InterestRate">
+          <xpdl2:DataType>
+            <xpdl2:BasicType Type="FLOAT">
+              <xpdl2:Precision>10</xpdl2:Precision>
+              <xpdl2:Scale>2</xpdl2:Scale>
+            </xpdl2:BasicType>
+          </xpdl2:DataType>
+        </xpdl2:DataField>
+        <xpdl2:DataField Id="_iPiaMNi3EeqDMpCuiDySLQ" xpdExt:DisplayName="CustomerRefs" Name="CustomerRefs" IsArray="true">
+          <xpdl2:DataType>
+            <xpdl2:RecordType>
+              <xpdl2:Member>
+                <xpdl2:ExternalReference location="LoanData.bom" namespace="http://www.eclipse.org/uml2/5.0.0/UML" xref="_G2UikNXTEeqPDptWnp5KOA"/>
+              </xpdl2:Member>
+            </xpdl2:RecordType>
+          </xpdl2:DataType>
+        </xpdl2:DataField>
+        <xpdl2:DataField Id="_-zEOINxyEeq9huSL869Xyw" xpdExt:DisplayName="AccountId" Name="AccountId">
+          <xpdl2:DataType>
+            <xpdl2:BasicType Type="STRING">
+              <xpdl2:Length>50</xpdl2:Length>
+            </xpdl2:BasicType>
+          </xpdl2:DataType>
+        </xpdl2:DataField>
+        <xpdl2:DataField Id="_lIgzcN__EeqsffVtNmTiKA" xpdExt:DisplayName="LoanFound" Name="LoanFound">
+          <xpdl2:DataType>
+            <xpdl2:BasicType Type="BOOLEAN"/>
+          </xpdl2:DataType>
+          <xpdExt:InitialValues>
+            <xpdExt:Value>false</xpdExt:Value>
+          </xpdExt:InitialValues>
+        </xpdl2:DataField>
+        <xpdl2:DataField Id="_ZwWPEOAEEeqsffVtNmTiKA" xpdExt:DisplayName="Bank Accounts Found" Name="BankAccountsFound">
+          <xpdl2:DataType>
+            <xpdl2:BasicType Type="BOOLEAN"/>
+          </xpdl2:DataType>
+          <xpdExt:InitialValues>
+            <xpdExt:Value>false</xpdExt:Value>
+          </xpdExt:InitialValues>
+        </xpdl2:DataField>
+        <xpdl2:DataField Id="_aNtkMOOsEeq9OuBOyvMbmA" xpdExt:DisplayName="ReturnedAccountDetails" Name="ReturnedAccountDetails" IsArray="true">
+          <xpdl2:DataType>
+            <xpdl2:ExternalReference location="LoanData.bom" namespace="http://www.eclipse.org/uml2/5.0.0/UML" xref="_o5MIMNiKEeqatKvhXZfngw"/>
+          </xpdl2:DataType>
+        </xpdl2:DataField>
+      </xpdl2:DataFields>
+      <xpdl2:Activities>
+        <xpdl2:Activity Id="_3Ma7YtcYEeqTOKf-7T1YEA" Name="StartEvent" xpdExt:DisplayName="Start Event">
+          <xpdl2:Event>
+            <xpdl2:StartEvent Trigger="None"/>
+          </xpdl2:Event>
+          <xpdl2:NodeGraphicsInfos>
+            <xpdl2:NodeGraphicsInfo BorderColor="0,0,128" FillColor="205,158,233" Height="47.0" LaneId="_3Ma7YdcYEeqTOKf-7T1YEA" Width="58.0">
+              <xpdl2:Coordinates XCoordinate="41.0" YCoordinate="56.0"/>
+            </xpdl2:NodeGraphicsInfo>
+          </xpdl2:NodeGraphicsInfos>
+        </xpdl2:Activity>
+        <xpdl2:Activity Id="_3Ma7Y9cYEeqTOKf-7T1YEA" Name="" xpdExt:DisplayName="">
+          <xpdl2:Event>
+            <xpdl2:EndEvent Result="None"/>
+          </xpdl2:Event>
+          <xpdl2:NodeGraphicsInfos>
+            <xpdl2:NodeGraphicsInfo BorderColor="0,0,128" FillColor="205,158,233" Height="31.0" LaneId="_3Ma7YdcYEeqTOKf-7T1YEA" Width="31.0">
+              <xpdl2:Coordinates XCoordinate="64.0" YCoordinate="480.0"/>
+            </xpdl2:NodeGraphicsInfo>
+          </xpdl2:NodeGraphicsInfos>
+        </xpdl2:Activity>
+        <xpdl2:Activity Id="_pkKfgNckEeqTOKf-7T1YEA" Name="CustomerIdentification" xpdExt:Visibility="Private" xpdExt:DisplayName="Customer Identification">
+          <xpdl2:Implementation>
+            <xpdl2:Task>
+              <xpdl2:TaskUser Implementation="Unspecified">
+                <xpdl2:Performers>
+                  <xpdl2:Performer>-defined-in-Activity-Performer-</xpdl2:Performer>
+                </xpdl2:Performers>
+                <xpdl2:MessageIn Id="_pkKfgdckEeqTOKf-7T1YEA"/>
+                <xpdl2:MessageOut Id="_pkKfgtckEeqTOKf-7T1YEA"/>
+                <xpdExt:FormImplementation FormType="Form" FormURI="form://LoadApplication/LoanApplication/CustomerIdentification/CustomerIdentification.form"/>
+              </xpdl2:TaskUser>
+            </xpdl2:Task>
+          </xpdl2:Implementation>
+          <xpdl2:ExtendedAttributes>
+            <xpdl2:ExtendedAttribute Name="bpmJspTask" Value="form://LoadApplication/LoanApplication/CustomerIdentification/CustomerIdentification.form"/>
+          </xpdl2:ExtendedAttributes>
+          <xpdl2:NodeGraphicsInfos>
+            <xpdl2:NodeGraphicsInfo BorderColor="0,0,128" FillColor="205,158,233" Height="64.0" LaneId="_3Ma7YdcYEeqTOKf-7T1YEA" Width="105.0">
+              <xpdl2:Coordinates XCoordinate="236.0" YCoordinate="56.0"/>
+            </xpdl2:NodeGraphicsInfo>
+          </xpdl2:NodeGraphicsInfos>
+          <xpdl2:Extensions/>
+          <xpdExt:ActivityResourcePatterns>
+            <xpdExt:AllocationStrategy xpdExt:Offer="OfferAll" xpdExt:Strategy="SYSTEM_DETERMINED" xpdExt:ReOfferOnClose="true" xpdExt:ReOfferOnCancel="true"/>
+            <xpdExt:WorkItemPriority InitialPriority="50"/>
+          </xpdExt:ActivityResourcePatterns>
+          <xpdExt:AssociatedParameters DisableImplicitAssociation="false">
+            <xpdExt:AssociatedParameter FormalParam="NewCustomer" Mode="INOUT" Mandatory="false">
+              <xpdl2:Description></xpdl2:Description>
+            </xpdExt:AssociatedParameter>
+            <xpdExt:AssociatedParameter FormalParam="LastName" Mode="INOUT" Mandatory="false">
+              <xpdl2:Description></xpdl2:Description>
+            </xpdExt:AssociatedParameter>
+            <xpdExt:AssociatedParameter FormalParam="EmailAddress" Mode="INOUT" Mandatory="false">
+              <xpdl2:Description></xpdl2:Description>
+            </xpdExt:AssociatedParameter>
+          </xpdExt:AssociatedParameters>
+        </xpdl2:Activity>
+        <xpdl2:Activity Id="_rss5UNckEeqTOKf-7T1YEA" Name="" xpdExt:DisplayName="">
+          <xpdl2:Route GatewayType="Exclusive" MarkerVisible="true" ExclusiveType="Data"/>
+          <xpdl2:TransitionRestrictions>
+            <xpdl2:TransitionRestriction>
+              <xpdl2:Join Type="Exclusive" ExclusiveType="Data"/>
+            </xpdl2:TransitionRestriction>
+          </xpdl2:TransitionRestrictions>
+          <xpdl2:NodeGraphicsInfos>
+            <xpdl2:NodeGraphicsInfo BorderColor="0,0,128" FillColor="205,158,233" Height="45.0" LaneId="_3Ma7YdcYEeqTOKf-7T1YEA" Width="43.0">
+              <xpdl2:Coordinates XCoordinate="111.0" YCoordinate="56.0"/>
+            </xpdl2:NodeGraphicsInfo>
+          </xpdl2:NodeGraphicsInfos>
+        </xpdl2:Activity>
+        <xpdl2:Activity Id="_bR3CENclEeqTOKf-7T1YEA" Name="FindCustomer" xpdExt:Visibility="Private" xpdExt:DisplayName="Find Customer">
+          <xpdl2:Implementation>
+            <xpdl2:Task>
+              <xpdl2:TaskScript>
+                <xpdl2:Script ScriptGrammar="JavaScript">&#xD;
+data.CustomerFound = false;&#xD;
+&#xD;
+if ( bpm.caseData.findBySimpleSearch( data.EmailAddress, &quot;com.borro.loandata.Customer&quot;, 0, 2).length != 0 )&#xD;
+{&#xD;
+   data.CustomerRefs.length = 0;&#xD;
+   data.CustomerRefs.pushAll(bpm.caseData.findBySimpleSearch(data.EmailAddress, &quot;com.borro.loandata.Customer&quot;, 0, 2));&#xD;
+   data.CustomerRef = data.CustomerRefs.pop();&#xD;
+   data.CustomerDetails = bpm.caseData.read(data.CustomerRef);&#xD;
+&#xD;
+   if ( data.CustomerDetails.lastName == data.LastName )&#xD;
+   {&#xD;
+      data.CustomerFound = true;&#xD;
+   }&#xD;
+}   &#xD;
+</xpdl2:Script>
+              </xpdl2:TaskScript>
+            </xpdl2:Task>
+          </xpdl2:Implementation>
+          <xpdl2:NodeGraphicsInfos>
+            <xpdl2:NodeGraphicsInfo BorderColor="0,0,128" FillColor="205,158,233" Height="64.0" LaneId="_3Ma7YdcYEeqTOKf-7T1YEA" Width="104.0">
+              <xpdl2:Coordinates XCoordinate="390.0" YCoordinate="56.0"/>
+            </xpdl2:NodeGraphicsInfo>
+          </xpdl2:NodeGraphicsInfos>
+          <xpdl2:Extensions/>
+          <xpdExt:ActivityResourcePatterns>
+            <xpdExt:AllocationStrategy xpdExt:Strategy="SYSTEM_DETERMINED"/>
+          </xpdExt:ActivityResourcePatterns>
+        </xpdl2:Activity>
+        <xpdl2:Activity Id="_eQ-ekNclEeqTOKf-7T1YEA">
+          <xpdl2:Route GatewayType="Exclusive" MarkerVisible="true" ExclusiveType="Data"/>
+          <xpdl2:TransitionRestrictions>
+            <xpdl2:TransitionRestriction>
+              <xpdl2:Split Type="Exclusive" ExclusiveType="Data">
+                <xpdl2:TransitionRefs>
+                  <xpdl2:TransitionRef Id="_f9cncdclEeqTOKf-7T1YEA"/>
+                  <xpdl2:TransitionRef Id="_IlNng9irEeqatKvhXZfngw"/>
+                </xpdl2:TransitionRefs>
+              </xpdl2:Split>
+            </xpdl2:TransitionRestriction>
+          </xpdl2:TransitionRestrictions>
+          <xpdl2:NodeGraphicsInfos>
+            <xpdl2:NodeGraphicsInfo BorderColor="0,0,128" FillColor="205,158,233" Height="45.0" LaneId="_3Ma7YdcYEeqTOKf-7T1YEA" Width="43.0">
+              <xpdl2:Coordinates XCoordinate="521.0" YCoordinate="48.0"/>
+            </xpdl2:NodeGraphicsInfo>
+          </xpdl2:NodeGraphicsInfos>
+        </xpdl2:Activity>
+        <xpdl2:Activity Id="_fHFnMNclEeqTOKf-7T1YEA" Name="CustomerNotfound" xpdExt:Visibility="Private" xpdExt:DisplayName="Customer Not found">
+          <xpdl2:Implementation>
+            <xpdl2:Task>
+              <xpdl2:TaskUser Implementation="Unspecified">
+                <xpdl2:Performers>
+                  <xpdl2:Performer>-defined-in-Activity-Performer-</xpdl2:Performer>
+                </xpdl2:Performers>
+                <xpdl2:MessageIn Id="_fHFnMdclEeqTOKf-7T1YEA"/>
+                <xpdl2:MessageOut Id="_fHFnMtclEeqTOKf-7T1YEA"/>
+                <xpdExt:FormImplementation FormType="Form" FormURI="form://LoadApplication/LoanApplication/CustomerNotfound/CustomerNotfound.form"/>
+              </xpdl2:TaskUser>
+            </xpdl2:Task>
+          </xpdl2:Implementation>
+          <xpdl2:ExtendedAttributes>
+            <xpdl2:ExtendedAttribute Name="bpmJspTask" Value="form://LoadApplication/LoanApplication/CustomerNotfound/CustomerNotfound.form"/>
+          </xpdl2:ExtendedAttributes>
+          <xpdl2:NodeGraphicsInfos>
+            <xpdl2:NodeGraphicsInfo BorderColor="0,0,128" FillColor="205,158,233" Height="64.0" LaneId="_3Ma7YdcYEeqTOKf-7T1YEA" Width="104.0">
+              <xpdl2:Coordinates XCoordinate="303.0" YCoordinate="167.0"/>
+            </xpdl2:NodeGraphicsInfo>
+          </xpdl2:NodeGraphicsInfos>
+          <xpdl2:Extensions/>
+          <xpdExt:ActivityResourcePatterns>
+            <xpdExt:AllocationStrategy xpdExt:Offer="OfferAll" xpdExt:Strategy="SYSTEM_DETERMINED" xpdExt:ReOfferOnClose="true" xpdExt:ReOfferOnCancel="true"/>
+            <xpdExt:WorkItemPriority InitialPriority="50"/>
+          </xpdExt:ActivityResourcePatterns>
+          <xpdExt:AssociatedParameters DisableImplicitAssociation="false">
+            <xpdExt:AssociatedParameter FormalParam="EmailAddress" Mode="INOUT" Mandatory="false">
+              <xpdl2:Description></xpdl2:Description>
+            </xpdExt:AssociatedParameter>
+            <xpdExt:AssociatedParameter FormalParam="LastName" Mode="INOUT" Mandatory="false">
+              <xpdl2:Description></xpdl2:Description>
+            </xpdExt:AssociatedParameter>
+          </xpdExt:AssociatedParameters>
+        </xpdl2:Activity>
+        <xpdl2:Activity Id="_PSIj4NcpEeqTOKf-7T1YEA" Name="GetLoanProductDetails" xpdExt:Visibility="Private" xpdExt:DisplayName="Get Loan Product Details API Call">
+          <xpdl2:Implementation>
+            <xpdl2:Task>
+              <xpdl2:TaskScript>
+                <xpdl2:Script ScriptGrammar="JavaScript">data.MaximumAmount = 10000;&#xD;
+data.MinimumAmount = 100;&#xD;
+data.MaximumTerm = 24;&#xD;
+data.MinimumTerm = 12;&#xD;
+data.InterestRate = 11.25;&#xD;
+&#xD;
+</xpdl2:Script>
+              </xpdl2:TaskScript>
+            </xpdl2:Task>
+          </xpdl2:Implementation>
+          <xpdl2:NodeGraphicsInfos>
+            <xpdl2:NodeGraphicsInfo BorderColor="0,0,128" FillColor="205,158,233" Height="64.0" LaneId="_3Ma7YdcYEeqTOKf-7T1YEA" Width="96.0">
+              <xpdl2:Coordinates XCoordinate="1512.0" YCoordinate="146.0"/>
+            </xpdl2:NodeGraphicsInfo>
+          </xpdl2:NodeGraphicsInfos>
+          <xpdl2:Extensions/>
+          <xpdExt:ActivityResourcePatterns>
+            <xpdExt:AllocationStrategy xpdExt:Strategy="SYSTEM_DETERMINED"/>
+          </xpdExt:ActivityResourcePatterns>
+        </xpdl2:Activity>
+        <xpdl2:Activity Id="_U-tFINcpEeqTOKf-7T1YEA" Name="DefineRequiredLoanDetails" xpdExt:Visibility="Private" xpdExt:DisplayName="Define Required Loan Details">
+          <xpdl2:Implementation>
+            <xpdl2:Task>
+              <xpdl2:TaskUser Implementation="Unspecified">
+                <xpdl2:Performers>
+                  <xpdl2:Performer>-defined-in-Activity-Performer-</xpdl2:Performer>
+                </xpdl2:Performers>
+                <xpdl2:MessageIn Id="_U-tFIdcpEeqTOKf-7T1YEA"/>
+                <xpdl2:MessageOut Id="_U-tFItcpEeqTOKf-7T1YEA"/>
+                <xpdExt:FormImplementation FormType="Form" FormURI="form://LoadApplication/LoanApplication/DefineRequiredLoanDetails/DefineRequiredLoanDetails.form"/>
+              </xpdl2:TaskUser>
+            </xpdl2:Task>
+          </xpdl2:Implementation>
+          <xpdl2:ExtendedAttributes>
+            <xpdl2:ExtendedAttribute Name="bpmJspTask" Value="form://LoadApplication/LoanApplication/DefineRequiredLoanDetails/DefineRequiredLoanDetails.form"/>
+          </xpdl2:ExtendedAttributes>
+          <xpdl2:NodeGraphicsInfos>
+            <xpdl2:NodeGraphicsInfo BorderColor="0,0,128" FillColor="205,158,233" Height="64.0" LaneId="_3Ma7YdcYEeqTOKf-7T1YEA" Width="96.0">
+              <xpdl2:Coordinates XCoordinate="1512.0" YCoordinate="408.0"/>
+            </xpdl2:NodeGraphicsInfo>
+          </xpdl2:NodeGraphicsInfos>
+          <xpdl2:Extensions/>
+          <xpdExt:ActivityResourcePatterns>
+            <xpdExt:AllocationStrategy xpdExt:Offer="OfferAll" xpdExt:Strategy="SYSTEM_DETERMINED" xpdExt:ReOfferOnClose="true" xpdExt:ReOfferOnCancel="true"/>
+            <xpdExt:WorkItemPriority InitialPriority="50"/>
+          </xpdExt:ActivityResourcePatterns>
+          <xpdExt:AssociatedParameters DisableImplicitAssociation="false">
+            <xpdExt:AssociatedParameter FormalParam="MaximumTerm" Mode="IN" Mandatory="false">
+              <xpdl2:Description></xpdl2:Description>
+            </xpdExt:AssociatedParameter>
+            <xpdExt:AssociatedParameter FormalParam="InterestRate" Mode="IN" Mandatory="false">
+              <xpdl2:Description></xpdl2:Description>
+            </xpdExt:AssociatedParameter>
+            <xpdExt:AssociatedParameter FormalParam="MinimumTerm" Mode="IN" Mandatory="false">
+              <xpdl2:Description></xpdl2:Description>
+            </xpdExt:AssociatedParameter>
+            <xpdExt:AssociatedParameter FormalParam="MinimumAmount" Mode="IN" Mandatory="false">
+              <xpdl2:Description></xpdl2:Description>
+            </xpdExt:AssociatedParameter>
+            <xpdExt:AssociatedParameter FormalParam="MaximumAmount" Mode="IN" Mandatory="false">
+              <xpdl2:Description></xpdl2:Description>
+            </xpdExt:AssociatedParameter>
+            <xpdExt:AssociatedParameter FormalParam="LoanDetails" Mode="INOUT" Mandatory="false">
+              <xpdl2:Description></xpdl2:Description>
+            </xpdExt:AssociatedParameter>
+          </xpdExt:AssociatedParameters>
+        </xpdl2:Activity>
+        <xpdl2:Activity Id="_nZoIUNcpEeqTOKf-7T1YEA" Name="ValidateLoanApplication" xpdExt:Visibility="Private" xpdExt:DisplayName="Validate Loan Application API Call">
+          <xpdl2:Implementation>
+            <xpdl2:Task>
+              <xpdl2:TaskScript>
+                <xpdl2:Script ScriptGrammar="JavaScript">if ( data.CreditScore == 700 ){&#xD;
+	data.LoanDetails.status = pkg.com_borro_loandata.ApplicationStatus.APPROVED;&#xD;
+	&#xD;
+} else if ( data.CreditScore == 500 ) {&#xD;
+	data.LoanDetails.status = pkg.com_borro_loandata.ApplicationStatus.DECISIONPENDING;&#xD;
+&#xD;
+} else {&#xD;
+	data.LoanDetails.status = pkg.com_borro_loandata.ApplicationStatus.REJECTED;&#xD;
+}&#xD;
+&#xD;
+</xpdl2:Script>
+              </xpdl2:TaskScript>
+            </xpdl2:Task>
+          </xpdl2:Implementation>
+          <xpdl2:NodeGraphicsInfos>
+            <xpdl2:NodeGraphicsInfo BorderColor="0,0,128" FillColor="205,158,233" Height="64.0" LaneId="_3Ma7YdcYEeqTOKf-7T1YEA" Width="96.0">
+              <xpdl2:Coordinates XCoordinate="932.0" YCoordinate="623.0"/>
+            </xpdl2:NodeGraphicsInfo>
+          </xpdl2:NodeGraphicsInfos>
+          <xpdl2:Extensions/>
+          <xpdExt:ActivityResourcePatterns>
+            <xpdExt:AllocationStrategy xpdExt:Strategy="SYSTEM_DETERMINED"/>
+          </xpdExt:ActivityResourcePatterns>
+          <xpdExt:AssociatedParameters DisableImplicitAssociation="false">
+            <xpdExt:AssociatedParameter FormalParam="LoanDetails" Mode="INOUT" Mandatory="false">
+              <xpdl2:Description></xpdl2:Description>
+            </xpdExt:AssociatedParameter>
+            <xpdExt:AssociatedParameter FormalParam="CreditScore" Mode="INOUT" Mandatory="false">
+              <xpdl2:Description></xpdl2:Description>
+            </xpdExt:AssociatedParameter>
+          </xpdExt:AssociatedParameters>
+        </xpdl2:Activity>
+        <xpdl2:Activity Id="_yceKsNcpEeqTOKf-7T1YEA" Name="HandleLoanApplication" FinishMode="Automatic" StartMode="Automatic" xpdExt:Visibility="Private" xpdExt:DisplayName="Handle Loan Application">
+          <xpdl2:Implementation>
+            <xpdl2:SubFlow Execution="ASYNCHR" Id="_nHHPQNcZEeqTOKf-7T1YEA" xpdExt:StartStrategy="ScheduleStart" xpdExt:AsyncExecutionMode="Detached" xpdExt:SuspendResumeWithParent="false">
+              <xpdExt:InputMappings MapperContext="ProcessToSubProcess" MappingDirection="IN">
+                <xpdExt:DataMappings>
+                  <xpdExt:DataMapping xpdExt:SourceContributorId="ActivityInterface.DataMapperContent" xpdExt:TargetContributorId="ProcessToSubProcess.DataMapperContent" Direction="IN" Formal="CustomerRef">
+                    <xpdl2:Actual ScriptGrammar="JavaScript">CustomerRef</xpdl2:Actual>
+                  </xpdExt:DataMapping>
+                  <xpdExt:DataMapping xpdExt:SourceContributorId="ActivityInterface.DataMapperContent" xpdExt:TargetContributorId="ProcessToSubProcess.DataMapperContent" Direction="IN" Formal="NewCustomerDetails">
+                    <xpdl2:Actual ScriptGrammar="JavaScript">CustomerDetails</xpdl2:Actual>
+                  </xpdExt:DataMapping>
+                  <xpdExt:DataMapping xpdExt:SourceContributorId="ActivityInterface.DataMapperContent" xpdExt:TargetContributorId="ProcessToSubProcess.DataMapperContent" Direction="IN" Formal="NewLoanDetails">
+                    <xpdl2:Actual ScriptGrammar="JavaScript">LoanDetails</xpdl2:Actual>
+                  </xpdExt:DataMapping>
+                  <xpdExt:DataMapping xpdExt:SourceContributorId="ActivityInterface.DataMapperContent" xpdExt:TargetContributorId="ProcessToSubProcess.DataMapperContent" Direction="IN" Formal="ReferencedAccount">
+                    <xpdl2:Actual ScriptGrammar="JavaScript">NewAccountDetails</xpdl2:Actual>
+                  </xpdExt:DataMapping>
+                </xpdExt:DataMappings>
+              </xpdExt:InputMappings>
+            </xpdl2:SubFlow>
+          </xpdl2:Implementation>
+          <xpdl2:Priority></xpdl2:Priority>
+          <xpdl2:NodeGraphicsInfos>
+            <xpdl2:NodeGraphicsInfo BorderColor="0,0,128" FillColor="205,158,233" Height="94.0" LaneId="_3Ma7YdcYEeqTOKf-7T1YEA" Width="96.0">
+              <xpdl2:Coordinates XCoordinate="214.0" YCoordinate="480.0"/>
+            </xpdl2:NodeGraphicsInfo>
+          </xpdl2:NodeGraphicsInfos>
+          <xpdl2:Extensions/>
+          <xpdExt:AssociatedParameters DisableImplicitAssociation="false">
+            <xpdExt:AssociatedParameter FormalParam="LoanDetails" Mode="INOUT" Mandatory="false">
+              <xpdl2:Description></xpdl2:Description>
+            </xpdExt:AssociatedParameter>
+            <xpdExt:AssociatedParameter FormalParam="CustomerRef" Mode="INOUT" Mandatory="false">
+              <xpdl2:Description></xpdl2:Description>
+            </xpdExt:AssociatedParameter>
+            <xpdExt:AssociatedParameter FormalParam="CustomerDetails" Mode="INOUT" Mandatory="false">
+              <xpdl2:Description></xpdl2:Description>
+            </xpdExt:AssociatedParameter>
+            <xpdExt:AssociatedParameter FormalParam="NewAccountDetails" Mode="INOUT" Mandatory="false">
+              <xpdl2:Description></xpdl2:Description>
+            </xpdExt:AssociatedParameter>
+          </xpdExt:AssociatedParameters>
+        </xpdl2:Activity>
+        <xpdl2:Activity Id="_-GnV8NiPEeqatKvhXZfngw" Name="SelectAccount" xpdExt:Visibility="Private" xpdExt:DisplayName="Select Account">
+          <xpdl2:Implementation>
+            <xpdl2:Task>
+              <xpdl2:TaskUser Implementation="Unspecified">
+                <xpdl2:Performers>
+                  <xpdl2:Performer>-defined-in-Activity-Performer-</xpdl2:Performer>
+                </xpdl2:Performers>
+                <xpdl2:MessageIn Id="_-GnV8diPEeqatKvhXZfngw"/>
+                <xpdl2:MessageOut Id="_-GnV8tiPEeqatKvhXZfngw"/>
+                <xpdExt:FormImplementation FormType="Form" FormURI="form://LoadApplication/LoanApplication/SelectAccount/SelectAccount.form"/>
+              </xpdl2:TaskUser>
+            </xpdl2:Task>
+          </xpdl2:Implementation>
+          <xpdl2:ExtendedAttributes>
+            <xpdl2:ExtendedAttribute Name="bpmJspTask" Value="form://LoadApplication/LoanApplication/SelectAccount/SelectAccount.form"/>
+          </xpdl2:ExtendedAttributes>
+          <xpdl2:NodeGraphicsInfos>
+            <xpdl2:NodeGraphicsInfo BorderColor="0,0,128" FillColor="205,158,233" Height="64.0" LaneId="_3Ma7YdcYEeqTOKf-7T1YEA" Width="124.0">
+              <xpdl2:Coordinates XCoordinate="986.0" YCoordinate="357.0"/>
+            </xpdl2:NodeGraphicsInfo>
+          </xpdl2:NodeGraphicsInfos>
+          <xpdl2:Extensions/>
+          <xpdExt:ActivityResourcePatterns>
+            <xpdExt:AllocationStrategy xpdExt:Offer="OfferAll" xpdExt:Strategy="SYSTEM_DETERMINED" xpdExt:ReOfferOnClose="true" xpdExt:ReOfferOnCancel="true"/>
+            <xpdExt:WorkItemPriority InitialPriority="50"/>
+          </xpdExt:ActivityResourcePatterns>
+          <xpdExt:AssociatedParameters DisableImplicitAssociation="false">
+            <xpdExt:AssociatedParameter FormalParam="AccountId" Mode="INOUT" Mandatory="false">
+              <xpdl2:Description></xpdl2:Description>
+            </xpdExt:AssociatedParameter>
+            <xpdExt:AssociatedParameter FormalParam="NewAccountDetails" Mode="OUT" Mandatory="false">
+              <xpdl2:Description></xpdl2:Description>
+            </xpdExt:AssociatedParameter>
+            <xpdExt:AssociatedParameter FormalParam="CustomersAccounts" Mode="IN" Mandatory="false">
+              <xpdl2:Description></xpdl2:Description>
+            </xpdExt:AssociatedParameter>
+          </xpdExt:AssociatedParameters>
+        </xpdl2:Activity>
+        <xpdl2:Activity Id="_bxEzsNiQEeqatKvhXZfngw">
+          <xpdl2:Route GatewayType="Exclusive" MarkerVisible="true" ExclusiveType="Data"/>
+          <xpdl2:TransitionRestrictions>
+            <xpdl2:TransitionRestriction>
+              <xpdl2:Split Type="Exclusive" ExclusiveType="Data">
+                <xpdl2:TransitionRefs>
+                  <xpdl2:TransitionRef Id="_dFvgkdiQEeqatKvhXZfngw"/>
+                  <xpdl2:TransitionRef Id="_is26ENiQEeqatKvhXZfngw"/>
+                  <xpdl2:TransitionRef Id="_rNG9sNitEeqatKvhXZfngw"/>
+                </xpdl2:TransitionRefs>
+              </xpdl2:Split>
+            </xpdl2:TransitionRestriction>
+          </xpdl2:TransitionRestrictions>
+          <xpdl2:NodeGraphicsInfos>
+            <xpdl2:NodeGraphicsInfo BorderColor="0,0,128" FillColor="205,158,233" Height="45.0" LaneId="_3Ma7YdcYEeqTOKf-7T1YEA" Width="43.0">
+              <xpdl2:Coordinates XCoordinate="657.0" YCoordinate="499.0"/>
+            </xpdl2:NodeGraphicsInfo>
+          </xpdl2:NodeGraphicsInfos>
+        </xpdl2:Activity>
+        <xpdl2:Activity Id="_cWt3YNiQEeqatKvhXZfngw">
+          <xpdl2:Route GatewayType="Exclusive" MarkerVisible="true" ExclusiveType="Data"/>
+          <xpdl2:TransitionRestrictions>
+            <xpdl2:TransitionRestriction>
+              <xpdl2:Join Type="Exclusive" ExclusiveType="Data"/>
+              <xpdl2:Split Type="Exclusive" ExclusiveType="Data">
+                <xpdl2:TransitionRefs>
+                  <xpdl2:TransitionRef Id="_1lNzUNfkEeqvUozA_jOdNg"/>
+                  <xpdl2:TransitionRef Id="_l9WacNiQEeqatKvhXZfngw"/>
+                </xpdl2:TransitionRefs>
+              </xpdl2:Split>
+            </xpdl2:TransitionRestriction>
+          </xpdl2:TransitionRestrictions>
+          <xpdl2:NodeGraphicsInfos>
+            <xpdl2:NodeGraphicsInfo BorderColor="0,0,128" FillColor="205,158,233" Height="45.0" LaneId="_3Ma7YdcYEeqTOKf-7T1YEA" Width="43.0">
+              <xpdl2:Coordinates XCoordinate="368.0" YCoordinate="538.0"/>
+            </xpdl2:NodeGraphicsInfo>
+          </xpdl2:NodeGraphicsInfos>
+        </xpdl2:Activity>
+        <xpdl2:Activity Id="_dFvgkNiQEeqatKvhXZfngw" Name="ShowAcceptedLoanDetails" IsATransaction="false" xpdExt:Visibility="Private" xpdExt:RequireNewTransaction="false" xpdExt:DisplayName="Show Accepted Loan Details">
+          <xpdl2:Implementation>
+            <xpdl2:Task>
+              <xpdl2:TaskUser Implementation="Unspecified">
+                <xpdl2:Performers>
+                  <xpdl2:Performer>-defined-in-Activity-Performer-</xpdl2:Performer>
+                </xpdl2:Performers>
+                <xpdl2:MessageIn Id="_oey9UNitEeqatKvhXZfngw"/>
+                <xpdl2:MessageOut Id="_oey9UditEeqatKvhXZfngw"/>
+                <xpdExt:FormImplementation FormType="Form" FormURI="form://LoadApplication/LoanApplication/ShowAcceptedLoanDetails/ShowAcceptedLoanDetails.form"/>
+              </xpdl2:TaskUser>
+            </xpdl2:Task>
+          </xpdl2:Implementation>
+          <xpdl2:ExtendedAttributes>
+            <xpdl2:ExtendedAttribute Name="bpmJspTask" Value="form://LoadApplication/LoanApplication/ShowAcceptedLoanDetails/ShowAcceptedLoanDetails.form"/>
+          </xpdl2:ExtendedAttributes>
+          <xpdl2:NodeGraphicsInfos>
+            <xpdl2:NodeGraphicsInfo BorderColor="0,0,128" FillColor="205,158,233" Height="64.0" LaneId="_3Ma7YdcYEeqTOKf-7T1YEA" Width="96.0">
+              <xpdl2:Coordinates XCoordinate="489.0" YCoordinate="499.0"/>
+            </xpdl2:NodeGraphicsInfo>
+          </xpdl2:NodeGraphicsInfos>
+          <xpdl2:Extensions/>
+          <xpdExt:ActivityResourcePatterns>
+            <xpdExt:AllocationStrategy xpdExt:Offer="OfferAll" xpdExt:Strategy="SYSTEM_DETERMINED" xpdExt:ReOfferOnClose="true" xpdExt:ReOfferOnCancel="true"/>
+            <xpdExt:WorkItemPriority InitialPriority="50"/>
+          </xpdExt:ActivityResourcePatterns>
+          <xpdExt:AssociatedParameters DisableImplicitAssociation="false">
+            <xpdExt:AssociatedParameter FormalParam="Proceed" Mode="OUT" Mandatory="false">
+              <xpdl2:Description></xpdl2:Description>
+            </xpdExt:AssociatedParameter>
+            <xpdExt:AssociatedParameter FormalParam="LoanDetails" Mode="IN" Mandatory="false">
+              <xpdl2:Description></xpdl2:Description>
+            </xpdExt:AssociatedParameter>
+          </xpdExt:AssociatedParameters>
+        </xpdl2:Activity>
+        <xpdl2:Activity Id="_fbJ4wNiQEeqatKvhXZfngw" Name="ShowReferred" IsATransaction="false" xpdExt:Visibility="Private" xpdExt:RequireNewTransaction="false" xpdExt:DisplayName="Show Referred">
+          <xpdl2:Implementation>
+            <xpdl2:Task>
+              <xpdl2:TaskUser Implementation="Unspecified">
+                <xpdl2:Performers>
+                  <xpdl2:Performer>-defined-in-Activity-Performer-</xpdl2:Performer>
+                </xpdl2:Performers>
+                <xpdl2:MessageIn Id="_nB2eMNitEeqatKvhXZfngw"/>
+                <xpdl2:MessageOut Id="_nB2eMditEeqatKvhXZfngw"/>
+                <xpdExt:FormImplementation FormType="Form" FormURI="form://LoadApplication/LoanApplication/ShowReferred/ShowReferred.form"/>
+              </xpdl2:TaskUser>
+            </xpdl2:Task>
+          </xpdl2:Implementation>
+          <xpdl2:ExtendedAttributes>
+            <xpdl2:ExtendedAttribute Name="bpmJspTask" Value="form://LoadApplication/LoanApplication/ShowReferred/ShowReferred.form"/>
+          </xpdl2:ExtendedAttributes>
+          <xpdl2:NodeGraphicsInfos>
+            <xpdl2:NodeGraphicsInfo BorderColor="0,0,128" FillColor="205,158,233" Height="64.0" LaneId="_3Ma7YdcYEeqTOKf-7T1YEA" Width="96.0">
+              <xpdl2:Coordinates XCoordinate="489.0" YCoordinate="592.0"/>
+            </xpdl2:NodeGraphicsInfo>
+          </xpdl2:NodeGraphicsInfos>
+          <xpdl2:Extensions/>
+          <xpdExt:ActivityResourcePatterns>
+            <xpdExt:AllocationStrategy xpdExt:Offer="OfferAll" xpdExt:Strategy="SYSTEM_DETERMINED" xpdExt:ReOfferOnClose="true" xpdExt:ReOfferOnCancel="true"/>
+            <xpdExt:WorkItemPriority InitialPriority="50"/>
+          </xpdExt:ActivityResourcePatterns>
+          <xpdExt:AssociatedParameters DisableImplicitAssociation="false">
+            <xpdExt:AssociatedParameter FormalParam="Proceed" Mode="OUT" Mandatory="false">
+              <xpdl2:Description></xpdl2:Description>
+            </xpdExt:AssociatedParameter>
+            <xpdExt:AssociatedParameter FormalParam="LoanDetails" Mode="IN" Mandatory="false">
+              <xpdl2:Description></xpdl2:Description>
+            </xpdExt:AssociatedParameter>
+          </xpdExt:AssociatedParameters>
+        </xpdl2:Activity>
+        <xpdl2:Activity Id="_lazuENiQEeqatKvhXZfngw" Name="EndEvent" xpdExt:Visibility="Private" xpdExt:DisplayName="End Event">
+          <xpdl2:Event>
+            <xpdl2:EndEvent Result="None"/>
+          </xpdl2:Event>
+          <xpdl2:NodeGraphicsInfos>
+            <xpdl2:NodeGraphicsInfo BorderColor="0,0,128" FillColor="205,158,233" Height="47.0" LaneId="_3Ma7YdcYEeqTOKf-7T1YEA" Width="54.0">
+              <xpdl2:Coordinates XCoordinate="245.0" YCoordinate="607.0"/>
+            </xpdl2:NodeGraphicsInfo>
+          </xpdl2:NodeGraphicsInfos>
+        </xpdl2:Activity>
+        <xpdl2:Activity Id="_IlNngNirEeqatKvhXZfngw" Name="GetCurrentLoansDetails" IsATransaction="false" xpdExt:Visibility="Private" xpdExt:RequireNewTransaction="false" xpdExt:DisplayName="Get Current Loans Details">
+          <xpdl2:Implementation>
+            <xpdl2:Task>
+              <xpdl2:TaskScript>
+                <xpdl2:Script ScriptGrammar="JavaScript">data.LoanRefs.length = 0;&#xD;
+data.ExistingLoans.length = 0;&#xD;
+data.LoanRefs.pushAll( bpm.caseData.navigateAll(data.CustomerRef, &quot;application&quot;, 0, 100));&#xD;
+&#xD;
+if ( data.LoanRefs.length != 0 )&#xD;
+{&#xD;
+   data.ExistingLoans.pushAll( bpm.caseData.readAll(data.LoanRefs) );&#xD;
+   data.LoanFound=true;&#xD;
+}else{&#xD;
+   data.LoanFound=false;&#xD;
+}</xpdl2:Script>
+              </xpdl2:TaskScript>
+            </xpdl2:Task>
+          </xpdl2:Implementation>
+          <xpdl2:NodeGraphicsInfos>
+            <xpdl2:NodeGraphicsInfo BorderColor="0,0,128" FillColor="205,158,233" Height="64.0" LaneId="_3Ma7YdcYEeqTOKf-7T1YEA" Width="96.0">
+              <xpdl2:Coordinates XCoordinate="606.0" YCoordinate="123.0"/>
+            </xpdl2:NodeGraphicsInfo>
+          </xpdl2:NodeGraphicsInfos>
+          <xpdl2:Extensions/>
+          <xpdExt:ActivityResourcePatterns>
+            <xpdExt:AllocationStrategy xpdExt:Strategy="SYSTEM_DETERMINED" xpdExt:ReOfferOnClose="true" xpdExt:ReOfferOnCancel="true"/>
+            <xpdExt:WorkItemPriority InitialPriority="50"/>
+          </xpdExt:ActivityResourcePatterns>
+        </xpdl2:Activity>
+        <xpdl2:Activity Id="_4ib1gNisEeqatKvhXZfngw" Name="DisplayCurrentLoansAndChallengeForLoan" xpdExt:Visibility="Private" xpdExt:DisplayName="Display Current Loans And Challenge For Loan">
+          <xpdl2:Implementation>
+            <xpdl2:Task>
+              <xpdl2:TaskUser Implementation="Unspecified">
+                <xpdl2:Performers>
+                  <xpdl2:Performer>-defined-in-Activity-Performer-</xpdl2:Performer>
+                </xpdl2:Performers>
+                <xpdl2:MessageIn Id="_4ib1gdisEeqatKvhXZfngw"/>
+                <xpdl2:MessageOut Id="_4ib1gtisEeqatKvhXZfngw"/>
+                <xpdExt:FormImplementation FormType="Form" FormURI="form://LoadApplication/LoanApplication/ChallengeForLoan/ChallengeForLoan.form"/>
+              </xpdl2:TaskUser>
+            </xpdl2:Task>
+          </xpdl2:Implementation>
+          <xpdl2:ExtendedAttributes>
+            <xpdl2:ExtendedAttribute Name="bpmJspTask" Value="form://LoadApplication/LoanApplication/ChallengeForLoan/ChallengeForLoan.form"/>
+          </xpdl2:ExtendedAttributes>
+          <xpdl2:NodeGraphicsInfos>
+            <xpdl2:NodeGraphicsInfo BorderColor="0,0,128" FillColor="205,158,233" Height="100.0" LaneId="_3Ma7YdcYEeqTOKf-7T1YEA" Width="96.0">
+              <xpdl2:Coordinates XCoordinate="905.0" YCoordinate="56.0"/>
+            </xpdl2:NodeGraphicsInfo>
+          </xpdl2:NodeGraphicsInfos>
+          <xpdl2:Extensions/>
+          <xpdExt:ActivityResourcePatterns>
+            <xpdExt:AllocationStrategy xpdExt:Offer="OfferAll" xpdExt:Strategy="SYSTEM_DETERMINED" xpdExt:ReOfferOnClose="true" xpdExt:ReOfferOnCancel="true"/>
+            <xpdExt:WorkItemPriority InitialPriority="50"/>
+          </xpdExt:ActivityResourcePatterns>
+          <xpdExt:AssociatedParameters DisableImplicitAssociation="false">
+            <xpdExt:AssociatedParameter FormalParam="ExistingLoans" Mode="IN" Mandatory="false">
+              <xpdl2:Description></xpdl2:Description>
+            </xpdExt:AssociatedParameter>
+          </xpdExt:AssociatedParameters>
+        </xpdl2:Activity>
+        <xpdl2:Activity Id="_J3XhANitEeqatKvhXZfngw" Name="GetBankAccountsForCustomer" xpdExt:Visibility="Private" xpdExt:DisplayName="Get Bank Accounts For Customer">
+          <xpdl2:Implementation>
+            <xpdl2:Task>
+              <xpdl2:TaskScript>
+                <xpdl2:Script ScriptGrammar="JavaScript">data.AccountRefs.length = 0;&#xD;
+data.CustomersAccounts.length = 0;&#xD;
+data.AccountRefs.pushAll( bpm.caseData.navigateAll(data.CustomerRef, &quot;accountDetails&quot;, 0, 100));&#xD;
+&#xD;
+if ( data.AccountRefs.length != 0 )&#xD;
+{&#xD;
+   data.CustomersAccounts.pushAll(bpm.caseData.readAll(data.AccountRefs));&#xD;
+   data.BankAccountsFound=true;&#xD;
+}else{&#xD;
+   data.BankAccountsFound=false;&#xD;
+}&#xD;
+&#xD;
+data.AccountId = null;&#xD;
+</xpdl2:Script>
+              </xpdl2:TaskScript>
+            </xpdl2:Task>
+          </xpdl2:Implementation>
+          <xpdl2:TransitionRestrictions>
+            <xpdl2:TransitionRestriction>
+              <xpdl2:Join Type="Exclusive" ExclusiveType="Data"/>
+            </xpdl2:TransitionRestriction>
+          </xpdl2:TransitionRestrictions>
+          <xpdl2:NodeGraphicsInfos>
+            <xpdl2:NodeGraphicsInfo BorderColor="0,0,128" FillColor="205,158,233" Height="64.0" LaneId="_3Ma7YdcYEeqTOKf-7T1YEA" Width="96.0">
+              <xpdl2:Coordinates XCoordinate="1065.0" YCoordinate="192.0"/>
+            </xpdl2:NodeGraphicsInfo>
+          </xpdl2:NodeGraphicsInfos>
+          <xpdl2:Extensions/>
+          <xpdExt:ActivityResourcePatterns>
+            <xpdExt:AllocationStrategy xpdExt:Strategy="SYSTEM_DETERMINED"/>
+          </xpdExt:ActivityResourcePatterns>
+        </xpdl2:Activity>
+        <xpdl2:Activity Id="_Uo6_ENitEeqatKvhXZfngw" Name="UpdateBankAccountDetails" xpdExt:Visibility="Private" xpdExt:DisplayName="Update Bank Account Details">
+          <xpdl2:Implementation>
+            <xpdl2:Task>
+              <xpdl2:TaskService xpdExt:ImplementationType="GlobalData" Implementation="Other">
+                <xpdl2:MessageIn Id="_SaSgINi0EeqDMpCuiDySLQ"/>
+                <xpdl2:MessageOut Id="_SaSgIdi0EeqDMpCuiDySLQ"/>
+                <xpdExt:GlobalDataOperation>
+                  <xpdExt:CaseReferenceOperations>
+                    <xpdExt:CaseRefField>AccountRef</xpdExt:CaseRefField>
+                    <xpdExt:Update FromFieldPath="NewAccountDetails"/>
+                  </xpdExt:CaseReferenceOperations>
+                </xpdExt:GlobalDataOperation>
+              </xpdl2:TaskService>
+            </xpdl2:Task>
+          </xpdl2:Implementation>
+          <xpdl2:NodeGraphicsInfos>
+            <xpdl2:NodeGraphicsInfo BorderColor="0,0,128" FillColor="205,158,233" Height="64.0" LaneId="_3Ma7YdcYEeqTOKf-7T1YEA" Width="96.0">
+              <xpdl2:Coordinates XCoordinate="1512.0" YCoordinate="38.0"/>
+            </xpdl2:NodeGraphicsInfo>
+          </xpdl2:NodeGraphicsInfos>
+          <xpdl2:Extensions/>
+          <xpdExt:ActivityResourcePatterns>
+            <xpdExt:AllocationStrategy xpdExt:Strategy="SYSTEM_DETERMINED"/>
+          </xpdExt:ActivityResourcePatterns>
+        </xpdl2:Activity>
+        <xpdl2:Activity Id="_mHS6cNitEeqatKvhXZfngw" Name="ShowRejected" xpdExt:Visibility="Private" xpdExt:DisplayName="Show Rejected">
+          <xpdl2:Implementation>
+            <xpdl2:Task>
+              <xpdl2:TaskUser Implementation="Unspecified">
+                <xpdl2:Performers>
+                  <xpdl2:Performer>-defined-in-Activity-Performer-</xpdl2:Performer>
+                </xpdl2:Performers>
+                <xpdl2:MessageIn Id="_mHS6cditEeqatKvhXZfngw"/>
+                <xpdl2:MessageOut Id="_mHS6ctitEeqatKvhXZfngw"/>
+                <xpdExt:FormImplementation FormType="Form" FormURI="form://LoadApplication/LoanApplication/ShowRejected/ShowRejected.form"/>
+              </xpdl2:TaskUser>
+            </xpdl2:Task>
+          </xpdl2:Implementation>
+          <xpdl2:ExtendedAttributes>
+            <xpdl2:ExtendedAttribute Name="bpmJspTask" Value="form://LoadApplication/LoanApplication/ShowRejected/ShowRejected.form"/>
+          </xpdl2:ExtendedAttributes>
+          <xpdl2:NodeGraphicsInfos>
+            <xpdl2:NodeGraphicsInfo BorderColor="0,0,128" FillColor="205,158,233" Height="64.0" LaneId="_3Ma7YdcYEeqTOKf-7T1YEA" Width="96.0">
+              <xpdl2:Coordinates XCoordinate="489.0" YCoordinate="668.0"/>
+            </xpdl2:NodeGraphicsInfo>
+          </xpdl2:NodeGraphicsInfos>
+          <xpdl2:Extensions/>
+          <xpdExt:ActivityResourcePatterns>
+            <xpdExt:AllocationStrategy xpdExt:Offer="OfferAll" xpdExt:Strategy="SYSTEM_DETERMINED" xpdExt:ReOfferOnClose="true" xpdExt:ReOfferOnCancel="true"/>
+            <xpdExt:WorkItemPriority InitialPriority="50"/>
+          </xpdExt:ActivityResourcePatterns>
+          <xpdExt:AssociatedParameters DisableImplicitAssociation="false">
+            <xpdExt:AssociatedParameter FormalParam="LoanDetails" Mode="INOUT" Mandatory="false">
+              <xpdl2:Description></xpdl2:Description>
+            </xpdExt:AssociatedParameter>
+          </xpdExt:AssociatedParameters>
+        </xpdl2:Activity>
+        <xpdl2:Activity Id="_vSJgcNitEeqatKvhXZfngw" Name="EndEvent2" xpdExt:Visibility="Private" xpdExt:DisplayName="End Event 2">
+          <xpdl2:Event>
+            <xpdl2:EndEvent Result="None"/>
+          </xpdl2:Event>
+          <xpdl2:NodeGraphicsInfos>
+            <xpdl2:NodeGraphicsInfo BorderColor="0,0,128" FillColor="205,158,233" Height="47.0" LaneId="_3Ma7YdcYEeqTOKf-7T1YEA" Width="63.0">
+              <xpdl2:Coordinates XCoordinate="335.0" YCoordinate="668.0"/>
+            </xpdl2:NodeGraphicsInfo>
+          </xpdl2:NodeGraphicsInfos>
+        </xpdl2:Activity>
+        <xpdl2:Activity Id="_GRyLUNi2EeqDMpCuiDySLQ" Name="CreditCheck" IsATransaction="false" xpdExt:Visibility="Private" xpdExt:RequireNewTransaction="false" xpdExt:DisplayName="Credit Check API call">
+          <xpdl2:Implementation>
+            <xpdl2:Task>
+              <xpdl2:TaskScript>
+                <xpdl2:Script ScriptGrammar="JavaScript">if ( data.LoanDetails.amount &lt; 5000 ){&#xD;
+	data.CreditScore = 700;&#xD;
+	&#xD;
+} else if ( data.LoanDetails.amount &lt; 10000 ) {&#xD;
+	data.CreditScore = 500;&#xD;
+&#xD;
+} else {&#xD;
+	data.CreditScore = 300;&#xD;
+}</xpdl2:Script>
+              </xpdl2:TaskScript>
+            </xpdl2:Task>
+          </xpdl2:Implementation>
+          <xpdl2:NodeGraphicsInfos>
+            <xpdl2:NodeGraphicsInfo BorderColor="0,0,128" FillColor="205,158,233" Height="64.0" LaneId="_3Ma7YdcYEeqTOKf-7T1YEA" Width="96.0">
+              <xpdl2:Coordinates XCoordinate="1512.0" YCoordinate="574.0"/>
+            </xpdl2:NodeGraphicsInfo>
+          </xpdl2:NodeGraphicsInfos>
+          <xpdl2:Extensions/>
+          <xpdExt:ActivityResourcePatterns>
+            <xpdExt:AllocationStrategy xpdExt:Strategy="SYSTEM_DETERMINED"/>
+          </xpdExt:ActivityResourcePatterns>
+        </xpdl2:Activity>
+        <xpdl2:Activity Id="_GaKiYNxzEeq9huSL869Xyw">
+          <xpdl2:Route GatewayType="Exclusive" MarkerVisible="true" ExclusiveType="Data"/>
+          <xpdl2:TransitionRestrictions>
+            <xpdl2:TransitionRestriction>
+              <xpdl2:Join Type="Exclusive" ExclusiveType="Data"/>
+            </xpdl2:TransitionRestriction>
+          </xpdl2:TransitionRestrictions>
+          <xpdl2:NodeGraphicsInfos>
+            <xpdl2:NodeGraphicsInfo BorderColor="0,0,128" FillColor="205,158,233" Height="45.0" LaneId="_3Ma7YdcYEeqTOKf-7T1YEA" Width="43.0">
+              <xpdl2:Coordinates XCoordinate="1225.0" YCoordinate="191.0"/>
+            </xpdl2:NodeGraphicsInfo>
+          </xpdl2:NodeGraphicsInfos>
+        </xpdl2:Activity>
+        <xpdl2:Activity Id="_LvTbENxzEeq9huSL869Xyw" Name="ExistingAccountSelected" IsATransaction="false" xpdExt:Visibility="Private" xpdExt:DisplayName="Existing Account Selected" xpdExt:RequireNewTransaction="false">
+          <xpdl2:Implementation>
+            <xpdl2:Task>
+              <xpdl2:TaskScript>
+                <xpdl2:Script ScriptGrammar="JavaScript">data.AccountRef = bpm.caseData.findByCaseIdentifier(data.AccountId,&quot;com.borro.loandata.AccountDetails&quot;);&#xD;
+data.NewAccountDetails = bpm.caseData.read(data.AccountRef);&#xD;
+</xpdl2:Script>
+              </xpdl2:TaskScript>
+            </xpdl2:Task>
+          </xpdl2:Implementation>
+          <xpdl2:NodeGraphicsInfos>
+            <xpdl2:NodeGraphicsInfo BorderColor="0,0,128" FillColor="205,158,233" Height="64.0" LaneId="_3Ma7YdcYEeqTOKf-7T1YEA" Width="96.0">
+              <xpdl2:Coordinates XCoordinate="1225.0" YCoordinate="278.0"/>
+            </xpdl2:NodeGraphicsInfo>
+          </xpdl2:NodeGraphicsInfos>
+          <xpdl2:Extensions/>
+          <xpdExt:ActivityResourcePatterns>
+            <xpdExt:AllocationStrategy xpdExt:Strategy="SYSTEM_DETERMINED"/>
+          </xpdExt:ActivityResourcePatterns>
+        </xpdl2:Activity>
+        <xpdl2:Activity Id="_MTuWwNxzEeq9huSL869Xyw" Name="CreateNewAccount" IsATransaction="false" xpdExt:Visibility="Private" xpdExt:RequireNewTransaction="false" xpdExt:DisplayName="Create New Account">
+          <xpdl2:Implementation>
+            <xpdl2:Task>
+              <xpdl2:TaskService xpdExt:ImplementationType="GlobalData" Implementation="Other">
+                <xpdl2:MessageIn Id="_VXwGkNx0Eeq9huSL869Xyw"/>
+                <xpdl2:MessageOut Id="_VXwGkdx0Eeq9huSL869Xyw"/>
+                <xpdExt:GlobalDataOperation>
+                  <xpdExt:CaseAccessOperations>
+                    <xpdExt:CaseClassExternalReference location="LoanData.bom" namespace="http://www.eclipse.org/uml2/5.0.0/UML" xref="_o5MIMNiKEeqatKvhXZfngw"/>
+                    <xpdExt:Create FromFieldPath="NewAccountDetails" ToCaseRefField="AccountRef"/>
+                  </xpdExt:CaseAccessOperations>
+                </xpdExt:GlobalDataOperation>
+              </xpdl2:TaskService>
+            </xpdl2:Task>
+          </xpdl2:Implementation>
+          <xpdl2:NodeGraphicsInfos>
+            <xpdl2:NodeGraphicsInfo BorderColor="0,0,128" FillColor="205,158,233" Height="64.0" LaneId="_3Ma7YdcYEeqTOKf-7T1YEA" Width="96.0">
+              <xpdl2:Coordinates XCoordinate="1345.0" YCoordinate="420.0"/>
+            </xpdl2:NodeGraphicsInfo>
+          </xpdl2:NodeGraphicsInfos>
+          <xpdl2:Extensions/>
+          <xpdExt:ActivityResourcePatterns>
+            <xpdExt:AllocationStrategy xpdExt:Strategy="SYSTEM_DETERMINED"/>
+          </xpdExt:ActivityResourcePatterns>
+        </xpdl2:Activity>
+        <xpdl2:Activity Id="_iq-QINx0Eeq9huSL869Xyw" Name="LinkNewAccount" xpdExt:Visibility="Private" xpdExt:DisplayName="Link New Account">
+          <xpdl2:Implementation>
+            <xpdl2:Task>
+              <xpdl2:TaskService xpdExt:ImplementationType="GlobalData" Implementation="Other">
+                <xpdl2:MessageIn Id="_mqYE8Nx0Eeq9huSL869Xyw"/>
+                <xpdl2:MessageOut Id="_mqYE8dx0Eeq9huSL869Xyw"/>
+                <xpdExt:GlobalDataOperation>
+                  <xpdExt:CaseReferenceOperations>
+                    <xpdExt:CaseRefField>AccountRef</xpdExt:CaseRefField>
+                    <xpdExt:AddLinkAssociations AddCaseRefField="CustomerRef" AssociationName="customer"/>
+                  </xpdExt:CaseReferenceOperations>
+                </xpdExt:GlobalDataOperation>
+              </xpdl2:TaskService>
+            </xpdl2:Task>
+          </xpdl2:Implementation>
+          <xpdl2:NodeGraphicsInfos>
+            <xpdl2:NodeGraphicsInfo BorderColor="0,0,128" FillColor="205,158,233" Height="64.0" LaneId="_3Ma7YdcYEeqTOKf-7T1YEA" Width="96.0">
+              <xpdl2:Coordinates XCoordinate="1345.0" YCoordinate="191.0"/>
+            </xpdl2:NodeGraphicsInfo>
+          </xpdl2:NodeGraphicsInfos>
+          <xpdl2:Extensions/>
+          <xpdExt:ActivityResourcePatterns>
+            <xpdExt:AllocationStrategy xpdExt:Strategy="SYSTEM_DETERMINED"/>
+          </xpdExt:ActivityResourcePatterns>
+        </xpdl2:Activity>
+        <xpdl2:Activity Id="_r9C1gN5CEeqySZ689Vlg1w" Name="SelectBank" xpdExt:Visibility="Private" xpdExt:DisplayName="Select Bank">
+          <xpdl2:Implementation>
+            <xpdl2:Task>
+              <xpdl2:TaskUser Implementation="Unspecified">
+                <xpdl2:Performers>
+                  <xpdl2:Performer>-defined-in-Activity-Performer-</xpdl2:Performer>
+                </xpdl2:Performers>
+                <xpdl2:MessageIn Id="_r9C1gd5CEeqySZ689Vlg1w"/>
+                <xpdl2:MessageOut Id="_r9C1gt5CEeqySZ689Vlg1w"/>
+                <xpdExt:FormImplementation FormType="Form" FormURI="form://LoadApplication/LoanApplication/SelectBank/SelectBank.form"/>
+              </xpdl2:TaskUser>
+            </xpdl2:Task>
+          </xpdl2:Implementation>
+          <xpdl2:TransitionRestrictions>
+            <xpdl2:TransitionRestriction>
+              <xpdl2:Join Type="Exclusive" ExclusiveType="Data"/>
+            </xpdl2:TransitionRestriction>
+          </xpdl2:TransitionRestrictions>
+          <xpdl2:ExtendedAttributes>
+            <xpdl2:ExtendedAttribute Name="bpmJspTask" Value="form://LoadApplication/LoanApplication/SelectBank/SelectBank.form"/>
+          </xpdl2:ExtendedAttributes>
+          <xpdl2:NodeGraphicsInfos>
+            <xpdl2:NodeGraphicsInfo BorderColor="0,0,128" FillColor="205,158,233" Height="64.0" LaneId="_3Ma7YdcYEeqTOKf-7T1YEA" Width="96.0">
+              <xpdl2:Coordinates XCoordinate="777.0" YCoordinate="343.0"/>
+            </xpdl2:NodeGraphicsInfo>
+          </xpdl2:NodeGraphicsInfos>
+          <xpdl2:Extensions/>
+          <xpdExt:ActivityResourcePatterns>
+            <xpdExt:AllocationStrategy xpdExt:Offer="OfferAll" xpdExt:Strategy="SYSTEM_DETERMINED" xpdExt:ReOfferOnClose="true" xpdExt:ReOfferOnCancel="true"/>
+            <xpdExt:WorkItemPriority InitialPriority="50"/>
+          </xpdExt:ActivityResourcePatterns>
+          <xpdExt:AssociatedParameters DisableImplicitAssociation="false">
+            <xpdExt:AssociatedParameter FormalParam="NewAccountDetails" Mode="OUT" Mandatory="false">
+              <xpdl2:Description></xpdl2:Description>
+            </xpdExt:AssociatedParameter>
+          </xpdExt:AssociatedParameters>
+        </xpdl2:Activity>
+        <xpdl2:Activity Id="_BZFgUN5DEeqySZ689Vlg1w" Name="ReadBackNewAccount" xpdExt:Visibility="Private" xpdExt:DisplayName="Read Back New Account">
+          <xpdl2:Implementation>
+            <xpdl2:Task>
+              <xpdl2:TaskScript>
+                <xpdl2:Script ScriptGrammar="JavaScript">data.NewAccountDetails = bpm.caseData.read(data.AccountRef);&#xD;
+&#xD;
+data.AccountRefs.push(data.AccountRef);</xpdl2:Script>
+              </xpdl2:TaskScript>
+            </xpdl2:Task>
+          </xpdl2:Implementation>
+          <xpdl2:NodeGraphicsInfos>
+            <xpdl2:NodeGraphicsInfo BorderColor="0,0,128" FillColor="205,158,233" Height="64.0" LaneId="_3Ma7YdcYEeqTOKf-7T1YEA" Width="96.0">
+              <xpdl2:Coordinates XCoordinate="1345.0" YCoordinate="278.0"/>
+            </xpdl2:NodeGraphicsInfo>
+          </xpdl2:NodeGraphicsInfos>
+          <xpdl2:Extensions/>
+          <xpdExt:ActivityResourcePatterns>
+            <xpdExt:AllocationStrategy xpdExt:Strategy="SYSTEM_DETERMINED"/>
+          </xpdExt:ActivityResourcePatterns>
+        </xpdl2:Activity>
+        <xpdl2:Activity Id="_3BWdQN__EeqsffVtNmTiKA">
+          <xpdl2:Route GatewayType="Exclusive" MarkerVisible="true" ExclusiveType="Data"/>
+          <xpdl2:TransitionRestrictions>
+            <xpdl2:TransitionRestriction>
+              <xpdl2:Split Type="Exclusive" ExclusiveType="Data">
+                <xpdl2:TransitionRefs>
+                  <xpdl2:TransitionRef Id="_4ib1g9isEeqatKvhXZfngw"/>
+                  <xpdl2:TransitionRef Id="_AzwLcOAAEeqsffVtNmTiKA"/>
+                </xpdl2:TransitionRefs>
+              </xpdl2:Split>
+            </xpdl2:TransitionRestriction>
+          </xpdl2:TransitionRestrictions>
+          <xpdl2:NodeGraphicsInfos>
+            <xpdl2:NodeGraphicsInfo BorderColor="0,0,128" FillColor="205,158,233" Height="45.0" LaneId="_3Ma7YdcYEeqTOKf-7T1YEA" Width="43.0">
+              <xpdl2:Coordinates XCoordinate="732.0" YCoordinate="123.0"/>
+            </xpdl2:NodeGraphicsInfo>
+          </xpdl2:NodeGraphicsInfos>
+        </xpdl2:Activity>
+        <xpdl2:Activity Id="_5XgcUN__EeqsffVtNmTiKA" Name="NoLoansExisting" xpdExt:Visibility="Private" xpdExt:DisplayName="No Loans Existing">
+          <xpdl2:Implementation>
+            <xpdl2:Task>
+              <xpdl2:TaskUser Implementation="Unspecified">
+                <xpdl2:Performers>
+                  <xpdl2:Performer>-defined-in-Activity-Performer-</xpdl2:Performer>
+                </xpdl2:Performers>
+                <xpdl2:MessageIn Id="_5XgcUd__EeqsffVtNmTiKA"/>
+                <xpdl2:MessageOut Id="_5XgcUt__EeqsffVtNmTiKA"/>
+                <xpdExt:FormImplementation FormType="Form" FormURI="form://LoadApplication/LoanApplication/NoLoansExisting/NoLoansExisting.form"/>
+              </xpdl2:TaskUser>
+            </xpdl2:Task>
+          </xpdl2:Implementation>
+          <xpdl2:ExtendedAttributes>
+            <xpdl2:ExtendedAttribute Name="bpmJspTask" Value="form://LoadApplication/LoanApplication/NoLoansExisting/NoLoansExisting.form"/>
+          </xpdl2:ExtendedAttributes>
+          <xpdl2:NodeGraphicsInfos>
+            <xpdl2:NodeGraphicsInfo BorderColor="0,0,128" FillColor="205,158,233" Height="64.0" LaneId="_3Ma7YdcYEeqTOKf-7T1YEA" Width="96.0">
+              <xpdl2:Coordinates XCoordinate="837.0" YCoordinate="209.0"/>
+            </xpdl2:NodeGraphicsInfo>
+          </xpdl2:NodeGraphicsInfos>
+          <xpdl2:Extensions/>
+          <xpdExt:ActivityResourcePatterns>
+            <xpdExt:AllocationStrategy xpdExt:Offer="OfferAll" xpdExt:Strategy="SYSTEM_DETERMINED" xpdExt:ReOfferOnClose="true" xpdExt:ReOfferOnCancel="true"/>
+            <xpdExt:WorkItemPriority InitialPriority="50"/>
+          </xpdExt:ActivityResourcePatterns>
+          <xpdExt:AssociatedParameters DisableImplicitAssociation="false">
+            <xpdExt:AssociatedParameter FormalParam="LoanFound" Mode="INOUT" Mandatory="false">
+              <xpdl2:Description></xpdl2:Description>
+            </xpdExt:AssociatedParameter>
+            <xpdExt:AssociatedParameter FormalParam="LastName" Mode="INOUT" Mandatory="false">
+              <xpdl2:Description></xpdl2:Description>
+            </xpdExt:AssociatedParameter>
+          </xpdExt:AssociatedParameters>
+        </xpdl2:Activity>
+        <xpdl2:Activity Id="_X_mDIOAEEeqsffVtNmTiKA">
+          <xpdl2:Route GatewayType="Exclusive" MarkerVisible="true" ExclusiveType="Data"/>
+          <xpdl2:TransitionRestrictions>
+            <xpdl2:TransitionRestriction>
+              <xpdl2:Split Type="Exclusive" ExclusiveType="Data">
+                <xpdl2:TransitionRefs>
+                  <xpdl2:TransitionRef Id="_r9DckN5CEeqySZ689Vlg1w"/>
+                  <xpdl2:TransitionRef Id="_sUI6YOAEEeqsffVtNmTiKA"/>
+                </xpdl2:TransitionRefs>
+              </xpdl2:Split>
+            </xpdl2:TransitionRestriction>
+          </xpdl2:TransitionRestrictions>
+          <xpdl2:NodeGraphicsInfos>
+            <xpdl2:NodeGraphicsInfo BorderColor="0,0,128" FillColor="205,158,233" Height="45.0" LaneId="_3Ma7YdcYEeqTOKf-7T1YEA" Width="43.0">
+              <xpdl2:Coordinates XCoordinate="986.0" YCoordinate="262.0"/>
+            </xpdl2:NodeGraphicsInfo>
+          </xpdl2:NodeGraphicsInfos>
+        </xpdl2:Activity>
+        <xpdl2:Activity Id="_cAmlAOAFEeqsffVtNmTiKA" Name="EnterNewAccount" xpdExt:Visibility="Private" xpdExt:DisplayName="Enter New Account">
+          <xpdl2:Implementation>
+            <xpdl2:Task>
+              <xpdl2:TaskUser Implementation="Unspecified">
+                <xpdl2:Performers>
+                  <xpdl2:Performer>-defined-in-Activity-Performer-</xpdl2:Performer>
+                </xpdl2:Performers>
+                <xpdl2:MessageIn Id="_cAmlAeAFEeqsffVtNmTiKA"/>
+                <xpdl2:MessageOut Id="_cAmlAuAFEeqsffVtNmTiKA"/>
+                <xpdExt:FormImplementation FormType="Form" FormURI="form://LoadApplication/LoanApplication/EnterNewAccount/EnterNewAccount.form"/>
+              </xpdl2:TaskUser>
+            </xpdl2:Task>
+          </xpdl2:Implementation>
+          <xpdl2:ExtendedAttributes>
+            <xpdl2:ExtendedAttribute Name="bpmJspTask" Value="form://LoadApplication/LoanApplication/EnterNewAccount/EnterNewAccount.form"/>
+          </xpdl2:ExtendedAttributes>
+          <xpdl2:NodeGraphicsInfos>
+            <xpdl2:NodeGraphicsInfo BorderColor="0,0,128" FillColor="205,158,233" Height="64.0" LaneId="_3Ma7YdcYEeqTOKf-7T1YEA" Width="96.0">
+              <xpdl2:Coordinates XCoordinate="768.0" YCoordinate="438.0"/>
+            </xpdl2:NodeGraphicsInfo>
+          </xpdl2:NodeGraphicsInfos>
+          <xpdl2:Extensions/>
+          <xpdExt:ActivityResourcePatterns>
+            <xpdExt:AllocationStrategy xpdExt:Offer="OfferAll" xpdExt:Strategy="SYSTEM_DETERMINED" xpdExt:ReOfferOnClose="true" xpdExt:ReOfferOnCancel="true"/>
+            <xpdExt:WorkItemPriority InitialPriority="50"/>
+          </xpdExt:ActivityResourcePatterns>
+          <xpdExt:AssociatedParameters DisableImplicitAssociation="false">
+            <xpdExt:AssociatedParameter FormalParam="NewAccountDetails" Mode="INOUT" Mandatory="false">
+              <xpdl2:Description></xpdl2:Description>
+            </xpdExt:AssociatedParameter>
+          </xpdExt:AssociatedParameters>
+        </xpdl2:Activity>
+        <xpdl2:Activity Id="_N779gOBfEeqsffVtNmTiKA" Name="ViewAccountDetails" xpdExt:Visibility="Private" xpdExt:DisplayName="View Account Details">
+          <xpdl2:Implementation>
+            <xpdl2:Task>
+              <xpdl2:TaskUser Implementation="Unspecified">
+                <xpdl2:Performers>
+                  <xpdl2:Performer>-defined-in-Activity-Performer-</xpdl2:Performer>
+                </xpdl2:Performers>
+                <xpdl2:MessageIn Id="_N779geBfEeqsffVtNmTiKA"/>
+                <xpdl2:MessageOut Id="_N779guBfEeqsffVtNmTiKA"/>
+                <xpdExt:FormImplementation FormType="Form" FormURI="form://LoadApplication/LoanApplication/ViewAccountDetails/ViewAccountDetails.form"/>
+              </xpdl2:TaskUser>
+            </xpdl2:Task>
+          </xpdl2:Implementation>
+          <xpdl2:ExtendedAttributes>
+            <xpdl2:ExtendedAttribute Name="bpmJspTask" Value="form://LoadApplication/LoanApplication/ViewAccountDetails/ViewAccountDetails.form"/>
+          </xpdl2:ExtendedAttributes>
+          <xpdl2:NodeGraphicsInfos>
+            <xpdl2:NodeGraphicsInfo BorderColor="0,0,128" FillColor="205,158,233" Height="64.0" LaneId="_3Ma7YdcYEeqTOKf-7T1YEA" Width="96.0">
+              <xpdl2:Coordinates XCoordinate="1512.0" YCoordinate="295.0"/>
+            </xpdl2:NodeGraphicsInfo>
+          </xpdl2:NodeGraphicsInfos>
+          <xpdl2:Extensions/>
+          <xpdExt:ActivityResourcePatterns>
+            <xpdExt:AllocationStrategy xpdExt:Offer="OfferAll" xpdExt:Strategy="SYSTEM_DETERMINED" xpdExt:ReOfferOnClose="true" xpdExt:ReOfferOnCancel="true"/>
+            <xpdExt:WorkItemPriority InitialPriority="50"/>
+          </xpdExt:ActivityResourcePatterns>
+          <xpdExt:AssociatedParameters DisableImplicitAssociation="false">
+            <xpdExt:AssociatedParameter FormalParam="NewAccountDetails" Mode="INOUT" Mandatory="false">
+              <xpdl2:Description></xpdl2:Description>
+            </xpdExt:AssociatedParameter>
+          </xpdExt:AssociatedParameters>
+        </xpdl2:Activity>
+        <xpdl2:Activity Id="_fA0JIOIzEeqtS7zGeS-4FQ">
+          <xpdl2:Route GatewayType="Exclusive" MarkerVisible="true" ExclusiveType="Data"/>
+          <xpdl2:TransitionRestrictions>
+            <xpdl2:TransitionRestriction>
+              <xpdl2:Split Type="Exclusive" ExclusiveType="Data">
+                <xpdl2:TransitionRefs>
+                  <xpdl2:TransitionRef Id="_FDBJQdxzEeq9huSL869Xyw"/>
+                  <xpdl2:TransitionRef Id="_nxwaUOIzEeqtS7zGeS-4FQ"/>
+                </xpdl2:TransitionRefs>
+              </xpdl2:Split>
+            </xpdl2:TransitionRestriction>
+          </xpdl2:TransitionRestrictions>
+          <xpdl2:NodeGraphicsInfos>
+            <xpdl2:NodeGraphicsInfo BorderColor="0,0,128" FillColor="205,158,233" Height="45.0" LaneId="_3Ma7YdcYEeqTOKf-7T1YEA" Width="43.0">
+              <xpdl2:Coordinates XCoordinate="986.0" YCoordinate="447.0"/>
+            </xpdl2:NodeGraphicsInfo>
+          </xpdl2:NodeGraphicsInfos>
+        </xpdl2:Activity>
+        <xpdl2:Activity Id="_1_oL8OOsEeq9OuBOyvMbmA" Name="Getreturneddetails" xpdExt:Visibility="Private" xpdExt:DisplayName="Get returned details">
+          <xpdl2:Implementation>
+            <xpdl2:Task>
+              <xpdl2:TaskScript>
+                <xpdl2:Script ScriptGrammar="JavaScript">data.NewAccountDetails.accountSubType = data.ReturnedAccountDetails[0].accountSubType;&#xD;
+data.NewAccountDetails.accountType = data.ReturnedAccountDetails[0].accountType;&#xD;
+data.NewAccountDetails.currency = data.ReturnedAccountDetails[0].currency;&#xD;
+data.NewAccountDetails.openingDate = data.ReturnedAccountDetails[0].openingDate;&#xD;
+&#xD;
+</xpdl2:Script>
+              </xpdl2:TaskScript>
+            </xpdl2:Task>
+          </xpdl2:Implementation>
+          <xpdl2:NodeGraphicsInfos>
+            <xpdl2:NodeGraphicsInfo BorderColor="0,0,128" FillColor="205,158,233" Height="64.0" LaneId="_3Ma7YdcYEeqTOKf-7T1YEA" Width="96.0">
+              <xpdl2:Coordinates XCoordinate="1379.0" YCoordinate="38.0"/>
+            </xpdl2:NodeGraphicsInfo>
+          </xpdl2:NodeGraphicsInfos>
+          <xpdl2:Extensions/>
+          <xpdExt:ActivityResourcePatterns>
+            <xpdExt:AllocationStrategy xpdExt:Strategy="SYSTEM_DETERMINED"/>
+          </xpdExt:ActivityResourcePatterns>
+        </xpdl2:Activity>
+        <xpdl2:Activity Id="_5wz80DiWEeuFdqur4GsK2w" Name="OpenBankingAPICall" xpdExt:Visibility="Private" xpdExt:DisplayName="Open Banking API Call">
+          <xpdl2:Implementation>
+            <xpdl2:Task>
+              <xpdl2:TaskScript>
+                <xpdl2:Script ScriptGrammar="JavaScript">var actRefs=data.AccountRefs;&#xD;
+&#xD;
+for(var i=0;i&lt;actRefs.length;i++){&#xD;
+	data.ReturnedAccountDetails.push(bpm.caseData.read(actRefs[i]));&#xD;
+}&#xD;
+</xpdl2:Script>
+              </xpdl2:TaskScript>
+            </xpdl2:Task>
+          </xpdl2:Implementation>
+          <xpdl2:NodeGraphicsInfos>
+            <xpdl2:NodeGraphicsInfo BorderColor="0,0,128" FillColor="205,158,233" Height="64.0" LaneId="_3Ma7YdcYEeqTOKf-7T1YEA" Width="96.0">
+              <xpdl2:Coordinates XCoordinate="1198.0" YCoordinate="48.0"/>
+            </xpdl2:NodeGraphicsInfo>
+          </xpdl2:NodeGraphicsInfos>
+          <xpdl2:Extensions/>
+          <xpdExt:ActivityResourcePatterns>
+            <xpdExt:AllocationStrategy xpdExt:Strategy="SYSTEM_DETERMINED"/>
+          </xpdExt:ActivityResourcePatterns>
+        </xpdl2:Activity>
+      </xpdl2:Activities>
+      <xpdl2:Transitions>
+        <xpdl2:Transition Id="_3Ma7ZNcYEeqTOKf-7T1YEA" xpdExt:DisplayName="" Name="" From="_yceKsNcpEeqTOKf-7T1YEA" To="_3Ma7Y9cYEeqTOKf-7T1YEA">
+          <xpdl2:ConnectorGraphicsInfos>
+            <xpdl2:ConnectorGraphicsInfo BorderColor="0,0,128" ToolId="XPD.ConnectionInfo"/>
+            <xpdl2:ConnectorGraphicsInfo ToolId="XPD.StartAnchorPosition"/>
+          </xpdl2:ConnectorGraphicsInfos>
+        </xpdl2:Transition>
+        <xpdl2:Transition Id="_pkLGkNckEeqTOKf-7T1YEA" xpdExt:DisplayName="" Name="" From="_3Ma7YtcYEeqTOKf-7T1YEA" To="_rss5UNckEeqTOKf-7T1YEA">
+          <xpdl2:ConnectorGraphicsInfos>
+            <xpdl2:ConnectorGraphicsInfo BorderColor="0,0,128" ToolId="XPD.ConnectionInfo"/>
+            <xpdl2:ConnectorGraphicsInfo ToolId="XPD.EndAnchorPosition"/>
+          </xpdl2:ConnectorGraphicsInfos>
+        </xpdl2:Transition>
+        <xpdl2:Transition Id="_rss5UdckEeqTOKf-7T1YEA" xpdExt:DisplayName="" Name="" From="_pkKfgNckEeqTOKf-7T1YEA" To="_bR3CENclEeqTOKf-7T1YEA">
+          <xpdl2:ConnectorGraphicsInfos>
+            <xpdl2:ConnectorGraphicsInfo BorderColor="0,0,128" ToolId="XPD.ConnectionInfo"/>
+            <xpdl2:ConnectorGraphicsInfo ToolId="XPD.EndAnchorPosition"/>
+          </xpdl2:ConnectorGraphicsInfos>
+        </xpdl2:Transition>
+        <xpdl2:Transition Id="_MjyrINclEeqTOKf-7T1YEA" xpdExt:DisplayName="" Name="" From="_GaKiYNxzEeq9huSL869Xyw" To="_5wz80DiWEeuFdqur4GsK2w">
+          <xpdl2:ConnectorGraphicsInfos>
+            <xpdl2:ConnectorGraphicsInfo BorderColor="0,0,128" ToolId="XPD.ConnectionInfo"/>
+            <xpdl2:ConnectorGraphicsInfo ToolId="XPD.EndAnchorPosition">
+              <xpdl2:Coordinates XCoordinate="34.6875" YCoordinate="0.0"/>
+            </xpdl2:ConnectorGraphicsInfo>
+            <xpdl2:ConnectorGraphicsInfo ToolId="XPD.LabelAnchorPosition"/>
+            <xpdl2:ConnectorGraphicsInfo ToolId="XPD.StartAnchorPosition"/>
+          </xpdl2:ConnectorGraphicsInfos>
+        </xpdl2:Transition>
+        <xpdl2:Transition Id="_f9cncdclEeqTOKf-7T1YEA" Name="" From="_eQ-ekNclEeqTOKf-7T1YEA" To="_fHFnMNclEeqTOKf-7T1YEA">
+          <xpdl2:Condition Type="OTHERWISE"/>
+          <xpdl2:ConnectorGraphicsInfos>
+            <xpdl2:ConnectorGraphicsInfo BorderColor="0,0,128" ToolId="XPD.ConnectionInfo">
+              <xpdl2:Coordinates XCoordinate="-20.0" YCoordinate="97.0"/>
+              <xpdl2:Coordinates XCoordinate="198.0" YCoordinate="-1.0"/>
+            </xpdl2:ConnectorGraphicsInfo>
+            <xpdl2:ConnectorGraphicsInfo ToolId="XPD.StartAnchorPosition">
+              <xpdl2:Coordinates XCoordinate="50.0" YCoordinate="0.0"/>
+            </xpdl2:ConnectorGraphicsInfo>
+          </xpdl2:ConnectorGraphicsInfos>
+        </xpdl2:Transition>
+        <xpdl2:Transition Id="_hjKBANclEeqTOKf-7T1YEA" Name="" From="_fHFnMNclEeqTOKf-7T1YEA" To="_rss5UNckEeqTOKf-7T1YEA">
+          <xpdl2:ConnectorGraphicsInfos>
+            <xpdl2:ConnectorGraphicsInfo BorderColor="0,0,128" ToolId="XPD.ConnectionInfo">
+              <xpdl2:Coordinates XCoordinate="-286.0" YCoordinate="-1.0"/>
+              <xpdl2:Coordinates XCoordinate="65.0" YCoordinate="65.0"/>
+            </xpdl2:ConnectorGraphicsInfo>
+            <xpdl2:ConnectorGraphicsInfo ToolId="XPD.EndAnchorPosition">
+              <xpdl2:Coordinates XCoordinate="50.0" YCoordinate="0.0"/>
+            </xpdl2:ConnectorGraphicsInfo>
+          </xpdl2:ConnectorGraphicsInfos>
+        </xpdl2:Transition>
+        <xpdl2:Transition Id="_PSJK8NcpEeqTOKf-7T1YEA" xpdExt:DisplayName="" Name="" From="_Uo6_ENitEeqatKvhXZfngw" To="_PSIj4NcpEeqTOKf-7T1YEA">
+          <xpdl2:ConnectorGraphicsInfos>
+            <xpdl2:ConnectorGraphicsInfo BorderColor="0,0,128" ToolId="XPD.ConnectionInfo"/>
+            <xpdl2:ConnectorGraphicsInfo ToolId="XPD.StartAnchorPosition"/>
+          </xpdl2:ConnectorGraphicsInfos>
+        </xpdl2:Transition>
+        <xpdl2:Transition Id="_U-tsMNcpEeqTOKf-7T1YEA" xpdExt:DisplayName="" Name="" From="_N779gOBfEeqsffVtNmTiKA" To="_U-tFINcpEeqTOKf-7T1YEA">
+          <xpdl2:ConnectorGraphicsInfos>
+            <xpdl2:ConnectorGraphicsInfo BorderColor="0,0,128" ToolId="XPD.ConnectionInfo"/>
+            <xpdl2:ConnectorGraphicsInfo ToolId="XPD.StartAnchorPosition"/>
+          </xpdl2:ConnectorGraphicsInfos>
+        </xpdl2:Transition>
+        <xpdl2:Transition Id="_dPyKgdcpEeqTOKf-7T1YEA" xpdExt:DisplayName="" Name="" From="_U-tFINcpEeqTOKf-7T1YEA" To="_GRyLUNi2EeqDMpCuiDySLQ">
+          <xpdl2:ConnectorGraphicsInfos>
+            <xpdl2:ConnectorGraphicsInfo BorderColor="0,0,128" ToolId="XPD.ConnectionInfo"/>
+          </xpdl2:ConnectorGraphicsInfos>
+        </xpdl2:Transition>
+        <xpdl2:Transition Id="_nZoIUdcpEeqTOKf-7T1YEA" xpdExt:DisplayName="" Name="" From="_GRyLUNi2EeqDMpCuiDySLQ" To="_nZoIUNcpEeqTOKf-7T1YEA">
+          <xpdl2:ConnectorGraphicsInfos>
+            <xpdl2:ConnectorGraphicsInfo BorderColor="0,0,128" ToolId="XPD.ConnectionInfo"/>
+            <xpdl2:ConnectorGraphicsInfo ToolId="XPD.StartAnchorPosition"/>
+          </xpdl2:ConnectorGraphicsInfos>
+        </xpdl2:Transition>
+        <xpdl2:Transition Id="_1lNzUNfkEeqvUozA_jOdNg" xpdExt:DisplayName="" Name="" From="_cWt3YNiQEeqatKvhXZfngw" To="_yceKsNcpEeqTOKf-7T1YEA">
+          <xpdl2:Condition Type="OTHERWISE"/>
+          <xpdl2:ConnectorGraphicsInfos>
+            <xpdl2:ConnectorGraphicsInfo BorderColor="0,0,128" ToolId="XPD.ConnectionInfo"/>
+            <xpdl2:ConnectorGraphicsInfo ToolId="XPD.StartAnchorPosition"/>
+          </xpdl2:ConnectorGraphicsInfos>
+        </xpdl2:Transition>
+        <xpdl2:Transition Id="_-GnV89iPEeqatKvhXZfngw" xpdExt:DisplayName="" Name="" From="_r9C1gN5CEeqySZ689Vlg1w" To="_cAmlAOAFEeqsffVtNmTiKA">
+          <xpdl2:ConnectorGraphicsInfos>
+            <xpdl2:ConnectorGraphicsInfo BorderColor="0,0,128" ToolId="XPD.ConnectionInfo"/>
+            <xpdl2:ConnectorGraphicsInfo ToolId="XPD.StartAnchorPosition"/>
+            <xpdl2:ConnectorGraphicsInfo ToolId="XPD.EndAnchorPosition"/>
+          </xpdl2:ConnectorGraphicsInfos>
+        </xpdl2:Transition>
+        <xpdl2:Transition Id="_bxFawNiQEeqatKvhXZfngw" xpdExt:DisplayName="" Name="" From="_nZoIUNcpEeqTOKf-7T1YEA" To="_bxEzsNiQEeqatKvhXZfngw">
+          <xpdl2:ConnectorGraphicsInfos>
+            <xpdl2:ConnectorGraphicsInfo BorderColor="0,0,128" ToolId="XPD.ConnectionInfo"/>
+          </xpdl2:ConnectorGraphicsInfos>
+        </xpdl2:Transition>
+        <xpdl2:Transition Id="_dFvgkdiQEeqatKvhXZfngw" xpdExt:DisplayName="" Name="" From="_bxEzsNiQEeqatKvhXZfngw" To="_dFvgkNiQEeqatKvhXZfngw">
+          <xpdl2:Condition Type="CONDITION"><xpdl2:Expression ScriptGrammar="JavaScript">data.LoanDetails.status == pkg.com_borro_loandata.ApplicationStatus.APPROVED;&#xD;
+</xpdl2:Expression></xpdl2:Condition>
+          <xpdl2:ConnectorGraphicsInfos>
+            <xpdl2:ConnectorGraphicsInfo BorderColor="0,0,128" ToolId="XPD.ConnectionInfo"/>
+          </xpdl2:ConnectorGraphicsInfos>
+        </xpdl2:Transition>
+        <xpdl2:Transition Id="_is26ENiQEeqatKvhXZfngw" Name="" From="_bxEzsNiQEeqatKvhXZfngw" To="_fbJ4wNiQEeqatKvhXZfngw">
+          <xpdl2:Condition Type="CONDITION"><xpdl2:Expression ScriptGrammar="JavaScript">data.LoanDetails.status == pkg.com_borro_loandata.ApplicationStatus.DECISIONPENDING;&#xD;
+</xpdl2:Expression></xpdl2:Condition>
+          <xpdl2:ConnectorGraphicsInfos>
+            <xpdl2:ConnectorGraphicsInfo BorderColor="0,0,128" ToolId="XPD.ConnectionInfo"/>
+          </xpdl2:ConnectorGraphicsInfos>
+        </xpdl2:Transition>
+        <xpdl2:Transition Id="_l9WacNiQEeqatKvhXZfngw" Name="" From="_cWt3YNiQEeqatKvhXZfngw" To="_lazuENiQEeqatKvhXZfngw">
+          <xpdl2:Condition Type="CONDITION"><xpdl2:Expression ScriptGrammar="JavaScript">data.Proceed == false;&#xD;
+</xpdl2:Expression></xpdl2:Condition>
+          <xpdl2:ConnectorGraphicsInfos>
+            <xpdl2:ConnectorGraphicsInfo BorderColor="0,0,128" ToolId="XPD.ConnectionInfo"/>
+          </xpdl2:ConnectorGraphicsInfos>
+        </xpdl2:Transition>
+        <xpdl2:Transition Id="_IlNng9irEeqatKvhXZfngw" xpdExt:DisplayName="" Name="" From="_eQ-ekNclEeqTOKf-7T1YEA" To="_IlNngNirEeqatKvhXZfngw">
+          <xpdl2:Condition Type="CONDITION"><xpdl2:Expression ScriptGrammar="JavaScript">data.CustomerFound;&#xD;
+</xpdl2:Expression></xpdl2:Condition>
+          <xpdl2:ConnectorGraphicsInfos>
+            <xpdl2:ConnectorGraphicsInfo BorderColor="0,0,128" ToolId="XPD.ConnectionInfo"/>
+          </xpdl2:ConnectorGraphicsInfos>
+        </xpdl2:Transition>
+        <xpdl2:Transition Id="_4ib1g9isEeqatKvhXZfngw" xpdExt:DisplayName="" Name="" From="_3BWdQN__EeqsffVtNmTiKA" To="_4ib1gNisEeqatKvhXZfngw">
+          <xpdl2:Condition Type="CONDITION"><xpdl2:Expression ScriptGrammar="JavaScript">data.LoanFound==true;</xpdl2:Expression></xpdl2:Condition>
+          <xpdl2:ConnectorGraphicsInfos>
+            <xpdl2:ConnectorGraphicsInfo BorderColor="0,0,128" ToolId="XPD.ConnectionInfo"/>
+            <xpdl2:ConnectorGraphicsInfo ToolId="XPD.StartAnchorPosition"/>
+          </xpdl2:ConnectorGraphicsInfos>
+        </xpdl2:Transition>
+        <xpdl2:Transition Id="_J3XhAditEeqatKvhXZfngw" xpdExt:DisplayName="" Name="" From="_4ib1gNisEeqatKvhXZfngw" To="_J3XhANitEeqatKvhXZfngw">
+          <xpdl2:ConnectorGraphicsInfos>
+            <xpdl2:ConnectorGraphicsInfo BorderColor="0,0,128" ToolId="XPD.ConnectionInfo"/>
+            <xpdl2:ConnectorGraphicsInfo ToolId="XPD.EndAnchorPosition">
+              <xpdl2:Coordinates XCoordinate="82.1875" YCoordinate="0.0"/>
+            </xpdl2:ConnectorGraphicsInfo>
+          </xpdl2:ConnectorGraphicsInfos>
+        </xpdl2:Transition>
+        <xpdl2:Transition Id="_rNG9sNitEeqatKvhXZfngw" Name="" From="_bxEzsNiQEeqatKvhXZfngw" To="_mHS6cNitEeqatKvhXZfngw">
+          <xpdl2:Condition Type="OTHERWISE"/>
+          <xpdl2:ConnectorGraphicsInfos>
+            <xpdl2:ConnectorGraphicsInfo BorderColor="0,0,128" ToolId="XPD.ConnectionInfo"/>
+            <xpdl2:ConnectorGraphicsInfo ToolId="XPD.StartAnchorPosition">
+              <xpdl2:Coordinates XCoordinate="61.59795176471871" YCoordinate="0.0"/>
+            </xpdl2:ConnectorGraphicsInfo>
+          </xpdl2:ConnectorGraphicsInfos>
+        </xpdl2:Transition>
+        <xpdl2:Transition Id="_tTHn8NitEeqatKvhXZfngw" Name="" From="_dFvgkNiQEeqatKvhXZfngw" To="_cWt3YNiQEeqatKvhXZfngw">
+          <xpdl2:ConnectorGraphicsInfos>
+            <xpdl2:ConnectorGraphicsInfo BorderColor="0,0,128" ToolId="XPD.ConnectionInfo">
+              <xpdl2:Coordinates XCoordinate="-85.0" YCoordinate="-20.0"/>
+              <xpdl2:Coordinates XCoordinate="37.0" YCoordinate="-39.0"/>
+              <xpdl2:Coordinates XCoordinate="-122.0" YCoordinate="-20.0"/>
+              <xpdl2:Coordinates XCoordinate="0.0" YCoordinate="-39.0"/>
+            </xpdl2:ConnectorGraphicsInfo>
+            <xpdl2:ConnectorGraphicsInfo ToolId="XPD.EndAnchorPosition">
+              <xpdl2:Coordinates XCoordinate="98.78123142092021" YCoordinate="0.0"/>
+            </xpdl2:ConnectorGraphicsInfo>
+          </xpdl2:ConnectorGraphicsInfos>
+        </xpdl2:Transition>
+        <xpdl2:Transition Id="_uBz58ditEeqatKvhXZfngw" Name="" From="_fbJ4wNiQEeqatKvhXZfngw" To="_cWt3YNiQEeqatKvhXZfngw">
+          <xpdl2:ConnectorGraphicsInfos>
+            <xpdl2:ConnectorGraphicsInfo BorderColor="0,0,128" ToolId="XPD.ConnectionInfo"/>
+          </xpdl2:ConnectorGraphicsInfos>
+        </xpdl2:Transition>
+        <xpdl2:Transition Id="_v7-gkditEeqatKvhXZfngw" Name="" From="_mHS6cNitEeqatKvhXZfngw" To="_vSJgcNitEeqatKvhXZfngw">
+          <xpdl2:ConnectorGraphicsInfos>
+            <xpdl2:ConnectorGraphicsInfo BorderColor="0,0,128" ToolId="XPD.ConnectionInfo"/>
+          </xpdl2:ConnectorGraphicsInfos>
+        </xpdl2:Transition>
+        <xpdl2:Transition Id="_DtD50NvtEeq9huSL869Xyw" xpdExt:DisplayName="" Name="" From="_1_oL8OOsEeq9OuBOyvMbmA" To="_Uo6_ENitEeqatKvhXZfngw">
+          <xpdl2:ConnectorGraphicsInfos>
+            <xpdl2:ConnectorGraphicsInfo BorderColor="0,0,128" ToolId="XPD.ConnectionInfo"/>
+            <xpdl2:ConnectorGraphicsInfo ToolId="XPD.StartAnchorPosition"/>
+          </xpdl2:ConnectorGraphicsInfos>
+        </xpdl2:Transition>
+        <xpdl2:Transition Id="_FDBJQdxzEeq9huSL869Xyw" xpdExt:DisplayName="" Name="" From="_fA0JIOIzEeqtS7zGeS-4FQ" To="_LvTbENxzEeq9huSL869Xyw">
+          <xpdl2:Condition Type="OTHERWISE"/>
+          <xpdl2:ConnectorGraphicsInfos>
+            <xpdl2:ConnectorGraphicsInfo BorderColor="0,0,128" ToolId="XPD.ConnectionInfo"/>
+            <xpdl2:ConnectorGraphicsInfo ToolId="XPD.EndAnchorPosition">
+              <xpdl2:Coordinates XCoordinate="60.62499999999999" YCoordinate="0.0"/>
+            </xpdl2:ConnectorGraphicsInfo>
+            <xpdl2:ConnectorGraphicsInfo ToolId="XPD.StartAnchorPosition">
+              <xpdl2:Coordinates XCoordinate="25.0" YCoordinate="0.0"/>
+            </xpdl2:ConnectorGraphicsInfo>
+          </xpdl2:ConnectorGraphicsInfos>
+        </xpdl2:Transition>
+        <xpdl2:Transition Id="_GaKiYdxzEeq9huSL869Xyw" xpdExt:DisplayName="" Name="" From="_LvTbENxzEeq9huSL869Xyw" To="_GaKiYNxzEeq9huSL869Xyw">
+          <xpdl2:ConnectorGraphicsInfos>
+            <xpdl2:ConnectorGraphicsInfo BorderColor="0,0,128" ToolId="XPD.ConnectionInfo"/>
+            <xpdl2:ConnectorGraphicsInfo ToolId="XPD.StartAnchorPosition"/>
+          </xpdl2:ConnectorGraphicsInfos>
+        </xpdl2:Transition>
+        <xpdl2:Transition Id="_NlBmkNxzEeq9huSL869Xyw" Name="" From="_cAmlAOAFEeqsffVtNmTiKA" To="_MTuWwNxzEeq9huSL869Xyw">
+          <xpdl2:ConnectorGraphicsInfos>
+            <xpdl2:ConnectorGraphicsInfo BorderColor="0,0,128" ToolId="XPD.ConnectionInfo">
+              <xpdl2:Coordinates XCoordinate="45.0" YCoordinate="21.0"/>
+              <xpdl2:Coordinates XCoordinate="-531.0" YCoordinate="79.0"/>
+            </xpdl2:ConnectorGraphicsInfo>
+            <xpdl2:ConnectorGraphicsInfo ToolId="XPD.EndAnchorPosition">
+              <xpdl2:Coordinates XCoordinate="35.0" YCoordinate="0.0"/>
+            </xpdl2:ConnectorGraphicsInfo>
+            <xpdl2:ConnectorGraphicsInfo ToolId="XPD.StartAnchorPosition">
+              <xpdl2:Coordinates XCoordinate="34.6875" YCoordinate="0.0"/>
+            </xpdl2:ConnectorGraphicsInfo>
+          </xpdl2:ConnectorGraphicsInfos>
+        </xpdl2:Transition>
+        <xpdl2:Transition Id="_O59ZMNxzEeq9huSL869Xyw" xpdExt:DisplayName="" Name="" From="_iq-QINx0Eeq9huSL869Xyw" To="_GaKiYNxzEeq9huSL869Xyw">
+          <xpdl2:ConnectorGraphicsInfos>
+            <xpdl2:ConnectorGraphicsInfo BorderColor="0,0,128" ToolId="XPD.ConnectionInfo"/>
+            <xpdl2:ConnectorGraphicsInfo ToolId="XPD.EndAnchorPosition">
+              <xpdl2:Coordinates XCoordinate="25.0" YCoordinate="0.0"/>
+            </xpdl2:ConnectorGraphicsInfo>
+            <xpdl2:ConnectorGraphicsInfo ToolId="XPD.StartAnchorPosition"/>
+          </xpdl2:ConnectorGraphicsInfos>
+        </xpdl2:Transition>
+        <xpdl2:Transition Id="_iq-QI9x0Eeq9huSL869Xyw" xpdExt:DisplayName="" Name="" From="_BZFgUN5DEeqySZ689Vlg1w" To="_iq-QINx0Eeq9huSL869Xyw">
+          <xpdl2:ConnectorGraphicsInfos>
+            <xpdl2:ConnectorGraphicsInfo BorderColor="0,0,128" ToolId="XPD.ConnectionInfo"/>
+            <xpdl2:ConnectorGraphicsInfo ToolId="XPD.StartAnchorPosition"/>
+          </xpdl2:ConnectorGraphicsInfos>
+        </xpdl2:Transition>
+        <xpdl2:Transition Id="_S8B1kNx1Eeq9huSL869Xyw" xpdExt:DisplayName="" Name="" From="_bR3CENclEeqTOKf-7T1YEA" To="_eQ-ekNclEeqTOKf-7T1YEA">
+          <xpdl2:ConnectorGraphicsInfos>
+            <xpdl2:ConnectorGraphicsInfo BorderColor="0,0,128" ToolId="XPD.ConnectionInfo"/>
+          </xpdl2:ConnectorGraphicsInfos>
+        </xpdl2:Transition>
+        <xpdl2:Transition Id="_ixLi4d5CEeqySZ689Vlg1w" Name="" From="_rss5UNckEeqTOKf-7T1YEA" To="_pkKfgNckEeqTOKf-7T1YEA">
+          <xpdl2:ConnectorGraphicsInfos>
+            <xpdl2:ConnectorGraphicsInfo BorderColor="0,0,128" ToolId="XPD.ConnectionInfo"/>
+          </xpdl2:ConnectorGraphicsInfos>
+        </xpdl2:Transition>
+        <xpdl2:Transition Id="_r9DckN5CEeqySZ689Vlg1w" xpdExt:DisplayName="" Name="" From="_X_mDIOAEEeqsffVtNmTiKA" To="_r9C1gN5CEeqySZ689Vlg1w">
+          <xpdl2:Condition Type="OTHERWISE"/>
+          <xpdl2:ConnectorGraphicsInfos>
+            <xpdl2:ConnectorGraphicsInfo BorderColor="0,0,128" ToolId="XPD.ConnectionInfo"/>
+            <xpdl2:ConnectorGraphicsInfo ToolId="XPD.StartAnchorPosition"/>
+            <xpdl2:ConnectorGraphicsInfo ToolId="XPD.EndAnchorPosition">
+              <xpdl2:Coordinates XCoordinate="84.0625" YCoordinate="0.0"/>
+            </xpdl2:ConnectorGraphicsInfo>
+          </xpdl2:ConnectorGraphicsInfos>
+        </xpdl2:Transition>
+        <xpdl2:Transition Id="_BZFgUd5DEeqySZ689Vlg1w" xpdExt:DisplayName="" Name="" From="_MTuWwNxzEeq9huSL869Xyw" To="_BZFgUN5DEeqySZ689Vlg1w">
+          <xpdl2:ConnectorGraphicsInfos>
+            <xpdl2:ConnectorGraphicsInfo BorderColor="0,0,128" ToolId="XPD.ConnectionInfo"/>
+          </xpdl2:ConnectorGraphicsInfos>
+        </xpdl2:Transition>
+        <xpdl2:Transition Id="_3BWdQd__EeqsffVtNmTiKA" xpdExt:DisplayName="" Name="" From="_IlNngNirEeqatKvhXZfngw" To="_3BWdQN__EeqsffVtNmTiKA">
+          <xpdl2:ConnectorGraphicsInfos>
+            <xpdl2:ConnectorGraphicsInfo BorderColor="0,0,128" ToolId="XPD.ConnectionInfo"/>
+          </xpdl2:ConnectorGraphicsInfos>
+        </xpdl2:Transition>
+        <xpdl2:Transition Id="_AzwLcOAAEeqsffVtNmTiKA" xpdExt:DisplayName="" Name="" From="_3BWdQN__EeqsffVtNmTiKA" To="_5XgcUN__EeqsffVtNmTiKA">
+          <xpdl2:Condition Type="OTHERWISE"/>
+          <xpdl2:ConnectorGraphicsInfos>
+            <xpdl2:ConnectorGraphicsInfo BorderColor="0,0,128" ToolId="XPD.ConnectionInfo">
+              <xpdl2:Coordinates XCoordinate="-55.0" YCoordinate="87.0"/>
+              <xpdl2:Coordinates XCoordinate="-102.0" YCoordinate="-4.0"/>
+              <xpdl2:Coordinates XCoordinate="7.0" YCoordinate="87.0"/>
+              <xpdl2:Coordinates XCoordinate="-36.0" YCoordinate="-4.0"/>
+              <xpdl2:Coordinates XCoordinate="-20.0" YCoordinate="97.0"/>
+              <xpdl2:Coordinates XCoordinate="74.0" YCoordinate="-58.0"/>
+              <xpdl2:Coordinates XCoordinate="20.0" YCoordinate="87.0"/>
+              <xpdl2:Coordinates XCoordinate="-23.0" YCoordinate="-4.0"/>
+            </xpdl2:ConnectorGraphicsInfo>
+            <xpdl2:ConnectorGraphicsInfo ToolId="XPD.EndAnchorPosition">
+              <xpdl2:Coordinates XCoordinate="63.74999999999999" YCoordinate="0.0"/>
+            </xpdl2:ConnectorGraphicsInfo>
+            <xpdl2:ConnectorGraphicsInfo ToolId="XPD.LabelAnchorPosition">
+              <xpdl2:Coordinates XCoordinate="50.0" YCoordinate="0.0"/>
+              <xpdl2:Coordinates XCoordinate="0.0" YCoordinate="0.0"/>
+            </xpdl2:ConnectorGraphicsInfo>
+          </xpdl2:ConnectorGraphicsInfos>
+        </xpdl2:Transition>
+        <xpdl2:Transition Id="_XhYZ8OAAEeqsffVtNmTiKA" xpdExt:DisplayName="" Name="" From="_5XgcUN__EeqsffVtNmTiKA" To="_J3XhANitEeqatKvhXZfngw">
+          <xpdl2:ConnectorGraphicsInfos>
+            <xpdl2:ConnectorGraphicsInfo BorderColor="0,0,128" ToolId="XPD.ConnectionInfo"/>
+            <xpdl2:ConnectorGraphicsInfo ToolId="XPD.EndAnchorPosition">
+              <xpdl2:Coordinates XCoordinate="61.875" YCoordinate="0.0"/>
+            </xpdl2:ConnectorGraphicsInfo>
+            <xpdl2:ConnectorGraphicsInfo ToolId="XPD.LabelAnchorPosition">
+              <xpdl2:Coordinates XCoordinate="50.0" YCoordinate="0.0"/>
+              <xpdl2:Coordinates XCoordinate="0.0" YCoordinate="0.0"/>
+            </xpdl2:ConnectorGraphicsInfo>
+          </xpdl2:ConnectorGraphicsInfos>
+        </xpdl2:Transition>
+        <xpdl2:Transition Id="_X_mqMOAEEeqsffVtNmTiKA" xpdExt:DisplayName="" Name="" From="_J3XhANitEeqatKvhXZfngw" To="_X_mDIOAEEeqsffVtNmTiKA">
+          <xpdl2:ConnectorGraphicsInfos>
+            <xpdl2:ConnectorGraphicsInfo BorderColor="0,0,128" ToolId="XPD.ConnectionInfo"/>
+            <xpdl2:ConnectorGraphicsInfo ToolId="XPD.StartAnchorPosition">
+              <xpdl2:Coordinates XCoordinate="34.0625" YCoordinate="0.0"/>
+            </xpdl2:ConnectorGraphicsInfo>
+          </xpdl2:ConnectorGraphicsInfos>
+        </xpdl2:Transition>
+        <xpdl2:Transition Id="_sUI6YOAEEeqsffVtNmTiKA" xpdExt:DisplayName="" Name="" From="_X_mDIOAEEeqsffVtNmTiKA" To="_-GnV8NiPEeqatKvhXZfngw">
+          <xpdl2:Condition Type="CONDITION"><xpdl2:Expression ScriptGrammar="JavaScript">data.BankAccountsFound==true;</xpdl2:Expression></xpdl2:Condition>
+          <xpdl2:ConnectorGraphicsInfos>
+            <xpdl2:ConnectorGraphicsInfo BorderColor="0,0,128" ToolId="XPD.ConnectionInfo"/>
+            <xpdl2:ConnectorGraphicsInfo ToolId="XPD.LabelAnchorPosition">
+              <xpdl2:Coordinates XCoordinate="50.0" YCoordinate="0.0"/>
+              <xpdl2:Coordinates XCoordinate="0.0" YCoordinate="0.0"/>
+            </xpdl2:ConnectorGraphicsInfo>
+            <xpdl2:ConnectorGraphicsInfo ToolId="XPD.StartAnchorPosition">
+              <xpdl2:Coordinates XCoordinate="50.0" YCoordinate="0.0"/>
+            </xpdl2:ConnectorGraphicsInfo>
+          </xpdl2:ConnectorGraphicsInfos>
+        </xpdl2:Transition>
+        <xpdl2:Transition Id="_N779g-BfEeqsffVtNmTiKA" xpdExt:DisplayName="" Name="" From="_PSIj4NcpEeqTOKf-7T1YEA" To="_N779gOBfEeqsffVtNmTiKA">
+          <xpdl2:ConnectorGraphicsInfos>
+            <xpdl2:ConnectorGraphicsInfo BorderColor="0,0,128" ToolId="XPD.ConnectionInfo"/>
+          </xpdl2:ConnectorGraphicsInfos>
+        </xpdl2:Transition>
+        <xpdl2:Transition Id="_gcdnwOIzEeqtS7zGeS-4FQ" xpdExt:DisplayName="" Name="" From="_-GnV8NiPEeqatKvhXZfngw" To="_fA0JIOIzEeqtS7zGeS-4FQ">
+          <xpdl2:ConnectorGraphicsInfos>
+            <xpdl2:ConnectorGraphicsInfo BorderColor="0,0,128" ToolId="XPD.ConnectionInfo">
+              <xpdl2:Coordinates XCoordinate="-1.0" YCoordinate="76.0"/>
+              <xpdl2:Coordinates XCoordinate="-2.0" YCoordinate="-2.0"/>
+            </xpdl2:ConnectorGraphicsInfo>
+            <xpdl2:ConnectorGraphicsInfo ToolId="XPD.EndAnchorPosition">
+              <xpdl2:Coordinates XCoordinate="2.4382992454708536" YCoordinate="0.0"/>
+            </xpdl2:ConnectorGraphicsInfo>
+            <xpdl2:ConnectorGraphicsInfo ToolId="XPD.LabelAnchorPosition">
+              <xpdl2:Coordinates XCoordinate="50.0" YCoordinate="0.0"/>
+              <xpdl2:Coordinates XCoordinate="0.0" YCoordinate="0.0"/>
+            </xpdl2:ConnectorGraphicsInfo>
+          </xpdl2:ConnectorGraphicsInfos>
+        </xpdl2:Transition>
+        <xpdl2:Transition Id="_nxwaUOIzEeqtS7zGeS-4FQ" xpdExt:DisplayName="" Name="" From="_fA0JIOIzEeqtS7zGeS-4FQ" To="_r9C1gN5CEeqySZ689Vlg1w">
+          <xpdl2:Condition Type="CONDITION"><xpdl2:Expression ScriptGrammar="JavaScript">data.AccountId==&quot;&quot;;</xpdl2:Expression></xpdl2:Condition>
+          <xpdl2:ConnectorGraphicsInfos>
+            <xpdl2:ConnectorGraphicsInfo BorderColor="0,0,128" ToolId="XPD.ConnectionInfo"/>
+            <xpdl2:ConnectorGraphicsInfo ToolId="XPD.EndAnchorPosition">
+              <xpdl2:Coordinates XCoordinate="10.625" YCoordinate="0.0"/>
+            </xpdl2:ConnectorGraphicsInfo>
+            <xpdl2:ConnectorGraphicsInfo ToolId="XPD.LabelAnchorPosition">
+              <xpdl2:Coordinates XCoordinate="50.0" YCoordinate="0.0"/>
+              <xpdl2:Coordinates XCoordinate="0.0" YCoordinate="0.0"/>
+            </xpdl2:ConnectorGraphicsInfo>
+          </xpdl2:ConnectorGraphicsInfos>
+        </xpdl2:Transition>
+        <xpdl2:Transition Id="_1_ozAOOsEeq9OuBOyvMbmA" xpdExt:DisplayName="" Name="" From="_5wz80DiWEeuFdqur4GsK2w" To="_1_oL8OOsEeq9OuBOyvMbmA">
+          <xpdl2:ConnectorGraphicsInfos>
+            <xpdl2:ConnectorGraphicsInfo BorderColor="0,0,128" ToolId="XPD.ConnectionInfo"/>
+            <xpdl2:ConnectorGraphicsInfo ToolId="XPD.StartAnchorPosition">
+              <xpdl2:Coordinates XCoordinate="8.75" YCoordinate="0.0"/>
+            </xpdl2:ConnectorGraphicsInfo>
+          </xpdl2:ConnectorGraphicsInfos>
+        </xpdl2:Transition>
+      </xpdl2:Transitions>
+      <xpdl2:ExtendedAttributes>
+        <xpdl2:ExtendedAttribute Name="Destination" Value="CE"/>
+      </xpdl2:ExtendedAttributes>
+    </xpdl2:WorkflowProcess>
+    <xpdl2:WorkflowProcess Id="_nHHPQNcZEeqTOKf-7T1YEA" xpdExt:DisplayName="Handle Loan Application" Name="HandleLoanApplication">
+      <xpdl2:ProcessHeader/>
+      <xpdl2:FormalParameters>
+        <xpdl2:FormalParameter Id="_FqrfQNcaEeqTOKf-7T1YEA" Name="NewCustomerDetails" Mode="IN" Required="true" xpdExt:DisplayName="New Customer Details">
+          <xpdl2:DataType>
+            <xpdl2:ExternalReference location="LoanData.bom" namespace="http://www.eclipse.org/uml2/5.0.0/UML" xref="_G2UikNXTEeqPDptWnp5KOA"/>
+          </xpdl2:DataType>
+        </xpdl2:FormalParameter>
+        <xpdl2:FormalParameter Id="_R3CDINflEeqvUozA_jOdNg" Name="CustomerRef" Mode="IN" Required="true" xpdExt:DisplayName="CustomerRef">
+          <xpdl2:DataType>
+            <xpdl2:RecordType>
+              <xpdl2:Member>
+                <xpdl2:ExternalReference location="LoanData.bom" namespace="http://www.eclipse.org/uml2/5.0.0/UML" xref="_G2UikNXTEeqPDptWnp5KOA"/>
+              </xpdl2:Member>
+            </xpdl2:RecordType>
+          </xpdl2:DataType>
+        </xpdl2:FormalParameter>
+        <xpdl2:FormalParameter Id="_usgHsNfnEeqvUozA_jOdNg" Name="NewLoanDetails" Mode="IN" Required="true" xpdExt:DisplayName="New Loan Details">
+          <xpdl2:DataType>
+            <xpdl2:ExternalReference location="LoanData.bom" namespace="http://www.eclipse.org/uml2/5.0.0/UML" xref="_oHYa8NXQEeqPDptWnp5KOA"/>
+          </xpdl2:DataType>
+        </xpdl2:FormalParameter>
+        <xpdl2:FormalParameter Id="_fGkncN5EEeqySZ689Vlg1w" Name="ReferencedAccount" Mode="IN" Required="true" xpdExt:DisplayName="Referenced Account">
+          <xpdl2:DataType>
+            <xpdl2:ExternalReference location="LoanData.bom" namespace="http://www.eclipse.org/uml2/5.0.0/UML" xref="_o5MIMNiKEeqatKvhXZfngw"/>
+          </xpdl2:DataType>
+        </xpdl2:FormalParameter>
+        <xpdl2:FormalParameter Id="_eL1LUOFWEeqJOt_ZiMdF_Q" Name="Status" Mode="INOUT" Required="true" xpdExt:DisplayName="Status">
+          <xpdl2:DataType>
+            <xpdl2:BasicType Type="STRING">
+              <xpdl2:Length>50</xpdl2:Length>
+            </xpdl2:BasicType>
+          </xpdl2:DataType>
+        </xpdl2:FormalParameter>
+      </xpdl2:FormalParameters>
+      <xpdl2:DataFields>
+        <xpdl2:DataField Id="_9jE6YNfnEeqvUozA_jOdNg" xpdExt:DisplayName="LoanRef" Name="LoanRef">
+          <xpdl2:DataType>
+            <xpdl2:RecordType>
+              <xpdl2:Member>
+                <xpdl2:ExternalReference location="LoanData.bom" namespace="http://www.eclipse.org/uml2/5.0.0/UML" xref="_oHYa8NXQEeqPDptWnp5KOA"/>
+              </xpdl2:Member>
+            </xpdl2:RecordType>
+          </xpdl2:DataType>
+        </xpdl2:DataField>
+        <xpdl2:DataField Id="_vOlM0N5EEeqySZ689Vlg1w" xpdExt:DisplayName="Balance" Name="Balance">
+          <xpdl2:DataType>
+            <xpdl2:BasicType Type="FLOAT">
+              <xpdl2:Precision>10</xpdl2:Precision>
+              <xpdl2:Scale>2</xpdl2:Scale>
+            </xpdl2:BasicType>
+          </xpdl2:DataType>
+        </xpdl2:DataField>
+      </xpdl2:DataFields>
+      <xpdl2:Activities>
+        <xpdl2:Activity Id="_nHMHwtcZEeqTOKf-7T1YEA" Name="StartEvent" xpdExt:DisplayName="Start Event" xpdExt:Visibility="Private">
+          <xpdl2:Event>
+            <xpdl2:StartEvent Trigger="None"/>
+          </xpdl2:Event>
+          <xpdl2:NodeGraphicsInfos>
+            <xpdl2:NodeGraphicsInfo BorderColor="0,0,128" FillColor="255,219,74" Height="47.0" LaneId="_nHMHwdcZEeqTOKf-7T1YEA" Width="58.0">
+              <xpdl2:Coordinates XCoordinate="99.0" YCoordinate="155.0"/>
+            </xpdl2:NodeGraphicsInfo>
+          </xpdl2:NodeGraphicsInfos>
+          <xpdl2:Extensions/>
+          <xpdExt:AssociatedParameters DisableImplicitAssociation="false">
+            <xpdExt:AssociatedParameter FormalParam="CustomerRef" Mode="IN" Mandatory="true"/>
+            <xpdExt:AssociatedParameter FormalParam="NewLoanDetails" Mode="IN" Mandatory="true"/>
+            <xpdExt:AssociatedParameter FormalParam="NewCustomerDetails" Mode="IN" Mandatory="true"/>
+            <xpdExt:AssociatedParameter FormalParam="ReferencedAccount" Mode="IN" Mandatory="true"/>
+          </xpdExt:AssociatedParameters>
+        </xpdl2:Activity>
+        <xpdl2:Activity Id="_nHMHw9cZEeqTOKf-7T1YEA" Name="EndEvent" xpdExt:DisplayName="End Event" xpdExt:Visibility="Private">
+          <xpdl2:Event>
+            <xpdl2:EndEvent Result="None"/>
+          </xpdl2:Event>
+          <xpdl2:NodeGraphicsInfos>
+            <xpdl2:NodeGraphicsInfo BorderColor="0,0,128" FillColor="255,219,74" Height="47.0" LaneId="_nHMHwdcZEeqTOKf-7T1YEA" Width="54.0">
+              <xpdl2:Coordinates XCoordinate="552.0" YCoordinate="155.0"/>
+            </xpdl2:NodeGraphicsInfo>
+          </xpdl2:NodeGraphicsInfos>
+        </xpdl2:Activity>
+        <xpdl2:Activity Id="_YRAAcNfmEeqvUozA_jOdNg" Name="CreateLoan" IsATransaction="false" xpdExt:Visibility="Private" xpdExt:DisplayName="Create Loan" xpdExt:RequireNewTransaction="false">
+          <xpdl2:Implementation>
+            <xpdl2:Task>
+              <xpdl2:TaskService xpdExt:ImplementationType="GlobalData" Implementation="Other">
+                <xpdl2:MessageIn Id="_qJ6iwNfmEeqvUozA_jOdNg"/>
+                <xpdl2:MessageOut Id="_qJ6iwdfmEeqvUozA_jOdNg"/>
+                <xpdExt:GlobalDataOperation>
+                  <xpdExt:CaseAccessOperations>
+                    <xpdExt:CaseClassExternalReference location="LoanData.bom" namespace="http://www.eclipse.org/uml2/5.0.0/UML" xref="_oHYa8NXQEeqPDptWnp5KOA"/>
+                    <xpdExt:Create FromFieldPath="NewLoanDetails" ToCaseRefField="LoanRef"/>
+                  </xpdExt:CaseAccessOperations>
+                </xpdExt:GlobalDataOperation>
+              </xpdl2:TaskService>
+            </xpdl2:Task>
+          </xpdl2:Implementation>
+          <xpdl2:NodeGraphicsInfos>
+            <xpdl2:NodeGraphicsInfo BorderColor="0,0,128" FillColor="255,219,74" Height="64.0" LaneId="_nHMHwdcZEeqTOKf-7T1YEA" Width="96.0">
+              <xpdl2:Coordinates XCoordinate="202.0" YCoordinate="155.0"/>
+            </xpdl2:NodeGraphicsInfo>
+          </xpdl2:NodeGraphicsInfos>
+          <xpdl2:Extensions/>
+          <xpdExt:ActivityResourcePatterns>
+            <xpdExt:AllocationStrategy xpdExt:Strategy="SYSTEM_DETERMINED"/>
+          </xpdExt:ActivityResourcePatterns>
+        </xpdl2:Activity>
+        <xpdl2:Activity Id="_RwidYNx2Eeq9huSL869Xyw" Name="LinkLoan" xpdExt:Visibility="Private" xpdExt:DisplayName="Link Loan">
+          <xpdl2:Implementation>
+            <xpdl2:Task>
+              <xpdl2:TaskService xpdExt:ImplementationType="GlobalData" Implementation="Other">
+                <xpdl2:MessageIn Id="_UbfnwNx2Eeq9huSL869Xyw"/>
+                <xpdl2:MessageOut Id="_Ubfnwdx2Eeq9huSL869Xyw"/>
+                <xpdExt:GlobalDataOperation>
+                  <xpdExt:CaseReferenceOperations>
+                    <xpdExt:CaseRefField>LoanRef</xpdExt:CaseRefField>
+                    <xpdExt:AddLinkAssociations AddCaseRefField="CustomerRef" AssociationName="customer"/>
+                  </xpdExt:CaseReferenceOperations>
+                </xpdExt:GlobalDataOperation>
+              </xpdl2:TaskService>
+            </xpdl2:Task>
+          </xpdl2:Implementation>
+          <xpdl2:NodeGraphicsInfos>
+            <xpdl2:NodeGraphicsInfo BorderColor="0,0,128" FillColor="255,219,74" Height="64.0" LaneId="_nHMHwdcZEeqTOKf-7T1YEA" Width="96.0">
+              <xpdl2:Coordinates XCoordinate="339.0" YCoordinate="155.0"/>
+            </xpdl2:NodeGraphicsInfo>
+          </xpdl2:NodeGraphicsInfos>
+          <xpdl2:Extensions/>
+          <xpdExt:ActivityResourcePatterns>
+            <xpdExt:AllocationStrategy xpdExt:Strategy="SYSTEM_DETERMINED"/>
+          </xpdExt:ActivityResourcePatterns>
+        </xpdl2:Activity>
+      </xpdl2:Activities>
+      <xpdl2:Transitions>
+        <xpdl2:Transition Id="_nHMHxNcZEeqTOKf-7T1YEA" xpdExt:DisplayName="" Name="" From="_RwidYNx2Eeq9huSL869Xyw" To="_nHMHw9cZEeqTOKf-7T1YEA">
+          <xpdl2:ConnectorGraphicsInfos>
+            <xpdl2:ConnectorGraphicsInfo BorderColor="0,0,128" ToolId="XPD.ConnectionInfo"/>
+            <xpdl2:ConnectorGraphicsInfo ToolId="XPD.StartAnchorPosition"/>
+            <xpdl2:ConnectorGraphicsInfo ToolId="XPD.LabelAnchorPosition"/>
+          </xpdl2:ConnectorGraphicsInfos>
+        </xpdl2:Transition>
+        <xpdl2:Transition Id="_uf4uINiOEeqatKvhXZfngw" Name="" From="_nHMHwtcZEeqTOKf-7T1YEA" To="_YRAAcNfmEeqvUozA_jOdNg">
+          <xpdl2:ConnectorGraphicsInfos>
+            <xpdl2:ConnectorGraphicsInfo BorderColor="0,0,128" ToolId="XPD.ConnectionInfo"/>
+          </xpdl2:ConnectorGraphicsInfos>
+        </xpdl2:Transition>
+        <xpdl2:Transition Id="_RwjEcNx2Eeq9huSL869Xyw" xpdExt:DisplayName="" Name="" From="_YRAAcNfmEeqvUozA_jOdNg" To="_RwidYNx2Eeq9huSL869Xyw">
+          <xpdl2:ConnectorGraphicsInfos>
+            <xpdl2:ConnectorGraphicsInfo BorderColor="0,0,128" ToolId="XPD.ConnectionInfo"/>
+          </xpdl2:ConnectorGraphicsInfos>
+        </xpdl2:Transition>
+      </xpdl2:Transitions>
+      <xpdl2:ExtendedAttributes>
+        <xpdl2:ExtendedAttribute Name="Destination" Value="CE"/>
+      </xpdl2:ExtendedAttributes>
+    </xpdl2:WorkflowProcess>
+    <xpdl2:WorkflowProcess Id="_37OnMNiOEeqatKvhXZfngw" xpdExt:XpdModelType="PageFlow" xpdExt:PublishAsBusinessService="true" xpdExt:DisplayName="Create Customer" xpdExt:BusinessServiceCategory="LoanApplication/LoadApplication" Name="CreateCustomer">
+      <xpdl2:ProcessHeader/>
+      <xpdl2:DataFields>
+        <xpdl2:DataField Id="_6Q3o9diOEeqatKvhXZfngw" xpdExt:DisplayName="Customer Details" Name="CustomerDetails">
+          <xpdl2:DataType>
+            <xpdl2:ExternalReference location="LoanData.bom" namespace="http://www.eclipse.org/uml2/5.0.0/UML" xref="_G2UikNXTEeqPDptWnp5KOA"/>
+          </xpdl2:DataType>
+        </xpdl2:DataField>
+        <xpdl2:DataField Id="_6Q3o9tiOEeqatKvhXZfngw" xpdExt:DisplayName="CustomerRefs" Name="CustomerRefs" IsArray="true">
+          <xpdl2:DataType>
+            <xpdl2:RecordType>
+              <xpdl2:Member>
+                <xpdl2:ExternalReference location="LoanData.bom" namespace="http://www.eclipse.org/uml2/5.0.0/UML" xref="_G2UikNXTEeqPDptWnp5KOA"/>
+              </xpdl2:Member>
+            </xpdl2:RecordType>
+          </xpdl2:DataType>
+        </xpdl2:DataField>
+        <xpdl2:DataField Id="_6Q3o99iOEeqatKvhXZfngw" xpdExt:DisplayName="Last Name" Name="LastName">
+          <xpdl2:DataType>
+            <xpdl2:BasicType Type="STRING">
+              <xpdl2:Length>50</xpdl2:Length>
+            </xpdl2:BasicType>
+          </xpdl2:DataType>
+        </xpdl2:DataField>
+        <xpdl2:DataField Id="_6Q3o-NiOEeqatKvhXZfngw" xpdExt:DisplayName="Email Address" Name="EmailAddress">
+          <xpdl2:DataType>
+            <xpdl2:BasicType Type="STRING">
+              <xpdl2:Length>50</xpdl2:Length>
+            </xpdl2:BasicType>
+          </xpdl2:DataType>
+        </xpdl2:DataField>
+        <xpdl2:DataField Id="_6Q3o-diOEeqatKvhXZfngw" xpdExt:DisplayName="CustomerExists" Name="CustomerExists">
+          <xpdl2:DataType>
+            <xpdl2:BasicType Type="BOOLEAN"/>
+          </xpdl2:DataType>
+        </xpdl2:DataField>
+        <xpdl2:DataField Id="_cLkMwNiPEeqatKvhXZfngw" xpdExt:DisplayName="CustomerRef" Name="CustomerRef">
+          <xpdl2:DataType>
+            <xpdl2:RecordType>
+              <xpdl2:Member>
+                <xpdl2:ExternalReference location="LoanData.bom" namespace="http://www.eclipse.org/uml2/5.0.0/UML" xref="_G2UikNXTEeqPDptWnp5KOA"/>
+              </xpdl2:Member>
+            </xpdl2:RecordType>
+          </xpdl2:DataType>
+        </xpdl2:DataField>
+        <xpdl2:DataField Id="_qYM4gNi5EeqDMpCuiDySLQ" xpdExt:DisplayName="Add" Name="Add">
+          <xpdl2:DataType>
+            <xpdl2:BasicType Type="BOOLEAN"/>
+          </xpdl2:DataType>
+        </xpdl2:DataField>
+        <xpdl2:DataField Id="_HBsogNi6EeqDMpCuiDySLQ" xpdExt:DisplayName="Account" Name="Account">
+          <xpdl2:DataType>
+            <xpdl2:ExternalReference location="LoanData.bom" namespace="http://www.eclipse.org/uml2/5.0.0/UML" xref="_o5MIMNiKEeqatKvhXZfngw"/>
+          </xpdl2:DataType>
+        </xpdl2:DataField>
+        <xpdl2:DataField Id="_L5myoNi6EeqDMpCuiDySLQ" xpdExt:DisplayName="AccountRef" Name="AccountRef">
+          <xpdl2:DataType>
+            <xpdl2:RecordType>
+              <xpdl2:Member>
+                <xpdl2:ExternalReference location="LoanData.bom" namespace="http://www.eclipse.org/uml2/5.0.0/UML" xref="_o5MIMNiKEeqatKvhXZfngw"/>
+              </xpdl2:Member>
+            </xpdl2:RecordType>
+          </xpdl2:DataType>
+        </xpdl2:DataField>
+      </xpdl2:DataFields>
+      <xpdl2:Activities>
+        <xpdl2:Activity Id="_37WjANiOEeqatKvhXZfngw" Name="Start" xpdExt:Visibility="Private" xpdExt:DisplayName="Start">
+          <xpdl2:Event>
+            <xpdl2:StartEvent Trigger="None"/>
+          </xpdl2:Event>
+          <xpdl2:NodeGraphicsInfos>
+            <xpdl2:NodeGraphicsInfo BorderColor="0,0,128" FillColor="205,158,233" Height="47.0" LaneId="_37OnMtiOEeqatKvhXZfngw" Width="31.0">
+              <xpdl2:Coordinates XCoordinate="73.0" YCoordinate="166.0"/>
+            </xpdl2:NodeGraphicsInfo>
+          </xpdl2:NodeGraphicsInfos>
+          <xpdl2:Extensions/>
+          <xpdExt:Audit>
+            <xpdExt:AuditEvent Type="Completed">
+              <xpdExt:Information ScriptGrammar="JavaScript">data.CustomerExists == false;</xpdExt:Information>
+            </xpdExt:AuditEvent>
+          </xpdExt:Audit>
+        </xpdl2:Activity>
+        <xpdl2:Activity Id="_37WjAdiOEeqatKvhXZfngw" Name="End" xpdExt:Visibility="Private" xpdExt:DisplayName="End">
+          <xpdl2:Event>
+            <xpdl2:EndEvent Result="None"/>
+          </xpdl2:Event>
+          <xpdl2:NodeGraphicsInfos>
+            <xpdl2:NodeGraphicsInfo BorderColor="0,0,128" FillColor="205,158,233" Height="47.0" LaneId="_37OnMtiOEeqatKvhXZfngw" Width="31.0">
+              <xpdl2:Coordinates XCoordinate="889.0" YCoordinate="369.0"/>
+            </xpdl2:NodeGraphicsInfo>
+          </xpdl2:NodeGraphicsInfos>
+        </xpdl2:Activity>
+        <xpdl2:Activity Id="_6Q3o4NiOEeqatKvhXZfngw" Name="Useralreadyexists" xpdExt:Visibility="Private" xpdExt:DisplayName="User already exists">
+          <xpdl2:Implementation>
+            <xpdl2:Task>
+              <xpdl2:TaskUser Implementation="Unspecified">
+                <xpdl2:Performers>
+                  <xpdl2:Performer>-defined-in-Activity-Performer-</xpdl2:Performer>
+                </xpdl2:Performers>
+                <xpdl2:MessageIn Id="_6Q3o4diOEeqatKvhXZfngw"/>
+                <xpdl2:MessageOut Id="_6Q3o4tiOEeqatKvhXZfngw"/>
+              </xpdl2:TaskUser>
+            </xpdl2:Task>
+          </xpdl2:Implementation>
+          <xpdl2:NodeGraphicsInfos>
+            <xpdl2:NodeGraphicsInfo BorderColor="0,0,128" FillColor="205,158,233" Height="64.0" LaneId="_37OnMtiOEeqatKvhXZfngw" Width="96.0">
+              <xpdl2:Coordinates XCoordinate="457.0" YCoordinate="61.0"/>
+            </xpdl2:NodeGraphicsInfo>
+          </xpdl2:NodeGraphicsInfos>
+          <xpdl2:Extensions/>
+          <xpdExt:ActivityResourcePatterns>
+            <xpdExt:AllocationStrategy xpdExt:Offer="OfferAll" xpdExt:Strategy="SYSTEM_DETERMINED" xpdExt:ReOfferOnClose="true" xpdExt:ReOfferOnCancel="true"/>
+            <xpdExt:WorkItemPriority InitialPriority="50"/>
+          </xpdExt:ActivityResourcePatterns>
+          <xpdExt:AssociatedParameters DisableImplicitAssociation="true"/>
+        </xpdl2:Activity>
+        <xpdl2:Activity Id="_6Q3o59iOEeqatKvhXZfngw" Name="Enternewuserdetails" xpdExt:Visibility="Private" xpdExt:DisplayName="Enter new user details">
+          <xpdl2:Implementation>
+            <xpdl2:Task>
+              <xpdl2:TaskUser Implementation="Unspecified">
+                <xpdl2:Performers>
+                  <xpdl2:Performer>-defined-in-Activity-Performer-</xpdl2:Performer>
+                </xpdl2:Performers>
+                <xpdl2:MessageIn Id="_6Q3o6NiOEeqatKvhXZfngw"/>
+                <xpdl2:MessageOut Id="_6Q3o6diOEeqatKvhXZfngw"/>
+              </xpdl2:TaskUser>
+            </xpdl2:Task>
+          </xpdl2:Implementation>
+          <xpdl2:NodeGraphicsInfos>
+            <xpdl2:NodeGraphicsInfo BorderColor="0,0,128" FillColor="205,158,233" Height="64.0" LaneId="_37OnMtiOEeqatKvhXZfngw" Width="96.0">
+              <xpdl2:Coordinates XCoordinate="295.0" YCoordinate="166.0"/>
+            </xpdl2:NodeGraphicsInfo>
+          </xpdl2:NodeGraphicsInfos>
+          <xpdl2:Extensions/>
+          <xpdExt:ActivityResourcePatterns>
+            <xpdExt:AllocationStrategy xpdExt:Offer="OfferAll" xpdExt:Strategy="SYSTEM_DETERMINED" xpdExt:ReOfferOnClose="true" xpdExt:ReOfferOnCancel="true"/>
+            <xpdExt:WorkItemPriority InitialPriority="50"/>
+          </xpdExt:ActivityResourcePatterns>
+          <xpdExt:AssociatedParameters DisableImplicitAssociation="false">
+            <xpdExt:AssociatedParameter FormalParam="CustomerDetails" Mode="INOUT" Mandatory="false">
+              <xpdl2:Description></xpdl2:Description>
+            </xpdExt:AssociatedParameter>
+          </xpdExt:AssociatedParameters>
+        </xpdl2:Activity>
+        <xpdl2:Activity Id="_6Q3o69iOEeqatKvhXZfngw">
+          <xpdl2:Route GatewayType="Exclusive" MarkerVisible="true" ExclusiveType="Data"/>
+          <xpdl2:TransitionRestrictions>
+            <xpdl2:TransitionRestriction>
+              <xpdl2:Split Type="Exclusive" ExclusiveType="Data">
+                <xpdl2:TransitionRefs>
+                  <xpdl2:TransitionRef Id="_6Q3o8tiOEeqatKvhXZfngw"/>
+                  <xpdl2:TransitionRef Id="_Ue9GYNiPEeqatKvhXZfngw"/>
+                </xpdl2:TransitionRefs>
+              </xpdl2:Split>
+            </xpdl2:TransitionRestriction>
+          </xpdl2:TransitionRestrictions>
+          <xpdl2:NodeGraphicsInfos>
+            <xpdl2:NodeGraphicsInfo BorderColor="0,0,128" FillColor="205,158,233" Height="45.0" LaneId="_37OnMtiOEeqatKvhXZfngw" Width="43.0">
+              <xpdl2:Coordinates XCoordinate="618.0" YCoordinate="166.0"/>
+            </xpdl2:NodeGraphicsInfo>
+          </xpdl2:NodeGraphicsInfos>
+        </xpdl2:Activity>
+        <xpdl2:Activity Id="_6Q3o7NiOEeqatKvhXZfngw" Name="" xpdExt:DisplayName="">
+          <xpdl2:Route GatewayType="Exclusive" MarkerVisible="true" ExclusiveType="Data"/>
+          <xpdl2:TransitionRestrictions>
+            <xpdl2:TransitionRestriction>
+              <xpdl2:Join Type="Exclusive" ExclusiveType="Data"/>
+            </xpdl2:TransitionRestriction>
+          </xpdl2:TransitionRestrictions>
+          <xpdl2:NodeGraphicsInfos>
+            <xpdl2:NodeGraphicsInfo BorderColor="0,0,128" FillColor="205,158,233" Height="45.0" LaneId="_37OnMtiOEeqatKvhXZfngw" Width="43.0">
+              <xpdl2:Coordinates XCoordinate="174.0" YCoordinate="166.0"/>
+            </xpdl2:NodeGraphicsInfo>
+          </xpdl2:NodeGraphicsInfos>
+        </xpdl2:Activity>
+        <xpdl2:Activity Id="_Ue8fUNiPEeqatKvhXZfngw" Name="CreateCustomer" IsATransaction="false" xpdExt:Visibility="Private" xpdExt:RequireNewTransaction="false" xpdExt:DisplayName="Create Customer">
+          <xpdl2:Implementation>
+            <xpdl2:Task>
+              <xpdl2:TaskService xpdExt:ImplementationType="GlobalData" Implementation="Other">
+                <xpdl2:MessageIn Id="_XK36ENiPEeqatKvhXZfngw"/>
+                <xpdl2:MessageOut Id="_XK36EdiPEeqatKvhXZfngw"/>
+                <xpdExt:GlobalDataOperation>
+                  <xpdExt:CaseAccessOperations>
+                    <xpdExt:CaseClassExternalReference location="LoanData.bom" namespace="http://www.eclipse.org/uml2/5.0.0/UML" xref="_G2UikNXTEeqPDptWnp5KOA"/>
+                    <xpdExt:Create FromFieldPath="CustomerDetails" ToCaseRefField="CustomerRef"/>
+                  </xpdExt:CaseAccessOperations>
+                </xpdExt:GlobalDataOperation>
+              </xpdl2:TaskService>
+            </xpdl2:Task>
+          </xpdl2:Implementation>
+          <xpdl2:NodeGraphicsInfos>
+            <xpdl2:NodeGraphicsInfo BorderColor="0,0,128" FillColor="205,158,233" Height="64.0" LaneId="_37OnMtiOEeqatKvhXZfngw" Width="96.0">
+              <xpdl2:Coordinates XCoordinate="740.0" YCoordinate="166.0"/>
+            </xpdl2:NodeGraphicsInfo>
+          </xpdl2:NodeGraphicsInfos>
+          <xpdl2:Extensions/>
+          <xpdExt:ActivityResourcePatterns>
+            <xpdExt:AllocationStrategy xpdExt:Strategy="SYSTEM_DETERMINED"/>
+          </xpdExt:ActivityResourcePatterns>
+        </xpdl2:Activity>
+        <xpdl2:Activity Id="_mNQiENi5EeqDMpCuiDySLQ" Name="AddAccounts" IsATransaction="false" xpdExt:Visibility="Private" xpdExt:RequireNewTransaction="false" xpdExt:DisplayName="Add Accounts?">
+          <xpdl2:Implementation>
+            <xpdl2:Task>
+              <xpdl2:TaskUser Implementation="Unspecified">
+                <xpdl2:Performers>
+                  <xpdl2:Performer>-defined-in-Activity-Performer-</xpdl2:Performer>
+                </xpdl2:Performers>
+                <xpdl2:MessageIn Id="_tgXjUNi5EeqDMpCuiDySLQ"/>
+                <xpdl2:MessageOut Id="_tgXjUdi5EeqDMpCuiDySLQ"/>
+              </xpdl2:TaskUser>
+            </xpdl2:Task>
+          </xpdl2:Implementation>
+          <xpdl2:TransitionRestrictions>
+            <xpdl2:TransitionRestriction>
+              <xpdl2:Split Type="Inclusive">
+                <xpdl2:TransitionRefs>
+                  <xpdl2:TransitionRef Id="_CXkDMdiPEeqatKvhXZfngw"/>
+                  <xpdl2:TransitionRef Id="_yLi5Adi5EeqDMpCuiDySLQ"/>
+                </xpdl2:TransitionRefs>
+              </xpdl2:Split>
+            </xpdl2:TransitionRestriction>
+          </xpdl2:TransitionRestrictions>
+          <xpdl2:NodeGraphicsInfos>
+            <xpdl2:NodeGraphicsInfo BorderColor="0,0,128" FillColor="205,158,233" Height="64.0" LaneId="_37OnMtiOEeqatKvhXZfngw" Width="96.0">
+              <xpdl2:Coordinates XCoordinate="740.0" YCoordinate="369.0"/>
+            </xpdl2:NodeGraphicsInfo>
+          </xpdl2:NodeGraphicsInfos>
+          <xpdl2:Extensions/>
+          <xpdExt:ActivityResourcePatterns>
+            <xpdExt:AllocationStrategy xpdExt:Offer="OfferAll" xpdExt:Strategy="SYSTEM_DETERMINED" xpdExt:ReOfferOnClose="true" xpdExt:ReOfferOnCancel="true"/>
+            <xpdExt:WorkItemPriority InitialPriority="50"/>
+          </xpdExt:ActivityResourcePatterns>
+          <xpdExt:AssociatedParameters DisableImplicitAssociation="false">
+            <xpdExt:AssociatedParameter FormalParam="Add" Mode="INOUT" Mandatory="false">
+              <xpdl2:Description></xpdl2:Description>
+            </xpdExt:AssociatedParameter>
+          </xpdExt:AssociatedParameters>
+        </xpdl2:Activity>
+        <xpdl2:Activity Id="_v6NIgNi5EeqDMpCuiDySLQ">
+          <xpdl2:Route GatewayType="Exclusive" MarkerVisible="true" ExclusiveType="Data"/>
+          <xpdl2:TransitionRestrictions>
+            <xpdl2:TransitionRestriction>
+              <xpdl2:Join Type="Exclusive" ExclusiveType="Data"/>
+            </xpdl2:TransitionRestriction>
+          </xpdl2:TransitionRestrictions>
+          <xpdl2:NodeGraphicsInfos>
+            <xpdl2:NodeGraphicsInfo BorderColor="0,0,128" FillColor="205,158,233" Height="45.0" LaneId="_37OnMtiOEeqatKvhXZfngw" Width="43.0">
+              <xpdl2:Coordinates XCoordinate="740.0" YCoordinate="268.0"/>
+            </xpdl2:NodeGraphicsInfo>
+          </xpdl2:NodeGraphicsInfos>
+        </xpdl2:Activity>
+        <xpdl2:Activity Id="_xHW4INi5EeqDMpCuiDySLQ" Name="GetAccountDetails" xpdExt:Visibility="Private" xpdExt:DisplayName="Get Account Details">
+          <xpdl2:Implementation>
+            <xpdl2:Task>
+              <xpdl2:TaskUser Implementation="Unspecified">
+                <xpdl2:Performers>
+                  <xpdl2:Performer>-defined-in-Activity-Performer-</xpdl2:Performer>
+                </xpdl2:Performers>
+                <xpdl2:MessageIn Id="_xHW4Idi5EeqDMpCuiDySLQ"/>
+                <xpdl2:MessageOut Id="_xHW4Iti5EeqDMpCuiDySLQ"/>
+              </xpdl2:TaskUser>
+            </xpdl2:Task>
+          </xpdl2:Implementation>
+          <xpdl2:NodeGraphicsInfos>
+            <xpdl2:NodeGraphicsInfo BorderColor="0,0,128" FillColor="205,158,233" Height="64.0" LaneId="_37OnMtiOEeqatKvhXZfngw" Width="96.0">
+              <xpdl2:Coordinates XCoordinate="274.0" YCoordinate="369.0"/>
+            </xpdl2:NodeGraphicsInfo>
+          </xpdl2:NodeGraphicsInfos>
+          <xpdl2:Extensions/>
+          <xpdExt:ActivityResourcePatterns>
+            <xpdExt:AllocationStrategy xpdExt:Offer="OfferAll" xpdExt:Strategy="SYSTEM_DETERMINED" xpdExt:ReOfferOnClose="true" xpdExt:ReOfferOnCancel="true"/>
+            <xpdExt:WorkItemPriority InitialPriority="50"/>
+          </xpdExt:ActivityResourcePatterns>
+          <xpdExt:AssociatedParameters DisableImplicitAssociation="false">
+            <xpdExt:AssociatedParameter FormalParam="Account" Mode="INOUT" Mandatory="false">
+              <xpdl2:Description></xpdl2:Description>
+            </xpdExt:AssociatedParameter>
+          </xpdExt:AssociatedParameters>
+        </xpdl2:Activity>
+        <xpdl2:Activity Id="_0oHpINi5EeqDMpCuiDySLQ" Name="CreateAccount" IsATransaction="false" xpdExt:Visibility="Private" xpdExt:RequireNewTransaction="false" xpdExt:DisplayName="Create Account">
+          <xpdl2:Implementation>
+            <xpdl2:Task>
+              <xpdl2:TaskService xpdExt:ImplementationType="GlobalData" Implementation="Other">
+                <xpdl2:MessageIn Id="_RoNUMNi6EeqDMpCuiDySLQ"/>
+                <xpdl2:MessageOut Id="_RoNUMdi6EeqDMpCuiDySLQ"/>
+                <xpdExt:GlobalDataOperation>
+                  <xpdExt:CaseAccessOperations>
+                    <xpdExt:CaseClassExternalReference location="LoanData.bom" namespace="http://www.eclipse.org/uml2/5.0.0/UML" xref="_o5MIMNiKEeqatKvhXZfngw"/>
+                    <xpdExt:Create FromFieldPath="Account" ToCaseRefField="AccountRef"/>
+                  </xpdExt:CaseAccessOperations>
+                </xpdExt:GlobalDataOperation>
+              </xpdl2:TaskService>
+            </xpdl2:Task>
+          </xpdl2:Implementation>
+          <xpdl2:NodeGraphicsInfos>
+            <xpdl2:NodeGraphicsInfo BorderColor="0,0,128" FillColor="205,158,233" Height="64.0" LaneId="_37OnMtiOEeqatKvhXZfngw" Width="96.0">
+              <xpdl2:Coordinates XCoordinate="451.0" YCoordinate="268.0"/>
+            </xpdl2:NodeGraphicsInfo>
+          </xpdl2:NodeGraphicsInfos>
+          <xpdl2:Extensions/>
+          <xpdExt:ActivityResourcePatterns>
+            <xpdExt:AllocationStrategy xpdExt:Strategy="SYSTEM_DETERMINED"/>
+          </xpdExt:ActivityResourcePatterns>
+        </xpdl2:Activity>
+        <xpdl2:Activity Id="_8lGGwNi5EeqDMpCuiDySLQ" Name="LinkAccount" xpdExt:Visibility="Private" xpdExt:DisplayName="Link Account">
+          <xpdl2:Implementation>
+            <xpdl2:Task>
+              <xpdl2:TaskService xpdExt:ImplementationType="GlobalData" Implementation="Other">
+                <xpdl2:MessageIn Id="_V3-gQNi6EeqDMpCuiDySLQ"/>
+                <xpdl2:MessageOut Id="_V3-gQdi6EeqDMpCuiDySLQ"/>
+                <xpdExt:GlobalDataOperation>
+                  <xpdExt:CaseReferenceOperations>
+                    <xpdExt:CaseRefField>AccountRef</xpdExt:CaseRefField>
+                    <xpdExt:AddLinkAssociations AddCaseRefField="CustomerRef" AssociationName="customer"/>
+                  </xpdExt:CaseReferenceOperations>
+                </xpdExt:GlobalDataOperation>
+              </xpdl2:TaskService>
+            </xpdl2:Task>
+          </xpdl2:Implementation>
+          <xpdl2:NodeGraphicsInfos>
+            <xpdl2:NodeGraphicsInfo BorderColor="0,0,128" FillColor="205,158,233" Height="64.0" LaneId="_37OnMtiOEeqatKvhXZfngw" Width="96.0">
+              <xpdl2:Coordinates XCoordinate="618.0" YCoordinate="268.0"/>
+            </xpdl2:NodeGraphicsInfo>
+          </xpdl2:NodeGraphicsInfos>
+          <xpdl2:Extensions/>
+          <xpdExt:ActivityResourcePatterns>
+            <xpdExt:AllocationStrategy xpdExt:Strategy="SYSTEM_DETERMINED"/>
+          </xpdExt:ActivityResourcePatterns>
+        </xpdl2:Activity>
+        <xpdl2:Activity Id="_KBgZ0NjAEeqDY96_uipjcA" Name="ScriptTask" xpdExt:Visibility="Private" xpdExt:DisplayName="Script Task">
+          <xpdl2:Implementation>
+            <xpdl2:Task>
+              <xpdl2:TaskScript>
+                <xpdl2:Script ScriptGrammar="JavaScript">data.CustomerRefs.length = 0;&#xD;
+&#xD;
+var matchedCustomers=bpm.caseData.findBySimpleSearch( data.CustomerDetails.email, &quot;com.borro.loandata.Customer&quot;, 0, 2 ) ;&#xD;
+if(matchedCustomers!=null &amp;&amp;  data.CustomerRefs.length > 0 ){&#xD;
+	data.CustomerRefs.pushAll(matchedCustomers);  &#xD;
+	 data.CustomerExists= true;&#xD;
+}</xpdl2:Script>
+              </xpdl2:TaskScript>
+            </xpdl2:Task>
+          </xpdl2:Implementation>
+          <xpdl2:NodeGraphicsInfos>
+            <xpdl2:NodeGraphicsInfo BorderColor="0,0,128" FillColor="205,158,233" Height="64.0" LaneId="_37OnMtiOEeqatKvhXZfngw" Width="96.0">
+              <xpdl2:Coordinates XCoordinate="457.0" YCoordinate="166.0"/>
+            </xpdl2:NodeGraphicsInfo>
+          </xpdl2:NodeGraphicsInfos>
+          <xpdl2:Extensions/>
+          <xpdExt:ActivityResourcePatterns>
+            <xpdExt:AllocationStrategy xpdExt:Strategy="SYSTEM_DETERMINED"/>
+          </xpdExt:ActivityResourcePatterns>
+        </xpdl2:Activity>
+      </xpdl2:Activities>
+      <xpdl2:Transitions>
+        <xpdl2:Transition Id="_37WjAtiOEeqatKvhXZfngw" xpdExt:DisplayName="" Name="" From="_37WjANiOEeqatKvhXZfngw" To="_6Q3o7NiOEeqatKvhXZfngw">
+          <xpdl2:ConnectorGraphicsInfos>
+            <xpdl2:ConnectorGraphicsInfo BorderColor="0,0,128" ToolId="XPD.ConnectionInfo"/>
+            <xpdl2:ConnectorGraphicsInfo ToolId="XPD.EndAnchorPosition">
+              <xpdl2:Coordinates XCoordinate="76.21914962273543" YCoordinate="0.0"/>
+            </xpdl2:ConnectorGraphicsInfo>
+          </xpdl2:ConnectorGraphicsInfos>
+        </xpdl2:Transition>
+        <xpdl2:Transition Id="_6Q3o79iOEeqatKvhXZfngw" xpdExt:DisplayName="" Name="" From="_6Q3o7NiOEeqatKvhXZfngw" To="_6Q3o59iOEeqatKvhXZfngw">
+          <xpdl2:ConnectorGraphicsInfos>
+            <xpdl2:ConnectorGraphicsInfo BorderColor="0,0,128" ToolId="XPD.ConnectionInfo"/>
+            <xpdl2:ConnectorGraphicsInfo ToolId="XPD.LabelAnchorPosition">
+              <xpdl2:Coordinates XCoordinate="55.00000000000001" YCoordinate="0.0"/>
+              <xpdl2:Coordinates XCoordinate="0.0" YCoordinate="-14.0"/>
+            </xpdl2:ConnectorGraphicsInfo>
+          </xpdl2:ConnectorGraphicsInfos>
+        </xpdl2:Transition>
+        <xpdl2:Transition Id="_6Q3o8NiOEeqatKvhXZfngw" xpdExt:DisplayName="" Name="" From="_KBgZ0NjAEeqDY96_uipjcA" To="_6Q3o69iOEeqatKvhXZfngw">
+          <xpdl2:ConnectorGraphicsInfos>
+            <xpdl2:ConnectorGraphicsInfo BorderColor="0,0,128" ToolId="XPD.ConnectionInfo"/>
+            <xpdl2:ConnectorGraphicsInfo ToolId="XPD.StartAnchorPosition"/>
+          </xpdl2:ConnectorGraphicsInfos>
+        </xpdl2:Transition>
+        <xpdl2:Transition Id="_6Q3o8tiOEeqatKvhXZfngw" xpdExt:DisplayName="Customer already exist" Name="Customeralreadyexist" From="_6Q3o69iOEeqatKvhXZfngw" To="_6Q3o4NiOEeqatKvhXZfngw">
+          <xpdl2:Condition Type="CONDITION"><xpdl2:Expression ScriptGrammar="JavaScript">data.CustomerExists==true;</xpdl2:Expression></xpdl2:Condition>
+          <xpdl2:ConnectorGraphicsInfos>
+            <xpdl2:ConnectorGraphicsInfo BorderColor="0,0,128" ToolId="XPD.ConnectionInfo">
+              <xpdl2:Coordinates XCoordinate="-79.0" YCoordinate="-102.0"/>
+              <xpdl2:Coordinates XCoordinate="178.0" YCoordinate="-1.0"/>
+            </xpdl2:ConnectorGraphicsInfo>
+            <xpdl2:ConnectorGraphicsInfo ToolId="XPD.LabelAnchorPosition">
+              <xpdl2:Coordinates XCoordinate="71.30434782608695" YCoordinate="0.0"/>
+              <xpdl2:Coordinates XCoordinate="26.0" YCoordinate="-12.0"/>
+            </xpdl2:ConnectorGraphicsInfo>
+          </xpdl2:ConnectorGraphicsInfos>
+        </xpdl2:Transition>
+        <xpdl2:Transition Id="_6Q3o89iOEeqatKvhXZfngw" Name="" From="_6Q3o4NiOEeqatKvhXZfngw" To="_6Q3o7NiOEeqatKvhXZfngw">
+          <xpdl2:ConnectorGraphicsInfos>
+            <xpdl2:ConnectorGraphicsInfo BorderColor="0,0,128" ToolId="XPD.ConnectionInfo">
+              <xpdl2:Coordinates XCoordinate="-219.0" YCoordinate="-1.0"/>
+              <xpdl2:Coordinates XCoordinate="101.0" YCoordinate="-84.0"/>
+              <xpdl2:Coordinates XCoordinate="-277.0" YCoordinate="31.0"/>
+              <xpdl2:Coordinates XCoordinate="9.0" YCoordinate="-56.0"/>
+            </xpdl2:ConnectorGraphicsInfo>
+            <xpdl2:ConnectorGraphicsInfo ToolId="XPD.EndAnchorPosition">
+              <xpdl2:Coordinates XCoordinate="96.94469320923768" YCoordinate="0.0"/>
+            </xpdl2:ConnectorGraphicsInfo>
+          </xpdl2:ConnectorGraphicsInfos>
+        </xpdl2:Transition>
+        <xpdl2:Transition Id="_CXkDMdiPEeqatKvhXZfngw" xpdExt:DisplayName="" Name="" From="_mNQiENi5EeqDMpCuiDySLQ" To="_37WjAdiOEeqatKvhXZfngw">
+          <xpdl2:Condition Type="OTHERWISE"/>
+          <xpdl2:ConnectorGraphicsInfos>
+            <xpdl2:ConnectorGraphicsInfo BorderColor="0,0,128" ToolId="XPD.ConnectionInfo"/>
+            <xpdl2:ConnectorGraphicsInfo ToolId="XPD.EndAnchorPosition"/>
+            <xpdl2:ConnectorGraphicsInfo ToolId="XPD.StartAnchorPosition"/>
+          </xpdl2:ConnectorGraphicsInfos>
+        </xpdl2:Transition>
+        <xpdl2:Transition Id="_Ue9GYNiPEeqatKvhXZfngw" xpdExt:DisplayName="" Name="" From="_6Q3o69iOEeqatKvhXZfngw" To="_Ue8fUNiPEeqatKvhXZfngw">
+          <xpdl2:Condition Type="OTHERWISE"/>
+          <xpdl2:ConnectorGraphicsInfos>
+            <xpdl2:ConnectorGraphicsInfo BorderColor="0,0,128" ToolId="XPD.ConnectionInfo"/>
+          </xpdl2:ConnectorGraphicsInfos>
+        </xpdl2:Transition>
+        <xpdl2:Transition Id="_mNRJINi5EeqDMpCuiDySLQ" xpdExt:DisplayName="" Name="" From="_v6NIgNi5EeqDMpCuiDySLQ" To="_mNQiENi5EeqDMpCuiDySLQ">
+          <xpdl2:ConnectorGraphicsInfos>
+            <xpdl2:ConnectorGraphicsInfo BorderColor="0,0,128" ToolId="XPD.ConnectionInfo"/>
+            <xpdl2:ConnectorGraphicsInfo ToolId="XPD.StartAnchorPosition"/>
+          </xpdl2:ConnectorGraphicsInfos>
+        </xpdl2:Transition>
+        <xpdl2:Transition Id="_v6NIgdi5EeqDMpCuiDySLQ" xpdExt:DisplayName="" Name="" From="_Ue8fUNiPEeqatKvhXZfngw" To="_v6NIgNi5EeqDMpCuiDySLQ">
+          <xpdl2:ConnectorGraphicsInfos>
+            <xpdl2:ConnectorGraphicsInfo BorderColor="0,0,128" ToolId="XPD.ConnectionInfo"/>
+          </xpdl2:ConnectorGraphicsInfos>
+        </xpdl2:Transition>
+        <xpdl2:Transition Id="_yLi5Adi5EeqDMpCuiDySLQ" Name="" From="_mNQiENi5EeqDMpCuiDySLQ" To="_xHW4INi5EeqDMpCuiDySLQ">
+          <xpdl2:Condition Type="CONDITION"><xpdl2:Expression ScriptGrammar="JavaScript">data.Add == true;&#xD;
+</xpdl2:Expression></xpdl2:Condition>
+          <xpdl2:ConnectorGraphicsInfos>
+            <xpdl2:ConnectorGraphicsInfo BorderColor="0,0,128" ToolId="XPD.ConnectionInfo"/>
+          </xpdl2:ConnectorGraphicsInfos>
+        </xpdl2:Transition>
+        <xpdl2:Transition Id="_yzwvkNi5EeqDMpCuiDySLQ" xpdExt:DisplayName="" Name="" From="_8lGGwNi5EeqDMpCuiDySLQ" To="_v6NIgNi5EeqDMpCuiDySLQ">
+          <xpdl2:ConnectorGraphicsInfos>
+            <xpdl2:ConnectorGraphicsInfo BorderColor="0,0,128" ToolId="XPD.ConnectionInfo"/>
+            <xpdl2:ConnectorGraphicsInfo ToolId="XPD.EndAnchorPosition">
+              <xpdl2:Coordinates XCoordinate="73.78123142092021" YCoordinate="0.0"/>
+            </xpdl2:ConnectorGraphicsInfo>
+            <xpdl2:ConnectorGraphicsInfo ToolId="XPD.StartAnchorPosition"/>
+          </xpdl2:ConnectorGraphicsInfos>
+        </xpdl2:Transition>
+        <xpdl2:Transition Id="_0oHpIdi5EeqDMpCuiDySLQ" xpdExt:DisplayName="" Name="" From="_xHW4INi5EeqDMpCuiDySLQ" To="_0oHpINi5EeqDMpCuiDySLQ">
+          <xpdl2:ConnectorGraphicsInfos>
+            <xpdl2:ConnectorGraphicsInfo BorderColor="0,0,128" ToolId="XPD.ConnectionInfo"/>
+          </xpdl2:ConnectorGraphicsInfos>
+        </xpdl2:Transition>
+        <xpdl2:Transition Id="_8lGt0Ni5EeqDMpCuiDySLQ" xpdExt:DisplayName="" Name="" From="_0oHpINi5EeqDMpCuiDySLQ" To="_8lGGwNi5EeqDMpCuiDySLQ">
+          <xpdl2:ConnectorGraphicsInfos>
+            <xpdl2:ConnectorGraphicsInfo BorderColor="0,0,128" ToolId="XPD.ConnectionInfo"/>
+          </xpdl2:ConnectorGraphicsInfos>
+        </xpdl2:Transition>
+        <xpdl2:Transition Id="_KBgZ0djAEeqDY96_uipjcA" xpdExt:DisplayName="" Name="" From="_6Q3o59iOEeqatKvhXZfngw" To="_KBgZ0NjAEeqDY96_uipjcA">
+          <xpdl2:ConnectorGraphicsInfos>
+            <xpdl2:ConnectorGraphicsInfo BorderColor="0,0,128" ToolId="XPD.ConnectionInfo"/>
+          </xpdl2:ConnectorGraphicsInfos>
+        </xpdl2:Transition>
+      </xpdl2:Transitions>
+      <xpdl2:ExtendedAttributes>
+        <xpdl2:ExtendedAttribute Name="Destination" Value="CE"/>
+      </xpdl2:ExtendedAttributes>
+    </xpdl2:WorkflowProcess>
+  </xpdl2:WorkflowProcesses>
+  <xpdl2:ExtendedAttributes>
+    <xpdl2:ExtendedAttribute Name="CreatedBy" Value="TIBCO Business Studio"/>
+    <xpdl2:ExtendedAttribute Name="FormatVersion" Value="1000"/>
+    <xpdl2:ExtendedAttribute Name="OriginalFormatVersion" Value="1000"/>
+  </xpdl2:ExtendedAttributes>
+</xpdl2:Package>

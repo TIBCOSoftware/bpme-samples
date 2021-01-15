@@ -1,0 +1,28 @@
+{
+    "body": {
+        "inputs": [
+
+        ],
+        "outputs": [
+
+        ],
+        "inouts": [
+            {
+                "name":"NewAccountDetails",
+                "structured": [
+                    {
+                        "accountId": "accountId",
+                        "bankName": "ALPHABANK",
+                        "sortCode": "12-34-56",
+                        "accountNumber": "1234 567 890",
+                        "currency": "$ - Dollar",
+                        "accountType": "Savings",
+                        "accountSubType": "Lorem Ipsum",
+                        "openingDate": "2020-03-03",
+                        "accountState": "USED"
+                    }
+                ]
+            }
+        ]
+    }
+}

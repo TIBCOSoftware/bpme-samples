@@ -1,0 +1,43 @@
+.TibcoForms .component.invisible {display: none}
+
+.control_customerDetails1 ion-card {
+    box-shadow: none;
+    width: 100%;
+    margin-left: 0px;
+}
+
+.control_verifyandcontinue ion-button {
+    font-size: 18px;
+    margin-top: 32px;
+    --background: var(--ion-color-primary-button);
+    color: #fff;
+    --background-activated: var(--ion-color-primary-button);
+    --background-focused: var(--ion-color-primary-button);
+    --background-hover: var(--ion-color-primary-button);
+    --border-radius: 25px;
+}
+
+.pane_viewAccountDetails ion-card ion-card-header ion-card-title,
+.pane_viewAccountDetails ion-card ion-card-content {
+    display: none;
+}
+
+.pane_viewAccountDetails ion-card>ion-card-header>ion-icon {
+    width: 50% !important;
+    height: 10vh;
+    border-radius: 4px;
+    left: 50%;
+    position: relative;
+    transform: translate(-50%, 0px);
+    border: 1px solid #f2f2f2;
+    padding: 12px;
+}
+
+.control_bank ion-item div.item-native > div.item-inner {
+	border: none;
+}
+
+tibco-form > div {
+	background-color: transparent !important;
+}
+

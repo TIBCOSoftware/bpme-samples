@@ -1,0 +1,25 @@
+{
+    "body": {
+        "inputs": [
+
+        ],
+        "outputs": [
+
+        ],
+        "inouts": [
+            {
+                "name":"LoanDetails",
+                "structured": [
+                    {
+                        "applicationID": "applicationID",
+                        "amount": 1000,
+                        "months": 12,
+                        "reason": "FURNITURE",
+                        "date": "2020-08-18",
+                        "status": "REJECTED"
+                    }
+                ]
+            }
+        ]
+    }
+}

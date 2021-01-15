@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form:form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:et="http://www.tibco.com/forms/model/elemtypes" xmlns:form="http://www.tibco.com/forms/model/form" xmlns:gwt="http://www.tibco.com/forms/model/gwt" xmlns:ionic="http://tibco.com/forms/samples/ionic" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmlns:xpdl2="http://www.wfmc.org/2008/XPDL2.1" xsi:schemaLocation="http://tibco.com/forms/samples/ionic Loan.library.ecore" generated="true" generatorSource="LoanApplication.xpdl#_fHFnMNclEeqTOKf-7T1YEA?p=LoanApplication%26s=Process%20Packages%26t=xpdl2%3aActivity%26q=LoadApplication%3a%3aLoanApplication%26n=CustomerNotfound?" formatVersion="11.0.0">
+  <form:externalResources>
+    <form:externalResource name="resource.common" uri="pathmap://FORMS_RESOURCES/common.properties" internal="true" localized="true"/>
+    <form:externalResource name="resource.form" uri="LoadApplication/LoanApplication/CustomerNotfound/CustomerNotfound.properties" sfRelative="true" internal="true" localized="true"/>
+  </form:externalResources>
+  <form:dataModel>
+    <form:parameter generated="true" generatorSource="LoanApplication.xpdl#_QyZGYNfREeqvUozA_jOdNg?p=LoanApplication%26s=Process%20Packages%26t=xpdl2%3aDataField%26q=LoadApplication%3a%3aLoanApplication%26n=EmailAddress?" name="data.EmailAddress" label="Email Address" dataType="uml:PrimitiveType pathmap://BOM_TYPES/BomPrimitiveTypes.library.uml#_AGoC4HcNEdytQ9AWEvOuug" length="50" inout="INOUT"/>
+    <form:parameter generated="true" generatorSource="LoanApplication.xpdl#_KyD7oNfREeqvUozA_jOdNg?p=LoanApplication%26s=Process%20Packages%26t=xpdl2%3aDataField%26q=LoadApplication%3a%3aLoanApplication%26n=LastName?" name="data.LastName" label="Last Name" dataType="uml:PrimitiveType pathmap://BOM_TYPES/BomPrimitiveTypes.library.uml#_AGoC4HcNEdytQ9AWEvOuug" length="50" inout="INOUT"/>
+  </form:dataModel>
+  <form:actions/>
+  <form:rules>
+    <form:rule name="rule.onBacktologinSelect" label="On Back to login Select">
+      <form:event source="#control.backtologin" eventType="pathmap://FORMS_LIBRARIES/Standard.library.elemtypes#select" subject="form.control.backtologin.select"/>
+      <form:action name="action.rule1" ref="pathmap://FORMS_LIBRARIES/Standard.library.elemtypes#action.submit" label="rule1"/>
+    </form:rule>
+  </form:rules>
+  <form:bindings>
+    <form:binding direction="bothways" name="_L_CXwOInEeqVM-2lpO5XLQ">
+      <form:source target="data.EmailAddress" feature="http://www.tibco.com/forms/model/form#//Datum/value" data="form.data.EmailAddress.value"></form:source>
+      <form:destination target="control.EmailAddress" feature="http://www.tibco.com/forms/model/form#//Control/value" data="form.control.EmailAddress.value"></form:destination>
+    </form:binding>
+    <form:binding direction="bothways" name="_NlCFMOInEeqVM-2lpO5XLQ">
+      <form:source target="data.LastName" feature="http://www.tibco.com/forms/model/form#//Datum/value" data="form.data.LastName.value"></form:source>
+      <form:destination target="control.LastName" feature="http://www.tibco.com/forms/model/form#//Control/value" data="form.control.LastName.value"></form:destination>
+    </form:binding>
+  </form:bindings>
+  <form:defaults>
+    <form:labelProperties position="top"/>
+  </form:defaults>
+  <form:pane elementType="form:PaneType pathmap://FORMS_UI_ELEMENT_TYPES/UIElementTypes.library.elemtypes#com.tibco.forms.panes.vertical" name="pane.content" paneType="com.tibco.forms.panes.vertical">
+    <form:label>Account Not Found</form:label>
+    <form:visible>true</form:visible>
+    <form:enabled>true</form:enabled>
+    <form:labelProperties visible="false"/>
+    <form:defaults>
+      <form:labelProperties position="left"/>
+    </form:defaults>
+    <form:control styleClass="customerNotFound_img" elementType="form:ControlType Loan.library.elemtypes#forms.samples.ionic.library.controls.ionicCard?p=LoanLibrary%26s=.forms%2Fcomponents%26t=form%3aControlType%26q=%26n=forms.samples.ionic.library.controls.ionicCard?" controlType="forms.samples.ionic.library.controls.ionicCard" name="control.formHeader1">
+      <form:propertySet xsi:type="ionic:IonicCardPropertySet">
+        <ionic:title></ionic:title>
+        <ionic:icon>/icons/illus-cust-not-found.svg</ionic:icon>
+        <ionic:content>Please check your credentials and try again</ionic:content>
+      </form:propertySet>
+      <form:label>Form Header 1</form:label>
+      <form:visible>true</form:visible>
+      <form:enabled>true</form:enabled>
+      <form:required>false</form:required>
+    </form:control>
+    <form:control elementType="form:ControlType Loan.library.elemtypes#forms.samples.ionic.library.controls.ionicNote?p=LoanLibrary%26s=.forms%2Fcomponents%26t=form%3aControlType%26q=%26n=forms.samples.ionic.library.controls.ionicNote?" readOnly="true" controlType="forms.samples.ionic.library.controls.ionicNote" name="control.EmailAddress">
+      <form:propertySet xsi:type="ionic:IonicNotePropertySet"/>
+      <form:label>Email address</form:label>
+      <form:hint></form:hint>
+      <form:visible>true</form:visible>
+      <form:enabled>true</form:enabled>
+      <form:required>false</form:required>
+    </form:control>
+    <form:control elementType="form:ControlType Loan.library.elemtypes#forms.samples.ionic.library.controls.ionicNote?p=LoanLibrary%26s=.forms%2Fcomponents%26t=form%3aControlType%26q=%26n=forms.samples.ionic.library.controls.ionicNote?" readOnly="true" controlType="forms.samples.ionic.library.controls.ionicNote" name="control.LastName">
+      <form:propertySet xsi:type="ionic:IonicNotePropertySet"/>
+      <form:label>Last name</form:label>
+      <form:hint></form:hint>
+      <form:visible>true</form:visible>
+      <form:enabled>true</form:enabled>
+      <form:required>false</form:required>
+    </form:control>
+    <form:control elementType="form:ControlType Loan.library.elemtypes#forms.samples.ionic.library.controls.ionicButton?p=LoanLibrary%26s=.forms%2Fcomponents%26t=form%3aControlType%26q=%26n=forms.samples.ionic.library.controls.ionicButton?" controlType="forms.samples.ionic.library.controls.ionicButton" name="control.backtologin">
+      <form:propertySet xsi:type="ionic:IonicButtonPropertySet"/>
+      <form:label>Back</form:label>
+      <form:visible>true</form:visible>
+      <form:enabled>true</form:enabled>
+      <form:required>false</form:required>
+    </form:control>
+  </form:pane>
+</form:form>
