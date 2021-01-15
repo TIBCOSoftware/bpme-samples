@@ -6,3 +6,5 @@ This repository includes below samples focused on TIBCO BPM Enterprise capabilit
 1. Loan application custom UI sample - This sample is created for a Loan process application using Ionic Framework to show how an custom UI can be created using TIBCO BPM Enterprise. 
 
 2. AWS Cloud formation template - This sample provides Cloud formation template for EKS deployment on AWS
+
+This repository is goverened by the the license specified in the license file.
