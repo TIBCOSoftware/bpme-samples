@@ -1,0 +1,207 @@
+#
+# Copyright © 2021. TIBCO Software Inc.
+# This file is subject to the license terms contained
+# in the license file that is distributed with this file.
+#
+AWSTemplateFormatVersion: 2010-09-09
+
+# ====================================================================================
+# TEMPLATE : BPM Load Balancers (bpme-lb)
+# ====================================================================================
+#
+# This template creates and configures Load Balancers for client access to BPM.
+#
+
+
+Description: >-
+  This template is intended to be deployed into an existing VPC with BPM security groups already defined. It creates
+  AWS Load Balancers for client access to the EC2 Cloud instances.
+  
+  
+# =====================================================
+# METADATA :
+# =====================================================
+#
+# Defines template configuration data
+#
+Metadata:
+  
+  # =====================================================
+  # METADATA KEY : AWS::CloudFormation::Interface
+  # =====================================================
+  #
+  # Defines how the input parameters defined in this template will be presented in the AWS CloudFormation console when
+  # creating the stack:
+  #
+  # - ParameterGroups defines how parameters will be grouped and ordered
+  # - ParameterLabels defines the label that will be used for each parameter
+  #
+  'AWS::CloudFormation::Interface':
+    ParameterGroups:
+      - Label:
+          default: VPC Configuration
+        Parameters:
+          - VPCID
+      - Label:
+          default: VPC Subnets
+        Parameters:
+          - PublicSubnet1ID
+          - PublicSubnet2ID
+      - Label:
+          default: Security Configuration
+        Parameters:
+          - LDAPLBSecurityGroupID
+      - Label:
+          default: Load Balancer Names
+        Parameters:
+          - LDAPLBName
+      - Label:
+          default: SSL Certificate Name
+        Parameters:
+          - BPMCertificateArn
+      - Label:
+          default: Load Balancer Instance References
+        Parameters:
+          - LDAPInstance
+    ParameterLabels:
+      VPCID:
+        default: VPC ID
+      PublicSubnet1ID:
+        default: Public Subnet 1 ID
+      PublicSubnet2ID:
+        default: Public Subnet 2 ID
+      LDAPLBSecurityGroupID:
+        default: LDAP Load Balancer Security Group ID
+      LDAPLBName:
+        default: LDAP Load Balancer Name
+      BPMCertificateArn:
+        default: BPM SSL Certificate ARN
+      LDAPInstance:
+        default: LDAP Instance Reference
+
+
+# =====================================================
+# PARAMETERS :
+# =====================================================
+#
+# Defines the input parameters to be passed to this template when creating a stack
+#
+Parameters:
+  
+  # =====================================================
+  # PARAMETER : VPCID
+  # =====================================================
+  #
+  # ID of the VPC that hosts the BPM system (bpme-bastion)
+  #
+  VPCID:
+    Description: ID of the VPC (e.g., vpc-0343606e)
+    Type: AWS::EC2::VPC::Id
+  
+  # =====================================================
+  # PARAMETER : PublicSubnet1ID
+  # =====================================================
+  #
+  # ID of the public subnet in the first availability zone (AZ 1)
+  #
+  PublicSubnet1ID:
+    Description: >-
+      ID of the public subnet 1 that you want to provision the LDAP load balancer
+      into (e.g., subnet-a0246dcd)
+    Type: AWS::EC2::Subnet::Id
+  
+  # =====================================================
+  # PARAMETER : PublicSubnet2ID
+  # =====================================================
+  #
+  # ID of the public subnet in the second availability zone (AZ 1)
+  #
+  PublicSubnet2ID:
+    Description: >-
+      ID of the public subnet 1 that you want to provision the LDAP load balancer
+      into (e.g., subnet-a0246dcd)
+    Type: AWS::EC2::Subnet::Id
+  
+  # =====================================================
+  # PARAMETER : LDAPLBSecurityGroupID
+  # =====================================================
+  #
+  # Existing ID of the LDAP Load Balancer Security Group which permits inbound communication to the load balancer
+  #
+  LDAPLBSecurityGroupID:
+    Description: ID of the LDAP Load Balancer Security Group
+    Type: AWS::EC2::SecurityGroup::Id
+  
+  # =====================================================
+  # PARAMETER : LDAPLBName
+  # =====================================================
+  #
+  # Name for the LDAP Load Balancer Instance
+  #
+  LDAPLBName:
+    Description: Name to be used for the LDAP load balancer
+    MinLength: 1
+    ConstraintDescription: LDAP Load Balancer Name must be specified
+    Default: LDAPLB
+    Type: String
+  
+  # =====================================================
+  # PARAMETER : BPMCertificateArn
+  # =====================================================
+  #
+  # Name of the BPM SSL Certificate (ARN)
+  #
+  BPMCertificateArn:
+    Description: Amazon Resource Name (ARN) of the BPM SSL certificate
+    ConstraintDescription: BPM Certificate ARN must be specified
+    MinLength: 1
+    Type: String
+  
+  # =====================================================
+  # PARAMETER : LDAPInstance
+  # =====================================================
+  #
+  # The EC2 LDAP instance
+  #
+  LDAPInstance:
+    Description: The EC2 LDAP instance
+    Type: String
+  
+# =====================================================
+# RESOURCES :
+# =====================================================
+#
+# Declares the AWS resources to be used in the stack
+#
+Resources:
+  
+  # =====================================================
+  # RESOURCE : BPM EC2 LDAP Load Balancer (LDAPLB)
+  # =====================================================
+  #
+  # Classic Load Balancer for the LDAP instance
+  # Inbound port 389 and 636 (for LDAP)
+  #
+  LDAPLB:
+    Type: AWS::ElasticLoadBalancing::LoadBalancer
+    Properties:
+      Instances:
+        - !Ref LDAPInstance
+      Listeners:
+        - InstancePort: 389
+          InstanceProtocol: TCP
+          LoadBalancerPort: 389
+          Protocol: TCP
+        - InstancePort: 636
+          InstanceProtocol: TCP
+          LoadBalancerPort: 636
+          Protocol: TCP
+      Scheme: internet-facing
+      SecurityGroups:
+        - !Ref LDAPLBSecurityGroupID
+      Subnets:
+        - !Ref PublicSubnet1ID
+        - !Ref PublicSubnet2ID
+      Tags:
+        - Key: Name
+          Value: !Ref LDAPLBName

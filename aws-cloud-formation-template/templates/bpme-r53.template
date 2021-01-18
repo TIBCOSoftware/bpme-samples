@@ -1,0 +1,159 @@
+#
+# Copyright © 2021. TIBCO Software Inc.
+# This file is subject to the license terms contained
+# in the license file that is distributed with this file.
+#
+AWSTemplateFormatVersion: 2010-09-09
+
+# ======================================================================================================================
+# TEMPLATE : BPM - Route 53 DNS Template (bpme-r53.template)
+# ======================================================================================================================
+#
+# This template creates two Route 53 hosted zones, which provide DNS resolution information about the BPM 
+# system:
+#
+# - one for the external domain that hosts the corporate LDAP server
+#
+# - one for the local domain (in the host VPC) that hosts the BPM and LDAP EC2 instances
+#
+# Record sets are then populated to these hosted zones by the bpme-ldap and bpme-bpme templates.
+#
+
+
+Description: >-
+  Creates two Route 53 hosted zones (one for the external domain that hosts the corporate LDAP server and one for the
+  local domain in the host VPC) which provide DNS resolution information about the BPM system
+  
+# ======================================================================================================================
+# METADATA :
+# ======================================================================================================================
+#
+# Defines template configuration data
+#
+Metadata:
+  
+  # =====================================================
+  # METADATA KEY : AWS::CloudFormation::Interface
+  # =====================================================
+  #
+  # Defines how the input parameters defined in this template will be presented in the AWS CloudFormation console when
+  # creating the stack:
+  #
+  # - ParameterGroups defines how parameters will be grouped and ordered
+  # - ParameterLabels defines the label that will be used for each parameter
+  #
+  'AWS::CloudFormation::Interface':
+    ParameterGroups:
+      - Label:
+          default: Host VPC Network Configuration
+        Parameters:
+          - VPCID
+      - Label:
+          default: Route 53 DNS Configuration
+        Parameters:
+          - R53CloudDomainName
+          - R53OnPremiseDomainName
+    ParameterLabels:
+      VPCID:
+        default: VPC ID
+      R53CloudDomainName:
+        default: Host VPC Domain Name
+      R53OnPremiseDomainName:
+        default: Corporate LDAP Server Domain Name
+
+
+# ======================================================================================================================
+# PARAMETERS :
+# ======================================================================================================================
+#
+# Defines the input parameters to be passed to this template when creating a stack
+#
+Parameters:
+  
+  # =====================================================
+  # PARAMETER : VPCID
+  # =====================================================
+  #
+  # ID of the VPC that will be used to host the BPM system
+  #
+  VPCID:
+    Description: ID of the VPC that will be used to host the BPM system
+    Type: AWS::EC2::VPC::Id
+  
+  # =====================================================
+  # PARAMETER : R53CloudDomainName
+  # =====================================================
+  #
+  # Domain name to be used by the EC2 instances in the host VPC (without hostname)
+  #
+  R53CloudDomainName:
+    Default: bpme.local
+    Description: Domain name to be used by the EC2 instances in the host VPC
+    ConstraintDescription: Host VPC Domain Name must be specified
+    MinLength: 1
+    Type: String
+  
+  # =====================================================
+  # PARAMETER : R53OnPremiseDomainName
+  # =====================================================
+  #
+  # Domain name in which the corporate LDAP server is hosted (without hostname)
+  #
+  R53OnPremiseDomainName:
+    Description: Domain name in which the corporate LDAP server is hosted
+    ConstraintDescription: Corporate LDAP Server Domain Name must be specified
+    MinLength: 1
+    Type: String
+
+
+# ======================================================================================================================
+# RESOURCES :
+# ======================================================================================================================
+#
+# Declares the AWS resources to be used in the stack
+#
+Resources:
+  
+  # ======================================================================
+  # RESOURCE : Route 53 DNS - Host VPC Hosted Zone (R53CloudDNS)
+  # ======================================================================
+  #
+  # Hosted zone for the domain used by the EC2 instances in the host VPC
+  #
+  R53CloudDNS:
+    Type: AWS::Route53::HostedZone
+    Properties:
+      Name: !Ref R53CloudDomainName
+      VPCs:
+        - VPCId: !Ref VPCID
+          VPCRegion: !Ref AWS::Region
+  
+  # ====================================================================================
+  # RESOURCE : Route 53 DNS - Corporate LDAP Server Hosted Zone (R53OnPremiseDNS)
+  # ====================================================================================
+  #
+  # Hosted zone for the domain in which the corporate LDAP server is located
+  #
+  R53OnPremiseDNS:
+    Type: AWS::Route53::HostedZone
+    Properties:
+      Name: !Ref R53OnPremiseDomainName
+      VPCs:
+        - VPCId: !Ref VPCID
+          VPCRegion: !Ref AWS::Region
+
+
+# ======================================================================================================================
+# OUTPUTS :
+# ======================================================================================================================
+#
+# Declares the ID of each Route 53 resource as an output value that can be used as a cross-stack reference
+#
+Outputs:
+  R53CloudDNS:
+    Value: !Ref R53CloudDNS
+    Description: Route 53 Cloud DNS
+  
+  R53OnPremiseDNS:
+    Value: !Ref R53OnPremiseDNS
+    Description: Route 53 On-Premise DNS

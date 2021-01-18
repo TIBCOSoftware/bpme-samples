@@ -1,0 +1,137 @@
+#!/bin/bash
+#
+# Copyright © 2021. TIBCO Software Inc.
+# This file is subject to the license terms contained
+# in the license file that is distributed with this file.
+#
+
+#
+# Define function user to update or add entries to the silent install file
+#
+function updateOrAddEntry {
+	# Does the entry exist
+	let COUNT=`grep "$1" "$3" | grep entry | grep key | wc -l`
+
+	if [ $COUNT -ge 1 ]
+	then
+		xmlstarlet edit -L -u "//entry[@key='$1']" -v "$2" "$3"
+	else
+		xmlstarlet edit -L -a "(//entry)[last()]" -t "elem" -n "entry" -v "$2" -i "//entry[not(@key)]" -t "attr" -n "key" -v "$1" "$3"
+	fi
+}
+
+
+
+# We should be passed a number of arguments, which are:
+#
+#	1. The zip file we should extract
+#	2. TIBCO_HOME we should install to
+#	3. TIBCO_CONFIG_HOME to use
+#	4. Environment Name to use
+#	5. (Optional) The install profile(s) to use.  This can be wild carded.
+
+TIBCO_HOME=/opt/tibco/bpm
+TIBCO_CONFIG_HOME=/home/$USERNAME/bpm
+ENV_NAME=bpm
+
+while getopts "z:h:c:e:p:f:l:j:" opt
+do
+	case "$opt" in
+		j)	JAVA_HOME=$OPTARG
+			;;
+		z)	ZIPFILE=`echo $OPTARG`
+			;;
+		h)	TIBCO_HOME=$OPTARG
+			;;
+		c)	TIBCO_CONFIG_HOME=$OPTARG
+			;;
+		e)	ENV_NAME=$OPTARG
+			;;
+		p)	PROFILE_NAME=$OPTARG
+			;;
+		f)	FEATURE_NAME=$OPTARG
+			;;
+		l)	THIRDPARTY_DIR=$OPTARG
+			;;
+	esac
+done
+
+if [ "$ZIPFILE" == "" ]
+then
+	# Specified zip file could not be found, which is fine, just exit as a no-op
+	exit
+fi
+
+if [ -f $ZIPFILE ]
+then
+	INSTDIR=~/software
+
+	echo
+	echo
+	echo ===========================================================================
+	echo
+	echo Installing software from archive $ZIPFILE
+	echo
+	echo TIBCO_HOME			= $TIBCO_HOME
+	echo TIBCO_HOME_CONFIG	= $TIBCO_CONFIG_HOME
+	echo Environment Name	= $ENV_NAME
+	echo JAVA_HOME			= $JAVA_HOME
+	echo
+	echo ===========================================================================
+	echo
+	echo
+
+	mkdir -p $INSTDIR
+	unzip -q -o -u $ZIPFILE -d $INSTDIR
+
+	# Find out what the silent install file is called.
+	SILENT_FILE=`find $INSTDIR -name "*.silent" -print`
+
+	# Update the silent file with common mandaorty arguments
+	echo "Setting-up Common Environment ..."
+	updateOrAddEntry installationRoot "$TIBCO_HOME" "$SILENT_FILE"
+	updateOrAddEntry configDirectoryRoot "$TIBCO_CONFIG_HOME" "$SILENT_FILE"
+	updateOrAddEntry environmentName "$ENV_NAME" "$SILENT_FILE"
+
+	# If we were given a 3rd Party distributions directory, turn off auto-download and it into the silent file
+	if [ "$THIRDPARTY_DIR" != "" ]
+	then
+		echo "Setting-up LGPL Directory : $THIRDPARTY_DIR"
+		updateOrAddEntry LGPLAssemblyDownload "false" "$SILENT_FILE"
+		updateOrAddEntry LGPLAssemblyPath "$THIRDPARTY_DIR" "$SILENT_FILE"
+	fi
+
+	# If we were given a profile, make sure it exists in the feature config files
+	if [ "$PROFILE_NAME" != "" ]
+	then
+		echo "Setting-up Profile : $PROFILE_NAME"
+		PROFILE=`grep installProfile ${INSTDIR}/*.xml | awk -F 'name=\"' '{print $2}' | awk -F '\"' '{print $1}' | grep "$PROFILE_NAME"`
+		updateOrAddEntry selectedProfiles "$PROFILE" "$SILENT_FILE"
+	fi
+
+	# If we were given a profile, make sure it exists in the feature config files
+	if [ "$FEATURE_NAME" != "" ]
+	then
+		echo "Setting-up Feature : $FEATURE_NAME"
+		FEATURE=`grep installerFeature ${INSTDIR}/product_*.xml | awk -F 'name=\"' '{print $2}' | awk -F '\"' '{print $1}' | grep "$FEATURE_NAME"`
+		PROD_ID=`grep productDef ${INSTDIR}/product_*.xml | awk -F 'id=\"' '{print $2}' | awk -F '\"' '{print $1}'`
+		updateOrAddEntry "feature_${FEATURE}_${PROD_ID}" "false" "$SILENT_FILE"
+	fi
+
+	# At this point the silent install file is read to go, so run the install
+	INSTALLER=`find $INSTDIR -name "TIBCOUniversalInstaller*.bin" -print`
+
+	# If there is no install with the zip file we need to copy it from TIBCO_HOME
+	if [ "$INSTALLER" == "" ]
+	then
+		echo "Copying TIBCO Installer from $TIBCO_HOME"
+		BACKUP_INSTALLER=`find $TIBCO_HOME -name "TIBCOUniversalInstaller*.bin" -print`
+		cp $BACKUP_INSTALLER $INSTDIR
+		INSTALLER=`find $INSTDIR -name "TIBCOUniversalInstaller*.bin" -print`
+	fi
+
+	echo "Executing Installer in Silent mode"
+	$INSTALLER -silent -is:javahome $JAVA_HOME
+	echo "Tidying up install directory"
+	rm -rf $INSTDIR
+fi

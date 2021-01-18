@@ -1,0 +1,38 @@
+#
+# Copyright © 2021. TIBCO Software Inc.
+# This file is subject to the license terms contained
+# in the license file that is distributed with this file.
+#
+# An example of ClusterConfig with a Fargate profile.
+---
+apiVersion: eksctl.io/v1alpha5
+kind: ClusterConfig
+
+metadata:
+  name: ${CLUSTER_NAME}
+  region: ${AWS_DEFAULT_REGION}
+  version: "1.18"
+
+vpc:
+  subnets:
+    private:
+      ${AVAIL_ZONE1}: {id: ${PRIVATE_SUBNET1A_ID} }
+      ${AVAIL_ZONE2}: {id: ${PRIVATE_SUBNET2A_ID} }
+
+
+fargateProfiles:
+  - name: fp-default
+    selectors:
+      # All workloads in the "default" Kubernetes namespace will be
+      # scheduled onto Fargate:
+      - namespace: default
+      # All workloads in the "kube-system" Kubernetes namespace will be
+      # scheduled onto Fargate:
+      - namespace: kube-system
+  - name: fp-bpm
+    selectors:
+      # All workloads in the "bpm" Kubernetes namespace matching the following
+      # label selectors will be scheduled onto Fargate:
+      - namespace: bpm
+        labels:
+          app: bpm

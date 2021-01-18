@@ -1,0 +1,428 @@
+#
+# Copyright © 2021. TIBCO Software Inc.
+# This file is subject to the license terms contained
+# in the license file that is distributed with this file.
+#
+AWSTemplateFormatVersion: '2010-09-09'
+
+# ======================================================================================================================
+# TEMPLATE : BPM - Aurora PostgreSQL Database Template (bpme-rds.template)
+# ======================================================================================================================
+#
+# This template creates an Aurora Database instance that provides database storage for the BPM.
+# The instance uses PostgreSQL compatibility.
+
+Description: >-
+  Creates an Aurora Database instance that provides database storage for the BPM.
+  The instance uses PostgreSQL compatibility.
+
+# ======================================================================================================================
+# METADATA :
+# ======================================================================================================================
+#
+# Defines template configuration data
+#
+Metadata:
+  
+  # =====================================================
+  # METADATA KEY : AWS::CloudFormation::Interface
+  # =====================================================
+  #
+  # Defines how the input parameters defined in this template will be presented in the AWS CloudFormation console when
+  # creating the stack:
+  #
+  # - ParameterGroups defines how parameters will be grouped and ordered
+  # - ParameterLabels defines the label that will be used for each parameter
+  #
+  AWS::CloudFormation::Interface:
+    ParameterGroups:
+      - Label:
+          default: Host VPC Network Configuration
+        Parameters:
+          - PrivateSubnet1AID
+          - PrivateSubnet2AID
+      - Label:
+          default: Security Configuration
+        Parameters:
+          - BPMDBSecurityGroupID
+      - Label:
+          default: DB Sizing Parameters
+        Parameters:
+          - RDSInstanceClass
+      - Label:
+          default: DB Naming Parameters
+        Parameters:
+          - RDSInstanceIdentifier
+          - RDSName
+      - Label:
+          default: DB Credentials
+        Parameters:
+          - RDSMasterUsername
+          - RDSMasterUserPassword
+          - DBAutoMinorVersionUpgrade
+          - RDSVersion
+          - DBMultiAZ
+    ParameterLabels:
+      RDSVersion:
+        default: Database Engine Version
+      DBAutoMinorVersionUpgrade:
+        default: Database auto minor version upgrade
+      DBMultiAZ:
+        default: Multi-AZ deployment
+      PrivateSubnet1AID:
+        default: Private Subnet 1 (AZ 1)
+      PrivateSubnet2AID:
+        default: Private Subnet 2 (AZ 2)
+      BPMDBSecurityGroupID:
+        default: DB Instance Security Group ID
+      RDSInstanceClass:
+        default: DB Instance Class
+      RDSInstanceIdentifier:
+        default: DB Instance Identifier
+      RDSName:
+        default: DB Name
+      RDSMasterUsername:
+        default: DB User Name
+      RDSMasterUserPassword:
+        default: DB User Password
+
+# ======================================================================================================================
+# MAPPINGS :
+# ======================================================================================================================
+#
+# Defines template mapping information
+#
+Mappings:
+  DBFamilyMap:
+    "11.8":
+      "family": "aurora-postgresql11"
+Conditions:
+  IsDBMultiAZ:
+    !Equals
+    - !Ref DBMultiAZ
+    - 'true'
+  DoCreateDatabase:
+    !Not
+      - !Equals
+        - !Ref RDSName
+        - ''
+  CreateSecurityGroup:
+    !Equals
+    - !Ref BPMDBSecurityGroupID
+    - ''
+
+# ======================================================================================================================
+# PARAMETERS :
+# ======================================================================================================================
+#
+# Defines the input parameters to be passed to this template when creating a stack
+#
+Parameters:
+  
+  # =====================================================
+  # PARAMETER : PrivateSubnet1AID
+  # =====================================================
+  #
+  # ID of the private subnet in Availability Zone 1. The master Oracle RDS DB instance will use this subnet.
+  #
+  PrivateSubnet1AID:
+    Description: >-
+      ID of the private subnet in Availability Zone 1 in which you want to provision the master Oracle RDS DB instance 
+    Type: AWS::EC2::Subnet::Id
+  
+  # =====================================================
+  # PARAMETER : PrivateSubnet2AID
+  # =====================================================
+  #
+  # ID of the private subnet in Availability Zone 2. The standby Oracle RDS DB instance will use this subnet.
+  #
+  PrivateSubnet2AID:
+    Description: >-
+      ID of the private subnet in Availability Zone 2 in which you want to provision the standby Oracle RDS DB instance 
+    Type: AWS::EC2::Subnet::Id
+  
+  # =====================================================
+  # PARAMETER : BPMDBSecurityGroupID
+  # =====================================================
+  #
+  # ID of the BPM Oracle RDS Instance Security Group (BPMDBSecurityGroup), which controls inbound Oracle access to the 
+  # BPM Oracle RDS DB instance from within the host VPC 
+  #
+  BPMDBSecurityGroupID:
+    Description: ID of the BPM DB Security Group
+    Type: AWS::EC2::SecurityGroup::Id
+  
+  # =====================================================
+  # PARAMETER : RDSInstanceClass
+  # =====================================================
+  #
+  # DB instance class to be used by the RDS Aurora DB instance. This DB instance will host the BPM and BDS 
+  # databases, and the Administrator database.
+  #
+  RDSInstanceClass:
+    AllowedValues:
+      - db.r5.large
+      - db.r5.xlarge
+      - db.r5.2xlarge
+      - db.r5.4xlarge
+      - db.r5.12xlarge
+      - db.r5.24xlarge
+      - db.r4.large
+      - db.r4.xlarge
+      - db.r4.2xlarge
+      - db.r4.4xlarge
+      - db.r4.8xlarge
+      - db.r4.16xlarge
+    Default: db.r4.large
+    Description: >-
+      DB instance class to be used for the DB instance that will host the BPM database
+    Type: String
+
+  # =====================================================
+  # PARAMETER : RDSInstanceIdentifier
+  # =====================================================
+  #
+  # DB instance identifier for the RDS Oracle DB instance
+  #
+  RDSInstanceIdentifier:
+    Default: bpmdbinstance
+    Description: Name to be used as the identifier of the DB instance
+    ConstraintDescription: DB Instance Identifier must be specified
+    MinLength: 1
+    Type: String
+
+  # =====================================================
+  # PARAMETER : DBAutoMinorVersionUpgrade
+  # =====================================================
+  #
+  # Should micro upgrades be allowed on the instances.
+  #
+  DBAutoMinorVersionUpgrade: 
+    AllowedValues: 
+      - "true"
+      - "false"
+    Default: "false"
+    Description: "Select true to set up auto minor version upgrade."
+    Type: String
+
+  # =====================================================
+  # PARAMETER : RDSName
+  # =====================================================
+  #
+  # Name of the database that will be created when Amazon RDS creates the DB database instance.
+  #
+  RDSName:
+    Default: bpmdb
+    Description: Name of the database that will be created when Amazon RDS creates the DB database instance
+    ConstraintDescription: DB Name must be specified, must begin with a letter and contain only alphanumeric characters.
+    AllowedPattern: "[a-zA-Z0-9]*"
+    MaxLength: "64"
+    MinLength: 1
+    Type: String
+  
+  # =====================================================
+  # PARAMETER : RDSMasterUsername
+  # =====================================================
+  #
+  # Login ID of the master user for the DB instance
+  #
+  RDSMasterUsername:
+    Default: postgres
+    Description: Login ID of the master user for the DB instance
+    ConstraintDescription: Master DB User Name must be specified, must begin with a letter and contain only alphanumeric characters.
+    AllowedPattern: "[a-zA-Z][a-zA-Z0-9]*"
+    MaxLength: "16"
+    MinLength: 1
+    Type: String
+  
+  # =====================================================
+  # PARAMETER : RDSMasterUserPassword
+  # =====================================================
+  #
+  # Password of the master user for the DB instance (obscured display)
+  #
+  RDSMasterUserPassword:
+    Description: Password of the master user for the DB instance
+    ConstraintDescription: Master DB User Password must be specified, must begin with a letter and contain only alphanumeric characters.
+    AllowedPattern: "[a-zA-Z][a-zA-Z0-9]*"
+    MaxLength: "16"
+    MinLength: 1
+    NoEcho: true
+    Type: String
+ 
+  # =====================================================
+  # PARAMETER : RDSPort
+  # =====================================================
+  #
+  # Version of PostgreSQL that will used when Amazon Aurora creates the DB database instance.
+  #
+  RDSPort:
+    Description: TCP/IP Port for the Database Instance
+    Type: Number
+    Default: 5432
+    ConstraintDescription: 'Must be in the range [1115-65535]'
+    MinValue: 1115
+    MaxValue: 65535
+  #
+  # =====================================================
+  # PARAMETER : RDSVersion
+  # =====================================================
+  #
+  # Version of PostgreSQL that will used when Amazon Aurora creates the DB database instance.
+  #
+  RDSVersion:
+    Default: 11.8
+    Description: Version of PostgreSQL that will used when Amazon Aurora creates the DB database instance.
+    ConstraintDescription: RDSVersion must be specified
+    MinLength: 4
+    Type: String
+    AllowedValues:
+      - 11.8
+
+  # =====================================================
+  # PARAMETER : DBMultiAZ
+  # =====================================================
+  #
+  # Should the instance be created in multiple availability zones.
+  #
+  DBMultiAZ: 
+    AllowedValues: 
+      - "true"
+      - "false"
+    Default: "true"
+    Description: "Specifies if the database instance is a multiple Availability Zone deployment."
+    Type: String
+
+# ======================================================================================================================
+# RESOURCES :
+# ======================================================================================================================
+#
+# Declares the AWS resources to be used in the stack
+#
+Resources:
+  
+  # =====================================================
+  # RESOURCE : BPM RDS Database Subnet (BPMDBSNET)
+  # =====================================================
+  #
+  # Subnet for the BPM RDS Database Instance
+  #
+  # This must be located in the private subnets of the host VPC and span two different subnets.
+  #
+  BPMDBSNET:
+    Type: AWS::RDS::DBSubnetGroup
+    Properties:
+      DBSubnetGroupDescription:
+        BPM RDS DB Subnet
+      SubnetIds:
+        - !Ref PrivateSubnet1AID
+        - !Ref PrivateSubnet2AID
+      Tags:
+        - Key: Name
+          Value: BPM DB SNET
+
+  AuroraDB1:
+    Properties:
+      AutoMinorVersionUpgrade: !Ref DBAutoMinorVersionUpgrade
+      DBClusterIdentifier: !Ref AuroraDBCluster
+      DBInstanceClass: !Ref RDSInstanceClass
+      Engine: aurora-postgresql
+      EngineVersion: !Ref RDSVersion
+      DBParameterGroupName: !Ref DBParamGroup
+      PubliclyAccessible: false
+      Tags:
+        -
+          Key: Name
+          Value: !Sub AuroraDB-${AWS::StackName}
+    Type: "AWS::RDS::DBInstance"
+
+  AuroraDB2:
+    Condition: IsDBMultiAZ
+    Properties:
+      AutoMinorVersionUpgrade: !Ref DBAutoMinorVersionUpgrade
+      DBClusterIdentifier: !Ref AuroraDBCluster
+      DBInstanceClass: !Ref RDSInstanceClass
+      Engine: aurora-postgresql
+      EngineVersion: !Ref RDSVersion
+      DBParameterGroupName: !Ref DBParamGroup
+      PubliclyAccessible: false
+      Tags:
+        -
+          Key: Name
+          Value: !Sub AuroraDB-${AWS::StackName}
+    Type: "AWS::RDS::DBInstance"
+
+  DBParamGroup:
+    Type: AWS::RDS::DBParameterGroup
+    Properties:
+      Description: !Join [ "- ", [ "Aurora PG Database Instance Parameter Group for Cloudformation Stack ", !Ref RDSName ] ]
+      Family: !FindInMap [DBFamilyMap, !Ref RDSVersion, "family"]
+      Parameters:
+        log_rotation_age: '1440'
+        log_rotation_size: '102400'
+
+  RDSDBClusterParameterGroup:
+    Type: AWS::RDS::DBClusterParameterGroup
+    Properties:
+      Description: !Join [ "- ", [ "Aurora PG Cluster Parameter Group for  Cloudformation Stack ", !Ref RDSName ] ]
+      Family: !FindInMap [DBFamilyMap, !Ref RDSVersion, "family"]
+      Parameters:
+        rds.force_ssl: 0
+
+  # =====================================================
+  # RESOURCE : BPM RDS Database Instance (BPMDB)
+  # =====================================================
+  #
+  # Aurora DB Cluster that hosts the BPM and BDS databases, and the Administrator database.
+  # 
+  AuroraDBCluster:
+    Type: "AWS::RDS::DBCluster"
+    Properties:
+      DBClusterParameterGroupName: !Ref RDSDBClusterParameterGroup
+      DBSubnetGroupName: !Ref BPMDBSNET
+      DatabaseName:
+        !If
+        - DoCreateDatabase
+        - !Ref RDSName
+        - !Ref AWS::NoValue
+      Engine: aurora-postgresql
+      EngineVersion: !Ref RDSVersion
+      MasterUserPassword: !Ref RDSMasterUserPassword
+      MasterUsername: !Ref RDSMasterUsername
+      Port: !Ref RDSPort
+      Tags: 
+        - 
+          Key: Name
+          Value: !Sub AuroraDB-${AWS::StackName}
+      VpcSecurityGroupIds: 
+        - !Ref BPMDBSecurityGroupID
+    UpdateReplacePolicy: Snapshot
+    DeletionPolicy: Delete
+    DependsOn:
+      - BPMDBSNET
+# ======================================================================================================================
+# OUTPUTS :
+# ======================================================================================================================
+#
+# Declares the ID of RDS Database Properties as an output value that can be used as a cross-stack reference
+#
+Outputs:
+  RDSSubnetID:
+    Value: !Ref BPMDBSNET
+    Description: BPM RDS DB Subnet ID
+  
+  RDSID:
+    Value: !Ref AuroraDBCluster
+    Description: BPM RDS DB ID
+    
+  RDSEndpointAddress: 
+    Value: !Sub ${AuroraDBCluster.Endpoint.Address}
+    Description: BPM RDS DB Endpoint Address
+    
+  RDSEndpointPort:
+    Value: !Sub ${AuroraDBCluster.Endpoint.Port}
+    Description: BPM RDS DB Endpoint Port
+
+  RDSEndpoints: 
+    Description: "Full Amazon Aurora endpoint"
+    Value: !Sub ${AuroraDBCluster.Endpoint.Address}:${AuroraDBCluster.Endpoint.Port}/${RDSName}

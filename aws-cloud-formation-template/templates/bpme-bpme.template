@@ -1,0 +1,703 @@
+#
+# Copyright © 2021. TIBCO Software Inc.
+# This file is subject to the license terms contained
+# in the license file that is distributed with this file.
+#
+AWSTemplateFormatVersion: '2010-09-09'
+
+# ====================================================================================
+# TEMPLATE : BPM Instance (bpme-bpme)
+# ====================================================================================
+#
+# This template creates an Amazon Linux EC2 instance which will produce a BPM docker image.
+# This image will be pushed into the local ECR for use with EKS
+# Prerequisites are:
+# - an ECR instance provisioned with the repository as specified by parameter BPMECRRepositoryName
+# - S3 SoftwareS3Bucket containing the BPM release zip
+# - S3 ScriptsS3Bucket containing the bpminst script
+#
+
+Description: >-
+  Creates an EC2 instance, installs java, docker, psql and other prerequisites to run the BPM installer.
+
+
+# =====================================================
+# PARAMETERS :
+# =====================================================
+#
+# Defines the input parameters to be passed to this template when creating a stack
+#  
+Parameters:
+  
+  # =====================================================
+  # PARAMETER : SoftwareS3Bucket
+  # =====================================================
+  #
+  # Name of the S3 bucket containing the TIBCO software
+  #
+  SoftwareS3Bucket:
+    AllowedPattern: >-
+      ^[0-9a-zA-Z-/]*$
+    ConstraintDescription: >-
+      BPM Software bucket name can include numbers, lowercase letters, uppercase letters, hyphens (-), and forward
+      slash (/).
+    Description: >-
+      Name of the previously created S3 bucket that contains the software distribution sets used by the BPM
+      CloudFormation templates
+    MinLength: 1
+    Type: String
+  
+  # =====================================================
+  # PARAMETER : ScriptsS3Bucket
+  # =====================================================
+  #
+  # Name of the S3 bucket containing the TIBCO scripts
+  #
+  ScriptsS3Bucket:
+    AllowedPattern: >-
+      ^[0-9a-zA-Z-/]*$
+    ConstraintDescription: >-
+      BPM Scripts bucket name can include numbers, lowercase letters, uppercase letters, hyphens (-), and forward
+      slash (/).
+    Description: >-
+      Name of the previously created S3 bucket that contains the BPM scripts used by the BPM
+      CloudFormation templates
+    MinLength: 1
+    Type: String
+  #
+  # =====================================================
+  # PARAMETER : TemplatesS3Bucket
+  # =====================================================
+  #
+  # Name of the S3 bucket containing the TIBCO templates
+  #
+  TemplatesS3Bucket:
+    AllowedPattern: >-
+      ^[0-9a-zA-Z-/]*$
+    ConstraintDescription: >-
+      BPM Scripts bucket name can include numbers, lowercase letters, uppercase letters, hyphens (-), and forward
+      slash (/).
+    Description: >-
+      Name of the previously created S3 bucket that contains the BPM scripts used by the BPM CloudFormation templates
+    MinLength: 1
+    Type: String
+  
+  # =====================================================
+  # PARAMETER : ECRURI
+  # =====================================================
+  #
+  # URI of the ECR
+  #
+  ECRURI:
+    AllowedPattern: >-
+      (?:[a-z0-9]+(?:[._-][a-z0-9]+)*/)*[a-z0-9]+(?:[._-][a-z0-9]+)*
+    ConstraintDescription: >-
+      Standard characters that can appear in a uri
+      slash (/).
+    Description: >-
+      URI of the ECR. Although this name can be discovered using parameter allows to point to any repository if needed
+    Type: String
+  
+  # =====================================================
+  # PARAMETER : EKSCreatorUser
+  # =====================================================
+  #
+  # Name of the IAM user that created the EKS cluster
+  #
+  EKSCreatorUser:
+    Default: BPMDev-BPME-Jenkins
+    Description: >-
+      Name of the IAM user that created the EKS cluster
+    Type: String
+
+  # =====================================================
+  # PARAMETER : BPMECRRepositoryName
+  # =====================================================
+  #
+  # Name of the BPM ECR repository
+  #
+  BPMECRRepositoryName:
+    Description: >-
+      BPM ECR repository name
+    Type: String
+  
+  # =====================================================
+  # PARAMETER : BPMKeyPairName
+  # =====================================================
+  #
+  # BPM Key Pair Name
+  #
+  BPMKeyPairName:
+    Description: >-
+      Enter the BPM Public/private key pair. If you do not have one in this
+      region, please create it before continuing
+    Type: AWS::EC2::KeyPair::KeyName
+  
+  # =====================================================
+  # PARAMETER : BPMInstallEC2InstanceProfile
+  # =====================================================
+  #
+  # Reference to the BPM EC2 Instance Profile  resource(BPMInstallEC2InstanceProfile), which is created by the
+  # bpme-master.template
+  #
+  # The BPMInstallEC2InstanceProfile resource defines the Instance Profile for the BPM EC2 Execution Role resource
+  # (BPMInstallEC2ExecutionRole).
+  #
+  BPMInstallEC2InstanceProfile:
+    Description: >-
+      Reference to the BPMInstallEC2InstanceProfile resource, which is the instance Profile for the BPM EC2 Execution Role
+      (BPMInstallEC2ExecutionRole)
+    Type: String
+
+  # =====================================================
+  # PARAMETER : RemoteAccessCIDR
+  # =====================================================
+  #
+  # Classless Inter-Domain Routing (CIDR) block, in x.x.x.x/x format, from which external network access to the
+  # BPM system will be allowed.
+  #
+  # Best practise is to set this value to a trusted CIDR block - for example, to only allow access to BPM
+  # from your corporate network. If you want to allow unrestricted access, enter 0.0.0.0/0.
+  #
+  RemoteAccessCIDR:
+    AllowedPattern: >-
+      ^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(\/([0-9]|[1-2][0-9]|3[0-2]))$
+    ConstraintDescription: CIDR block parameter must be in the form x.x.x.x/x
+    Description: >-
+      CIDR block (in x.x.x.x/x format) from which external network access to the BPM system is allowed
+    Type: String
+
+  # =====================================================
+  # PARAMETER : BPMAMIid
+  # =====================================================
+  #
+  # This is the AMI Identifier to base the BPM VM instances on.
+  #
+  # This Identifier will depend upon the Region the CloudFormation Stack is being invoked in.
+  #
+  BPMAMIid:
+    Description: AMI Identifier to be used by the EC2 instance that will host the BPME server
+    Type: AWS::EC2::Image::Id
+
+  # =====================================================
+  # PARAMETER : BPMInstanceType
+  # =====================================================
+  #
+  # EC2 instance class for the BPME instance(s)
+  #
+  BPMInstanceType:
+    AllowedValues:
+      - t2.nano
+      - t2.micro
+      - t2.small
+      - t2.medium
+      - t2.large
+      - t2.xlarge
+      - m3.large
+      - m3.xlarge
+      - m3.2xlarge
+      - m4.large
+      - m4.xlarge
+      - m4.2xlarge
+      - m4.4xlarge
+    Default: t2.micro
+    Description: Amazon EC2 instance type for the BPME instance(s)
+    Type: String
+  
+  # =====================================================
+  # PARAMETER : BPMInstanceName
+  # =====================================================
+  #
+  # EC2 name for this BPM instance
+  #
+  BPMInstanceName:
+    Description: >-
+      Prefix to be used for the name of each BPM instance. (1 will be appended to the name of the first instance,
+      2 to the second.)
+    ConstraintDescription: BPM Instance name must be specified
+    MinLength: 1
+    Default: BPMInstance
+    Type: String
+  #
+  # =====================================================
+  # PARAMETER : SubnetId
+  # =====================================================
+  #
+  # ID of the subnet to launch the instance into
+  #
+  SubnetId:
+    Description: ID of the subnet in which to create the install EC2 instance
+    Type: AWS::EC2::Subnet::Id
+  #
+  # =====================================================
+  # PARAMETER : PrivateSubnet1AID
+  # =====================================================
+  #
+  # ID of private subnet
+  #
+  PrivateSubnet1AID:
+    Description: ID of the subnet in which to create the install EC2 instance
+    Type: AWS::EC2::Subnet::Id
+  #
+  # =====================================================
+  # PARAMETER : PrivateSubnet2AID
+  # =====================================================
+  #
+  # ID of private subnet
+  #
+  PrivateSubnet2AID:
+    Description: ID of the subnet in which to create the install EC2 instance
+    Type: AWS::EC2::Subnet::Id
+  
+
+
+  # =====================================================
+  # PARAMETER : AvailabilityZone1Name
+  # =====================================================
+  #
+  # Availability Zone 1 in the host VPC.
+  #
+  AvailabilityZone1Name:
+    Description: 'Name of the availability Zone in the host VPC'
+    Type: AWS::EC2::AvailabilityZone::Name
+
+
+  # =====================================================
+  # PARAMETER : AvailabilityZone2Name
+  # =====================================================
+  #
+  # Availability Zone 2 in the host VPC.
+  #
+  AvailabilityZone2Name:
+    Description: 'Name of the availability Zone in the host VPC'
+    Type: AWS::EC2::AvailabilityZone::Name
+
+  # =====================================================
+  # PARAMETER : RDSMasterUsername
+  # =====================================================
+  #
+  # Login ID of the master user for the DB instance
+  #
+  RDSMasterUsername:
+    Description: Login ID of the master user for the DB instance
+    ConstraintDescription: Master DB User Name must be specified
+    MinLength: 1
+    Type: String
+
+  # =====================================================
+  # PARAMETER : RDSMasterUserPassword
+  # =====================================================
+  #
+  # Password of the master user for the DB instance (obscured display)
+  #
+  RDSMasterUserPassword:
+    Description: Password of the master user for the DB instance
+    ConstraintDescription: Master DB User Password must be specified
+    MinLength: 1
+    NoEcho: true
+    Type: String
+  
+  # =====================================================
+  # PARAMETER : RDSEndpointAddress
+  # =====================================================
+  #
+  # URL for the db cluster endpoint
+  #
+  RDSEndpointAddress:
+    Description: URL for the db cluster endpoint
+    ConstraintDescription: Endpoint must be specified
+    MinLength: 1
+    Type: String
+
+  # =====================================================
+  # PARAMETER : RDSEndpointPort
+  # =====================================================
+  #
+  # RDS port
+  #
+  RDSEndpointPort:
+    Description: RDS port
+    ConstraintDescription: RDS port must be specified
+    MinLength: 1
+    Type: String
+
+
+  # =====================================================
+  # PARAMETER : RDSName
+  # =====================================================
+  #
+  # RDS name
+  #
+  RDSName:
+    Description: RDS name
+    ConstraintDescription: RDS name must be specified
+    MinLength: 1
+    Type: String
+
+  # =====================================================
+  # PARAMETER : BPMDBUserName
+  # =====================================================
+  #
+  # User name for RDS BPM user
+  #
+  BPMDBUserName:
+    Description: User name for RDS BPM user
+    ConstraintDescription: User name for RDS BPM user must be specified
+    MinLength: 1
+    Type: String
+
+  # =====================================================
+  # PARAMETER : BPMDBPassword
+  # =====================================================
+  #
+  # Password of the BPM user for the DB instance (obscured display)
+  #
+  BPMDBPassword:
+    Description: Password of the BPM user for the DB instance
+    ConstraintDescription: BPM DB User Password must be specified
+    MinLength: 1
+    NoEcho: true
+    Type: String
+
+
+  # =====================================================
+  # PARAMETER : LDAPAlias
+  # =====================================================
+  #
+  # LDAP alias to be used post install to configure the tibco-admin
+  # user. This is the alias of configured LDAP connection that BPM
+  # can access to which the LDAPDn should point.
+  #
+  LDAPAlias:
+    Description: >-
+      LDAP alias to be used post install to configure db
+    ConstraintDescription: LDAP Alias must be specified
+    MinLength: 1
+    Type: String
+ 
+  # =====================================================
+  # PARAMETER : LDAPDn
+  # =====================================================
+  #
+  # LDAP DN to be used post install to configure the tibco-admin
+  # user. This DN should point to a valid user object in the LDAP
+  # connection pointer to by LDAPAlias.
+  #
+  LDAPDn:
+    Description: >-
+      LDAP DN to be used post install to configure db
+    ConstraintDescription: LDAP DN must be specified
+    MinLength: 1
+    Type: String
+ 
+  # =====================================================
+  # PARAMETER : LDAPDisplayName
+  # =====================================================
+  #
+  # LDAP Display Name to be used post install to configure the tibco-admin
+  # user. This display name will replace the default login name of
+  # "tibco-admin" with whatever string value is provided.
+  #
+  LDAPDisplayName:
+    Description: >-
+      LDAP display name to be used post install to configure db
+    ConstraintDescription: LDAP display name must be specified
+    MinLength: 1
+    Type: String
+
+  # =====================================================
+  # PARAMETER : BPMInstanceSecurityGroupID
+  # =====================================================
+  #
+  # Existing ID of the BPME Security Group which permits inbound communication to the EC2 instance
+  #
+  BPMInstanceSecurityGroupID:
+    Description: ID of the BPME Security Group
+    Type: AWS::EC2::SecurityGroup::Id
+  #
+  # =====================================================
+  # PARAMETER : BPMRDSSecurityGroupID
+  # =====================================================
+  #
+  # Existing ID of the BPME Security Group which permits inbound communication to the postgres instance
+  #
+  BPMRDSSecurityGroupID:
+    Description: ID of the BPME Security Group
+    Type: AWS::EC2::SecurityGroup::Id
+  #
+  # =====================================================
+  # PARAMETER : BPMCertificateArn
+  # =====================================================
+  #
+  # Amazon Resource Name (ARN) of the BPM SSL certificate
+  #
+  BPMCertificateArn:
+    Description: Amazon Resource Name (ARN) of the BPM SSL certificate
+    ConstraintDescription: BPM Certificate ARN must be specified
+    MinLength: 1
+    Type: String
+
+  # =====================================================
+  # PARAMETER : ClusterName
+  # =====================================================
+  #
+  # The name of the EKS Cluster
+  #
+  ClusterName:
+    Type: String
+    Description: The name of the EKS Cluster
+    Default: ""
+
+  #
+  # =====================================================
+  # PARAMETER : K8SNameSpace
+  # =====================================================
+  #
+  K8SNameSpace:
+    Default: bpm
+    Description: >-
+      Kubernetes namespace for BPM
+    ConstraintDescription: Kubernetes namespace for BPM
+    MinLength: 1
+    Type: String
+  #
+  # =====================================================
+  # PARAMETER : VPCID
+  # =====================================================
+  #
+  # 
+  #
+  VPCID:
+    Description: >-
+      LDAP display name to be used post install to configure db
+    ConstraintDescription: LDAP display name must be specified
+    MinLength: 1
+    Type: String
+  #
+  # =====================================================
+  # PARAMETER : RDSEndpoints
+  # =====================================================
+  #
+  # 
+  #
+  RDSEndpoints:
+    Description: >-
+      LDAP display name to be used post install to configure db
+    ConstraintDescription: LDAP display name must be specified
+    MinLength: 1
+    Type: String
+  #
+  # =====================================================
+  # PARAMETER : LDAPCloudHostname
+  # =====================================================
+  #
+  # 
+  #
+  LDAPCloudHostname:
+    Description: >-
+      LDAP display name to be used post install to configure db
+    ConstraintDescription: LDAP display name must be specified
+    MinLength: 1
+    Type: String
+  #
+  # =====================================================
+  # PARAMETER : R53CloudDomainName
+  # =====================================================
+  #
+  # 
+  #
+  R53CloudDomainName:
+    Description: >-
+      LDAP display name to be used post install to configure db
+    ConstraintDescription: LDAP display name must be specified
+    MinLength: 1
+    Type: String
+  #
+  # =====================================================
+  # PARAMETER : LDAPCloudAdminPassword
+  # =====================================================
+  #
+  # 
+  #
+  LDAPCloudAdminPassword:
+    Description: >-
+      LDAP display name to be used post install to configure db
+    ConstraintDescription: LDAP display name must be specified
+    MinLength: 1
+    Type: String
+  #
+  # =====================================================
+  # PARAMETER : DNSAliasFQDomainName
+  # =====================================================
+  #
+  # 
+  #
+  DNSAliasFQDomainName:
+    Description: >-
+      LDAP display name to be used post install to configure db
+    ConstraintDescription: LDAP display name must be specified
+    MinLength: 1
+    Type: String
+
+# =====================================================
+# RESOURCES :
+# =====================================================
+#
+# Declares the AWS resources to be used in the stack
+#
+Resources:
+
+  # =====================================================
+  # RESOURCE : BPMInstance
+  # =====================================================
+  #
+  # BPM install instance.  Picks up the TIBCO software from a parameterized S3 bucket and
+  # generates docker image(s) and installs then into the local ECR
+  #
+  BPMInstance:
+    Type: AWS::EC2::Instance
+    Properties:
+      KeyName: !Ref BPMKeyPairName
+      SecurityGroupIds:
+        - !Ref BPMInstanceSecurityGroupID
+        - !Ref BPMRDSSecurityGroupID
+      InstanceType: !Ref BPMInstanceType
+      IamInstanceProfile: !Ref BPMInstallEC2InstanceProfile
+      ImageId: !Ref BPMAMIid
+      SubnetId: !Ref SubnetId
+      Tags:
+        - Key: Name
+          Value: !Ref BPMInstanceName
+      UserData:
+        'Fn::Base64': !Sub |
+          #!/bin/bash -xe
+          export PATH=/usr/local/bin/aws:/usr/local/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/home/ec2-user/.local/bin:/home/ec2-user/bin
+
+          # Install java, docker and pre-requisites
+          yum update -y
+          yum -y install java-1.8.0-openjdk
+          yum -y install https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+          yum -y install xmlstarlet
+          yum -y install gettext
+          yum -y install jq
+          yum -y install docker
+          amazon-linux-extras install -y postgresql10
+
+          # For EKS we make sure we have the latest AWS CLI
+          curl "https://s3.amazonaws.com/aws-cli/awscli-bundle.zip" -o "awscli-bundle.zip"
+          unzip awscli-bundle.zip
+          ./awscli-bundle/install -i /usr/local/aws -b /usr/local/bin/aws
+
+          # install aws-iam-authenticator
+          WORKSPACE=/home/ec2-user
+          cd $WORKSPACE
+          mkdir -p bin
+          cd $WORKSPACE/bin
+
+          # install kubectl
+          curl -o kubectl https://amazon-eks.s3.us-west-2.amazonaws.com/1.18.8/2020-09-18/bin/linux/amd64/kubectl
+          chmod +x ./kubectl
+          kubectl version --short --client
+
+          # install eksctl
+          curl --silent --location "https://github.com/weaveworks/eksctl/releases/latest/download/eksctl_Linux_amd64.tar.gz" | tar xz -C /tmp
+          mv /tmp/eksctl .
+          chmod +x ./eksctl
+          cd $WORKSPACE
+          service docker start
+          BPM_VERSION=5.0.0
+          INSTALLER_NAME="TIB_bpme_${!BPM_VERSION}_linux24gl23_x86_64.zip"
+          aws s3 cp s3://${ScriptsS3Bucket}/bpminst $WORKSPACE
+          aws s3 cp s3://${SoftwareS3Bucket}/$INSTALLER_NAME $WORKSPACE
+          rm -fr $WORKSPACE/source
+          mkdir $WORKSPACE/source
+          cp $WORKSPACE/bpminst $WORKSPACE/source
+          chmod +x $WORKSPACE/source/bpminst
+          sudo rm -rf "$WORKSPACE/tibhome" "$WORKSPACE/tibconfig"
+          mkdir "$WORKSPACE/tibhome" "$WORKSPACE/tibconfig"
+          echo "Starting installation of BPM Container Edition for Kubernetes ..."
+          export JAVA_HOME="/usr/lib/jvm/jre-1.8.0-openjdk"
+          $WORKSPACE/source/bpminst -z "$INSTALLER_NAME" -p "BPM for Kubernetes" -h "$WORKSPACE/tibhome" -c "$WORKSPACE/tibconfig"  -e "bpme"
+          echo "Completed installation - Docker Images :"
+          docker images
+
+          # Login into ECR and push the local images
+          aws ecr get-login --region ${AWS::Region} | sed 's/\-e none//' >  docker_login.sh
+          chmod +x docker_login.sh
+          ./docker_login.sh
+          docker tag ${BPMECRRepositoryName}:${!BPM_VERSION} ${ECRURI}/${BPMECRRepositoryName}:${!BPM_VERSION}
+          docker push ${ECRURI}/${BPMECRRepositoryName}:${!BPM_VERSION}
+          docker tag tibco/bpm/utility:${!BPM_VERSION} ${ECRURI}/tibco/bpm/utility:${!BPM_VERSION}
+          docker push ${ECRURI}/tibco/bpm/utility:${!BPM_VERSION}
+
+          # Set up environment for db access, create BPM DB user and schema
+          PGHOST=${RDSEndpointAddress}
+          PGPORT=${RDSEndpointPort}
+          PGUSER=${RDSMasterUsername}
+          PGDATABASE=${RDSName}
+          export PGPASSWORD=${RDSMasterUserPassword}
+          echo "Creating BPM DB user and schema"
+          psql -h $PGHOST -p $PGPORT -d $PGDATABASE -U $PGUSER  -f $WORKSPACE/tibconfig/tibco/cfgmgmt/bpm/database/createuser.sql
+
+          # Run utility to create the DB schema
+          docker run --rm tibco/bpm/utility:5.0.0 utility -dbConfig  'url=jdbc:postgresql://${RDSEndpointAddress}:${RDSEndpointPort}/${RDSName}  username=${BPMDBUserName} password=${BPMDBPassword}' -setupDatabase execute
+
+          # Run utility to update DB with LDAP config
+          docker run --rm tibco/bpm/utility:5.0.0 utility -dbConfig  'url=jdbc:postgresql://${RDSEndpointAddress}:${RDSEndpointPort}/${RDSName}  username=${BPMDBUserName} password=${BPMDBPassword}' -setupAdminUser 'ldapAlias=${LDAPAlias} ldapDn=${LDAPDn} displayName=${LDAPDisplayName}'
+          mkdir $WORKSPACE/k8sconfig
+          chown ec2-user:ec2-user $WORKSPACE/k8sconfig
+          cd $WORKSPACE/k8sconfig
+          aws s3 cp s3://${TemplatesS3Bucket} . --recursive
+          aws s3 cp s3://${ScriptsS3Bucket}/bpm-startup.sh .
+          aws s3 cp s3://${ScriptsS3Bucket}/bpm-teardown.sh .
+          chmod +x bpm-teardown.sh
+          chmod +x bpm-startup.sh
+          export env_file="$WORKSPACE/bpmenv.sh"
+          echo "export PATH=/usr/local/bin/aws:/usr/local/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/home/ec2-user/.local/bin:/home/ec2-user/bin" >> "$env_file"
+          echo "export PRIVATE_SUBNET1A_ID=${PrivateSubnet1AID}" >> "$env_file"
+          echo "export PRIVATE_SUBNET2A_ID=${PrivateSubnet2AID}" >> "$env_file"
+          echo "export AVAIL_ZONE1=${AvailabilityZone1Name}" >> "$env_file"
+          echo "export AVAIL_ZONE2=${AvailabilityZone2Name}" >> "$env_file"
+          echo "export K8SNAMESPACE=${K8SNameSpace}" >> "$env_file"
+          echo "export REMOTE_ACCESS_CIDR=${RemoteAccessCIDR}" >> "$env_file"
+          echo "export CERTIFICATE_ARN=${BPMCertificateArn}" >> "$env_file"
+          echo "export DNS_ALIAS_FQ_DOMAIN_NAME=${DNSAliasFQDomainName}" >> "$env_file"
+          echo "export CLUSTER_NAME=${ClusterName}" >> "$env_file"
+          echo "export BASTION_VPCID=${VPCID}" >> "$env_file"
+          echo "export AWS_DEFAULT_REGION=${AWS::Region}" >> "$env_file"
+          echo "export ECRURI=${ECRURI}" >> "$env_file"
+          echo "export RDSDB_NAME=${RDSName}" >> "$env_file"
+          echo "export RDS_ENDPOINTADDRESS=${RDSEndpointAddress}" >> "$env_file"
+          echo "export RDS_ENDPOINTPORT=${RDSEndpointPort}" >> "$env_file"
+          echo "export RDS_ENDPOINTS=${RDSEndpoints}" >> "$env_file"
+          echo "export BPM_DB_USERNAME=${BPMDBUserName}" >> "$env_file"
+          echo "export BPM_DB_PASSWORD=${BPMDBPassword}" >> "$env_file"
+          echo "export LDAP_ALIAS=${LDAPAlias}" >> "$env_file"
+          echo "export LDAP_FQDN=${LDAPCloudHostname}.${R53CloudDomainName}" >> "$env_file"
+          echo "export LDAP_DN=${LDAPDn}" >> "$env_file"
+          echo "export LDAP_CLOUD_ADMIN_PASSWORD=${LDAPCloudAdminPassword}" >> "$env_file"
+          chmod +x $env_file
+          aws --region ${AWS::Region} sts get-caller-identity
+          ./bpm-startup.sh
+          echo "Home $HOME"
+          # Copy logs to s3
+          aws s3 cp /var/log/cloud-init-output.log s3://${ScriptsS3Bucket}/logs/$(uname -n)_cloud-init-output.log
+          INSTALL_LOG_DIR=$(ls -tr /root/.TIBCO | tail -1 | sed 's/\/$//')
+          zip -r ${!INSTALL_LOG_DIR}.zip /root/.TIBCO/${!INSTALL_LOG_DIR}
+          aws s3 cp ${!INSTALL_LOG_DIR}.zip s3://${ScriptsS3Bucket}/logs/${!INSTALL_LOG_DIR}.zip
+          /opt/aws/bin/cfn-signal --success true --region ${AWS::Region} --stack ${AWS::StackName} --resource BPMInstance
+    CreationPolicy:
+      ResourceSignal:
+        Timeout: PT180M
+
+# =====================================================
+# OUTPUTS :
+# =====================================================
+#
+# Declares the Instance output value that can be used as a cross-stack reference
+#
+Outputs:
+  
+  BPMInstance:
+    Description: BPM EC2 Instance 
+    Value: !Ref BPMInstance

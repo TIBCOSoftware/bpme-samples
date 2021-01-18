@@ -1,0 +1,222 @@
+#
+# Copyright © 2021. TIBCO Software Inc.
+# This file is subject to the license terms contained
+# in the license file that is distributed with this file.
+#
+AWSTemplateFormatVersion: 2010-09-09
+
+# ====================================================================================
+# TEMPLATE : BPM - Lambda function for Stack Tidy up on Deletion
+# ====================================================================================
+#
+Description:
+  Creates a Lambda function and Event handler that tidy up AWS resources dynamically creaed by the BPME stack
+
+# =====================================================
+# PARAMETERS :
+# =====================================================
+#
+# Defines the input parameters to be passed to this template when creating a stack
+#  
+Parameters:
+
+  # =====================================================
+  # PARAMETER : R53CloudDNS
+  # =====================================================
+  #
+  # Route 53 Hosted Zone for DNS
+  #
+  R53CloudDNS:
+    Description: Route 53 Cloud DNS Reference
+    Type: String
+  
+  # =====================================================
+  # PARAMETER : R53CloudDomainName
+  # =====================================================
+  #
+  # Domain name for local host name references
+  #
+  R53CloudDomainName:
+    Default: bpme.local
+    Description: Domain name to be used by the EC2 instances in the host VPC
+    ConstraintDescription: Host VPC Domain Name must be specified
+    MinLength: 1
+    Type: String
+  
+  # =====================================================
+  # PARAMETER : BPMHostname
+  # =====================================================
+  #
+  # Host name for this BPME instance for external references
+  #
+  BPMHostname:
+    Description: >-
+      Prefix to be used for the internal DNS name of each BPM instance. (1 will be appended to the name of the first
+      instance, 2 to the second.)
+    ConstraintDescription: BPM Hostname must be specified
+    MinLength: 1
+    Default: bpminstance
+    Type: String
+
+# =====================================================
+# RESOURCES :
+# =====================================================
+#
+# Declares the AWS resources to be used in the stack
+#
+Resources:
+  
+  # ==================================================================
+  # RESOURCE : BPM AWS SNS Topic for Stack Events 
+  # ==================================================================
+  #
+  # SNS Topic for Stack Events to trigger Lambda function.
+  # Includes the Permissions resource for invoking Lambda functions
+  #
+  BPMStackEventSNSTopic:
+    Type: 'AWS::SNS::Topic'
+    Properties:
+      DisplayName: "BPM CloudFormation Stack Events SNS Topic"
+      Subscription:
+        -
+          Endpoint: !GetAtt BPMR53RecordDeleteLambda.Arn
+          Protocol: "lambda"
+    DependsOn:
+      - BPMR53RecordDeleteLambda
+
+  PermissionForEventsToInvokeLambda: 
+    Type: "AWS::Lambda::Permission"
+    Properties: 
+      FunctionName: 
+        Ref: "BPMR53RecordDeleteLambda"
+      Action: "lambda:InvokeFunction"
+      Principal: "sns.amazonaws.com"
+      SourceArn: !Ref BPMStackEventSNSTopic
+    DependsOn:
+      - BPMR53RecordDeleteLambda
+      - BPMStackEventSNSTopic
+
+  # ==================================================================
+  # RESOURCE : BPM R53Lambda Execution Role (BPMR53LambdaExecutionRole)
+  # ==================================================================
+  #
+  # Execution Role for the BPM R53 Record Set Modification
+  # Allows role to be assumed by Lambda, with policy to permit
+  # execution on R53 hosted zone record sets.
+  #
+  BPMR53LambdaExecutionRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+                - lambda.amazonaws.com
+            Action:
+              - sts:AssumeRole
+      ManagedPolicyArns:
+        - "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+      Policies: 
+        - PolicyName: "root"
+          PolicyDocument: 
+            Version: "2012-10-17"
+            Statement: 
+              - Effect: "Allow"
+                Action:
+                  - "route53:ChangeResourceRecordSets"
+                  - "route53:ListResourceRecordSets"
+                Resource: "arn:aws:route53:::hostedzone/*"
+  
+  # ===============================================================================
+  # RESOURCE : BPM R53 Record Delete Lambda Function (BPMR53RecordDeleteLambda)
+  # ===============================================================================
+  #
+  # BPM R53 Record Deletion Lambda Function to remove dynamically created
+  # A records from the local hosted zone when a BPM stack is deleted.
+  #
+  BPMR53RecordDeleteLambda:
+    Type: AWS::Lambda::Function
+    Properties:
+      Handler: "index.handler"
+      Role: !GetAtt BPMR53LambdaExecutionRole.Arn
+      Code:
+        ZipFile:
+          'Fn::Sub': |
+            import json
+            import shlex
+            import cfnresponse
+            import boto3
+            import logging
+            
+            logger = logging.getLogger()  
+            logger.setLevel(logging.INFO)
+            
+            def handler(event, context):
+              responseData = {}
+              
+              r53 = boto3.client('route53')
+
+              message = event['Records'][0]['Sns']
+              sns_message = message['Message']
+              cf_message = dict(token.split('=', 1) for token in shlex.split(sns_message))
+
+              if not cf_message['ResourceType'] == 'AWS::CloudFormation::Stack':
+                return
+                 
+              if not cf_message['ResourceStatus'] == 'DELETE_IN_PROGRESS':
+                return
+
+              response = r53.list_resource_record_sets(
+                HostedZoneId='${R53CloudDNS}',
+                MaxItems="20"
+              )        
+        
+              for i in response['ResourceRecordSets']:
+
+                if (i['Name'] == '${BPMHostname}1.${R53CloudDomainName}.') or (i['Name'] == '${BPMHostname}2.${R53CloudDomainName}.'):
+                    bpm1 = i['ResourceRecords'][0]['Value']
+                    logger.info('got record ' + i['Name'] + ' IP=' + bpm1) 
+                    response = r53.change_resource_record_sets(
+                        HostedZoneId='${R53CloudDNS}',
+                        ChangeBatch={
+                            'Comment': 'Remove BPMHosts from RecordSet',
+                            'Changes': [
+                                {
+                                    'Action': 'DELETE',
+                                    'ResourceRecordSet': {
+                                        'Name': i['Name'],
+                                        'Type': 'A',
+                                        'ResourceRecords': [
+                                            {
+                                                'Value': bpm1
+                                            }
+                                        ],
+                                        'TTL': 300
+                                    }
+                                },
+                            ]
+                        }
+                    )
+              
+              return
+      Runtime: "python2.7"
+      Timeout: 30
+      MemorySize: 256
+
+    DependsOn:
+      - BPMR53LambdaExecutionRole
+
+# =====================================================
+# OUTPUTS :
+# =====================================================
+#
+# Declares the SNS Topic as output as it's used by the master
+# Template as a parameter when invoking the BPME templates.
+#
+Outputs:
+  BPMStackEventSNSTopic:
+    Description: AWS SNS Topic Refernce to pass to BPME stacks 
+    Value: !Ref BPMStackEventSNSTopic
+  

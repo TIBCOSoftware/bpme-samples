@@ -1,0 +1,1500 @@
+#
+# Copyright © 2021. TIBCO Software Inc.
+# This file is subject to the license terms contained
+# in the license file that is distributed with this file.
+#
+AWSTemplateFormatVersion: 2010-09-09
+
+# ====================================================================================
+# TEMPLATE : BPM - Master Template (bpme-master.template)
+# ====================================================================================
+#
+# This template creates and configures a complete BPM system, (including Aurora PostgreSQL database,
+# LDAP server, load balancing and DNS support) hosted in a previously created VPC. 
+#
+# The template calls and orchestrates a number of sub-templates to build and configure the system, taking into account 
+# dependencies between the templates. It also:
+#
+# - provides parameters that collect all of the information needed by the templates (both master and sub-templates).
+#
+# - creates a common AWS Identity and Access Management (IAM) role and instance profile which is used by the applicable
+#   sub-templates. This specifies the permissions required for the EC2 instances to operate correctly.
+#
+# - stores all passwords needed by BPM in the EC2 System Manager Parameter Store. The Parameter Store is 
+#   protected by an IAM role and the stored passwords are encrypted.
+#
+# - defines an AWS Lambda function, with an associated IAM role, that is used to write passwords to the Parameter Store.
+#
+# NOTE: The bpme stack created by this template is a large and complex stack that may take several hours to create.
+#
+#
+Description:
+  Creates and configures a complete BPM system,(Aurora PostgreSQL database, LDAP server and load balancing and DNS support) hosted in a previously created VPC.
+
+
+# =====================================================
+# METADATA :
+# =====================================================
+#
+# Defines template configuration data
+#
+Metadata:
+  
+  # =====================================================
+  # METADATA KEY : AWS::CloudFormation::Interface
+  # =====================================================
+  #
+  # Defines how the input parameters defined in this template will be presented in the AWS CloudFormation console when
+  # creating the stack:
+  #
+  # - ParameterGroups defines how parameters will be grouped and ordered
+  # - ParameterLabels defines the label that will be used for each parameter
+  #
+  'AWS::CloudFormation::Interface':
+    ParameterGroups:
+      - Label:
+          default: Amazon S3 Bucket Configuration
+        Parameters:
+          - TemplatesS3Bucket
+          - SoftwareS3Bucket
+          - ScriptsS3Bucket
+      - Label:
+          default: Host VPC Network Configuration
+        Parameters:
+          - VPCID
+          - AvailabilityZone1Name
+          - AvailabilityZone2Name
+          - PublicSubnet1ID
+          - PublicSubnet2ID
+          - PrivateSubnet1AID
+          - PrivateSubnet2AID
+      - Label:
+          default: Security Configuration
+        Parameters:
+          - BastionSecurityGroupID
+          - BPMKeyPairName
+          - RemoteAccessCIDR
+      - Label:
+          default: Aurora PostgreSQL DB Instance Configuration
+        Parameters:
+          - RDSInstanceClass
+          - RDSInstanceIdentifier
+          - RDSName
+          - RDSVersion
+          - RDSMasterUsername
+          - RDSMasterUserPassword
+      - Label:
+          default: Route 53 DNS Configuration
+        Parameters:
+          - R53CloudDomainName
+          - R53OnPremiseDomainName
+          - DNSAliasFQDomainName
+      - Label:
+          default: Cloud LDAP Server Configuration
+        Parameters:
+          - LDAPInstanceType
+          - LDAPStorage
+          - LDAPInstanceName
+          - LDAPCloudHostname
+          - LDAPCloudAdminPassword
+          - LDAPCloudDSPassword
+      - Label:
+          default: Corporate LDAP Server Configuration
+        Parameters:
+          - LDAPOnPremiseHostname
+          - LDAPOnPremiseIPAddress
+      - Label:
+          default: LDAP DN Configuration
+        Parameters:
+          - LDAPAlias
+          - LDAPDn
+          - LDAPDisplayName
+      - Label:
+          default: BPM Instance Configuration
+        Parameters:
+          - BPMInstanceType
+          - BPMStorage
+          - BPMInstanceName
+          - BPMDBUserName
+          - BPMDBPassword
+      - Label:
+          default: Load Balancer Configuration
+        Parameters:
+          - LDAPLBName
+          - BPMLBName
+          - BPMCertificateArn
+      - Label:
+          default: EKS configuration
+        Parameters:
+          - ClusterName
+          - K8SNameSpace
+          - EKSCreatorUser
+      - Label:
+          default: ECR configuration
+        Parameters:
+          - ECRURI
+          - BPMECRRepositoryName
+
+    ParameterLabels:
+      TemplatesS3Bucket:
+        default: BPM CloudFormation Templates
+      SoftwareS3Bucket:
+        default: BPM Software
+      ScriptsS3Bucket:
+        default: BPM Scripts
+      VPCID:
+        default: Host VPC
+      AvailabilityZone1Name:
+        default: Availability Zone 1 (Primary)
+      AvailabilityZone2Name:
+        default: Availability Zone 2 (Secondary)
+      PublicSubnet1ID:
+        default: Public Subnet 1 (AZ 1)
+      PublicSubnet2ID:
+        default: Public Subnet 2 (AZ 2)
+      PrivateSubnet1AID:
+        default: Private Subnet 1A (AZ 1)
+      PrivateSubnet2AID:
+        default: Private Subnet 2A (AZ 2)
+      BastionSecurityGroupID:
+        default: Bastion Security Group ID
+      BPMKeyPairName:
+        default: BPM Key Pair Name
+      RemoteAccessCIDR:
+        default: External Access CIDR
+      RDSInstanceClass:
+        default: DB Instance Class
+      RDSInstanceIdentifier:
+        default: DB Instance Identifier
+      RDSName:
+        default: DB Name
+      RDSVersion:
+        default: 11.8
+      RDSMasterUsername:
+        default: Master DB User Name
+      RDSMasterUserPassword:
+        default: Master DB User Password
+      R53CloudDomainName:
+        default: Host VPC Domain Name
+      R53OnPremiseDomainName:
+        default: Corporate LDAP Server Domain Name
+      DNSAliasFQDomainName:
+        default: Domain Alias for external access via DNS
+      LDAPInstanceType:
+        default: LDAP Instance Type
+      LDAPStorage:
+        default: Allocated Storage
+      LDAPInstanceName:
+        default: LDAP Instance Name
+      LDAPCloudHostname:
+        default: LDAP Hostname
+      LDAPCloudAdminPassword:
+        default: LDAP Instance Admin Password
+      LDAPCloudDSPassword:
+        default: LDAP Instance DS Password
+      LDAPOnPremiseHostname:
+        default: Corporate LDAP Server Hostname
+      LDAPOnPremiseIPAddress:
+        default: Corporate LDAP Server IP Address
+      LDAPAlias:
+        default: LDAP alias
+      LDAPDn:
+        default: LDAP DN
+      LDAPDisplayName:
+        default: LDAP Display Name
+      BPMStorage:
+        default: Allocated Storage
+      BPMInstanceName:
+        default: BPM Instance Name
+      BPMDBPassword:
+        default: BPM DB User Password
+      BPMDBUserName:
+        default: BPM DB User Name
+      LDAPLBName:
+        default: LDAP Load Balancer Name
+      BPMLBName:
+        default: BPM Load Balancer Name
+      BPMCertificateArn:
+        default: BPM Certificate ARN
+      ClusterName:
+        default: Cluster Name
+      K8SNameSpace:
+        default: Kubernetes namespace for BPM
+      ECRURI:
+        default: ECR URI
+      BPMECRRepositoryName:
+        default: ECR repository name
+
+
+# =====================================================
+# PARAMETERS :
+# =====================================================
+#
+# Defines the input parameters to be passed to this template when creating a stack
+#
+Parameters:
+  
+  # =====================================================
+  # PARAMETER : TemplatesS3Bucket
+  # =====================================================
+  #
+  # Name of S3 Bucket containing the template files
+  #
+  TemplatesS3Bucket:
+    AllowedPattern: >-
+      ^[0-9a-zA-Z-/]*$
+    ConstraintDescription: >-
+      BPM CloudFormation Templates bucket name can include numbers, lowercase letters, uppercase letters, hyphens (-),
+      and forward slash (/).
+    Description: Name of the previously created S3 bucket that contains the BPM CloudFormation templates
+    MinLength: 1
+    Type: String
+  
+  # =====================================================
+  # PARAMETER : SoftwareS3Bucket
+  # =====================================================
+  #
+  # Name of S3 Bucket containing the software files used by the templates
+  #
+  SoftwareS3Bucket:
+    AllowedPattern: >-
+      ^[0-9a-zA-Z-/]*$
+    ConstraintDescription: >-
+      BPM Software bucket name can include numbers, lowercase letters, uppercase letters, hyphens (-), and forward
+      slash (/).
+    Description: >-
+      Name of the previously created S3 bucket that contains the software distribution sets used by the BPM
+      CloudFormation templates
+    MinLength: 1
+    Type: String
+  
+  # =====================================================
+  # PARAMETER : ScriptsS3Bucket
+  # =====================================================
+  #
+  # Name of S3 Bucket containing the script files used by the templates
+  #
+  ScriptsS3Bucket:
+    AllowedPattern: >-
+      ^[0-9a-zA-Z-/]*$
+    ConstraintDescription: >-
+      BPM Scripts bucket name can include numbers, lowercase letters, uppercase letters, hyphens (-), and forward
+      slash (/).
+    Description: >-
+      Name of the previously created S3 bucket that contains the BPM scripts used by the BPM
+      CloudFormation templates
+    MinLength: 1
+    Type: String
+  
+  # =====================================================
+  # PARAMETER : VPCID
+  # =====================================================
+  #
+  # ID of the VPC that will be used to host the BPM system
+  #
+  VPCID:
+    Description: ID of the VPC that will be used to host the BPM system
+    Type: AWS::EC2::VPC::Id
+  
+  # =====================================================
+  # PARAMETER : BastionSecurityGroupID
+  # =====================================================
+  #
+  # ID of the Bastion security group resource (BastionSecurityGroup) that controls inbound SSH access to the bastion
+  # servers in the host VPC
+  #
+  BastionSecurityGroupID:
+    Description: >-
+      ID of the Bastion security group that controls inbound SSH access to the bastion servers in the host VPC
+    Type: AWS::EC2::SecurityGroup::Id
+    
+  # =====================================================
+  # PARAMETER : AvailabilityZone1Name
+  # =====================================================
+  #
+  # Availability Zone 1 in the host VPC. The BPM1 and LDAP EC2 instances, and the master BPM DB Aurora PostgreSQL 
+  # instance, will be created in this availability zone.
+  #
+  AvailabilityZone1Name:
+    Description: Name of the availability Zone in the host VPC that you want to use as the primary availability zone
+    Type: AWS::EC2::AvailabilityZone::Name
+    
+  # =====================================================
+  # PARAMETER : AvailabilityZone2Name
+  # =====================================================
+  #
+  # Availability Zone 2 in the host VPC. The BPM2 EC2 instances, and the remote BPM DB Aurora PostgreSQL instance, 
+  # will be created in this availability zone.
+  #
+  AvailabilityZone2Name:
+    Description: Name of the availability Zone in the host VPC that you want to use as the secondary availability zone
+    Type: AWS::EC2::AvailabilityZone::Name
+    
+  # =====================================================
+  # PARAMETER : PublicSubnet1ID
+  # =====================================================
+  #
+  # ID of the public subnet in Availability Zone 1. The BPM and LDAP load balancers will use this subnet.
+  #
+  PublicSubnet1ID:
+    Description: ID of the public subnet in Availability Zone 1
+    Type: AWS::EC2::Subnet::Id
+    
+  # =====================================================
+  # PARAMETER : PublicSubnet2ID
+  # =====================================================
+  #
+  # ID of the public subnet in Availability Zone 2. The BPM and LDAP load balancers will use this subnet.
+  #
+  PublicSubnet2ID:
+    Description: ID of the public subnet in Availability Zone 2
+    Type: AWS::EC2::Subnet::Id
+  
+  # =====================================================
+  # PARAMETER : PrivateSubnet1AID
+  # =====================================================
+  #
+  # ID of the private subnet in Availability Zone 1. The BPM1 and LDAP EC2 instances, and the master BPM DB 
+  # Aurora PostgreSQL instance, will use this subnet.
+  #
+  PrivateSubnet1AID:
+    Description: ID of the private subnet in Availability Zone 1
+    Type: AWS::EC2::Subnet::Id
+  
+  # =====================================================
+  # PARAMETER : PrivateSubnet2AID
+  # =====================================================
+  #
+  # ID of the private subnet in Availability Zone 2. The BPM2 EC2 instances, and the remote BPM DB Aurora PostgreSQL
+  # instance, will use this subnet.
+  #
+  PrivateSubnet2AID:
+    Description: ID of the private subnet in Availability Zone 2
+    Type: AWS::EC2::Subnet::Id
+  
+  # =====================================================
+  # PARAMETER : RemoteAccessCIDR
+  # =====================================================
+  #
+  # Classless Inter-Domain Routing (CIDR) block, in x.x.x.x/x format, from which external network access to the 
+  # BPM system will be allowed. 
+  #
+  # Best practise is to set this value to a trusted CIDR block - for example, to only allow access to BPM  
+  # from your corporate network. If you want to allow unrestricted access, enter 0.0.0.0/0.
+  #
+  RemoteAccessCIDR:
+    AllowedPattern: >-
+      ^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(\/([0-9]|[1-2][0-9]|3[0-2]))$
+    ConstraintDescription: External Access CIDR block parameter must be in the form x.x.x.x/x
+    Description: >-
+      CIDR block (in x.x.x.x/x format) from which external network access to the BPM system will be allowed
+    MinLength: 1
+    Type: String
+    
+  # =====================================================
+  # PARAMETER : BPMKeyPairName
+  # =====================================================
+  #
+  # Name of the key pair that will be required to log on directly (via SSH) to the BPM system EC2 instances
+  # (BPM1, BPM2 and LDAP). For example:
+  #
+  #   <IAMUserName>-key-pair-<regionName>-bpm 
+  #
+  BPMKeyPairName:
+    Description: >-
+      Name of the key pair that will be required to log on directly (via SSH) to the BPM system EC2
+      instances. If you have not already created this key pair, please do so before continuing.
+    Type: AWS::EC2::KeyPair::KeyName
+  
+    
+  # =====================================================
+  # PARAMETER : RDSInstanceClass
+  # =====================================================
+  #
+  # DB instance class to be used by the Aurora DB instance. This DB instance will host the BPM and BDS 
+  # databases, and the Administrator database.
+  #
+  RDSInstanceClass:
+    AllowedValues:
+      - db.r5.large
+      - db.r4.large
+    Default: db.r5.large
+    Description: >-
+      DB instance class to be used for the DB instance that will host the BPM database
+    Type: String
+  
+  # =====================================================
+  # PARAMETER : RDSInstanceIdentifier
+  # =====================================================
+  #
+  # DB instance identifier for the Aurora PostgreSQL DB instance
+  #
+  RDSInstanceIdentifier:
+    Default: bpmdbinstance
+    Description: Name to be used as the identifier of the DB instance
+    ConstraintDescription: DB Instance Identifier must be specified
+    MinLength: 1
+    Type: String
+  
+  # =====================================================
+  # PARAMETER : RDSName
+  # =====================================================
+  #
+  # Name of the database that will be created when Amazon RDS creates the DB database instance.
+  #
+  RDSName:
+    Default: bpmdb
+    Description: Name of the database that will be created when Amazon RDS creates the DB database instance
+    ConstraintDescription: DB Name must be specified
+    MinLength: 1
+    Type: String
+  
+  # =====================================================
+  # PARAMETER : RDSVersion
+  # =====================================================
+  #
+  # Version of PostgreSQL that will used when Amazon Aurora creates the DB database instance.
+  #
+  RDSVersion:
+    Default: 11.8
+    Description: Version of PostgreSQL that will used when Amazon Aurora creates the DB database instance.
+    ConstraintDescription: RDSVersion must be specified
+    MinLength: 4
+    Type: String
+
+  # =====================================================
+  # PARAMETER : RDSMasterUsername
+  # =====================================================
+  #
+  # Login ID of the master user for the DB instance
+  #
+  RDSMasterUsername:
+    Default: postgres
+    Description: Login ID of the master user for the DB instance
+    ConstraintDescription: Master DB User Name must be specified
+    MinLength: 1
+    Type: String
+  
+  # =====================================================
+  # PARAMETER : RDSMasterUserPassword
+  # =====================================================
+  #
+  # Password of the master user for the DB instance (obscured display)
+  #
+  RDSMasterUserPassword:
+    Description: Password of the master user for the DB instance
+    ConstraintDescription: Master DB User Password must be specified
+    MinLength: 1
+    NoEcho: true
+    Type: String
+  
+  # =====================================================
+  # PARAMETER : R53CloudDomainName
+  # =====================================================
+  #
+  # Domain name to be used by the EC2 instances in the host VPC (without hostname)
+  #
+  R53CloudDomainName:
+    Default: bpme.local
+    Description: Domain name to be used by the EC2 instances in the host VPC
+    ConstraintDescription: Host VPC Domain Name must be specified
+    MinLength: 1
+    Type: String
+  
+  # =====================================================
+  # PARAMETER : R53OnPremiseDomainName
+  # =====================================================
+  #
+  # Domain name in which the corporate LDAP server is hosted (without hostname)
+  #
+  R53OnPremiseDomainName:
+    Description: Domain name in which the corporate LDAP server is hosted
+    ConstraintDescription: Corporate LDAP Server Domain Name must be specified
+    MinLength: 1
+    Type: String
+  
+  # =====================================================
+  # PARAMETER : DNSAliasFQDomainName
+  # =====================================================
+  #
+  # Fully Qualified (Sub)Domain name in which is used as external Alias for BPME system
+  #
+  DNSAliasFQDomainName:
+    Description: Fully Qualified (Sub)Domain name in which is used as external Alias
+    ConstraintDescription: Domain Alias for external access via DNS must be specified
+    MinLength: 1
+    Type: String
+  
+  # =====================================================
+  # PARAMETER : LDAPInstanceType
+  # =====================================================
+  #
+  # Instance type to be used by the EC2 instance that will host the cloud LDAP server - referred to as the LDAP 
+  # instance.
+  #
+  # This instance will host an Identity Management (IdM) server, which in turn, contains an LDAP directory server - 
+  # referred to as the Cloud LDAP server. The Cloud LDAP server provides directory services for BPM, 
+  # including 1-way synchronization from the corporate LDAP server.
+  #
+  LDAPInstanceType:
+    AllowedValues:
+      - t2.nano
+      - t2.micro
+      - t2.small
+      - t2.medium
+      - t2.large
+      - m3.large
+      - m3.xlarge
+      - m3.2xlarge
+      - m4.large
+      - m4.xlarge
+      - m4.2xlarge
+      - m4.4xlarge
+    Default: t2.medium
+    Description: Instance type to be used by the EC2 instance that will host the cloud LDAP server
+    Type: String
+
+  # =====================================================
+  # PARAMETER : LDAPStorage
+  # =====================================================
+  #
+  # Storage value (in GB) to be allocated to the LDAP instance
+  #
+  LDAPStorage:
+    Default: 60
+    Description: Storage value (in GB) to be allocated to the LDAP instance
+    ConstraintDescription: Allocated Storage must be at least 10 (GB)
+    MinValue: 10
+    Type: Number
+    
+  # =====================================================
+  # PARAMETER : LDAPInstanceName
+  # =====================================================
+  #
+  # Name to be used for the EC2 LDAP instance.
+  #
+  LDAPInstanceName:
+    Default: LDAP
+    Description: Name to be used for the EC2 LDAP instance
+    ConstraintDescription: LDAP Instance Name must be specified
+    MinLength: 1
+    Type: String
+    
+  # =====================================================
+  # PARAMETER : LDAPCloudHostname
+  # =====================================================
+  #
+  # Hostname to be used by the LDAP instance (without domain)
+  #
+  # Note: By default, Amazon EC2 hostnames are dynamically assigned to an instance when it is started or rebooted. 
+  # However, to allow correct LDAP operation, a persistent, Fully Qualified Domain Name (FQDN) must be used as the 
+  # hostname for the LDAP instance. The bpme-ldap.template uses this parameter, along with the Host VPC Domain Name 
+  # parameter, to configure the LDAP instance hostname.
+  LDAPCloudHostname:
+    Default: bpme-ldap
+    Description: Host Name for the LDAP EC2 instance (must be lowercase)
+    ConstraintDescription: LDAP Hostname must be specified
+    MinLength: 1
+    Type: String
+    
+  # =====================================================
+  # PARAMETER : LDAPOnPremiseHostname
+  # =====================================================
+  #
+  # Hostname of the corporate LDAP server (without domain)
+  #
+  LDAPOnPremiseHostname:
+    Description: Hostname of the corporate LDAP server
+    ConstraintDescription: Corporate LDAP Server Hostname must be specified
+    MinLength: 1
+    Type: String
+  
+  # =====================================================
+  # PARAMETER : LDAPOnPremiseIPAddress
+  # =====================================================
+  #
+  # IP address for the On-Premise LDAP instance
+  #
+  LDAPOnPremiseIPAddress:
+    Description: IP Address for the On-Premise LDAP instance
+    ConstraintDescription: Corporate LDAP Server IP Address must be specified
+    MinLength: 1
+    Type: String
+    
+  # =====================================================
+  # PARAMETER : LDAPCloudAdminPassword
+  # =====================================================
+  #
+  # Password to be used for the system user account (admin) on the Identity Management (IdM) server 
+  # (that hosts the cloud LDAP server)
+  #
+  LDAPCloudAdminPassword:
+    Description: >-
+      Password to be used for the system user account (admin) on the Identity Management server on the LDAP instance
+    ConstraintDescription: LDAP Instance Admin Password must be specified
+    MinLength: 1
+    NoEcho: true
+    Type: String
+    
+  # =====================================================
+  # PARAMETER : LDAPCloudDSPassword
+  # =====================================================
+  #
+  # Password to be used for the cloud LDAP server superuser (cn=Directory Manager). The cloud LDAP server is the LDAP 
+  # directory server provided as a component of the IdM server.
+  #
+  LDAPCloudDSPassword:
+    Description: >-
+      Password to be used for the cloud LDAP server superuser (cn=Directory Manager). The cloud LDAP server is the LDAP
+      directory server provided by the IdM server.
+    ConstraintDescription: LDAP Instance DS Password must be specified
+    MinLength: 1
+    NoEcho: true
+    Type: String
+
+
+  # =====================================================
+  # PARAMETER : LDAPAlias
+  # =====================================================
+  #
+  # LDAP alias to be used post install to configure the tibco-admin
+  # user. This is the alias of configured LDAP connection that BPM
+  # can access to which the LDAPDn should point.
+  #
+  LDAPAlias:
+    Description: >-
+      LDAP alias to be used post install to configure db
+    ConstraintDescription: LDAP Alias must be specified
+    MinLength: 1
+    Type: String
+ 
+  # =====================================================
+  # PARAMETER : LDAPDn
+  # =====================================================
+  #
+  # LDAP DN to be used post install to configure the tibco-admin
+  # user. This DN should point to a valid user object in the LDAP
+  # connection pointer to by LDAPAlias.
+  #
+  LDAPDn:
+    Description: >-
+      LDAP DN to be used post install to configure db
+    ConstraintDescription: LDAP DN must be specified
+    MinLength: 1
+    Type: String
+ 
+  # =====================================================
+  # PARAMETER : LDAPDisplayName
+  # =====================================================
+  #
+  # LDAP Display Name to be used post install to configure the tibco-admin
+  # user. This display name will replace the default login name of
+  # "tibco-admin" with whatever string value is provided.
+  #
+  LDAPDisplayName:
+    Description: >-
+      LDAP display name to be used post install to configure db
+    ConstraintDescription: LDAP display name must be specified
+    MinLength: 1
+    Type: String
+    
+  # =====================================================
+  # PARAMETER : BPMInstanceType
+  # =====================================================
+  #
+  # Instance type to be used by the EC2 instances that will host the BPM system, BPM1 and BPM2
+  #
+  BPMInstanceType:
+    AllowedValues:
+      - t2.nano
+      - t2.micro
+      - t2.small
+      - t2.medium
+      - t2.large
+      - t2.xlarge
+      - m3.large
+      - m3.xlarge
+      - m3.2xlarge
+      - m4.large
+      - m4.xlarge
+      - m4.2xlarge
+      - m4.4xlarge
+    Default: t2.xlarge
+    Description: Instance type to be used by the EC2 instances that will host the BPM servers
+    Type: String
+  
+  # =====================================================
+  # PARAMETER : BPMStorage
+  # =====================================================
+  #
+  # Storage value (in GB) to be allocated to each BPM instance
+  #
+  BPMStorage:
+    Default: 60
+    Description: Storage value (in GB) to be allocated to each BPM instance
+    ConstraintDescription: Allocated Storage must be at least 10 (GB)
+    MinValue: 10
+    Type: Number
+  
+  # =====================================================
+  # PARAMETER : BPMInstanceName
+  # =====================================================
+  #
+  # Prefix to be used for the names of the BPM instances. The first instance will have '1' appended to this name. The 
+  # second instance will have '2' appended to this name.
+  #
+  BPMInstanceName:
+    Description: >-
+      Prefix to be used for the name of each BPM instance. (1 will be appended to the name of the first instance,
+      2 to the second.)
+    ConstraintDescription: BPM Instance name must be specified
+    MinLength: 1
+    Default: BPMInstance
+    Type: String
+  
+  # =====================================================
+  # PARAMETER : BPMDBUserName
+  # =====================================================
+  #
+  # Username to be used for the BPM DB User.
+  #
+  BPMDBUserName:
+    Description: >-
+      User name to be used for the BPM DB User.
+    ConstraintDescription: BPM User name must be specified
+    MinLength: 1
+    Type: String
+
+  # =====================================================
+  # PARAMETER : BPMDBPassword
+  # =====================================================
+  #
+  # Password to be used for the BPM DB User.
+  #
+  BPMDBPassword:
+    Description: >-
+      Password to be used for the BPM DB User.
+    ConstraintDescription: BPM User Password must be specified
+    MinLength: 1
+    NoEcho: true
+    Type: String
+  
+  # =====================================================
+  # PARAMETER : LDAPLBName
+  # =====================================================
+  #
+  # Name to be used for the LDAP load balancer. This is a Classic load balancer that controls and routes LDAP and LDAPS 
+  # traffic to the LDAP EC2 instance
+  #
+  LDAPLBName:
+    Description: Name to be used for the LDAP load balancer
+    MinLength: 1
+    ConstraintDescription: LDAP Load Balancer Name must be specified
+    Default: LDAPLB
+    Type: String
+  
+  # =====================================================
+  # PARAMETER : BPMLBName
+  # =====================================================
+  #
+  # Name to be used for the BPM load balancer. This is an Application load balancer that controls and 
+  # routes HTTP and HTTPS traffic to the BPM EC2 instances
+  #
+  BPMLBName:
+    Description: Name to be used for the BPM load balancer
+    ConstraintDescription: BPM Load Balancer Name must be specified
+    MinLength: 1
+    Default: BPMELB
+    Type: String
+    
+  # =====================================================
+  # PARAMETER : BPMCertificateArn
+  # =====================================================
+  #
+  # Amazon Resource Name (ARN) of the BPM SSL certificate
+  #
+  BPMCertificateArn:
+    Description: Amazon Resource Name (ARN) of the BPM SSL certificate
+    ConstraintDescription: BPM Certificate ARN must be specified
+    MinLength: 1
+    Type: String
+
+
+  # =====================================================
+  # PARAMETER : BPMInstanceSecurityGroupID
+  # =====================================================
+  #
+  # The ID of the BPM security group
+  #
+  BPMInstanceSecurityGroupID:
+    Type: String
+    Description: The ID of the BPM security group
+    Default: ""
+
+  # =====================================================
+  # PARAMETER : EKSCreatorUser
+  # =====================================================
+  #
+  # The name of IAM user that created the EKS cluster
+  #
+  EKSCreatorUser:
+    Type: String
+    Description: The name of the EKS Cluster
+    Default: ""
+
+  # =====================================================
+  # PARAMETER : ClusterName
+  # =====================================================
+  #
+  # The name of the EKS Cluster
+  #
+  ClusterName:
+    Type: String
+    Description: The name of the EKS Cluster
+    Default: ""
+
+  #
+  # =====================================================
+  # PARAMETER : K8SNameSpace
+  # =====================================================
+  #
+  # Kubernetes namespace for BPM
+  #
+  K8SNameSpace:
+    Default: bpm
+    Description: >-
+      Kubernetes namespace for BPM
+    ConstraintDescription: Kubernetes namespace for BPM
+    MinLength: 1
+    Type: String
+
+  # =====================================================
+  # PARAMETER : ECRURI
+  # =====================================================
+  #
+  # URI of the ECR
+  #
+  ECRURI:
+    AllowedPattern: >-
+      (?:[a-z0-9]+(?:[._-][a-z0-9]+)*/)*[a-z0-9]+(?:[._-][a-z0-9]+)*
+    ConstraintDescription: >-
+      Standard characters that can appear in a uri
+      slash (/).
+    Description: >-
+      URI of the ECR. Although this name can be discovered using parameter allows to point to any repository if needed
+    Type: String
+
+  # =====================================================
+  # PARAMETER : BPMECRRepositoryName
+  # =====================================================
+  #
+  # Name of the BPM ECR repository
+  #
+  BPMECRRepositoryName:
+    Description: >-
+      BPM ECR repository name
+    Type: String
+
+
+# =====================================================
+# MAPPINGS :
+# =====================================================
+#
+# =====================================================
+# MAPPING :
+# =====================================================
+# Declares the AWS Amazon Linux AMI Ids to be used for various regions
+#
+
+Mappings: 
+  AWSRegionAndInstanceTypeToAMIID:
+    us-east-1:
+      base: "ami-0fc61db8544a617ed"
+    us-east-2:
+      base: "ami-0e01ce4ee18447327"
+    us-west-1:
+      base: "ami-09a7fe78668f1e2c0"
+    us-west-2:
+      base: "ami-0ce21b51cb31a48b8"
+    ap-south-1:
+      base: "ami-03b5297d565ef30a6"
+    ap-southeast-1:
+      base: "ami-0cbc6aae997c6538a"
+    ap-southeast-2:
+      base: "ami-08fdde86b93accf1c"
+    ap-northeast-1:
+      base: "ami-052652af12b58691f"
+    eu-central-1:
+      base: "ami-0ec1ba09723e5bfac"
+    eu-west-1:
+      base: "ami-04d5cc9b88f9d1d39"
+    eu-west-2:
+      base: "ami-0cb790308f7591fa6"
+    eu-west-3:
+      base: "ami-07eda9385feb1e969"
+    sa-east-1:
+      base: "ami-0b032e878a66c3b68"
+
+
+# =====================================================
+# RESOURCES :
+# =====================================================
+#
+# Declares the AWS resources to be used in the stack
+#
+Resources:
+  
+  # ============================================================
+  # RESOURCE : BPM EC2 Execution Role (BPMEC2ExecutionRole)
+  # ============================================================
+  #
+  # Execution Role for the BPM EC2 Instances
+  # Allows role to be assumed by EC2, with policy to permit execution on EC2 SSM and CloudFormation Signal
+  # 
+  # enables instance to communicate with the Amazon EC2 Systems Manager API
+  # allows readonly access to all S3 resource
+  #
+  BPMEC2ExecutionRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+                - ec2.amazonaws.com
+            Action:
+              - sts:AssumeRole
+      ManagedPolicyArns:
+        - "arn:aws:iam::aws:policy/service-role/AmazonEC2RoleforSSM"
+        - "arn:aws:iam::aws:policy/AmazonS3ReadOnlyAccess"
+      Policies: 
+        - PolicyName: "root"
+          PolicyDocument: 
+            Version: "2012-10-17"
+            Statement: 
+              - Effect: "Allow"
+                Action:
+                  - "cloudformation:SignalResource"
+                  - "ssm:PutParameter"
+                  - "route53:ChangeResourceRecordSets"
+                Resource: "*"
+  
+  # ================================================================
+  # RESOURCE : BPM EC2 Instance Profile (BPMEC2InstanceProfile)
+  # ================================================================
+  #
+  # Instance Profile for the BPM EC2 Execution Role (BPMEC2ExecutionRole)
+  #
+  BPMEC2InstanceProfile:
+    Type: AWS::IAM::InstanceProfile
+    Properties:
+      Roles:
+        - !Ref BPMEC2ExecutionRole
+      InstanceProfileName: !Join 
+        - '-'
+        - - !Ref 'AWS::StackName'
+          - 'BPMEC2InstanceProfile'
+    DependsOn:
+      - BPMEC2ExecutionRole
+
+
+  # ============================================================
+  # RESOURCE : BPM EC2 Execution Role (BPMInstallEC2ExecutionRole)
+  # ============================================================
+  #
+  # Execution Role for the BPM EC2 Instances
+  # Allows role to be assumed by EC2, with policy to permit execution on EC2 SSM and CloudFormation Signal
+  #
+  # enables instance to communicate with the Amazon EC2 Systems Manager API
+  # allows readonly access to all S3 resource
+  #
+  BPMInstallEC2ExecutionRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+                - ec2.amazonaws.com
+            Action:
+              - sts:AssumeRole
+      ManagedPolicyArns:
+        - "arn:aws:iam::aws:policy/AmazonS3ReadOnlyAccess"
+        - "arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy"
+      Policies:
+        - PolicyName: "root"
+          PolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+              - Effect: "Allow"
+                Action:
+                  - "cloudformation:SignalResource"
+                Resource: "*"
+        - PolicyName: "BPMEKSPrivacyPolicy"
+          PolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+              - Sid: "UpdateEKSEndpointPrivacy"
+                Effect: "Allow"
+                Action:
+                  - "route53:AssociateVPCWithHostedZone"
+                  - "eks:UpdateClusterConfig"
+                  - "eks:DescribeUpdate"
+                Resource: "*"
+        - PolicyName: "BPMECRPolicy"
+          PolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+              - Sid: "ListImagesInRepository"
+                Effect: "Allow"
+                Action:
+                  - "ecr:ListImages"
+                Resource: "*"
+              - Sid: "GetAuthorizationToken"
+                Effect: "Allow"
+                Action:
+                  - "ecr:GetAuthorizationToken"
+                Resource: "*"
+              - Sid: "ManageRepositoryContents"
+                Effect: "Allow"
+                Action:
+                  - "ecr:BatchCheckLayerAvailability"
+                  - "ecr:GetDownloadUrlForLayer"
+                  - "ecr:GetRepositoryPolicy"
+                  - "ecr:DescribeRepositories"
+                  - "ecr:ListImages"
+                  - "ecr:DescribeImages"
+                  - "ecr:BatchGetImage"
+                  - "ecr:InitiateLayerUpload"
+                  - "ecr:UploadLayerPart"
+                  - "ecr:CompleteLayerUpload"
+                  - "ecr:PutImage"
+                Resource: "*"  
+
+
+  # ================================================================
+  # RESOURCE : BPM EC2 Instance Profile (BPMEC2InstanceProfile)
+  # ================================================================
+  #
+  # Instance Profile for the BPM EC2 Execution Role (BPMInstallEC2ExecutionRole)
+  #
+  # BPMInstallEC2InstanceProfile:
+  #   Type: AWS::IAM::InstanceProfile
+  #   Properties:
+  #     Roles:
+  #       - !Ref BPMInstallEC2ExecutionRole
+  #     InstanceProfileName: !Join
+  #       - '-'
+  #       - - !Ref 'AWS::StackName'
+  #         - 'BPMInstallEC2InstanceProfile'
+  #   DependsOn:
+  #     - BPMInstallEC2ExecutionRole 
+  
+  BPMInstallEC2InstanceProfile:
+    Type: AWS::IAM::InstanceProfile
+    Properties:
+      Roles:
+        - !Ref EKSCreatorUser
+      InstanceProfileName: !Join
+        - '-'
+        - - !Ref 'AWS::StackName'
+          - 'BPMInstallEC2InstanceProfile'
+
+
+
+  # ==================================================================
+  # RESOURCE : BPM Lambda Execution Role (BPMLambdaExecutionRole)
+  # ==================================================================
+  #
+  # Execution Role for the BPM Secure Parameter Lambda Function
+  # Allows role to be assumed by Lambda, with policy to permit execution on EC2 SSM
+  #
+  BPMLambdaExecutionRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+                - lambda.amazonaws.com
+            Action:
+              - sts:AssumeRole
+      ManagedPolicyArns:
+        - "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+      Policies: 
+        - PolicyName: "root"
+          PolicyDocument: 
+            Version: "2012-10-17"
+            Statement: 
+              - Effect: "Allow"
+                Action:
+                  - "ssm:PutParameter"
+                  - "ssm:DeleteParameter"
+                Resource: "*"
+  
+  # ===============================================================================
+  # RESOURCE : BPM Secure Parameter Lambda Function (BPMSecureParameterLambda)
+  # ===============================================================================
+  #
+  # BPM Secure Parameter Lambda Function to store parameter in EC2 SSM
+  # Creates or Deletes the parameter. Overwrites any existing value.
+  #
+  BPMSecureParameterLambda:
+    Type: AWS::Lambda::Function
+    Properties:
+      Handler: "index.handler"
+      Role:
+        'Fn::GetAtt': 
+          - "BPMLambdaExecutionRole"
+          - "Arn"
+      Code:
+        ZipFile:
+          'Fn::Sub': |
+            import json
+            import cfnresponse
+            import boto3
+            
+            def handler(event, context):
+              responseData = {}
+              
+              ssm = boto3.client('ssm')
+              
+              if event['RequestType'] == 'Delete':
+                ssm.delete_parameter(
+                  Name=event['ResourceProperties']['SecureName']
+                )
+              
+                cfnresponse.send(event, context, cfnresponse.SUCCESS, responseData)
+                return 
+                
+              ssm.put_parameter(
+                Name=event['ResourceProperties']['SecureName'],
+                Description=event['ResourceProperties']['SecureDescription'],
+                Value=event['ResourceProperties']['SecurePassword'],
+                Type='SecureString',
+                Overwrite=True
+              )
+              
+              cfnresponse.send(event, context, cfnresponse.SUCCESS, responseData)
+              return
+      Runtime: "python2.7"
+      Timeout: 30
+      MemorySize: 256
+    DependsOn:
+      - BPMLambdaExecutionRole
+  
+  # ========================================================================================================
+  # RESOURCE : BPM Remove Secure Parameter Lambda Function (BPMRemoveSecureParameterLambda)
+  # ========================================================================================================
+  #
+  # BPM Remove Secure Parameter Lambda Function to delete parameter in EC2 SSM
+  # Deletes the parameter (never creates). Used for tidy-up scenarios.
+  #
+  BPMRemoveSecureParameterLambda:
+    Type: AWS::Lambda::Function
+    Properties:
+      Handler: "index.handler"
+      Role:
+        'Fn::GetAtt': 
+          - "BPMLambdaExecutionRole"
+          - "Arn"
+      Code:
+        ZipFile:
+          'Fn::Sub': |
+            import json
+            import cfnresponse
+            import boto3
+            
+            def handler(event, context):
+              responseData = {}
+              
+              ssm = boto3.client('ssm')
+              
+              if event['RequestType'] == 'Delete':
+                ssm.delete_parameter(
+                  Name=event['ResourceProperties']['SecureName']
+                )
+              
+              cfnresponse.send(event, context, cfnresponse.SUCCESS, responseData)
+              return
+      Runtime: "python2.7"
+      Timeout: 30
+      MemorySize: 256
+    DependsOn:
+      - BPMLambdaExecutionRole
+  
+  # ========================================================================================================
+  # RESOURCE : BPM Store Secure Parameter RDS Master User Password (BPMStoreSecureRDSMasterUserPassword)
+  # ========================================================================================================
+  #
+  # Store RDSMasterUserPassword parameter in EC2 SSM
+  #
+  BPMStoreSecureRDSMasterUserPassword:
+    Type: Custom::BPMStoreSecureParameter
+    Properties:
+      ServiceToken:
+        'Fn::GetAtt': 
+          - "BPMSecureParameterLambda"
+          - "Arn"
+      SecureName: "RDSMasterUserPassword"
+      SecureDescription: "RDS Master User Password"
+      SecurePassword: !Ref RDSMasterUserPassword
+    DependsOn:
+      - BPMSecureParameterLambda
+  
+  # ==========================================================================================================
+  # RESOURCE : BPM Store Secure Parameter LDAP Cloud Admin Password (BPMStoreSecureLDAPCloudAdminPassword)
+  # ==========================================================================================================
+  #
+  # Store LDAPCloudAdminPassword parameter in EC2 SSM
+  #
+  BPMStoreSecureLDAPCloudAdminPassword:
+    Type: Custom::BPMStoreSecureParameter
+    Properties:
+      ServiceToken:
+        'Fn::GetAtt': 
+          - "BPMSecureParameterLambda"
+          - "Arn"
+      SecureName: "LDAPCloudAdminPassword"
+      SecureDescription: "LDAP Cloud Admin Password"
+      SecurePassword: !Ref LDAPCloudAdminPassword
+    DependsOn:
+      - BPMSecureParameterLambda
+  
+  # =====================================================================================================
+  # RESOURCE : BPM Store Secure Parameter LDAP Cloud DS Password (BPMStoreSecureLDAPCloudDSPassword)
+  # =====================================================================================================
+  #
+  # Store LDAPCloudDSPassword parameter in EC2 SSM
+  #
+  BPMStoreSecureLDAPCloudDSPassword:
+    Type: Custom::BPMStoreSecureParameter
+    Properties:
+      ServiceToken:
+        'Fn::GetAtt': 
+          - "BPMSecureParameterLambda"
+          - "Arn"
+      SecureName: "LDAPCloudDSPassword"
+      SecureDescription: "LDAP Cloud DS Password"
+      SecurePassword: !Ref LDAPCloudDSPassword
+    DependsOn:
+      - BPMSecureParameterLambda
+
+  # =====================================================================================================
+  # RESOURCE : BPM Store Secure Parameter BPM DB User Password (BPMStoreSecureBPMDBPassword)
+  # =====================================================================================================
+  #
+  # Store BPMDBPassword parameter in EC2 SSM
+  #
+  BPMStoreSecureBPMDBPassword:
+    Type: Custom::BPMStoreSecureParameter
+    Properties:
+      ServiceToken:
+        'Fn::GetAtt': 
+          - "BPMSecureParameterLambda"
+          - "Arn"
+      SecureName: "BPMDBPassword"
+      SecureDescription: "BPM DB User Password"
+      SecurePassword: !Ref BPMDBPassword
+    DependsOn:
+      - BPMSecureParameterLambda
+
+  # =================================================================================
+  # RESOURCE : BPM - Security Groups Stack (BPMSecurityGroupsStack)
+  # =================================================================================
+  #
+  # Contains the security groups that control network traffic to and from the different instances used by
+  # BPM in the host VPC.
+  #
+  # See the bpme-securitygroups.template for more information.
+  #
+  BPMSecurityGroupsStack:
+    Type: AWS::CloudFormation::Stack
+    Properties:
+      TemplateURL: !Sub "https://s3.amazonaws.com/${TemplatesS3Bucket}/bpme-securitygroups.template"
+      Parameters:
+        VPCID: !Ref VPCID
+        BastionSecurityGroupID: !Ref BastionSecurityGroupID
+        RemoteAccessCIDR: !Ref RemoteAccessCIDR
+  
+  # ==========================================================================
+  # RESOURCE : BPM - Route 53 DNS Stack (BPMRoute53DNSStack)
+  # ==========================================================================
+  #
+  # Contains two Route 53 hosted zones, which provide DNS resolution information about the BPM system.
+  #
+  # See the bpme-r53.template for more information.
+  #
+  BPMRoute53DNSStack:
+    Type: AWS::CloudFormation::Stack
+    Properties:
+      TemplateURL: !Sub "https://s3.amazonaws.com/${TemplatesS3Bucket}/bpme-r53.template"
+      Parameters:
+        VPCID: !Ref VPCID
+        R53CloudDomainName: !Ref R53CloudDomainName
+        R53OnPremiseDomainName: !Ref R53OnPremiseDomainName
+  
+  # ==========================================================================
+  # RESOURCE : BPM - Aurora PostgreSQL Database Stack (BPMRDSStack)
+  # ==========================================================================
+  #
+  # Contains an Aurora PostgreSQL Database instance that provides database storage for the databases.
+  # The instance uses PostgreSQL compatibility.
+  #
+  # See the bpme-rds.template for more information.
+  #
+  BPMRDSStack:
+    Type: AWS::CloudFormation::Stack
+    Properties:
+      TemplateURL: !Sub "https://s3.amazonaws.com/${TemplatesS3Bucket}/bpme-rds.template"
+      Parameters:
+        PrivateSubnet1AID: !Ref PrivateSubnet1AID
+        PrivateSubnet2AID: !Ref PrivateSubnet2AID
+        RDSInstanceClass: !Ref RDSInstanceClass
+        RDSInstanceIdentifier: !Ref RDSInstanceIdentifier
+        RDSName: !Ref RDSName
+        RDSVersion: !Ref RDSVersion
+        RDSMasterUsername: !Ref RDSMasterUsername
+        RDSMasterUserPassword: !Ref RDSMasterUserPassword
+        BPMDBSecurityGroupID: !GetAtt BPMSecurityGroupsStack.Outputs.BPMDBSecurityGroupID
+    DependsOn:
+      - BPMSecurityGroupsStack
+  
+  # ============================================================
+  # RESOURCE : BPM - LDAP Stack (BPMLDAPStack)
+  # ============================================================
+  #
+  # Contains an EC2 instance that hosts an Identity Management (IdM) server which, in turn, contains an LDAP directory 
+  # server - referred to as the Cloud LDAP server. The Cloud LDAP server provides directory services for BPM,
+  # including 1-way synchronization from the corporate LDAP server.
+  #
+  # See the bpme-ldap.template for more information.
+  #
+  BPMLDAPStack:
+    Type: AWS::CloudFormation::Stack
+    Properties:
+      TemplateURL: !Sub "https://s3.amazonaws.com/${TemplatesS3Bucket}/bpme-ldap.template"
+      Parameters:
+        ScriptsS3Bucket: !Ref ScriptsS3Bucket
+        AvailabilityZone1Name: !Ref AvailabilityZone1Name
+        PrivateSubnet1AID: !Ref PrivateSubnet1AID
+        BPMKeyPairName: !Ref BPMKeyPairName
+        LDAPInstanceSecurityGroupID: !GetAtt BPMSecurityGroupsStack.Outputs.LDAPInstanceSecurityGroupID
+        LDAPAMIid: !FindInMap [AWSRegionAndInstanceTypeToAMIID, !Ref "AWS::Region", "base"]
+        LDAPInstanceType: !Ref LDAPInstanceType
+        LDAPStorage: !Ref LDAPStorage
+        LDAPInstanceName: !Ref LDAPInstanceName
+        LDAPCloudHostname: !Ref LDAPCloudHostname
+        R53CloudDomainName: !Ref R53CloudDomainName
+        LDAPOnPremiseHostname: !Ref LDAPOnPremiseHostname
+        R53OnPremiseDomainName: !Ref R53OnPremiseDomainName
+        LDAPOnPremiseIPAddress: !Ref LDAPOnPremiseIPAddress
+        LDAPCloudAdminPasswordParam: LDAPCloudAdminPassword
+        LDAPCloudDSPasswordParam: LDAPCloudDSPassword
+        BPMEC2InstanceProfile: !Ref BPMEC2InstanceProfile
+        R53CloudDNS: !GetAtt BPMRoute53DNSStack.Outputs.R53CloudDNS
+        R53OnPremiseDNS: !GetAtt BPMRoute53DNSStack.Outputs.R53OnPremiseDNS
+    DependsOn:
+      - BPMSecurityGroupsStack
+      - BPMRoute53DNSStack
+      - BPMEC2InstanceProfile
+      - BPMStoreSecureLDAPCloudAdminPassword
+      - BPMStoreSecureLDAPCloudDSPassword
+
+
+
+  # ======================================================================
+  # RESOURCE : BPM - BPM Install Stack 
+  # ======================================================================
+  #
+  # Contains an EC2 instance that will run install steps:produce a BPM docker instance which will be pushed into the local ECR
+  # 1) Produce a BPM docker instance which will be pushed into the local ECR
+  # 2) Push the utility docker instance into ECR
+  # 3) Create the BPM db user and database schema
+  #
+  # This instance can run either in a public or private subnet, as it uses the default security group in the VPC, same as RDS instance
+  # If a public subnet is used it will be possible to log ito this instance for debug purposes
+  # See the bpme-bpme.template for more information.
+  #
+  BPMInstallStack:
+    Type: AWS::CloudFormation::Stack
+    Properties:
+      TemplateURL: !Sub "https://s3.amazonaws.com/${TemplatesS3Bucket}/bpme-bpme.template"
+      Parameters:
+        SoftwareS3Bucket: !Ref SoftwareS3Bucket
+        ScriptsS3Bucket: !Ref ScriptsS3Bucket
+        TemplatesS3Bucket: !Ref TemplatesS3Bucket
+        BPMCertificateArn: !Ref BPMCertificateArn
+        ClusterName: !Ref ClusterName
+        K8SNameSpace: !Ref K8SNameSpace
+        EKSCreatorUser: !Ref EKSCreatorUser
+        VPCID: !Ref VPCID
+        SubnetId: !Ref PrivateSubnet1AID
+        PrivateSubnet1AID: !Ref PrivateSubnet1AID
+        PrivateSubnet2AID: !Ref PrivateSubnet2AID
+        AvailabilityZone1Name: !Ref AvailabilityZone1Name
+        AvailabilityZone2Name: !Ref AvailabilityZone2Name
+        BPMKeyPairName: !Ref BPMKeyPairName
+        BPMInstanceSecurityGroupID: !GetAtt BPMSecurityGroupsStack.Outputs.BPMInstanceSecurityGroupID
+        BPMRDSSecurityGroupID: !GetAtt BPMSecurityGroupsStack.Outputs.BPMDBSecurityGroupID
+        BPMAMIid: !FindInMap [AWSRegionAndInstanceTypeToAMIID, !Ref "AWS::Region", "base"]
+        ECRURI: !Ref ECRURI
+        BPMECRRepositoryName: !Ref BPMECRRepositoryName
+        BPMInstallEC2InstanceProfile: !Ref BPMInstallEC2InstanceProfile
+        RemoteAccessCIDR: !Ref RemoteAccessCIDR
+        RDSMasterUsername: !Ref RDSMasterUsername
+        RDSMasterUserPassword: !Ref RDSMasterUserPassword
+        RDSEndpointAddress: !GetAtt BPMRDSStack.Outputs.RDSEndpointAddress
+        RDSEndpointPort: !GetAtt BPMRDSStack.Outputs.RDSEndpointPort
+        RDSEndpoints: !GetAtt BPMRDSStack.Outputs.RDSEndpoints
+        RDSName: !Ref RDSName
+        BPMDBUserName: !Ref BPMDBUserName
+        BPMDBPassword: !Ref BPMDBPassword
+        LDAPAlias: !Ref LDAPAlias
+        LDAPDn: !Ref LDAPDn
+        LDAPDisplayName: !Ref LDAPDisplayName
+        LDAPCloudHostname: !Ref LDAPCloudHostname
+        R53CloudDomainName: !Ref R53CloudDomainName
+        DNSAliasFQDomainName: !Ref DNSAliasFQDomainName
+        LDAPCloudAdminPassword: !Ref LDAPCloudAdminPassword
+
+
+  # ===================================================================
+  # RESOURCE : BPM - Load Balancer Stack (BPMLBStack)
+  # ===================================================================
+  #
+  # Contains the following load balancers, used by BPM, deployed in the Public subnets of the host VPC:
+  #
+  # - LDAPLB: a Classic load balancer that controls and routes LDAP and LDAPS traffic to the LDAP EC2 instance.
+  #
+  # See the bpme-lb.template for more information.
+  #
+  BPMLBStack:
+    Type: AWS::CloudFormation::Stack
+    Properties:
+      TemplateURL: !Sub "https://s3.amazonaws.com/${TemplatesS3Bucket}/bpme-lb.template"
+      Parameters:
+        VPCID: !Ref VPCID
+        PublicSubnet1ID: !Ref PublicSubnet1ID
+        PublicSubnet2ID: !Ref PublicSubnet2ID
+        LDAPLBSecurityGroupID: !GetAtt BPMSecurityGroupsStack.Outputs.LDAPLBSecurityGroupID
+        LDAPLBName: !Ref LDAPLBName
+        BPMCertificateArn: !Ref BPMCertificateArn
+        LDAPInstance: !GetAtt BPMLDAPStack.Outputs.LDAPInstance
+    DependsOn:
+      - BPMSecurityGroupsStack
+      - BPMLDAPStack
+
+Outputs:
+  BPMRDSStack:
+    Description: The RDS stack name
+    Value: !Ref BPMRDSStack
+  BPMLDAPStack:
+    Description: The LDAP stack name
+    Value: !Ref BPMLDAPStack

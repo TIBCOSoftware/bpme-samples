@@ -1,0 +1,549 @@
+#
+# Copyright © 2021. TIBCO Software Inc.
+# This file is subject to the license terms contained
+# in the license file that is distributed with this file.
+#
+AWSTemplateFormatVersion: 2010-09-09
+
+# ======================================================================================================================
+# TEMPLATE : BPM - Cloud LDAP Server Template (bpme-ldap.template)
+# ======================================================================================================================
+#
+#  This template creates:
+#
+# - an EC2 instance that hosts an Identity Management (IdM) server which, in turn, contains an LDAP directory server - 
+#   referred to as the cloud LDAP server. The Cloud LDAP server provides directory services for BPM, 
+#   including 1-way synchronization from the corporate LDAP server.
+#
+# - associated Route 53 DNS definitions for the EC2 instance
+#
+
+
+Description: >-
+  Creates the cloud LDAP server, which provides directory services for BPM, including 1-way synchronization
+  from the corporate LDAP server
+  
+# ======================================================================================================================
+# METADATA :
+# ======================================================================================================================
+#
+# Defines template configuration data
+#
+Metadata:
+  
+  # =====================================================
+  # METADATA KEY : AWS::CloudFormation::Interface
+  # =====================================================
+  #
+  # Defines how the input parameters defined in this template will be presented in the AWS CloudFormation console when
+  # creating the stack:
+  #
+  # - ParameterGroups defines how parameters will be grouped and ordered
+  # - ParameterLabels defines the label that will be used for each parameter
+  #
+  'AWS::CloudFormation::Interface':
+    ParameterGroups:
+      - Label:
+          default: VPC Zones and Subnets
+        Parameters:
+          - AvailabilityZone1Name
+          - PrivateSubnet1AID
+      - Label:
+          default: Security Configuration
+        Parameters:
+          - LDAPInstanceSecurityGroupID
+          - BPMKeyPairName
+      - Label:
+          default: LDAP Sizing Parameters
+        Parameters:
+          - LDAPInstanceType
+          - LDAPStorage
+      - Label:
+          default: LDAP Cloud EC2 Naming Parameters
+        Parameters:
+          - LDAPInstanceName
+          - LDAPCloudHostname
+          - R53CloudDomainName
+      - Label:
+          default: LDAP On-Premise Naming Parameters
+        Parameters:
+          - LDAPOnPremiseHostname
+          - R53OnPremiseDomainName
+          - LDAPOnPremiseIPAddress
+      - Label:
+          default: LDAP EC2 Security Parameters
+        Parameters:
+          - LDAPCloudAdminPasswordParam
+          - LDAPCloudDSPasswordParam
+    ParameterLabels:
+      AvailabilityZone1Name:
+        default: Availability Zone 1 (Primary)
+      PrivateSubnet1AID:
+        default: Private Subnet 1A (AZ 1)
+      LDAPInstanceSecurityGroupID:
+        default: LDAP Security Group ID
+      BPMKeyPairName:
+        default: BPM Key Pair Name
+      LDAPInstanceType:
+        default: LDAP Instance Type
+      LDAPStorage:
+        default: Allocated Storage
+      LDAPInstanceName:
+        default: LDAP Instance Name
+      LDAPCloudHostname:
+        default: LDAP Instance Hostname
+      R53CloudDomainName:
+        default: Host VPC Domain Name
+      LDAPOnPremiseHostname:
+        default: Corporate LDAP Server Hostname
+      R53OnPremiseDomainName:
+        default: Corporate LDAP Server Domain Name
+      LDAPOnPremiseIPAddress:
+        default: Corporate LDAP Server IP Address
+      LDAPCloudAdminPasswordParam:
+        default: LDAP Instance Admin Password
+      LDAPCloudDSPasswordParam:
+        default: LDAP Instance DS Password
+
+
+# ======================================================================================================================
+# PARAMETERS :
+# ======================================================================================================================
+#
+# Defines the input parameters to be passed to this template when creating a stack
+#
+Parameters:
+
+  # =====================================================
+  # PARAMETER : ScriptsS3Bucket
+  # =====================================================
+  #
+  # Name of the S3 bucket containing the TIBCO scripts
+  #
+  ScriptsS3Bucket:
+    AllowedPattern: >-
+      ^[0-9a-zA-Z-/]*$
+    ConstraintDescription: >-
+      BPM Scripts bucket name can include numbers, lowercase letters, uppercase letters, hyphens (-), and forward
+      slash (/).
+    Description: >-
+      Name of the previously created S3 bucket that contains the BPM scripts used by the BPM CloudFormation templates
+    MinLength: 1
+    Type: String
+
+  # =====================================================
+  # PARAMETER : AvailabilityZone1Name
+  # =====================================================
+  #
+  # Availability Zone 1 in the host VPC. The BPM1 and LDAP EC2 instances, and the master BPM DB Oracle RDS 
+  # instance, will be created in this availability zone.
+  #
+  AvailabilityZone1Name:
+    Description: 'Name of the availability Zone in the host VPC in which you want to provision the LDAP EC2 instance'
+    Type: AWS::EC2::AvailabilityZone::Name
+    
+  # =====================================================
+  # PARAMETER : PrivateSubnet1AID
+  # =====================================================
+  #
+  # ID of the private subnet in the first availability zone (AZ 1)
+  #
+  PrivateSubnet1AID:
+    Description: >-
+      ID of the private subnet 1 in which you want to provision the LDAP EC2 instance
+    Type: AWS::EC2::Subnet::Id
+    
+  # =====================================================
+  # PARAMETER : BPMKeyPairName
+  # =====================================================
+  #
+  # Name of the key pair that will be required to log on directly (via SSH) to the BPM system EC2 instances
+  # (BPM1, BPM2 and LDAP).
+  #
+  BPMKeyPairName:
+    Description: >-
+      Name of the key pair that will be required to log on directly (via SSH) to the BPM system EC2
+      instances. If you have not already created this key pair, please do so before continuing.
+    Type: AWS::EC2::KeyPair::KeyName
+    
+  # =====================================================
+  # PARAMETER : LDAPInstanceSecurityGroupID
+  # =====================================================
+  #
+  # ID of the LDAP EC2 Instances Security Group, which controls access to the LDAP EC2 instance(s) from within the host 
+  # VPC
+  #
+  LDAPInstanceSecurityGroupID:
+    Description: >-
+      ID of the LDAP EC2 Instances Security Group, which controls access to the LDAP EC2 instance(s) from within the
+      host VPC
+    Type: AWS::EC2::SecurityGroup::Id
+
+  # =====================================================
+  # PARAMETER : LDAPAMIid
+  # =====================================================
+  #
+  # This is the AMI Identifier to base the LDAP VM instances on.
+  #
+  # This Identifier will depend upon the Region the CloudFormation Stack is being invoked in.
+  #
+  LDAPAMIid:
+    Description: AMI Identifier to be used by the EC2 instance that will host the LDAP server
+    Type: String
+
+  # =====================================================
+  # PARAMETER : LDAPInstanceType
+  # =====================================================
+  #
+  # Instance type to be used by the EC2 instance that will host the cloud LDAP server - referred to as the LDAP 
+  # instance.
+  #
+  # This instance will host an Identity Management (IdM) server, which in turn, contains an LDAP directory server - 
+  # referred to as the Cloud LDAP server. The Cloud LDAP server provides directory services for BPM, 
+  # including 1-way synchronization from the corporate LDAP server.
+  #
+  LDAPInstanceType:
+    AllowedValues:
+      - t2.nano
+      - t2.micro
+      - t2.small
+      - t2.medium
+      - t2.large
+      - m3.large
+      - m3.xlarge
+      - m3.2xlarge
+      - m4.large
+      - m4.xlarge
+      - m4.2xlarge
+      - m4.4xlarge
+    Default: t2.medium
+    Description: Instance type to be used by the EC2 instance that will host the cloud LDAP server
+    Type: String
+
+  # =====================================================
+  # PARAMETER : LDAPStorage
+  # =====================================================
+  #
+  # Storage value (in GB) to be allocated to the LDAP instance
+  #
+  LDAPStorage:
+    Default: 60
+    Description: Storage value (in GB) to be allocated to the LDAP instance
+    ConstraintDescription: Allocated Storage must be at least 10 (GB)
+    MinValue: 10
+    Type: Number
+    
+  # =====================================================
+  # PARAMETER : LDAPInstanceName
+  # =====================================================
+  #
+  # Name to be used for the EC2 LDAP instance
+  #
+  LDAPInstanceName:
+    Default: LDAP
+    Description: Name to be used for the EC2 LDAP instance
+    ConstraintDescription: LDAP Instance Name must be specified
+    MinLength: 1
+    Type: String
+    
+  # =====================================================
+  # PARAMETER : LDAPCloudHostname
+  # =====================================================
+  #
+  # Hostname to be used by the LDAP instance (without domain)
+  #
+  # Note: By default, Amazon EC2 hostnames are dynamically assigned to an instance when it is started or rebooted. 
+  # However, to allow correct LDAP operation, a persistent, Fully Qualified Domain Name (FQDN) must be used as the 
+  # hostname for the LDAP instance. The bpme-ldap.template uses this parameter, along with the Host VPC Domain Name 
+  # parameter, to configure the LDAP instance hostname.
+  #
+  LDAPCloudHostname:
+    Default: bpme-ldap
+    Description: Host Name for the LDAP EC2 instance (must be lowercase)
+    ConstraintDescription: LDAP Hostname must be specified
+    MinLength: 1
+    Type: String
+    
+  # =====================================================
+  # PARAMETER : R53CloudDomainName
+  # =====================================================
+  #
+  # Domain name to be used by the EC2 instances in the host VPC (without hostname)
+  #
+  R53CloudDomainName:
+    Default: bpme.local
+    Description: Domain name to be used by the EC2 instances in the host VPC
+    ConstraintDescription: Host VPC Domain Name must be specified
+    MinLength: 1
+    Type: String
+    
+  # =====================================================
+  # PARAMETER : LDAPOnPremiseHostname
+  # =====================================================
+  #
+  # Hostname of the corporate LDAP server (without domain)
+  #
+  LDAPOnPremiseHostname:
+    Description: Hostname of the corporate LDAP server
+    ConstraintDescription: Corporate LDAP Server Hostname must be specified
+    MinLength: 1
+    Type: String
+    
+  # =====================================================
+  # PARAMETER : R53OnPremiseDomainName
+  # =====================================================
+  #
+  # Domain name in which the corporate LDAP server is hosted (without hostname)
+  #
+  R53OnPremiseDomainName:
+    Description: Domain name in which the corporate LDAP server is hosted
+    ConstraintDescription: Corporate LDAP Server Domain Name must be specified
+    MinLength: 1
+    Type: String
+  
+  # =====================================================
+  # PARAMETER : LDAPOnPremiseIPAddress
+  # =====================================================
+  #
+  # IP address of the corporate LDAP server
+  #
+  LDAPOnPremiseIPAddress:
+    Description: IP Address for the On-Premise LDAP instance
+    ConstraintDescription: Corporate LDAP Server IP Address must be specified
+    MinLength: 1
+    Type: String
+  
+  # =====================================================
+  # PARAMETER : LDAPCloudAdminPasswordParam
+  # =====================================================
+  #
+  # Password to be used for the system user account (admin) on the Identity Management (IdM) server 
+  # (that hosts the cloud LDAP server)
+  #
+  LDAPCloudAdminPasswordParam:
+    Description: >-
+      Password to be used for the system user account (admin) on the Identity Management server on the LDAP instance
+    Type: String
+  
+  # =====================================================
+  # PARAMETER : LDAPCloudDSPasswordParam
+  # =====================================================
+  #
+  # Password to be used for the cloud LDAP server superuser (cn=Directory Manager). The cloud LDAP server is the LDAP 
+  # directory server provided as a component of the IdM server.
+  #
+  LDAPCloudDSPasswordParam:
+    Description: >-
+      Password to be used for the cloud LDAP server superuser (cn=Directory Manager). The cloud LDAP server is the LDAP
+      directory server provided by the IdM server.
+    Type: String
+  
+  # =====================================================
+  # PARAMETER : BPMEC2InstanceProfile
+  # =====================================================
+  #
+  # Reference to the BPM EC2 Instance Profile  resource(BPMEC2InstanceProfile), which is created by the 
+  # bpme-master.template
+  #
+  # The BPMEC2InstanceProfile resource defines the Instance Profile for the BPM EC2 Execution Role resource 
+  # (BPMEC2ExecutionRole).
+  #
+  BPMEC2InstanceProfile:
+    Description: >-
+      Reference to the BPMEC2InstanceProfile resource, which is the instance Profile for the BPM EC2 Execution Role
+      (BPMEC2ExecutionRole)
+    Type: String
+  
+  # =====================================================
+  # PARAMETER : R53CloudDNS
+  # =====================================================
+  #
+  # Reference to the Route 53 DNS - Host VPC Hosted Zone resource (R53CloudDNS), which is created by the 
+  # bpme-r53.template.
+  # 
+  # The R53CloudDNS resource defines the hosted zone for the domain used by the EC2 instances in the host VPC.
+  #
+  R53CloudDNS:
+    Description: >-
+      Reference to the R53CloudDNS resource, which defines the hosted zone for the domain used by the EC2 instances
+      in the host VPC
+    Type: String
+  
+  # =====================================================
+  # PARAMETER : R53OnPremiseDNS
+  # =====================================================
+  #
+  # Reference to the Route 53 DNS - Corporate LDAP Server Hosted Zone (R53OnPremiseDNS), which is created by the 
+  # bpme-r53.template.
+  # 
+  # The R53OnPremiseDNS resource defines the hosted zone for the domain in which the corporate LDAP server is located.
+  #
+  R53OnPremiseDNS:
+    Description: >-
+      Reference to the R53OnPremiseDNS resource, which defines the hosted zone for the domain in which the corporate
+      LDAP server is located
+    Type: String
+
+
+# ======================================================================================================================
+# RESOURCES :
+# ======================================================================================================================
+#
+# Declares the AWS resources to be used in the stack
+#
+Resources:
+  
+  # =====================================================
+  # RESOURCE : BPM EC2 LDAP Instance (LDAPInstance)
+  # =====================================================
+  #
+  # EC2 instance that hosts the cloud LDAP server, created from a RedHat 7 AMI. The UserData function:
+  #
+  # - installs the requisite software.
+  # - configures the hostname of the instance.
+  #
+  LDAPInstance:
+    Type: AWS::EC2::Instance
+    Properties:
+      KeyName: !Ref BPMKeyPairName
+      SecurityGroupIds:
+        - !Ref LDAPInstanceSecurityGroupID
+      InstanceType: !Ref LDAPInstanceType
+      AvailabilityZone: !Ref AvailabilityZone1Name
+      SubnetId: !Ref PrivateSubnet1AID
+      ImageId: !Ref LDAPAMIid
+      BlockDeviceMappings:
+        - DeviceName: /dev/xvda
+          Ebs:
+            VolumeType: "gp2"
+            VolumeSize: !Ref LDAPStorage
+      Tags:
+        - Key: Name
+          Value: !Ref LDAPInstanceName
+      IamInstanceProfile: !Ref BPMEC2InstanceProfile
+      UserData: !Base64 
+        Fn::Sub: |
+          #!/bin/bash -xe
+          yum update -y
+          # install the epel packages for installation of AWS CLI
+          yum -y install https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+
+          yum -y install unzip jq haveged
+
+          # install the AWS CLI
+          curl "https://s3.amazonaws.com/aws-cli/awscli-bundle.zip" -o "awscli-bundle.zip"
+          unzip awscli-bundle.zip
+          ./awscli-bundle/install -i /usr/local/aws -b /usr/local/sbin/aws
+
+          # install LDAP related artefacts
+          systemctl start haveged.service
+          systemctl enable haveged.service
+
+          # Now install the ipa-server components *after* the haveged service is running (recommended for ipa-server install)
+          yum -y install ipa-server bind bind-dyndb-ldap
+
+          # Setup up a local DNS name / hostname for the instance
+          hostname ${LDAPCloudHostname}.${R53CloudDomainName}
+          echo '${LDAPCloudHostname}.${R53CloudDomainName}' > /etc/hostname
+          curl http://169.254.169.254/latest/meta-data/local-ipv4 > /etc/hosts
+          echo ' ${LDAPCloudHostname}.${R53CloudDomainName} ${LDAPCloudHostname}' >> /etc/hosts
+          echo '${LDAPOnPremiseIPAddress} ${LDAPOnPremiseHostname}.${R53OnPremiseDomainName} ${LDAPOnPremiseHostname}' >> /etc/hosts
+          echo 'HOSTNAME=${LDAPCloudHostname}.${R53CloudDomainName}' >> /etc/sysconfig/network
+          echo 'NETWORKING_IPv6=no' >> /etc/sysconfig/network
+          echo 'NISDOMAIN=${R53CloudDomainName}' >> /etc/sysconfig/network
+          echo 'preserve_hostname: true' >> /etc/cloud/cloud.cfg
+          BPMLDAPDomainName=${R53CloudDomainName}
+
+          # Copy the scripts that install the LDAP (ipa-server) Server
+          # following the reboot ...
+          export BPMSCRIPT_HOME=/opt/tibco
+          mkdir -p "$BPMSCRIPT_HOME"
+          aws s3 cp s3://${ScriptsS3Bucket}/ldap-reboot.service "$BPMSCRIPT_HOME"
+          aws s3 cp s3://${ScriptsS3Bucket}/install-ldap.sh "$BPMSCRIPT_HOME"
+          chmod +x $BPMSCRIPT_HOME/*
+
+          # Set up the script to signal that this stack is complete
+          echo "/opt/aws/bin/cfn-signal --success \$SUCCESS_FLAG --region ${AWS::Region} --stack ${AWS::StackName} --resource LDAPInstance" >> /opt/tibco/install-ldap.sh
+
+          # Create an environment file for the install to use from Parameters passed into this script
+          export env_file="$BPMSCRIPT_HOME/ldap-install.env"
+          echo "export BPMSCRIPT_HOME=$BPMSCRIPT_HOME" >> "$env_file"
+          echo "export TIBCO_HOME=$TIBCO_HOME" >> "$env_file"
+          echo "export CONFIG_HOME=$CONFIG_HOME" >> "$env_file"
+          echo "export JAVA_HOME=$JAVA_HOME" >> "$env_file"
+          echo "export LDAPDS_PASSWDID=${LDAPCloudDSPasswordParam}" >> "$env_file"
+          echo "export OURAWS_REGION=${AWS::Region}" >> "$env_file"
+          echo "export LDAP_CLOUDHOST=${LDAPCloudHostname}" >> "$env_file"
+          echo "export CLOUD_DOMAIN=${R53CloudDomainName}" >> "$env_file"
+          echo "export LDAP_PASSWDID=${LDAPCloudAdminPasswordParam}" >> "$env_file"
+          echo "export LDAP_DOMSTR=$BPMLDAPDomainName" >> "$env_file"
+
+          # And set up the service that will run the install script on re-boot
+          cp  "$BPMSCRIPT_HOME/ldap-reboot.service" /etc/systemd/system
+          chmod 664 /etc/systemd/system/ldap-reboot.service
+          systemctl enable ldap-reboot.service
+
+          # Copy logs to s3
+          aws s3 cp /var/log/cloud-init-output.log s3://${ScriptsS3Bucket}/logs/$(uname -n)_cloud-init-output.log
+
+          # And now wait 30 seconds and re-start the instance
+          sleep 30
+          reboot now
+    CreationPolicy:
+      ResourceSignal:
+        Timeout: PT40M
+  
+  # =====================================================
+  # RESOURCE : Route 53 DNS Record Set (R53RS)
+  # =====================================================
+  #
+  # Route 53 record set for the AWS FQDN (composite hostname/domain name), containing an A record for the private IP 
+  # address of the LDAP EC2 instance
+  #
+  R53RS:
+    Type: AWS::Route53::RecordSet
+    Properties:
+      Name:
+        'Fn::Sub': |
+          ${LDAPCloudHostname}.${R53CloudDomainName}
+      HostedZoneId: !Ref R53CloudDNS
+      Type: A
+      TTL: 300
+      ResourceRecords:
+        - !GetAtt LDAPInstance.PrivateIp
+    DependsOn:
+      - LDAPInstance
+  
+  # =====================================================
+  # RESOURCE : Route 53 DNS Record Set (R53OPRS)
+  # =====================================================
+  #
+  # Route 53 record set for the FQDN (composite hostname/domain name) of the corporate LDAP server, containing an A 
+  # record for the private IP address of the corporate LDAP server
+  #
+  R53OPRS:
+    Type: AWS::Route53::RecordSet
+    Properties:
+      Name:
+        'Fn::Sub': |
+          ${LDAPOnPremiseHostname}.${R53OnPremiseDomainName}
+      HostedZoneId: !Ref R53OnPremiseDNS
+      Type: A
+      TTL: 300
+      ResourceRecords:
+        - !Ref LDAPOnPremiseIPAddress
+
+
+# ======================================================================================================================
+# OUTPUTS :
+# ======================================================================================================================
+#
+# Declares the LDAP instance as an output value that can be used as a cross-stack reference
+#
+Outputs:
+  LDAPInstance:
+    Description: LDAP EC2 Instance 
+    Value: !Ref LDAPInstance
+  R53RS:
+    Description: FDQN of the cloud LDAP instance
+    Value: !Ref R53RS

@@ -1,0 +1,67 @@
+#
+# Copyright © 2021. TIBCO Software Inc.
+# This file is subject to the license terms contained
+# in the license file that is distributed with this file.
+#
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bpm-deployment
+  namespace: ${K8SNAMESPACE}
+spec:
+  selector:
+    matchLabels:
+       app: bpm
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        # Apply this label to pods and default
+        # the Deployment label selector to this value
+        app: bpm
+        tier: backend
+    spec:
+      containers:
+      - name: bpm
+        # Run this image
+        image: ${ECRURI}/tibco/bpm/runtime:5.0.0
+        resources:
+          requests:
+            cpu: 4
+            memory: 4Gi
+        livenessProbe:
+          httpGet:
+            path: /bpm/adapter/v1/liveness
+            port: 8181
+          initialDelaySeconds: 35
+          periodSeconds: 30
+          timeoutSeconds: 2
+          successThreshold: 1
+          failureThreshold: 3
+        readinessProbe:
+          httpGet:
+            path: /bpm/adapter/v1/readiness
+            port: 8181
+          initialDelaySeconds: 45
+          periodSeconds: 30
+          timeoutSeconds: 2
+          successThreshold: 1
+          failureThreshold: 3
+        ports:
+          - containerPort: 8181
+        env:
+          - name: JDBC_URL
+            value: "jdbc:postgresql://${RDS_ENDPOINTS}"
+          - name: LDAP_SYSTEM_ALIAS
+            value: "system"
+          - name: LDAP_SYSTEM_URL
+            value: "ldap://${LDAP_FQDN}:389/dc=bpme,dc=local"
+          - name: LDAP_EASYAS_ALIAS
+            value: "easyAs"
+          - name: LDAP_EASYAS_URL
+            value: "ldap://${LDAP_FQDN}:389/o=easyAsInsurance"
+        envFrom:
+          - secretRef:
+              name: bpm.database.secrets
+          - secretRef:
+              name: bpm.ldap.secrets
