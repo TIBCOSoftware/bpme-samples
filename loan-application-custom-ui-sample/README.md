@@ -42,7 +42,7 @@ a. To deploy the UI project, upload the zip file created in step 2.
 
 b. Browse or drag and drop the zip file to App Development.
 
-c. After uploading the zip file, you can view the spondulix application [here](%3Chttps%3E:%3Cmachine-name%3E:%3Cport%3E/userapps/spondulix)  
+c. After uploading the zip file, you can view the spondulix application at *BPME-Server/userapps/spondulix*
 
 3. Go to **Work Manager** to view the Loan Application project. The Loan Application project has two processes:
 
@@ -60,7 +60,7 @@ This process is used to create data for the **Spondulix** application, which inc
 
 · Status of the loan (Approved or Rejected)
 
-### Steps to Create a Customer
+#### *Steps to Create a Customer*
 
 1. Create a new customer.
 
