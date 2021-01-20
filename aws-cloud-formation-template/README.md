@@ -8,4 +8,4 @@ The Cloud formation templates will deploy:
 - load balancers for access to BPME and LDAP
 - associated security groups
 
-The procedure is described in [Using the TIBCO BPM Enterprise on Amazon Web Services Cloud Sample](../wiki/Using-the-TIBCO-BPM-Enterprise-on-Amazon-Web-Services-Cloud-Sample)
+The procedure is described in [Using the TIBCO BPM Enterprise on Amazon Web Services Cloud Sample](../../../wiki/Using-the-TIBCO-BPM-Enterprise-on-Amazon-Web-Services-Cloud-Sample)
