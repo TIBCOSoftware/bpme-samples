@@ -10,8 +10,6 @@ This repository includes below samples focused on TIBCO BPM Enterprise capabilit
 
 ## License
 This repository is governed by the the license specified in the license file. 
-And
-Apache License 2.0- http://www.apache.org/licenses/LICENSE-2.0
 
 ## Help
 This repository is a collaborative space for sharing samples for TIBCO® BPM Enterprise product. The samples provided here are maintained and supported by the users community. For raising any issues or questions related to the samples please create a GitHub issue.
