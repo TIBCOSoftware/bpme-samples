@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "A sample loan application",
   "author": "TIBCO Support <support@tibco.com>",
-  "license": "Apache-2.0",
+  "license": "BSD 3-Clause License",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
