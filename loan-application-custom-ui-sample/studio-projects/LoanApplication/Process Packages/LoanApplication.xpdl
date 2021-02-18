@@ -13,18 +13,6 @@
     <xpdl2:Version>1.0</xpdl2:Version>
   </xpdl2:RedefinableHeader>
   <xpdl2:Participants>
-    <xpdl2:Participant Id="_SNfDENcbEeqTOKf-7T1YEA" xpdExt:DisplayName="OpenBankingService" Name="OpenBankingService">
-      <xpdl2:ParticipantType Type="SYSTEM"/>
-      <xpdExt:ParticipantSharedResource>
-        <xpdExt:RestService resourceName="OpenBanking-Service"/>
-      </xpdExt:ParticipantSharedResource>
-    </xpdl2:Participant>
-    <xpdl2:Participant Id="_MC8lgN5EEeqySZ689Vlg1w" xpdExt:DisplayName="TCLAService_Consumer" Name="TCLAService_Consumer">
-      <xpdl2:ParticipantType Type="SYSTEM"/>
-      <xpdExt:ParticipantSharedResource>
-        <xpdExt:RestService resourceName="TCLA-Service"/>
-      </xpdExt:ParticipantSharedResource>
-    </xpdl2:Participant>
     <xpdl2:Participant Id="_6mNMIOFUEeqccaeM_N3TIA" xpdExt:DisplayName="LoanOfficer" Name="LoanOfficer">
       <xpdl2:ParticipantType Type="RESOURCE"/>
       <xpdl2:ExternalReference location="BankOrganization.om" namespace="http://www.tibco.com/om/1.0" xref="_THVFYNXMEeqPDptWnp5KOA"/>
