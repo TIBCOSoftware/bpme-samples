@@ -6,7 +6,8 @@
 - Creating relationships between the Organization Units
 - Creating Capabilities and Privileges and assigning it to Positions
 
-Before you start working with this sample, you can become familiar with TIBCO Business Studio by completing your First BPM Project tutorial here: https://docs.tibco.com/pub/bpme/5.0.0/doc/html/GUID-FFE072E2-7BEA-4834-BA17-23F6BCAD320A.html
+Before you start working with this sample, 
+>you can become familiar with TIBCO Business Studio by completing your First BPM Project tutorial here: https://docs.tibco.com/pub/bpme/5.0.0/doc/html/GUID-FFE072E2-7BEA-4834-BA17-23F6BCAD320A.html
 >Doc reference for Using Organisation Model: https://docs.tibco.com/pub/business-studio-bpm-edition/5.0.0/doc/html/GUID-D941356A-06A8-4293-92C5-A5EC07E27161.html
 
 Step 1: Create an Organisation Project
