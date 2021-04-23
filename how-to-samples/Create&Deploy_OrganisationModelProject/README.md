@@ -1,4 +1,4 @@
-##This sample shows you how to use TIBCO Business Studio to create and populate an Organization Model.
+## This sample shows you how to use TIBCO Business Studio to create and populate an Organization Model.
 
 This sample highlights:
 Creating an Organization Model in a new project
