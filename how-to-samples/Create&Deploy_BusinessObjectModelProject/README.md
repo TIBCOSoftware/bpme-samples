@@ -51,6 +51,7 @@ Step 5: Deploy the runtime artifact .rasc file to Admin UI
 - Creating Business Object Model Project (BOM)
 - Creating Case Data, Case Identifier and Case States
 - Deploying BOM in BPME UI Administration
+- You may import the OrderCaseModel project available in this folder in your Business Studio 5.0 version and deploy the .rasc file on Admin UI
 
 You would like to check the OrganisationModel sample and the CaseApplication sample as well as to understand the End to End flow for a Case Application where all three projects Org Model, BOM and Case Application is Deployed together.
 

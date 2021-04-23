@@ -60,6 +60,7 @@ Here we have mapped the resource - Liam from the LDAP container to the Customer 
 - Creating Organization Modeler entities using the tools in the palette,
 - Deploying Organization Unit in BPME UI Administration
 - Assigning Resources using Organization Browser in the UI
+- You may import the XYZInsurance_OrgProject available in this folder in your Business Studio 5.0 version and deploy the .rasc file on Admin UI
 
 You would like to check the BusinessObjectModel sample and the CaseApplication sample as well as to understand the End to End flow for a Case Application where all three projects Org Model, BOM and Case Application is Deployed together.
 
