@@ -10,11 +10,11 @@ Before you start working with this sample, you can become familiar with TIBCO Bu
 Doc reference for Using Organisation Model: https://docs.tibco.com/pub/business-studio-bpm-edition/5.0.0/doc/html/GUID-D941356A-06A8-4293-92C5-A5EC07E27161.html
 
 Step 1: Create an Organisation Project
-![ ](import-screenshots/OrganisationModelProject/1.png)
-![ ](import-screenshots/OrganisationModelProject/2.png)
+![ ](import-screenshots/1.JPG)
+![ ](import-screenshots/2.JPG)
 
 Step 2: Drag and Drop Organisation Unit, Position from Palette and create different working units and positions for the Organisation. Also use links to show Hierarchical and Association relationships between the units. Here Association relationship is shown between two different departments i.e. Test and Claim and Hierarchical relationship is showed with Claims sub-departments i.e. Life and Motor.
-![ ](import-screenshots/OrganisationModelProject/3.png)
+![ ](import-screenshots/3.JPG)
 
 
 
