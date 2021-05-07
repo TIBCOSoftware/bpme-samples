@@ -55,4 +55,5 @@ Step 5: Deploy the runtime artifact .rasc file to Admin UI
 
 You would like to check the OrganisationModel sample and the CaseApplication sample as well as to understand the End to End flow for a Case Application where all three projects Org Model, BOM and Case Application is Deployed together.
 
+
 **Checkout Related Video:** https://youtu.be/h_V1bkFs5tA

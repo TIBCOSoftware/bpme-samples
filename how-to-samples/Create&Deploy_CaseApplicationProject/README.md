@@ -49,6 +49,7 @@ Add a User Task ‘InputOrderDetails’ and map it to ‘CustomerServiceRepresen
 ![ ](import-screenshots/11.png)
 
 Next Add a ‘CreateOrder’ Service Task and select service type as Case Data Operations
+
 Refer doc to Create a new case Object: https://docs.tibco.com/pub/business-studio-bpm-edition/5.0.0/doc/html/GUID-609577EB-175F-4258-9E18-5C8EA6179D1A.html
 
 ![ ](import-screenshots/12.png)

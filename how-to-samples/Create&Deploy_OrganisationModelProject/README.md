@@ -64,6 +64,7 @@ Here we have mapped the resource - Liam from the LDAP container to the Customer 
 
 You would like to check the BusinessObjectModel sample and the CaseApplication sample as well as to understand the End to End flow for a Case Application where all three projects Org Model, BOM and Case Application is Deployed together.
 
+
 **Checkout Related Video:** https://youtu.be/h_V1bkFs5tA
 
 
