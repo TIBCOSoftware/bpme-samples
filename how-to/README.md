@@ -1,4 +1,4 @@
-## This 'How To' sample shows using TIBCO Business Studio to create and populate an Organization Model project, Business Object Model project and a Case Application project and how all these three projects are inter-related and can be deployed together on UI.
+## This 'How To' sample shows using TIBCO Business Studio to create and deploy an Organization Model project, Business Object Model project and a Case Application project.
 
 Let's take a look at all of these projects one by one:
 
@@ -41,6 +41,8 @@ Refer to Business Object Model project and the related readMe to create Case Dat
 # Process Model:
 TIBCO Business Studio™ - BPM Edition is used to model your business processes. A process models the business process, and forms that are used to collect user input in a user task within a business process.
 Here in this sample we have taken a Order Case scenario, the user task captures Case details and then the  service task creates case object.
+This Process project refers to the BOM's global data created in Business Object Model.
+Also the Participant assigned to the user tasks is referring to the Organisation Model mentioned abive.
 
 Refer to the Case Application Project to create and deploy the project. 
 
