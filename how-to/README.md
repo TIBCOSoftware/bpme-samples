@@ -1,8 +1,8 @@
-##This 'How To' sample shows using TIBCO Business Studio to create and populate an Organization Model project, Business Object Model project and a Case Application project and how all these three projects are inter-related and can be deployed together on UI.
+## This 'How To' sample shows using TIBCO Business Studio to create and populate an Organization Model project, Business Object Model project and a Case Application project and how all these three projects are inter-related and can be deployed together on UI.
 
 Let's take a look at all of these projects one by one:
 
-#Organisation Model:
+# Organisation Model:
 
 TIBCO BPM Enterprise provides comprehensive Work Management capabilities. Workforce management enables you to distribute and allocate work to the right resource, in the most effective way. 
 It supports flexible and independent organizational models that support the complex relationships between departments, people, systems, roles, virtual
@@ -15,7 +15,7 @@ Doc Reference: https://docs.tibco.com/pub/business-studio-bpm-edition/5.0.0/doc/
 
 Refer to Organisation Model project and the related readMe to create and deploy one.
 
-#Business Object Model (BOM):
+# Business Object Model (BOM):
 
 The BOM or the Case data is business data that is centrally managed by BPM Enterprise and can therefore be accessed and updated by multiple BPM process applications.
 Business data is structured data that contains information about real-world entities or business concepts that an organization needs to manipulate, for example: Customer, Order, Orderline, Claim or Policy.
@@ -38,7 +38,7 @@ Doc Reference Case data: https://docs.tibco.com/pub/business-studio-bpm-edition/
 
 Refer to Business Object Model project and the related readMe to create Case Data.
 
-#Process Model:
+# Process Model:
 TIBCO Business Studio™ - BPM Edition is used to model your business processes. A process models the business process, and forms that are used to collect user input in a user task within a business process.
 Here in this sample we have taken a Order Case scenario, the user task captures Case details and then the  service task creates case object.
 
