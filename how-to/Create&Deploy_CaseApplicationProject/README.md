@@ -1,4 +1,4 @@
-### Create and Deploy an Order Case Application project
+### Creating and Deploying a Case Application
 
 This sample will be using the Organisation Model Project and Business Object model Project in the How-To-samples folder. The project shows an Order case Application which shows how to fetch user details in a form and create a new Order Case for it. Using the ‘UpdateOrder’ Case Action you may update the Case details and Case States.
 
