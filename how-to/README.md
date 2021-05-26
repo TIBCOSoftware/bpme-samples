@@ -2,7 +2,7 @@
 
 Let's take a look at all of these projects one by one:
 
-# Organisation Model:
+# Organization Model:
 
 TIBCO BPM Enterprise provides comprehensive Work Management capabilities. Workforce management enables you to distribute and allocate work to the right resource, in the most effective way. 
 It supports flexible and independent organizational models that support the complex relationships between departments, people, systems, roles, virtual
