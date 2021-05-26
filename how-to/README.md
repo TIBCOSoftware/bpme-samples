@@ -1,4 +1,4 @@
-## This 'How To' sample shows using TIBCO Business Studio to create and deploy an Organization Model project, Business Object Model project and a Case Application project.
+## How to create and deploy an Organization Model, Business Object Model and a Case Application projects.
 
 Let's take a look at all of these projects one by one:
 
@@ -13,7 +13,7 @@ An Organization Unit represents resources that are associated together because t
 
 Doc Reference: https://docs.tibco.com/pub/business-studio-bpm-edition/5.0.0/doc/html/GUID-D941356A-06A8-4293-92C5-A5EC07E27161.html
 
-Refer to Organisation Model project and the related readMe to create and deploy one.
+Refer to Organisation Model project and the related readMe to create and deploy an organization model.
 
 # Business Object Model (BOM):
 
@@ -44,9 +44,9 @@ Here in this sample we have taken a Order Case scenario, the user task captures 
 This Process project refers to the BOM's global data created in Business Object Model.
 Also the Participant assigned to the user tasks is referring to the Organisation Model mentioned abive.
 
-Refer to the Case Application Project to create and deploy the project. 
+Refer to the Case Application Project to create and deploy a Case Application. 
 
-Note: While deploying the projects please always deploy in the below order:
+Note: While deploying the projects they should be deployed in the below order:
 - Orgnanisation Model .rasc
 - Business Object Model .rasc
 - Process model .rasc
