@@ -15,6 +15,7 @@ Doc Reference: https://docs.tibco.com/pub/business-studio-bpm-edition/5.0.0/doc/
 
 Refer to [Organisation Model project and the related readMe](https://github.com/TIBCOSoftware/bpme-samples/tree/master/how-to/Create%26Deploy_OrganisationModelProject) to create and deploy an organization model.
 
+
 # Business Object Model (Model and deploy Case Data):
 
 The BOM or the Case data is business data that is centrally managed by BPM Enterprise and can therefore be accessed and updated by multiple BPM process applications.
@@ -38,6 +39,7 @@ Doc Reference Case data: https://docs.tibco.com/pub/business-studio-bpm-edition/
 
 Refer to [Business Object Model project and the related readMe](https://github.com/TIBCOSoftware/bpme-samples/tree/master/how-to/Create%26Deploy_BusinessObjectModelProject) to create Case Data.
 
+
 # Process Model (Model and deploy Case Application):
 TIBCO Business Studio™ - BPM Edition is used to model your business processes. A process models the business process, and forms that are used to collect user input in a user task within a business process.
 Here in this sample we have taken a Order Case scenario, the user task captures Case details and then the  service task creates case object.
@@ -53,4 +55,6 @@ Note: While deploying the projects they should be deployed in the below order:
 
 >Before you start working with this sample, you can become familiar with TIBCO Business Studio by completing your First BPM Project tutorial here: https://docs.tibco.com/pub/bpme/5.0.0/doc/html/GUID-FFE072E2-7BEA-4834-BA17-23F6BCAD320A.html
 Doc reference for Using Organisation Model: https://docs.tibco.com/pub/business-studio-bpm-edition/5.0.0/doc/html/GUID-D941356A-06A8-4293-92C5-A5EC07E27161.html
+
+Also checkout the related [Youtube video](https://youtu.be/h_V1bkFs5tA)
 
