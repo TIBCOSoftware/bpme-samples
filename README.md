@@ -4,11 +4,11 @@
 
 This repository includes below samples focused on TIBCO BPM Enterprise capabilities, custom UI development, cloud-native deployment:
 
-1. **Loan application custom UI sample** - This sample is created for a Loan process application using Ionic Framework to show how an custom UI can be created using TIBCO BPM Enterprise. 
+1. [Loan application custom UI sample](https://github.com/TIBCOSoftware/bpme-samples/tree/master/loan-application-custom-ui-sample) - This sample is created for a Loan process application using Ionic Framework to show how an custom UI can be created using TIBCO BPM Enterprise. 
 
-2. **AWS Cloud formation template** - This sample provides Cloud formation template for EKS deployment on AWS
+2. [AWS Cloud formation template](https://github.com/TIBCOSoftware/bpme-samples/tree/master/aws-cloud-formation-template) - This sample provides Cloud formation template for EKS deployment on AWS
 
-3. [How To Sample](https://github.com/TIBCOSoftware/bpme-samples/tree/master/how-to)
+3. [How To Sample](https://github.com/TIBCOSoftware/bpme-samples/tree/master/how-to) - 
 This Sample enables the end user starting with BPM enterprise on how to create and deploy Organisation Model, Business Object Model and Process Model
 
 ## License
