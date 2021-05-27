@@ -8,7 +8,7 @@ This repository includes below samples focused on TIBCO BPM Enterprise capabilit
 
 2. **AWS Cloud formation template** - This sample provides Cloud formation template for EKS deployment on AWS
 
-3. [How To Sample] (https://github.com/TIBCOSoftware/bpme-samples/tree/master/how-to)
+3. [How To Sample](https://github.com/TIBCOSoftware/bpme-samples/tree/master/how-to)
 This Sample enables the end user starting with BPM enterprise on how to create and deploy Organisation Model, Business Object Model and Process Model
 
 ## License
