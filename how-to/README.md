@@ -13,7 +13,7 @@ An Organization Unit represents resources that are associated together because t
 
 Doc Reference: https://docs.tibco.com/pub/business-studio-bpm-edition/5.0.0/doc/html/GUID-D941356A-06A8-4293-92C5-A5EC07E27161.html
 
-Refer to Organisation Model project and the related readMe to create and deploy an organization model.
+Refer to [Organisation Model project and the related readMe](https://github.com/TIBCOSoftware/bpme-samples/tree/master/how-to/Create%26Deploy_OrganisationModelProject) to create and deploy an organization model.
 
 # Business Object Model (Model and deploy Case Data):
 
@@ -36,7 +36,7 @@ Unlike local objects, which exist only over the lifespan of a process, case obje
 Doc Reference Business data: https://docs.tibco.com/pub/business-studio-bpm-edition/5.0.0/doc/html/GUID-BCD75668-27B9-4FD1-ABBA-AB3BA94B8B50.html
 Doc Reference Case data: https://docs.tibco.com/pub/business-studio-bpm-edition/5.0.0/doc/html/GUID-014A963F-5CC8-4442-8009-E5F3B79F53AA.html
 
-Refer to Business Object Model project and the related readMe to create Case Data.
+Refer to [Business Object Model project and the related readMe](https://github.com/TIBCOSoftware/bpme-samples/tree/master/how-to/Create%26Deploy_BusinessObjectModelProject) to create Case Data.
 
 # Process Model (Model and deploy Case Application):
 TIBCO Business Studio™ - BPM Edition is used to model your business processes. A process models the business process, and forms that are used to collect user input in a user task within a business process.
@@ -44,7 +44,7 @@ Here in this sample we have taken a Order Case scenario, the user task captures 
 This Process project refers to the BOM's global data created in Business Object Model.
 Also the Participant assigned to the user tasks is referring to the Organisation Model mentioned abive.
 
-Refer to the Case Application Project to create and deploy a Case Application. 
+Refer to the [Case Application Project and related ReadMe](https://github.com/TIBCOSoftware/bpme-samples/tree/master/how-to/Create%26Deploy_CaseApplicationProject) to create and deploy a Case Application. 
 
 Note: While deploying the projects they should be deployed in the below order:
 - Orgnanisation Model .rasc
