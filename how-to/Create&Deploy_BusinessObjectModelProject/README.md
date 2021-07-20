@@ -57,3 +57,6 @@ You would like to check the OrganisationModel sample and the CaseApplication sam
 
 
 **Checkout Related Video:** https://youtu.be/h_V1bkFs5tA
+
+
+Copyright (c) 2021, TIBCO Software Inc.
