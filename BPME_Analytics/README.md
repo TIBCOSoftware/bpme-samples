@@ -9,6 +9,8 @@ This landing page which gives you an overview of the different dashboards presen
 
 Note: This is just a sample dashboard and you are encouraged to update the dashboards that suit your needs, create more analysis tabs, visualizations, add more tables, create more custom fields etc.
 
+![ ](import-screenshots/1.png)
+
 ## Operational Monitoring - Stock Analysis
 This visualization allows you to select a process, a task within that process, and its priority and then view how long it has been outstanding, whether there are any approaching SLAs (service level agreements), and what resources are working on it.
 
