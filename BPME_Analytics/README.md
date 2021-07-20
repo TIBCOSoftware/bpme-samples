@@ -56,6 +56,7 @@ There are different sources via which data can be loaded in Spotfire see the [gu
 For managing [Data connection in Spotfire Library](https://docs.tibco.com/pub/sfire-analyst/11.3.0/doc/html/en-US/TIB_sfire-analyst_UsersGuide/index.htm#t=lib%2Flib_details_on_manage_data_connections.htm) refer to this [guide](https://docs.tibco.com/pub/sfire-analyst/11.3.0/doc/html/en-US/TIB_sfire-analyst_UsersGuide/index.htm#t=lib%2Flib_how_to_work_with_data_connections_and_their_data_sources_in_the_library.htm).
 
 5. Now the data source has been added and you may replace the existing data on the tables. Select a table from the dxp file from dashboard and click on blue data loading icon
+
 ![ ](import-screenshots/2.png)
 
 6. Next click on the 3 dots loaded data and click on [Replace Data Source](https://docs.tibco.com/pub/sfire-analyst/11.3.0/doc/html/en-US/TIB_sfire-analyst_UsersGuide/index.htm#t=data%2Fdata_replacing_a_data_source.htm&rhsearch=replace&rhsyns=%20) as shown in ss below and then select the table from the new data connection created above.
@@ -67,13 +68,15 @@ For managing [Data connection in Spotfire Library](https://docs.tibco.com/pub/sf
 8. There are few tables in the dashboard which has custom columns they might have some node errors, you need to select the gear button and resolve the issue by creating or selecting the appropriate table or column [check transforming data for more details](https://docs.tibco.com/pub/sfire-analyst/11.3.0/doc/html/en-US/TIB_sfire-analyst_UsersGuide/index.htm#t=data%2Fdata_transforming_data.htm&rhsearch=replace&rhsyns=%20)
 
 eg. sc_workitem_status
+
 ![ ](import-screenshots/5.png)
+
 
 9. A default cdm_cases_view is provided in the database though you can also create your own custom view. Here in the dxp in ec_event a custom view called ‘cdm_case_states’ is created with below code. Similarly you may create your custom views for analysing case data.
 
-Eg. custom view - cdm_case_states
+  Eg. custom view - cdm_case_states
 
-SELECT c.casedata ->> 'id'::text AS case_id,
+  SELECT c.casedata ->> 'id'::text AS case_id,
 c.casedata ->> 'state'::text AS state,
 	c.creation_timestamp,
 	c.modification_timestamp,
@@ -86,6 +89,7 @@ c.casedata ->> 'state'::text AS state,
 
 
 10. To refresh the Database schema whenever new data is created follow [these steps](https://docs.tibco.com/pub/sfire-analyst/11.3.0/doc/html/en-US/TIB_sfire-analyst_UsersGuide/index.htm#t=connect%2Frefreshing_the_database_schema_in_a_data_connection.htm).
+
 
 
 
