@@ -58,3 +58,5 @@ Doc reference for Using Organisation Model: https://docs.tibco.com/pub/business-
 
 Also you may checkout the related [Youtube video](https://youtu.be/h_V1bkFs5tA)
 
+Copyright (c) 2021, TIBCO Software Inc.
+
