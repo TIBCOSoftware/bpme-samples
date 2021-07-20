@@ -30,9 +30,11 @@ This template allows you to select a Case type and then shows the case states of
 
 
 ## BPM Enterprise database tables:
-The BPM Spotfire template visualizations use the [Event Collector](https://docs.tibco.com/pub/bpme/5.0.0/doc/html/GUID-386D6A92-D8ED-4F35-9C66-89656C72DD11.html) tables of the BPM database schema. The Event Collector is a component of TIBCO BPM Enterprise. It collects and correlates data on business process events. The two tables that are mainly used by the BPM Spotfire Template visualizations are:
+The BPM Spotfire template visualizations use the [Event Collector](https://docs.tibco.com/pub/bpme/5.0.0/doc/html/GUID-386D6A92-D8ED-4F35-9C66-89656C72DD11.html) tables of the BPM database schema. The Event Collector is a component of TIBCO BPM Enterprise. It collects and correlates data on business process events. 
+The two tables that are mainly used by the BPM Spotfire Template visualizations are:
 sc_workitem_status
 sc_processinstance_status
+
 A default cdm_cases view for case data is provided in the TIBCO BPM Enterprise database that you can use in TIBCO Spotfire. You can also create your own custom views, based on the default view, if you want to visualize data for a particular case type. Check this doc link for Configuring cdm_cases View in TIBCO Spotfire. 
 
 
