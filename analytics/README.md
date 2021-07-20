@@ -1,6 +1,6 @@
 # Sample for TIBCO® BPM Enterprise Analytics Dashboard 
 
-TIBCO Spotfire® enables you to take data from the BPM database and create visualizations, for example, bar charts and scatter plots, based on the data. This enables you to quickly and easily identify trends, patterns and relationships in your data. It provides users with actionable insight on tasks, cases, and processes. When discovering a specific situation (SLAs at risk, an overload of a team etc) business users would want to act to mitigate the risk or seize the opportunity. There are several "actions" that you can do on the BPM platform using the API;  like updating Task priority, allocation task, re-assigning people to organizational units etc which will have a direct impact on the business.
+TIBCO Spotfire® enables you to fetch data from the BPM Enterprise database and create visualizations, for example, bar charts and scatter plots, based on the data. This enables you to quickly and easily identify trends, patterns and relationships in your process & case execution data. It provides users with actionable insight on tasks, cases, and processes. When discovering a specific situation (SLAs at risk, an overload of a team etc) business users would want to act to mitigate the risk or seize the opportunity. There are several "actions" that you can do on the BPM platform using the API;  like updating Task priority, allocation task, re-assigning people to organizational units etc which will have a direct impact on the business.
 
 # Dashboards
 
@@ -14,15 +14,15 @@ Note: This is just a sample dashboard and you are encouraged to update the dashb
 ## Operational Monitoring - Stock Analysis
 This visualization allows you to select a process, a task within that process, and its priority and then view how long it has been outstanding, whether there are any approaching SLAs (service level agreements), and what resources are working on it.
 
-## Operational Summary
+## Operational Monitoring- Summary
 This visualization displays a summary of all tasks from all processes. It shows the outstanding tasks, their average duration and their first SLA.
 
-## Performance Tasks
+## Performance - Tasks
 This template allows you to select a task and then displays:
 a summary of its duration
 a summary of its execution by resource and priority.
 
-## Performance Resources
+## Performance - Resources
 This template allows you to select one or more resources and a time period. It then displays what tasks those resources have been working on and the duration of those tasks.
 
 ## Case Data Analysis
