@@ -9,3 +9,8 @@ The Cloud formation templates will deploy:
 - associated security groups
 
 The procedure is described in [Using the TIBCO BPM Enterprise on Amazon Web Services Cloud Sample](../../../wiki/Using-the-TIBCO-BPM-Enterprise-on-Amazon-Web-Services-Cloud-Sample)
+
+
+
+
+Copyright (c) 2021, TIBCO Software Inc.
