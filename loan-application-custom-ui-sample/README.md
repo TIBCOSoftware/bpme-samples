@@ -13,7 +13,7 @@ This is a sample application that demonstrates how to use the BPM Enterprise to 
 
 ### Steps to Deploy the Artifacts
 
- 1. Launch the TIBCO® Business Studio.
+ 1. Launch the TIBCOÂ® Business Studio.
  2. Import the following projects
      - [BankOrganization](https://github.com/tibco/bpme-samples/tree/master/loan-application-custom-ui-sample/studio-projects/BankOrganization)
      - [LoanData](https://github.com/tibco/bpme-samples/tree/master/loan-application-custom-ui-sample/studio-projects/LoanData)
@@ -54,11 +54,11 @@ II. Loan Application
 
 This process is used to create data for the **Spondulix** application, which includes following details:
 
-· Customer details
+Â· Customer details
 
-· Loan details
+Â· Loan details
 
-· Status of the loan (Approved or Rejected)
+Â· Status of the loan (Approved or Rejected)
 
 #### *Steps to Create a Customer*
 
@@ -97,3 +97,6 @@ This process allows the customer to apply for a loan based on few criteria. For 
 **Note**: The library project (LoanLibrary) has all the custom components that are used in this loan application.
 
 For further reference on how to create a custom component, please refer to this [link](https://docs.tibco.com/pub/business-studio-bpm-edition/5.0.0/doc/html/GUID-225D4073-B2DB-4F80-B2D3-A4BAF3B9B02B.html)
+
+
+Copyright (c) 2021, TIBCO Software Inc.
