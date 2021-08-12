@@ -11,6 +11,8 @@ This repository includes below samples focused on TIBCO BPM Enterprise capabilit
 3. [How To Sample](https://github.com/TIBCOSoftware/bpme-samples/tree/master/how-to) - 
 This Sample enables the end user starting with BPM enterprise on how to create and deploy Organisation Model, Business Object Model and Process Model
 
+4. [BPME Analytics](https://github.com/TIBCOSoftware/bpme-samples/tree/master/analytics) - This TIBCO Spotfire® sample dxp enables end user to create visualizations based on the BPM Enterprise Database and provides actionable insights on the process and case execution data, which will have direct impact on the business
+
 ## License
 This repository is governed by the the license specified in the [license file](https://github.com/tibco/bpme-samples/blob/master/LICENSE.md). 
 
