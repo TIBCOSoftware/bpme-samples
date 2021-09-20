@@ -1,6 +1,6 @@
 ## Create a Custom Loan Process Application
 
-This is a sample application that demonstrates how to use the BPM Enterprise to create a custom user interface (loan process application) and design a workflow for the loan approval process
+This is a sample application that demonstrates how to use the BPM Enterprise to create a custom user interface (loan process application) and design a workflow for the loan approval process. Here is a link to the [Demo videos](https://www.youtube.com/playlist?list=PLnmoGGHHJldiGOpnxeyvjyRqzetoBWVK8) with steps to get started with it.
 
 ### Artifacts required
 - BankOrganization (Organization project)
