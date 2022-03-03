@@ -1,4 +1,4 @@
-## BPM Enterprise provides comprehensive Case Management capabilities and an OOTB Case Manager in the BPME UI. We have listed down some 5.x case management functionalities along with demos showing the same.
+## BPM Enterprise provides comprehensive Case Management capabilities and an OOTB Case Manager in the BPME UI. We have listed down some 5.x case management + other project types functionalities along with demos showing the same.
 
 Youtube Playlist is here https://www.youtube.com/playlist?list=PLnmoGGHHJldiQ8dA8447jwfXZggKfA4Jc and below are all the scenarios/videos covered:
 
