@@ -2,6 +2,9 @@
 
 Case Management feature is ideal for handling unstructured processes. Historically before Case management capability came in these processes were created using multiple conditional logic & branching and this could have multiple alternate flows which could make it very complex in nature. 
 
+![image](https://user-images.githubusercontent.com/25230499/156774728-89b98e1f-8d13-4591-b615-8f97ad193f94.png)
+
+
 **Checkout explained  Video here:** 
 
 ![ ](import-screenshots/1.png)
