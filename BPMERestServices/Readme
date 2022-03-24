@@ -1,1 +1,6 @@
 Although they seem very similar, the Pageflow and process initiate Rest service calls are actually  very different. A Pageflow represents data that is linked to a user interface that accepts inputs, outputs  and inouts. The data also have to be structured in this way. The process simply expects JSON data  payload that represents the data being passed into the process. 
+
+This section includes 3 files. 
+- The word doc explains the detail of the BW project
+- The BW project is the example of how to implement the BW Services
+- The BPM project shows outward rest service call from a BPM form
