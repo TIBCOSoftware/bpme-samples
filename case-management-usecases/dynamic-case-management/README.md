@@ -12,17 +12,17 @@ Case Management feature is ideal for handling unstructured processes. Historical
 
 So with Case management approach what has been done is it has simplified the above complexity by breaking these long branches into sub-processes and each of thsese sub-processes would represent milestones in the life of a case and which then can be managed seperately 
 
-![ ](import-screenshots/2.png)
+![ ](2.png)
 
 Each of these sub-processes can be exposed as events which can be triggered dynamically based on rules, case state change, data change etc
 And each of thsese states are managed seperately in the life cycle of complete process
 
-![ ](import-screenshots/3.png)
+![ ](3.png)
 
 
 # Case managemnet implementation methodology
  
- ![ ](import-screenshots/4.png)
+ ![ ](4.png)
 
 
 You may refer to Case Management documentation here: 
