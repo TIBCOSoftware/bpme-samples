@@ -9,6 +9,7 @@ Case Management feature is ideal for handling unstructured processes. Historical
 
 ![ ](import-screenshots/1.png)
 
+
 So with Case management approach what has been done is it has simplified the above complexity by breaking these long branches into sub-processes and each of thsese sub-processes would represent milestones in the life of a case and which then can be managed seperately 
 
 ![ ](import-screenshots/2.png)
