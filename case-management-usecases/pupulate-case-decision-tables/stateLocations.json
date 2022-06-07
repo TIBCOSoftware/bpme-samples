@@ -1,0 +1,10 @@
+{
+    "stateLocationsShemaElement": [
+{"id": "6", "state": "ACTIVE", "stateName": "COMPLETE", "stateLocation": "/sales_milestoneProcesses/Process Packages/sales_milestoneprocesses.xpdl.COMPLETE"},
+{"id": "5", "state": "ACTIVE", "stateName": "FULFILLEDORDER", "stateLocation": "/sales_milestoneProcesses/Process Packages/sales_milestoneprocesses.xpdl.FULFILLEDORDER"},
+{"id": "4", "state": "ACTIVE", "stateName": "INPROGRESSORDER", "stateLocation": "/sales_milestoneProcesses/Process Packages/sales_milestoneprocesses.xpdl.INPROGRESSORDER"},
+{"id": "3", "state": "ACTIVE", "stateName": "CONVERTTOORDER", "stateLocation": "/sales_milestoneProcesses/Process Packages/sales_milestoneprocesses.xpdl.CONVERTTOORDER"},
+{"id": "2", "state": "ACTIVE", "stateName": "INPROGRESSQUOTE", "stateLocation": "/sales_milestoneProcesses/Process Packages/sales_milestoneprocesses.xpdl.INPROGRESSQUOTE"},
+{"id": "1", "state": "ACTIVE", "stateName": "NEWQUOTE", "stateLocation": "/sales_milestoneProcesses/Process Packages/sales_milestoneprocesses.xpdl.NEWQUOTE"}
+]
+}

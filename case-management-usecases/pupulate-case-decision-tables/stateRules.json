@@ -1,0 +1,51 @@
+{
+    "stateRuleShemaElement": [{
+            "id": "6",
+            "order": 6,
+            "state": "ACTIVE",
+            "action": "1month",
+            "newState": "ARCHIVE",
+            "currentState": "COMPLETE"
+        },
+        {
+            "id": "5",
+            "order": 5,
+            "state": "ACTIVE",
+                        "action": "2month",
+            "newState": "COMPLETE",
+            "currentState": "FULFILLEDORDER"
+        },
+        {
+            "id": "4",
+            "order": 4,
+            "state": "ACTIVE",
+            "action": "2month",
+            "newState": "FULFILLEDORDER",
+            "currentState": "INPROGRESSORDER"
+        },
+        {
+            "id": "3",
+            "order": 3,
+            "state": "ACTIVE",
+            "action": "3month",
+            "newState": "INPROGRESSORDER",
+            "currentState": "CONVERTTOORDER"
+        },
+        {
+            "id": "2",
+            "order": 2,
+            "state": "ACTIVE",
+            "action": "4month",
+            "newState": "CONVERTTOORDER",
+            "currentState": "INPROGRESSQUOTE"
+        },
+        {
+            "id": "1",
+            "order": 1,
+            "state": "ACTIVE",
+            "action": "5month",
+            "newState": "INPROGRESSQUOTE",
+            "currentState": "NEWQUOTE"
+        }
+    ]
+}
