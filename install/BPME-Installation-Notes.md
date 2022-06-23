@@ -242,7 +242,7 @@ spec:
 
 Use the provided "utility" Docker image to configure the tibco-admin LDAP user:
 ```
-docker run -it --rm tibco/bpm/utility:5.2.1 utility -dbConfig url=jdbc:postgresql://<host>:<port>/bpmdb username=bpmuser password=bpmuser -setupAdminUser ldapAlias=system ldapDn='uid=admin,ou=system' displayName=Administrator
+docker run -it --rm tibco/bpm/utility:5.3.0 utility -setupAdminUser ldapAlias='System' ldapDn='UID=admin, OU=system' displayName='Administrator'
 ```
 
 ### Kubernetes yaml file
