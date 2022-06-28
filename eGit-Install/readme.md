@@ -2,9 +2,10 @@ This sections provides instructions to install the eGit Plugin into BPME Studio
 
 ## eGit Install
 ### Important:  
-Use BPM Enterprise Studio 5.2.1 and above
-Run Studio as Administrator
-There are currently a error in studio that complains that there are files in the repository that should ot be there. Sid in engineering is looking into this.
+- In BPM Enterprise Studio, make sure to change the perspective to Java or you will not see the install option in the Help meny as expected. 
+- Use BPM Enterprise Studio 5.2.1 and above
+- Run Studio as Administrator
+- There are currently a error in studio that complains that there are files in the repository that should ot be there. Sid in engineering is looking into this.
 
 1, Download Mylyn 3.20 release archive file at this link:
 https://www.eclipse.org/mylyn/downloads/archive.php
