@@ -1,0 +1,65 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bpm-deployment
+  namespace: bpm
+spec:
+  selector:
+    matchLabels:
+       app: bpm
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        # Apply this label to pods and default
+        # the Deployment label selector to this value
+        app: bpm
+        tier: backend
+    spec:
+      hostAliases:
+        - ip: 172.31.29.101
+          hostnames:
+            - "bpm-postgres"
+        - ip: 172.31.29.101
+          hostnames:
+            - "bpm-apacheds"
+      containers:
+      - name: bpm
+        # Run this image
+        image: docker.io/tibco/bpm/runtime:5.3.0
+        resources:
+          requests:
+            cpu: 200m
+        livenessProbe:
+          httpGet:
+            path: /bpm/adapter/v1/liveness
+            port: 8181
+          initialDelaySeconds: 60
+          periodSeconds: 30
+          timeoutSeconds: 2
+          successThreshold: 1
+          failureThreshold: 3
+        readinessProbe:
+          httpGet:
+            path: /bpm/adapter/v1/readiness
+            port: 8181
+          initialDelaySeconds: 60
+          periodSeconds: 30
+          timeoutSeconds: 2
+          successThreshold: 1
+          failureThreshold: 3
+        ports:
+          - containerPort: 8181
+            hostPort: 8181
+        env:
+          - name: JDBC_URL
+            value: "jdbc:postgresql://bpm-postgres:5432/postgres"
+          - name: LDAP_SYSTEM_ALIAS
+            value: "system"
+          - name: LDAP_SYSTEM_URL
+            value: "ldap://bpm-apacheds:10389/ou=system"
+        envFrom:
+          - secretRef:
+              name: bpm-secrets-db
+          - secretRef:
+              name: bpm-secrets-ldap
