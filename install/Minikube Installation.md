@@ -106,7 +106,10 @@ docker run -it --rm tibco/bpm/utility:5.3.0 utility -setupAdminUser ldapAlias=sy
 ```
 
 ## Kubernetes deployment
-The sample YAML filed provided by the server install are just that, samples. Ill share my updated files in the GitHub Samples repository. The files provided by the install of BPM Enterprise is out of date.
+The sample YAML filed provided by the server install are just that, samples. Ill share my updated files in the GitHub Samples repository. The files provided by the install of BPM Enterprise is out of date. My YAML files can be found here. 
+```
+https://github.com/TIBCOSoftware/bpme-samples/tree/master/install/BPM%20Enterprise%205.3%20YAML%20files
+```
 
 These commands will trigger the server configuration. After the bpm-ingress.yaml, the server will be started. It takes time to get the server up and running. Check the logs to see the server starting up. The bpm-deployment.yaml required the biggest changes. Parameters i needed to change was
 - apiVersion : apps/v1
