@@ -3,10 +3,12 @@
 Ubuntu is buggy and i found i had to restart the gnome shell on a regular bases.
 gnome-shell –replace
 
-Make sure minikube is started
+Make sure minikube is started before you start.
+```
 minikube start
+```
 
-Before running the bpm install, make sure you yse the same terminal to run the installs. The eval command is specific to the terminal windows you are in. and if you try and run the eval in a different terminal, you will not be using the minikube docker repo.
+Before running the bpm install, make sure you yse the same terminal to run the installs. The eval command is specific to the terminal windows you are in. If you try and run the eval in a different terminal, you will not be using the minikube docker repo.
 ```
 eval $(minikube -p minikube docker-env)
 ```
@@ -14,14 +16,11 @@ Do a docker ps to confirm you are on the miniukube docker instance
 ![ ](images/2022-07-28_08-11-32.png)
 
 
-Creating the BPM Enetrprise Schema 
-The tibco/bpm/utility is used to do this. The command is below. Prior to running this, make sure your jdbc connection is working. I use the hostname linux command to get the name for my host and port 5432 is the default postgres port
+## Creating the BPM Enetrprise Schema 
 
-```
-docker run -it --rm tibco/bpm/utility:5.3.0 utility -setupDatabase execute --verbose -dbConfig url='jdbc:postgresql://ip-172-31-29-101:5432/bpmdb' username=bpmuser password=bpmuser
-```
-For this to work i had to change my pg_hba.conf file like below. This will be different for oracle and sql.
+The tibco/bpm/utility is used to create the BPM schema in the dastabase. Prior to running utility command, make sure your jdbc connection is working. I use the hostname linux command to get the name for my host and port 5432 is the default postgres port
 
+For this to work I had to change my pg_hba.conf file like below. 
 
 ```DO NOT DISABLE!
 # If you change this first entry you will need to make sure that the
@@ -52,13 +51,17 @@ host    replication     all             ::1/128                 md5
 host	all		        all		        all		                md5
 ```
 
-Configure the LDAP Directory Server
+### Utility Command
+```
+docker run -it --rm tibco/bpm/utility:5.3.0 utility -setupDatabase execute --verbose -dbConfig url='jdbc:postgresql://ip-172-31-29-101:5432/bpmdb' username=bpmuser password=bpmuser
+```
+
+
+## Configure the LDAP Directory Server
 See this link for how to configure the security details
 ```https://kubernetes.io/docs/tasks/configmap-secret/managing-secret-using-config-file/```
 
-In the LDAP bpm-secret-ldap.yaml, to get the LDAP_SYSTEM_PRINSIPAL execute the following string and use the output in the YAML file. This is the correct value for the Apache DS downloaded form DockerHub. See this link.
-```https://hub.docker.com/r/itzg/apacheds```
-
+In the LDAP bpm-secret-ldap.yaml, to get the LDAP_SYSTEM_PRINSIPAL, execute the following string and use the output in the YAML file. This is the correct value for the Apache DS downloaded form DockerHub. See this link ```https://hub.docker.com/r/itzg/apacheds```.
 
 ```
 echo -n 'UID=admin, OU=system' | base64
@@ -71,8 +74,8 @@ Note : for running the setupAdmin utility command it is important to that you ne
 docker run -it --rm tibco/bpm/utility:5.3.0 utility -setupAdminUser ldapAlias=system ldapDn='UID=admin, OU=system' displayName=tibco-admin -dbConfig url='jdbc:postgresql://ip-172-31-29-101:5432/bpmdb' username=bpmuser password=bpmuser
 ```
 
-Kubernetes deployment
-The sample YAML filed provided by the server install are just that, samples. Ill share my updated files in the GitHub Samples repository. They are very much out dates as it is installed. 
+## Kubernetes deployment
+The sample YAML filed provided by the server install are just that, samples. Ill share my updated files in the GitHub Samples repository. The files provided by the install of BPM Enterprise is out of date.
 
 These commands will trigger the server configuration. After the bpm-ingress.yaml, the server will be started. It takes time to get the server up and running. Check the logs to see the server starting up.
 
