@@ -1,8 +1,10 @@
 # Minikube sample implementation
-I have created an AWS AMI and i'd love to share it with anyone interested. It is a clean image with no projects deployed on it.
+I have created an AWS AMI and i'd love to share it with anyone interested. It is a clean image with no projects deployed on it. It is an Ubunty 20-04 image with gnome-shell installed.
+
 Contact me on ```mmyburgh@tibco.com``` if you are interested in this ami. Also please send me comments and corrections so we can make sure we improve this document for all new users.
 
-Also please read the provided instructions in the ```CONFIG_HOME/tibco/cfgmgmt/bpm/samples/kubernetes/readme.txt```  folder in conjunction with these instructions. I felt a couple of point were assumed and that why i created this document. Hopefully this will help you getting your server up quicker than i did.
+
+Please read the provided instructions in the ```CONFIG_HOME/tibco/cfgmgmt/bpm/samples/kubernetes/readme.txt```  folder in conjunction with these instructions. I felt a couple of point were assumed and that why i created this document. Hopefully this will help you getting your server up quicker than i did.
 
 Ubuntu is buggy and i found i had to restart the gnome shell on a regular bases.
 ```
@@ -41,9 +43,9 @@ Steps to create the BPM database schema. Follow the install docs for more databa
 ![ ](images/2022-07-28_08-03-24.png)
 
 
-The tibco/bpm/utility is used to create the BPM schema in the dastabase. Prior to running utility command, make sure your jdbc connection is working. I use the hostname linux command to get the name for my host and port 5432 is the default postgres port. I used Postgress, please adjust your commands and DB url according to your database used.
+The tibco/bpm/utility is used to create the BPM schema in the dastabase. Prior to running utility command, make sure your jdbc connection is working. I use the hostname linux command to get the name for my host and port 5432 is the default postgres port. I used Postgress 13, please adjust your commands and DB url according to your database used. The image also has pgAdmin4 installed.
 
-For this to work I had to change my pg_hba.conf file like below. 
+For this to work I had to change my pg_hba.conf file like below to make sure i have the correct connectivity to the database in my environment.
 
 ```DO NOT DISABLE!
 # If you change this first entry you will need to make sure that the
@@ -74,7 +76,7 @@ host    replication     all             ::1/128                 md5
 host	all		        all		        all		                md5
 ```
 
-### Utility Command
+### Utility Command for creating the database tables
 ```
 docker run -it --rm tibco/bpm/utility:5.3.0 utility -setupDatabase execute --verbose -dbConfig url='jdbc:postgresql://ip-172-31-29-101:5432/bpmdb' username=bpmuser password=bpmuser
 ```
@@ -82,14 +84,9 @@ docker run -it --rm tibco/bpm/utility:5.3.0 utility -setupDatabase execute --ver
 
 ## Configure the LDAP Directory Server
 
-This file creates the Kubernetes secrets required to store username / password
-connection information to external LDAP systems.   This sample assumes a single
-LDAP connection to an Apache DS LDAP server (the kind used by the TIBCO BPM
-Enterprise "Developer Server" profile) thus the value for LDAP_SYSTEM_PRINCIPAL
-is "ou=system,uid=admin" and the value for LDAP_SYSTEM_CREDENTIALS is "secret".
+This section creates the Kubernetes secrets required to store username / passwordconnection information to external LDAP systems.   This sample assumes a single LDAP connection to an Apache DS LDAP server (the kind used by the TIBCO BPM Enterprise "Developer Server" profile) thus the value for the LDAP_SYSTEM_PRINCIPAL parameter is "ou=system,uid=admin" and the value for LDAP_SYSTEM_CREDENTIALS is "secret".
 
-When using secrets inside a yaml file in this way Kubernetes requires the
-secret values to be in a specific format, details of which can be found here:
+When using secrets inside a yaml file in this way Kubernetes requires the secret values to be in a specific format, details of which can be found here:
 
 See this link for how to configure the security details
 ```https://kubernetes.io/docs/tasks/configmap-secret/managing-secret-using-config-file/```
@@ -111,7 +108,11 @@ docker run -it --rm tibco/bpm/utility:5.3.0 utility -setupAdminUser ldapAlias=sy
 ## Kubernetes deployment
 The sample YAML filed provided by the server install are just that, samples. Ill share my updated files in the GitHub Samples repository. The files provided by the install of BPM Enterprise is out of date.
 
-These commands will trigger the server configuration. After the bpm-ingress.yaml, the server will be started. It takes time to get the server up and running. Check the logs to see the server starting up.
+These commands will trigger the server configuration. After the bpm-ingress.yaml, the server will be started. It takes time to get the server up and running. Check the logs to see the server starting up. The bpm-deployment.yaml required the biggest changes. Parameters i needed to change was
+- apiVersion : apps/v1
+- the image: docker.io/tibco/bpm/runtime:5.3.0
+- the host aliases and ip adresses
+- the env: JDBC and LDAP values
 
 ```
 kubectl apply -f bpm-namespace.yaml
@@ -122,9 +123,9 @@ kubectl apply -f bpm-service.yaml
 kubectl apply -f bpm-ingress.yaml
 ```
 
-To check if the server starts in the log files
+To check if the server starts in the log files. If things go wrong and you have to restart, see the Delete installation section at the bottom of this file.
 
-This first commands provides the pod name
+This first commands provides the pod name. Its important to add the --namespace flag to make sure you look at the correct location in your minikube instance
 ```
 kubectl get pods --namespace=bpm
 ```
