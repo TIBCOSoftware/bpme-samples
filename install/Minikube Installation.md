@@ -7,8 +7,9 @@ Make sure minikube is started
 minikube start
 
 Before running the bpm install, make sure you yse the same terminal to run the installs. The eval command is specific to the terminal windows you are in. and if you try and run the eval in a different terminal, you will not be using the minikube docker repo.
+```
 eval $(minikube -p minikube docker-env)
-
+```
 Do a docker ps to confirm you are on the miniukube docker instance
 ![ ](images/2022-07-28_08-11-32.png)
 
