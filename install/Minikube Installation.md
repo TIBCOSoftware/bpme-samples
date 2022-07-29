@@ -1,4 +1,4 @@
-# Minikube sample BPM Enterprise Installation
+# Minikube Sample BPM Enterprise Installation
 I have created an AWS AMI and i'd love to share it with anyone interested. It is a clean image with no projects deployed on it. It is an Ubunty 20-04 image with gnome-shell installed.
 
 Contact me on ```mmyburgh@tibco.com``` if you are interested in this ami. Also please send me comments and corrections so we can make sure we improve this document for all new users.
