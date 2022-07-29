@@ -18,6 +18,14 @@ Do a docker ps to confirm you are on the miniukube docker instance
 
 ## Creating the BPM Enetrprise Schema 
 
+Steps to create the BPM database schema.
+
+1. Create the bpm database
+```createdb bpmdb```
+2. Create the bpmuser using the provided script
+```CONFIG_HOME/tibco/cfgmgmt/bpm/database/postgres/createuser.sql```
+
+
 The tibco/bpm/utility is used to create the BPM schema in the dastabase. Prior to running utility command, make sure your jdbc connection is working. I use the hostname linux command to get the name for my host and port 5432 is the default postgres port
 
 For this to work I had to change my pg_hba.conf file like below. 
