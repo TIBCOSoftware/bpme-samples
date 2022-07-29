@@ -10,7 +10,7 @@ Before running the bpm install, make sure you yse the same terminal to run the i
 eval $(minikube -p minikube docker-env)
 
 Do a docker ps to confirm you are on the miniukube docker instance
-![ ](images/1.png)
+![ ](images/2022-07-28_08-11-32.png)
 
 
 Creating the BPM Enetrprise Schema 
