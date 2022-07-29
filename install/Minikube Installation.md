@@ -54,14 +54,17 @@ host	all		        all		        all		                md5
 
 Configure the LDAP Directory Server
 See this link for how to configure the security details
-https://kubernetes.io/docs/tasks/configmap-secret/managing-secret-using-config-file/
+```https://kubernetes.io/docs/tasks/configmap-secret/managing-secret-using-config-file/```
 
-In the LDAP bpm-secret-ldap.yaml
+In the LDAP bpm-secret-ldap.yaml, to get the LDAP_SYSTEM_PRINSIPAL execute the following string and use the output in the YAML file. This is the correct value for the Apache DS downloaded form DockerHub. See this link.
+```https://hub.docker.com/r/itzg/apacheds```
+
+
 ```
-LDAP_SYSTEM_Prinsipal
 echo -n 'UID=admin, OU=system' | base64
-VUlEPWFkbWluLCBPVT1zeXN0ZW0=
 ```
+#### Output
+VUlEPWFkbWluLCBPVT1zeXN0ZW0=
 
 Note : for running the setupAdmin utility command it is important to that you need to include the dbConfig parameter as that is what inserts the info in the database to use whjen the server starts up.
 ```
@@ -91,7 +94,7 @@ kubectl get pods --namespace=bpm
 Use the pod name in the command below
 
 ```
-kubectl logs bpm-deployment-6574466749-f5xbs --namespace=bpm
+kubectl logs <pod name> --namespace=bpm
 ```
 
 Once the server is up and running, you can see the connection details and the general server configuration.
@@ -126,7 +129,7 @@ http://192.168.49.2:8181/apps/login/index.html
 ## Restarting the AMI 
 Run these commands to get the server up after restart.
 ```
-docker run -d --name ads -p 389:10389 itzg/apacheds
+docker run -d --name apacheds -p 389:10389 itzg/apacheds
 minikube start
 eval $(minikube -p minikube docker-env)
 kubectl config set-context --current --namespace=bpm
