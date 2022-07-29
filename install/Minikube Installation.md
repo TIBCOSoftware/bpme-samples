@@ -1,18 +1,24 @@
 # Minikube sample implementation
+I have created an AWS AMI and i'd love to share it with anyone interested. It is a clean image with no projects deployed on it.
+Contact me on ```mmyburgh@tibco.com``` if you are interested in this ami.
+
+Also please read the readme.txt file in conjunction with these instructions.
 
 Ubuntu is buggy and i found i had to restart the gnome shell on a regular bases.
-gnome-shell –replace
+```
+gnome-shell --replace
+```
 
 Make sure minikube is started before you start.
 ```
 minikube start
 ```
 
-Before running the bpm install, make sure you yse the same terminal to run the installs. The eval command is specific to the terminal windows you are in. If you try and run the eval in a different terminal, you will not be using the minikube docker repo.
+Before running the bpm install, make sure you use the same terminal to execute all the install scripts. The eval command is specific to the terminal windows you are in. If you try and run the eval in a different terminal, you will not be using the minikube docker repo.
 ```
 eval $(minikube -p minikube docker-env)
 ```
-Do a docker ps to confirm you are on the miniukube docker instance
+Do a ```docker ps``` to confirm you are on the miniukube docker instance
 ![ ](images/2022-07-28_08-11-32.png)
 
 
@@ -25,8 +31,18 @@ Steps to create the BPM database schema.
 2. Create the bpmuser using the provided script
 ```CONFIG_HOME/tibco/cfgmgmt/bpm/database/postgres/createuser.sql```
 
+#### This is my database and user configuration
+![ ](images/2022-07-28_08-03-49.png) 
 
-The tibco/bpm/utility is used to create the BPM schema in the dastabase. Prior to running utility command, make sure your jdbc connection is working. I use the hostname linux command to get the name for my host and port 5432 is the default postgres port
+#### bpmuser Membership
+![ ](images/2022-07-28_08-03-33.png)
+
+#### bpmuser Privileges
+![ ](images/2022-07-28_08-03-24.png)
+
+
+
+The tibco/bpm/utility is used to create the BPM schema in the dastabase. Prior to running utility command, make sure your jdbc connection is working. I use the hostname linux command to get the name for my host and port 5432 is the default postgres port. I used Postgress, please adjust your commands and DB url according to your database used.
 
 For this to work I had to change my pg_hba.conf file like below. 
 
@@ -66,6 +82,16 @@ docker run -it --rm tibco/bpm/utility:5.3.0 utility -setupDatabase execute --ver
 
 
 ## Configure the LDAP Directory Server
+
+This file creates the Kubernetes secrets required to store username / password
+connection information to external LDAP systems.   This sample assumes a single
+LDAP connection to an Apache DS LDAP server (the kind used by the TIBCO BPM
+Enterprise "Developer Server" profile) thus the value for LDAP_SYSTEM_PRINCIPAL
+is "ou=system,uid=admin" and the value for LDAP_SYSTEM_CREDENTIALS is "secret".
+
+When using secrets inside a yaml file in this way Kubernetes requires the
+secret values to be in a specific format, details of which can be found here:
+
 See this link for how to configure the security details
 ```https://kubernetes.io/docs/tasks/configmap-secret/managing-secret-using-config-file/```
 
@@ -78,6 +104,7 @@ echo -n 'UID=admin, OU=system' | base64
 VUlEPWFkbWluLCBPVT1zeXN0ZW0=
 
 Note : for running the setupAdmin utility command it is important to that you need to include the dbConfig parameter as that is what inserts the info in the database to use whjen the server starts up.
+
 ```
 docker run -it --rm tibco/bpm/utility:5.3.0 utility -setupAdminUser ldapAlias=system ldapDn='UID=admin, OU=system' displayName=tibco-admin -dbConfig url='jdbc:postgresql://ip-172-31-29-101:5432/bpmdb' username=bpmuser password=bpmuser
 ```
