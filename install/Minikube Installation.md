@@ -99,11 +99,6 @@ Once the server is up and running, you can see the connection details and the ge
 kubectl describe service --namespace=bpm
 ```
 
-To delete the yaml’s in case something goes wrong. This command deletes the namespace on minikube and reset the environment. 
-```
-kubectl delete -f bpm-namespace.yaml
-```
-
 In my machine, after running the setup, i could not connect from the browser. I had to run the following command to open the prot. This may be a minikube issue
 
 ```
@@ -127,10 +122,19 @@ Or in my case
 ```
 http://192.168.49.2:8181/apps/login/index.html
 ```
-Restarting the AMI 
+
+## Restarting the AMI 
 Run these commands to get the server up after restart.
-minikube start
+```
 docker run -d --name ads -p 389:10389 itzg/apacheds
+minikube start
 eval $(minikube -p minikube docker-env)
 kubectl config set-context --current --namespace=bpm
 ssh -i ~/.minikube/machines/minikube/id_rsa docker@$(minikube ip) -NL \*:8181:0.0.0.0:8181
+```
+
+## Delete installation 
+To delete the yaml’s in case something goes wrong. This command deletes the namespace on minikube and reset the environment. 
+```
+kubectl delete -f bpm-namespace.yaml
+```
