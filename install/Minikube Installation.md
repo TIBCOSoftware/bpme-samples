@@ -1,8 +1,8 @@
 # Minikube sample implementation
 I have created an AWS AMI and i'd love to share it with anyone interested. It is a clean image with no projects deployed on it.
-Contact me on ```mmyburgh@tibco.com``` if you are interested in this ami.
+Contact me on ```mmyburgh@tibco.com``` if you are interested in this ami. Also please send me comments and corrections so we can make sure we improve this document for all new users.
 
-Also please read the readme.txt provided in the /samples/kubernetes folder in conjunction with these instructions.
+Also please read the provided instructions in the ```CONFIG_HOME/tibco/cfgmgmt/bpm/samples/kubernetes/readme.txt```  folder in conjunction with these instructions. I felt a couple of point were assumed and that why i created this document. Hopefully this will help you getting your server up quicker than i did.
 
 Ubuntu is buggy and i found i had to restart the gnome shell on a regular bases.
 ```
@@ -14,7 +14,7 @@ Make sure minikube is started before you start.
 minikube start
 ```
 
-Before running the bpm install, make sure you use the same terminal to execute all the install scripts. The eval command is specific to the terminal windows you are in. If you try and run the eval in a different terminal, you will not be using the minikube docker repo.
+When you install Minikube it creates a seperate docker repository to be used by minikube. Before running the bpm install, make sure you use the same terminal to execute all the install scripts or execte the eval command below in every terminal window, to make sure you use the correct docker repository.
 ```
 eval $(minikube -p minikube docker-env)
 ```
@@ -24,7 +24,7 @@ Do a ```docker ps``` to confirm you are on the miniukube docker instance
 
 ## Creating the BPM Enetrprise Schema 
 
-Steps to create the BPM database schema.
+Steps to create the BPM database schema. Follow the install docs for more database specific instructions. 
 
 1. Create the bpm database
 ```createdb bpmdb```
@@ -39,7 +39,6 @@ Steps to create the BPM database schema.
 
 #### bpmuser Privileges
 ![ ](images/2022-07-28_08-03-24.png)
-
 
 
 The tibco/bpm/utility is used to create the BPM schema in the dastabase. Prior to running utility command, make sure your jdbc connection is working. I use the hostname linux command to get the name for my host and port 5432 is the default postgres port. I used Postgress, please adjust your commands and DB url according to your database used.
