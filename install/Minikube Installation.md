@@ -2,7 +2,7 @@
 I have created an AWS AMI and i'd love to share it with anyone interested. It is a clean image with no projects deployed on it.
 Contact me on ```mmyburgh@tibco.com``` if you are interested in this ami.
 
-Also please read the readme.txt file in conjunction with these instructions.
+Also please read the readme.txt provided in the /samples/kubernetes folder in conjunction with these instructions.
 
 Ubuntu is buggy and i found i had to restart the gnome shell on a regular bases.
 ```
