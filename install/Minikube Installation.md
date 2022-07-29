@@ -1,4 +1,4 @@
-#Minikube sample implementation
+# Minikube sample implementation
 
 Ubuntu is buggy and i found i had to restart the gnome shell on a regular bases.
 gnome-shell –replace
@@ -20,7 +20,7 @@ docker run -it --rm tibco/bpm/utility:5.3.0 utility -setupDatabase execute --ver
 For this to work i had to change my pg_hba.conf file like below. This will be different for oracle and sql.
 
 
-# DO NOT DISABLE!
+```DO NOT DISABLE!
 # If you change this first entry you will need to make sure that the
 # database superuser can access the database using some other method.
 # Noninteractive access to all databases is required during automatic
@@ -47,6 +47,7 @@ local   replication     all                                     peer
 host    replication     all             127.0.0.1/32            md5
 host    replication     all             ::1/128                 md5
 host	all		        all		        all		                md5
+```
 
 Configure the LDAP Directory Server
 See this link for how to configure the security details
