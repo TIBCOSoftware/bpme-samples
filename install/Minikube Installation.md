@@ -99,6 +99,26 @@ echo -n 'UID=admin, OU=system' | base64
 #### Output
 VUlEPWFkbWluLCBPVT1zeXN0ZW0=
 
+#### Note
+Issue - LDAP DN can be > 76 characters
+
+In the script bpm_start.sh invoked from the bpme-bpme.template CF template we've got this:
+```
+export BPM_DB_USERNAME_SECRET=echo -n $BPM_DB_USERNAME | base64
+export BPM_DB_PASSWORD_SECRET=echo -n $BPM_DB_PASSWORD | base64
+export LDAP_DN_SECRET=echo -n $LDAP_DN | base64
+export LDAP_CLOUD_ADMIN_PASSWORD_SECRET=echo -n $LDAP_CLOUD_ADMIN_PASSWORD | base64
+```
+
+Cause -
+See man base64 or ```https://www.unix.com/man-page/linux/1/base64/```
+
+Solution - Use w0 flag in base64 command -
+
+```
+echo -n '' | base64 -w0
+```
+
 Note : for running the setupAdmin utility command it is important to that you need to include the dbConfig parameter as that is what inserts the info in the database to use whjen the server starts up.
 
 ```
