@@ -21,7 +21,7 @@ Server - mmyburgh-aks-storage
 Make sure you specify the correct driver for Azure SQL 
 mssql-jdbc-9.2.1.jre8.jar
 
-# Create Azure SQL database with DBAdmin user. 
+## Create Azure SQL database with DBAdmin user. 
 
 From Master DB run create db user query
 IF SUSER_ID('bpmuser') IS NULL
