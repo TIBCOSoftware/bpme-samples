@@ -1,19 +1,23 @@
-#Create Cluster on Azure
+# Azure Sample BPM Enterprise Installation
+I have created an Azure Cluster BPM Enterprise Installation and i'd love to share it with anyone interested. 
+
+Please read the provided instructions in the ```CONFIG_HOME/tibco/cfgmgmt/bpm/samples/kubernetes/readme.txt```  folder in conjunction with these instructions. I felt a couple of point were assumed and that why i created this document. Hopefully this will help you getting your server up quicker than i did.
+
+## Create Cluster on Azure
 mmyburgh-aks-cluster
 
-#Container Registry
+## Container Registry
 mikebpme
 
-#Create Outbound IP Address
+## Create Outbound IP Address
 AKSOutbountIP
 
-#Create Azure QL DB
+## Create Azure QL DB
 DB - bpm
 Server - mmyburgh-aks-storage
 
 
-
-#Setup database
+## Setup database
 Make sure you specify the correct driver for Azure SQL 
 mssql-jdbc-9.2.1.jre8.jar
 
@@ -87,8 +91,10 @@ GRANT CONTROL ON DATABASE::bpm TO bpmuser
                                                                                                                    
 docker run -it --rm tibco/bpm/utility:5.3.0 utility -setupDatabase execute --verbose -dbConfig url='jdbc:sqlserver://mmyburgh-aks-storage.database.windows.net:1433;database=bpm;user=bpmuser@mmyburgh-aks-storage;password=Tibco@123;encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30;'
 
-docker run -it --rm tibco/bpm/utility:5.3.0 utility -dbConfig url='jdbc:sqlserver://mmyburgh-aks-storage.database.windows.net:1433;database=bpm;user=bpmuser@mmyburgh-aks-storage;password=Tibco@123;encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30;' -setupAdminUser ldapAlias=system ldapDn=uid=bpm-admin,ou=system displayName=bpm-admin
+docker run -it --rm tibco/bpm/utility:5.3.0 utility -setupAdminUser ldapAlias=system ldapDn='UID=admin, OU=system' displayName=tibco-admin -dbConfig url='jdbc:sqlserver://mmyburgh-aks-storage.database.windows.net:1433;database=bpm;user=bpmuser@mmyburgh-aks-storage;password=Tibco@123;encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30;' 
 
+## Example of Minikube 
+docker run -it --rm tibco/bpm/utility:5.3.0 utility -setupAdminUser ldapAlias=system ldapDn='UID=admin, OU=system' displayName=tibco-admin -dbConfig url='jdbc:postgresql://ip-172-31-29-101:5432/bpmdb' username=bpmuser password=bpmuser
 
 echo -n bpmuser | base64
 YnBtdXNlcg==
@@ -158,7 +164,7 @@ az network public-ip create -g mmyburgh-aks-RG -n AKSOutboundIP --allocation-met
 
 
 #Get the ID of the public IP
-$PUBLIC_IP_ID=$(az network public-ip show -g mmyburgh-aks-RG -n AKSOutboundIP --query id -o tsv)
+export $PUBLIC_IP_ID=$(az network public-ip show -g mmyburgh-aks-RG -n AKSOutboundIP --query id -o tsv)
 
 #Assign outbound public IP to AKS
 az aks create --resource-group mmyburgh-aks-RG --name mmyburgh-aks-cluster --node-count 2 --generate-ssh-keys  --load-balancer-outbound-ips /subscriptions/a3ba1652-a4cd-4544-aae7-aade9b9ba26e/resourceGroups/mmyburgh-aks-RG/providers/Microsoft.Network/publicIPAddresses/AKSOutboundIP
@@ -169,12 +175,12 @@ az aks update  --resource-group mmyburgh-aks-RG  --name mmyburgh-aks-cluster  --
 #IP Address
 az network public-ip show --ids /subscriptions/a3ba1652-a4cd-4544-aae7-aade9b9ba26e/resourceGroups/mmyburgh-aks-RG/providers/Microsoft.Network/publicIPAddresses/AKSOutboundIP --query ipAddress -o tsv
 
+#Make sure the Database firewall is open to the Azure cluster IP Address
 
-Run yaml files
 
-kubectl apply -f bpm-namespace.yaml
-kubectl apply -f bpm-secrets-ldap.yaml
-kubectl apply -f bpm-secrets-db.yaml
+#Make sure the Directory server is reachable
+# Itested it with Directory Studio
+
 
 
 #Update the bpm-deployment.yaml 
@@ -189,22 +195,7 @@ env:
           - name: LDAP_SYSTEM_URL
             value: "ldap://137.135.74.160:10389/ou=system"
 
-kubectl apply -f bpm-deployment.yaml
-
-
-kubectl -n bpm get pods
-kubectl logs  -n bpm
-
-
-
-kubectl describe pod bpm-deployment-68fdfb49f8-lgxv6 -n bpm
-
-
-to delete a namespace and registry
-kubectl delete -f bpm-namespace.yaml
-
-
-Run yaml files
+#Run yaml files
 
 kubectl apply -f bpm-namespace.yaml
 kubectl apply -f bpm-secrets-ldap.yaml
@@ -212,11 +203,13 @@ kubectl apply -f bpm-secrets-db.yaml
 kubectl apply -f bpm-deployment.yaml
 
 
-    kubectl -n bpm get pods
-
+kubectl get pods -n bpm 
+kubectl logs  -n bpm
 
 kubectl describe pod bpm-deployment-68fdfb49f8-lgxv6 -n bpm
 
+#to delete a deployment and registry
+kubectl delete -f bpm-deployment.yaml
 
-to delete a namespace and registry
+#to delete a namespace and registry
 kubectl delete -f bpm-namespace.yaml
