@@ -1,7 +1,9 @@
 # Azure Sample BPM Enterprise Installation
 I have created an Azure Cluster BPM Enterprise Installation and i'd love to share it with anyone interested. 
 
-Please read the provided instructions in the ```CONFIG_HOME/tibco/cfgmgmt/bpm/samples/kubernetes/readme.txt```  folder in conjunction with these instructions. I felt a couple of point were assumed and that why i created this document. Hopefully this will help you getting your server up quicker than i did.
+Please read the provided instructions in the ```CONFIG_HOME/tibco/cfgmgmt/bpm/samples/kubernetes/readme.txt```  folder in conjunction with these instructions. You will note below that not all yaml fiels are executed. I felt a couple of point were assumed and that why i created this document. Hopefully this will help you getting your server up quicker than i did. 
+
+I created the cluster, the container registry and the database storage and database itself through the Azure web GUI.
 
 ## Create Cluster on Azure
 mmyburgh-aks-cluster
@@ -21,19 +23,21 @@ Server - mmyburgh-aks-storage
 Make sure you specify the correct driver for Azure SQL 
 mssql-jdbc-9.2.1.jre8.jar
 
+The database setup sripts are diffewrent due to the differences in Azure SQL
+
 ## Create Azure SQL database with DBAdmin user. 
 
-From Master DB run create db user query
-IF SUSER_ID('bpmuser') IS NULL
+### As admin user against the Master DB run create db user query
+```IF SUSER_ID('bpmuser') IS NULL
 CREATE LOGIN bpmuser WITH PASSWORD = 'bpmuser'
 
 IF NOT EXISTS (SELECT * FROM sys.sysdatabases WHERE name = N'bpm')
 CREATE DATABASE [bpm]
 GO
+```
 
-
-From BPM database execute these statements
-
+### As admin user against the BPM database execute these statements
+```
 ALTER DATABASE [bpm] SET AUTO_UPDATE_STATISTICS ON 
 ALTER DATABASE [bpm] SET AUTO_UPDATE_STATISTICS_ASYNC ON 
 GO
@@ -85,58 +89,71 @@ GO
 
 GRANT CONTROL ON DATABASE::bpm TO bpmuser
 
+```
 
-
-
-                                                                                                                   
+## Run the utility to configuree the database
+This command created the connection to the database for the BPM Enterprise server
+```                                                                                                                   
 docker run -it --rm tibco/bpm/utility:5.3.0 utility -setupDatabase execute --verbose -dbConfig url='jdbc:sqlserver://mmyburgh-aks-storage.database.windows.net:1433;database=bpm;user=bpmuser@mmyburgh-aks-storage;password=Tibco@123;encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30;'
-
+```
+## Run the utility to configuree the ldap settings
+This command stores the ldap settings in the database 
+```
 docker run -it --rm tibco/bpm/utility:5.3.0 utility -setupAdminUser ldapAlias=system ldapDn='UID=admin, OU=system' displayName=tibco-admin -dbConfig url='jdbc:sqlserver://mmyburgh-aks-storage.database.windows.net:1433;database=bpm;user=bpmuser@mmyburgh-aks-storage;password=Tibco@123;encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30;' 
+```
 
-## Example of Minikube 
-docker run -it --rm tibco/bpm/utility:5.3.0 utility -setupAdminUser ldapAlias=system ldapDn='UID=admin, OU=system' displayName=tibco-admin -dbConfig url='jdbc:postgresql://ip-172-31-29-101:5432/bpmdb' username=bpmuser password=bpmuser
-
+To create the secrets for the secrets yaml files use the following commands
+```
 echo -n bpmuser | base64
 YnBtdXNlcg==
 echo -n Tibco@123 | base64
 VGliY29AMTIz
+```
 
-
-
-#get az instance credentials
+To get the Azure instance credentials
+```
 az aks get-credentials --resource-group mmyburgh-aks-RG --name mmyburgh-aks-cluster
-
+```
 
 Create a registry in Azure to puch the bpme runtime too before running yaml files
+```
 az acr create --resource-group mmyburgh-aks-RG --name mikebpme --sku Standard --subscription a3ba1652-a4cd-4544-aae7-aade9b9ba26e
+```
 
-# Enable admin
-# https://docs.microsoft.com/en-us/azure/container-registry/container-registry-authentication?tabs=azure-cli#admin-account
+Update content-trust policy for an Azure Container Registry. For details see ```https://docs.microsoft.com/en-us/azure/container-registry/container-registry-authentication?tabs=azure-cli#admin-account```
+
+```
 az acr update -n mikebpme --admin-enabled true
+```
 
-# Get ACR registry username
+Get and set the environment variable for the ACR registry password and user id
+```
 $ACR_UNAME=$(az acr credential show -n mikebpme --query="username" -o tsv)
-
-# Get ACR registry password
 $ACR_PASSWD=$(az acr credential show -n mikebpme --query="passwords[0].value" -o tsv)
+```
 
-# ACR Login
+Login to the docker repo ACR Login
+```
 docker login mikebpme.azurecr.io -u $ACR_UNAME -p $ACR_PASSWD
+```
 
-#creating ther az docker image
+Tag ther az docker image installed during the BPM Enterprise install process and push BPME image to azure cluster
+```
 docker tag tibco/bpm/runtime:5.3.0 mikebpme.azurecr.io/bpm/runtime:5.3.0
-
-#puch BPME image to azure cluster
 docker push mikebpme.azurecr.io/bpm/runtime:5.3.0
+```
 
-#Create Namespace bpm
+To create BPM Namespace before creating the secret
+```
 kubectl apply -f bpm-namespace.yaml
-
-#create secret
+```
+To create secret
+```
 kubectl create secret docker-registry secret-acr --docker-server=mikebpme.azurecr.io --docker-username=mikebpme --docker-password=Ip5WbYU+5/87MvlzZgxCBCkKNH3ZIQmJ -n bpm
+```
 
 #Configure load balancer - public-svc.yaml
-
+```
 apiVersion: v1
 kind: Service
 metadata:
@@ -147,17 +164,22 @@ spec:
   - port: 80
   selector:
     app: public-app
+```
 
-
+Apply the yaml to create the load balancer 
+```
 kubectl apply -f public-svc.yaml
+```
 
 #Update load balancer
+```
 az aks update --resource-group mmyburgh-aks-RG --name mmyburgh-aks-cluster --load-balancer-managed-outbound-ip-count 2
-
-
+```
+Retrieve the Azure credentials
+```
 az aks get-credentials --resource-group mmyburgh-aks-RG --name mmyburgh-aks-cluster
 az acr create --resource-group mmyburgh-aks-RG --name mikebpme --sku Standard --subscription a3ba1652-a4cd-4544-aae7-aade9b9ba26e
-
+```
 
 #Create A public IP, SKU must be standard (In this example name of the IP is AKSOutboundIP, you can change the name)
 az network public-ip create -g mmyburgh-aks-RG -n AKSOutboundIP --allocation-method Static --sku Standard
