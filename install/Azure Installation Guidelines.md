@@ -1,7 +1,7 @@
 # Azure Sample BPM Enterprise Installation
 I have created an Azure Cluster BPM Enterprise Installation and i'd love to share it with anyone interested. 
 
-Please read the provided instructions in the ```CONFIG_HOME/tibco/cfgmgmt/bpm/samples/kubernetes/readme.txt```  folder in conjunction with these instructions. You will note below that not all yaml fiels are executed. I felt a couple of point were assumed and that why i created this document. Hopefully this will help you getting your server up quicker than i did. 
+Please read the provided instructions in the ```CONFIG_HOME/tibco/cfgmgmt/bpm/samples/kubernetes/readme.txt```  folder in conjunction with these instructions. I felt a couple of point were assumed and that why i created this document. Hopefully this will help you getting your server up quicker than i did. 
 
 I created the cluster, the container registry and the database storage and database itself through the Azure web GUI.
 
