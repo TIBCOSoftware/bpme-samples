@@ -191,27 +191,33 @@ az aks get-credentials --resource-group mmyburgh-aks-RG --name mmyburgh-aks-clus
 az acr create --resource-group mmyburgh-aks-RG --name mikebpme --sku Standard --subscription a3ba1652-a4cd-4544-aae7-aade9b9ba26e
 ```
 
-#Create A public IP, SKU must be standard (In this example name of the IP is AKSOutboundIP, you can change the name)
+Create A public IP, SKU must be standard (In this example name of the IP is AKSOutboundIP, you can change the name)
+```
 az network public-ip create -g mmyburgh-aks-RG -n AKSOutboundIP --allocation-method Static --sku Standard
+```
 
-
-#Get the ID of the public IP
+Get the ID of the public IP
+```
 export $PUBLIC_IP_ID=$(az network public-ip show -g mmyburgh-aks-RG -n AKSOutboundIP --query id -o tsv)
+```
 
-#Assign outbound public IP to AKS
+```Assign outbound public IP to AKS
 az aks create --resource-group mmyburgh-aks-RG --name mmyburgh-aks-cluster --node-count 2 --generate-ssh-keys  --load-balancer-outbound-ips /subscriptions/a3ba1652-a4cd-4544-aae7-aade9b9ba26e/resourceGroups/mmyburgh-aks-RG/providers/Microsoft.Network/publicIPAddresses/AKSOutboundIP
+```
 
-#Or Update AKS
+Or Update AKS
+```
 az aks update  --resource-group mmyburgh-aks-RG  --name mmyburgh-aks-cluster  --load-balancer-outbound-ips /subscriptions/a3ba1652-a4cd-4544-aae7-aade9b9ba26e/resourceGroups/mmyburgh-aks-RG/providers/Microsoft.Network/publicIPAddresses/AKSOutboundIP
+```
 
-#IP Address
+IP Address
+```
 az network public-ip show --ids /subscriptions/a3ba1652-a4cd-4544-aae7-aade9b9ba26e/resourceGroups/mmyburgh-aks-RG/providers/Microsoft.Network/publicIPAddresses/AKSOutboundIP --query ipAddress -o tsv
+```
+Make sure the Database firewall is open to the Azure cluster IP Address
 
-#Make sure the Database firewall is open to the Azure cluster IP Address
-
-
-#Make sure the Directory server is reachable
-# I tested it with Directory Studio
+## Make sure the Directory server is reachable
+I tested it with Directory Studio.
 
 
 ## Update the bpm-deployment.yaml 
