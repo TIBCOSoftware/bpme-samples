@@ -8,7 +8,12 @@ Please read the provided instructions in the ```CONFIG_HOME/tibco/cfgmgmt/bpm/sa
 
 Youy may have multiple subscriptions, make surte you use the correct one. These commands helps to list and set the correct subscription
 ```
+az login
 az account list --output table
+```
+Copy the desired <subscription-id>
+  
+```
 az account set --subscription <subscription-id>
 ```
 
