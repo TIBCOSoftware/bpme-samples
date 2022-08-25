@@ -125,16 +125,17 @@ To get the Azure instance credentials
 az aks get-credentials --resource-group mmyburgh-aks-RG --name mmyburgh-aks-cluster
 ```
 
-Create a registry in Azure to puch the bpme runtime too before running yaml files
+Create a registry in Azure to push the bpme runtime too before running yaml files
 ```
 az acr create --resource-group mmyburgh-aks-RG --name mikebpme --sku Standard --subscription a3ba1652-a4cd-4544-aae7-aade9b9ba26e
 ```
 
-Update content-trust policy for an Azure Container Registry. For details see ```https://docs.microsoft.com/en-us/azure/container-registry/container-registry-authentication?tabs=azure-cli#admin-account```
+Update content-trust policy for an Azure Container Registry
 
 Enable admin and login to docker to allow the tagging å push of the docer image to azure
 First get the Get ACR registry username & ACR registry password
-```https://docs.microsoft.com/en-us/azure/container-registry/container-registry-authentication?tabs=azure-cli#admin-account```
+```
+https://docs.microsoft.com/en-us/azure/container-registry/container-registry-authentication?tabs=azure-cli#admin-account```
 
 ```
 az acr update -n mikebpme --admin-enabled true
