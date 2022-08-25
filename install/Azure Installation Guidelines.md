@@ -214,9 +214,8 @@ az network public-ip show --ids /subscriptions/a3ba1652-a4cd-4544-aae7-aade9b9ba
 # I tested it with Directory Studio
 
 
-
-#Update the bpm-deployment.yaml 
-#if you dont use postgres, you need to add the driver class you will be using 
+## Update the bpm-deployment.yaml 
+If you dont use postgres, you need to add the driver class you will be using 
 refer to this link for details ```https://docs.tibco.com/pub/bpme/5.3.0/doc/html/installation/create-a-kubernetes-deployment.htm```
 e.g.
 ```
@@ -230,21 +229,27 @@ env:
           - name: LDAP_SYSTEM_URL
             value: "ldap://137.135.74.160:10389/ou=system"
 ```
-#Run yaml files
 
+# Run yaml files
+```
 kubectl apply -f bpm-namespace.yaml
 kubectl apply -f bpm-secrets-ldap.yaml
 kubectl apply -f bpm-secrets-db.yaml
 kubectl apply -f bpm-deployment.yaml
+```
 
-
+Check if the deployment is successful
+```
 kubectl get pods -n bpm 
-kubectl logs  -n bpm
+kubectl logs  <pod id> -n bpm
+kubectl describe <pod id> -n bpm
+```
 
-kubectl describe pod bpm-deployment-68fdfb49f8-lgxv6 -n bpm
-
-#to delete a deployment and registry
+If something went wrong, to delete a deployment and registry
+```
 kubectl delete -f bpm-deployment.yaml
-
-#to delete a namespace and registry
+```
+or to delete the entire namespace and do it all from scratch
+```
 kubectl delete -f bpm-namespace.yaml
+```
