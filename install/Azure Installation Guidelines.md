@@ -1,3 +1,6 @@
+# WORK IN PROGRESS
+There are my notes so far. There are still a lot of changes and updates that needs to be made.
+
 # Azure Sample BPM Enterprise Installation
 I have created an Azure Cluster BPM Enterprise Installation and i'd love to share it with anyone interested. 
 
