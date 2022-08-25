@@ -177,11 +177,6 @@ kubectl apply -f public-svc.yaml
 ```
 az aks update --resource-group mmyburgh-aks-RG --name mmyburgh-aks-cluster --load-balancer-managed-outbound-ip-count 2
 ```
-Retrieve the Azure credentials
-```
-az aks get-credentials --resource-group mmyburgh-aks-RG --name mmyburgh-aks-cluster
-az acr create --resource-group mmyburgh-aks-RG --name mikebpme --sku Standard --subscription a3ba1652-a4cd-4544-aae7-aade9b9ba26e
-```
 
 Create A public IP, SKU must be standard (In this example name of the IP is AKSOutboundIP, you can change the name)
 ```
