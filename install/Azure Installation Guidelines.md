@@ -6,6 +6,13 @@ I have created an Azure Cluster BPM Enterprise Installation and i'd love to shar
 
 Please read the provided instructions in the ```CONFIG_HOME/tibco/cfgmgmt/bpm/samples/kubernetes/readme.txt```  folder in conjunction with these instructions. I felt a couple of point were assumed and that why i created this document. Hopefully this will help you getting your server up quicker than i did. 
 
+Youy may have multiple subscriptions, make surte you use the correct one. These commands helps to list and set the correct subscription
+```
+az account list --output table
+az account set --subscription <subscription-id>
+```
+
+
 I created the cluster, the container registry and the database storage and database itself through the Azure web GUI.
 
 ## Create Cluster on Azure
