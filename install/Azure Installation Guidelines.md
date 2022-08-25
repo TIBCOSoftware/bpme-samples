@@ -132,22 +132,18 @@ az acr create --resource-group mmyburgh-aks-RG --name mikebpme --sku Standard --
 
 Update content-trust policy for an Azure Container Registry. For details see ```https://docs.microsoft.com/en-us/azure/container-registry/container-registry-authentication?tabs=azure-cli#admin-account```
 
+Enable admin and login to docker to allow the tagging å push of the docer image to azure
+First get the Get ACR registry username & ACR registry password
+```https://docs.microsoft.com/en-us/azure/container-registry/container-registry-authentication?tabs=azure-cli#admin-account```
+
 ```
 az acr update -n mikebpme --admin-enabled true
-```
-
-Get and set the environment variable for the ACR registry password and user id
-```
 $ACR_UNAME=$(az acr credential show -n mikebpme --query="username" -o tsv)
 $ACR_PASSWD=$(az acr credential show -n mikebpme --query="passwords[0].value" -o tsv)
-```
-
-Login to the docker repo ACR Login
-```
 docker login mikebpme.azurecr.io -u $ACR_UNAME -p $ACR_PASSWD
 ```
 
-Tag ther az docker image installed during the BPM Enterprise install process and push BPME image to azure cluster
+Tag the az docker image installed during the BPM Enterprise install process and push BPME image to azure cluster
 ```
 docker tag tibco/bpm/runtime:5.3.0 mikebpme.azurecr.io/bpm/runtime:5.3.0
 docker push mikebpme.azurecr.io/bpm/runtime:5.3.0
