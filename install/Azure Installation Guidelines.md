@@ -183,12 +183,9 @@ Create A public IP, SKU must be standard (In this example name of the IP is AKSO
 az network public-ip create -g mmyburgh-aks-RG -n AKSOutboundIP --allocation-method Static --sku Standard
 ```
 
-Get the ID of the public IP
+Get the ID of the public IP & Assign outbound public IP to AKS
 ```
 export $PUBLIC_IP_ID=$(az network public-ip show -g mmyburgh-aks-RG -n AKSOutboundIP --query id -o tsv)
-```
-
-```Assign outbound public IP to AKS
 az aks create --resource-group mmyburgh-aks-RG --name mmyburgh-aks-cluster --node-count 2 --generate-ssh-keys  --load-balancer-outbound-ips /subscriptions/a3ba1652-a4cd-4544-aae7-aade9b9ba26e/resourceGroups/mmyburgh-aks-RG/providers/Microsoft.Network/publicIPAddresses/AKSOutboundIP
 ```
 
