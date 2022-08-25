@@ -211,12 +211,15 @@ az network public-ip show --ids /subscriptions/a3ba1652-a4cd-4544-aae7-aade9b9ba
 
 
 #Make sure the Directory server is reachable
-# Itested it with Directory Studio
+# I tested it with Directory Studio
 
 
 
 #Update the bpm-deployment.yaml 
-#if you dont use postgres, you need to add the driver class you will be using e.g.
+#if you dont use postgres, you need to add the driver class you will be using 
+refer to this link for details ```https://docs.tibco.com/pub/bpme/5.3.0/doc/html/installation/create-a-kubernetes-deployment.htm```
+e.g.
+```
 env:
           - name: JDBC_DRIVERCLASS
             value: com.microsoft.sqlserver.jdbc.SQLServerDriver
@@ -226,7 +229,7 @@ env:
             value: "system"
           - name: LDAP_SYSTEM_URL
             value: "ldap://137.135.74.160:10389/ou=system"
-
+```
 #Run yaml files
 
 kubectl apply -f bpm-namespace.yaml
