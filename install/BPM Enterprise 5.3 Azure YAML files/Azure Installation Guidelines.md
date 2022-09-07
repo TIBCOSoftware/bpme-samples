@@ -21,18 +21,16 @@ az account set --subscription <subscription-id>
 I created the cluster, the container registry and the database storage and database itself through the Azure web GUI.
 
 ## Create Cluster on Azure
-mmyburgh-aks-cluster
+<CLUSTERNAME> e.g.mmyburgh-aks-cluster
 
 ## Container Registry
-mikebpme
+Thius registry containsthe docker containers installed by the BPM Enterprise installer. It is all lower case - e.g. mikebpme
 
 ## Create Outbound IP Address
-AKSOutbountIP
+<AKSOutboundIP> - Used to configure port access to the LDAP server if it is on a Azure instance, like it was in my case.
 
 ## Create Azure QL DB
-DB - bpm
-Server - mmyburgh-aks-storage
-
+Create a Azure SQL database with the name "bpm". The creation will also create a SQL instance, mine is called - mmyburgh-aks-storage
 
 ## Setup database
 Make sure you specify the correct driver for Azure SQL 
