@@ -125,6 +125,10 @@ echo -n Tibco@123 | base64
 VGliY29AMTIz
 ```
 
+Make sure your ldap can receive the call from the BPME server. This means you will have to open the incomming port 10389 needs to be able to receive the Outbound cluster IP address. You will have to configure an outbound ip adress for the bpm cluster running the BPM Enterprise server.
+
+## Configure the Azure instance credentials  
+  
 To get the Azure instance credentials & Create a registry in Azure to push the bpme runtime too before running yaml files
 ```
 az aks get-credentials --resource-group mmyburgh-aks-RG --name mmyburgh-aks-cluster
