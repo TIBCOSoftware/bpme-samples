@@ -1,0 +1,1 @@
+All Azure Install assets
