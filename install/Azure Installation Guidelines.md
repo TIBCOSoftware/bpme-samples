@@ -239,7 +239,18 @@ kubectl get pods -n bpm
 kubectl logs  <pod id> -n bpm
 kubectl describe <pod id> -n bpm
 ```
-
+To login, you will have to do one of 2 things.
+  1. Configure ingress with a load balancer : I will not explain this in this document as it requires knowledge of securing the load balancer that is very important to keep your environment safe.
+  2. Do a port forward of the service to allow you to login : Execute the following command and then login to the server from the browser.
+  ```
+  kubectl port-forward service/bpm-service 8181:8181 -n bpm
+  ```
+  Login to the server
+  ```
+  http://localhost:8181/apps/login/index.html
+  ```
+  
+  
 If something went wrong, to delete a deployment and registry
 ```
 kubectl delete -f bpm-deployment.yaml
