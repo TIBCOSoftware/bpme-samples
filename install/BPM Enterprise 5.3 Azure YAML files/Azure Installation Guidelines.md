@@ -165,7 +165,7 @@ To create secret
 kubectl create secret docker-registry secret-acr --docker-server=mikebpme.azurecr.io --docker-username=mikebpme --docker-password=Ip5WbYU+5/87MvlzZgxCBCkKNH3ZIQmJ -n bpm
 ```
 
-#Configure load balancer - public-svc.yaml
+## Configure load balancer - public-svc.yaml (Only if you want to expose the server publically)
 ```
 apiVersion: v1
 kind: Service
@@ -184,7 +184,7 @@ Apply the yaml to create the load balancer
 kubectl apply -f public-svc.yaml
 ```
 
-#Update load balancer
+### Update load balancer
 ```
 az aks update --resource-group mmyburgh-aks-RG --name mmyburgh-aks-cluster --load-balancer-managed-outbound-ip-count 2
 ```
