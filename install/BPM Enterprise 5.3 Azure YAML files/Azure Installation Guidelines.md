@@ -21,15 +21,16 @@ az account set --subscription <subscription-id>
 I created the cluster, the container registry and the database storage and database itself through the Azure web GUI.
 
 ## Create Cluster on Azure
-<CLUSTERNAME> e.g.mmyburgh-aks-cluster
+  
+e.g. mmyburgh-aks-cluster
 
 ## Container Registry
 Thius registry containsthe docker containers installed by the BPM Enterprise installer. It is all lower case - e.g. mikebpme
 
 ## Create Outbound IP Address
-<AKSOutboundIP> - Used to configure port access to the LDAP server if it is on a Azure instance, like it was in my case.
+AKSOutboundIP - Used to configure port access to the LDAP server if it is on a Azure instance, like it was in my case.
 
-## Create Azure QL DB
+## Create Azure SQL DB
 Create a Azure SQL database with the name "bpm". The creation will also create a SQL instance, mine is called - mmyburgh-aks-storage
 
 ## Setup database
@@ -50,6 +51,9 @@ GO
 ```
 
 ### As admin user against the BPM database execute these statements
+
+You may get one error in executing this script. I ignored it and never had a problem.
+  
 ```
 ALTER DATABASE [bpm] SET AUTO_UPDATE_STATISTICS ON 
 ALTER DATABASE [bpm] SET AUTO_UPDATE_STATISTICS_ASYNC ON 
@@ -133,7 +137,7 @@ az aks get-credentials --resource-group mmyburgh-aks-RG --name mmyburgh-aks-clus
 az acr create --resource-group mmyburgh-aks-RG --name mikebpme --sku Standard --subscription a3ba1652-a4cd-4544-aae7-aade9b9ba26e
 ```
 
-Update content-trust policy for an Azure Container Registry
+## Update content-trust policy for an Azure Container Registry
 
 Enable admin and login to docker to allow the tagging å push of the docer image to azure
 First get the Get ACR registry username & ACR registry password
@@ -207,7 +211,7 @@ az network public-ip show --ids /subscriptions/a3ba1652-a4cd-4544-aae7-aade9b9ba
 ```
 Make sure the Database firewall is open to the Azure cluster IP Address
 
-## Make sure the Directory server is reachable
+## Make sure the Apache Directory Server is reachable
 I tested it with Directory Studio.
 
 
