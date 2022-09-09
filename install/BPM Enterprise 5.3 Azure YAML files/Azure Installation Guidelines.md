@@ -158,10 +158,10 @@ Create BPM Namespace before creating the secret
 kubectl apply -f bpm-namespace.yaml
 ```
 
-To create secret that is used in the bpm-deployment.yaml file execute the following line. The last line of the yaml should include the secret name "secret-acr"
+To create secret that is used in the bpm-deployment.yaml file execute the following line. The last line of the yaml should include the secret name "secret-bpme-acr". Tghis secret gived the deployment access rights to pull the docker container to deploy it. If you get an error unable to pull, then this could be a problem.
   
 ```
-kubectl create secret docker-registry secret-acr --docker-server=bpmecr.azurecr.io --docker-username=mikebpme --docker-password=Ip5WbYU+5/87MvlzZgxCBCkKNH3ZIQmJ -n bpm
+kubectl create secret docker-registry secret-bpme-acr --docker-server=bpmecr.azurecr.io --docker-username=mikebpme --docker-password=Ip5WbYU+5/87MvlzZgxCBCkKNH3ZIQmJ -n bpm
 ```
 
 ## Configure load balancer - public-svc.yaml (Optional - Only if you want to expose the server publically)
