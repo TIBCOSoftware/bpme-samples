@@ -55,11 +55,15 @@ spec:
           - name: JDBC_DRIVERCLASS
             value: com.microsoft.sqlserver.jdbc.SQLServerDriver
           - name: JDBC_URL
-            value: "jdbc:sqlserver://mpm-bpme-storage.database.windows.net:1433;database=bpm"
+            value: "jdbc:sqlserver://mmyburgh-aks-storage.database.windows.net:1433;database=bpm"
           - name: LDAP_SYSTEM_ALIAS
             value: "system"
           - name: LDAP_SYSTEM_URL
             value: "ldap://137.135.74.160:10389/ou=system"
+          - name: LDAP_EASYAS_ALIAS
+            value: "easyAs"
+          - name: LDAP_EASYAS_URL
+            value: "ldap://bpm-apacheds:10389/o=easyAsInsurance" 
         envFrom:
           - secretRef:
               name: bpm-secrets-db
