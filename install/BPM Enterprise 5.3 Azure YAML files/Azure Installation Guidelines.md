@@ -1,12 +1,10 @@
 # WORK IN PROGRESS
-There are my notes so far. There are still a lot of changes and updates that needs to be made.
+I have completed a successfull installation using the instractions below. Im working on testing these out, but would appreciate any feedback.
 
 # Azure Sample BPM Enterprise Installation
-I have created an Azure Cluster BPM Enterprise Installation and i'd love to share it with anyone interested. 
+Please read the provided instructions in the ```CONFIG_HOME/tibco/cfgmgmt/bpm/samples/kubernetes/readme.txt```  folder in conjunction with these instructions. I felt a couple of point were assumed and that why i created this document. Hopefully this will help you getting your server up quicker than i did. I shared my Yaml files as the provided samples were slightly different from what is provided with installation binaries.
 
-Please read the provided instructions in the ```CONFIG_HOME/tibco/cfgmgmt/bpm/samples/kubernetes/readme.txt```  folder in conjunction with these instructions. I felt a couple of point were assumed and that why i created this document. Hopefully this will help you getting your server up quicker than i did. 
-
-Youy may have multiple subscriptions, make surte you use the correct one. These commands helps to list and set the correct subscription
+Youy may have multiple Azure subscriptions, make sure you use the correct one. These commands helps to list and set the correct subscription
 ```
 az login
 az account list --output table
@@ -17,29 +15,28 @@ Copy the desired <subscription-id>
 az account set --subscription <subscription-id>
 ```
 
-
 I created the cluster, the container registry and the database storage and database itself through the Azure web GUI.
 
 ## Create Cluster on Azure
   
-e.g. mmyburgh-aks-cluster
+e.g. bpme-aks-cluster
 
 ## Container Registry
-Thius registry containsthe docker containers installed by the BPM Enterprise installer. It is all lower case - e.g. mikebpme
+This registry will contain the docker containers installed by the BPM Enterprise installer. The name should be all lower case - e.g. bpmecr
 
-## Create Outbound IP Address
+## Create Outbound IP Address (Optional)
 AKSOutboundIP - Used to configure port access to the LDAP server if it is on a Azure instance, like it was in my case.
 
 ## Create Azure SQL DB
-Create a Azure SQL database with the name "bpm". The creation will also create a SQL instance, mine is called - mmyburgh-aks-storage
+Create a Azure SQL database with the name "bpm". The creation will also create a SQL instance, mine is called - bpme-aks-storage
 
 ## Setup database
 Make sure you specify the correct driver for Azure SQL 
 mssql-jdbc-9.2.1.jre8.jar
 
-The database setup sripts are diffewrent due to the differences in Azure SQL
+The database setup sripts are diffewrent due to the differences in Azure SQL fdrom SQL Server
 
-## Create Azure SQL database with DBAdmin user. 
+## Create Azure SQL database with a DBAdmin user. 
 
 ### As admin user against the Master DB run create db user query
 ```IF SUSER_ID('bpmuser') IS NULL
@@ -108,15 +105,15 @@ GRANT CONTROL ON DATABASE::bpm TO bpmuser
 
 ```
 
-## Run the utility to configuree the database
-This command created the connection to the database for the BPM Enterprise server
+## Run the utility to configure the database
+This command creates the connection to the database for the BPM Enterprise server
 ```                                                                                                                   
-docker run -it --rm tibco/bpm/utility:5.3.0 utility -setupDatabase execute --verbose -dbConfig url='jdbc:sqlserver://mmyburgh-aks-storage.database.windows.net:1433;database=bpm;user=bpmuser@mmyburgh-aks-storage;password=Tibco@123;encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30;'
+docker run -it --rm tibco/bpm/utility:5.3.0 utility -setupDatabase execute --verbose -dbConfig url='jdbc:sqlserver://bpme-aks-storage.database.windows.net:1433;database=bpm;user=bpmuser@bbpme-aks-storage;password=Tibco@123;encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30;'
 ```
 ## Run the utility to configuree the ldap settings
-This command stores the ldap settings in the database 
+This command stores the ldap settings in the bpm database 
 ```
-docker run -it --rm tibco/bpm/utility:5.3.0 utility -setupAdminUser ldapAlias=system ldapDn='UID=admin, OU=system' displayName=tibco-admin -dbConfig url='jdbc:sqlserver://mmyburgh-aks-storage.database.windows.net:1433;database=bpm;user=bpmuser@mmyburgh-aks-storage;password=Tibco@123;encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30;' 
+docker run -it --rm tibco/bpm/utility:5.3.0 utility -setupAdminUser ldapAlias=system ldapDn='UID=admin, OU=system' displayName=tibco-admin -dbConfig url='jdbc:sqlserver://bpme-aks-storage.database.windows.net:1433;database=bpm;user=bpmuser@bpme-aks-storage;password=Tibco@123;encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30;' 
 ```
 
 To create the secrets for the secrets yaml files use the following commands
@@ -131,10 +128,10 @@ Make sure your ldap can receive the call from the BPME server. This means you wi
 
 ## Configure the Azure instance credentials  
   
-To get the Azure instance credentials & Create a registry in Azure to push the bpme runtime too before running yaml files
+This command gets the Azure instance credentials & create a registry in Azure. This is to push the bpme runtime container to, before running yaml the files
 ```
-az aks get-credentials --resource-group mmyburgh-aks-RG --name mmyburgh-aks-cluster
-az acr create --resource-group mmyburgh-aks-RG --name mikebpme --sku Standard --subscription a3ba1652-a4cd-4544-aae7-aade9b9ba26e
+az aks get-credentials --resource-group bpme-aks-RG --name bpme-aks-cluster
+az acr create --resource-group bpme-aks-RG --name bpmecr --sku Standard --subscription a3ba1652-a4cd-4544-aae7-aade9b9ba26e
 ```
 
 ## Update content-trust policy for an Azure Container Registry
