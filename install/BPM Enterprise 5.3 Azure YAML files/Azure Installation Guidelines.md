@@ -236,10 +236,11 @@ env:
 
 # Run yaml files
 ```
-kubectl apply -f bpm-namespace.yaml
+kubectl apply -f bpm-namespace.yaml - This file was already executed earlier
 kubectl apply -f bpm-secrets-ldap.yaml
 kubectl apply -f bpm-secrets-db.yaml
 kubectl apply -f bpm-deployment.yaml
+kubectl apply -f bpm-service.yaml
 ```
 
 Check if the deployment is successful
