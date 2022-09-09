@@ -201,12 +201,12 @@ az aks create --resource-group mmyburgh-aks-RG --name mmyburgh-aks-cluster --nod
 
 Or Update AKS
 ```
-az aks update  --resource-group mmyburgh-aks-RG  --name mmyburgh-aks-cluster  --load-balancer-outbound-ips /subscriptions/a3ba1652-a4cd-4544-aae7-aade9b9ba26e/resourceGroups/mmyburgh-aks-RG/providers/Microsoft.Network/publicIPAddresses/AKSOutboundIP
+az aks update  --resource-group bpme-aks-RG  --name bpme-aks-cluster  --load-balancer-outbound-ips /subscriptions/a3ba1652-a4cd-4544-aae7-aade9b9ba26e/resourceGroups/mmyburgh-aks-RG/providers/Microsoft.Network/publicIPAddresses/AKSOutboundIP
 ```
 
 IP Address
 ```
-az network public-ip show --ids /subscriptions/a3ba1652-a4cd-4544-aae7-aade9b9ba26e/resourceGroups/mmyburgh-aks-RG/providers/Microsoft.Network/publicIPAddresses/AKSOutboundIP --query ipAddress -o tsv
+az network public-ip show --ids /subscriptions/a3ba1652-a4cd-4544-aae7-aade9b9ba26e/resourceGroups/bpme-aks-RG/providers/Microsoft.Network/publicIPAddresses/AKSOutboundIP --query ipAddress -o tsv
 ```
 Make sure the Database firewall is open to the Azure cluster IP Address
 
@@ -215,7 +215,7 @@ I tested it with Directory Studio.
 
 
 ## Update the bpm-deployment.yaml 
-If you dont use postgres, you need to add the driver class you will be using 
+If you don't use postgres, you need to add the driver class you will be using 
 refer to this link for details ```https://docs.tibco.com/pub/bpme/5.3.0/doc/html/installation/create-a-kubernetes-deployment.htm```
 e.g.
 ```
@@ -228,6 +228,10 @@ env:
             value: "system"
           - name: LDAP_SYSTEM_URL
             value: "ldap://137.135.74.160:10389/ou=system"
+          - name: LDAP_EASYAS_ALIAS
+            value: "easyAs"
+          - name: LDAP_EASYAS_URL
+            value: "ldap://bpm-apacheds:10389/o=easyAsInsurance" 
 ```
 
 # Run yaml files
