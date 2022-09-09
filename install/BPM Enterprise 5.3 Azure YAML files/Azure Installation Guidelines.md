@@ -137,32 +137,34 @@ az acr create --resource-group bpme-aks-RG --name bpmecr --sku Standard --subscr
 ## Update content-trust policy for an Azure Container Registry
 
 Enable admin and login to docker to allow the tagging å push of the docer image to azure
-First get the Get ACR registry username & ACR registry password
+First get the Get ACR registry username & ACR registry password. See this link for more information.
 ```https://docs.microsoft.com/en-us/azure/container-registry/container-registry-authentication?tabs=azure-cli#admin-account```
 
 ```
-az acr update -n mikebpme --admin-enabled true
-$ACR_UNAME=$(az acr credential show -n mikebpme --query="username" -o tsv)
-$ACR_PASSWD=$(az acr credential show -n mikebpme --query="passwords[0].value" -o tsv)
-docker login mikebpme.azurecr.io -u $ACR_UNAME -p $ACR_PASSWD
+az acr update -n bpmecr --admin-enabled true
+$ACR_UNAME=$(az acr credential show -n bpmecr --query="username" -o tsv)
+$ACR_PASSWD=$(az acr credential show -n bpmecr --query="passwords[0].value" -o tsv)
+docker login bpmecr.azurecr.io -u $ACR_UNAME -p $ACR_PASSWD
 ```
 
 Tag the az docker image installed during the BPM Enterprise install process and push BPME image to azure cluster
 ```
-docker tag tibco/bpm/runtime:5.3.0 mikebpme.azurecr.io/bpm/runtime:5.3.0
-docker push mikebpme.azurecr.io/bpm/runtime:5.3.0
+docker tag tibco/bpm/runtime:5.3.0 bpmecr.azurecr.io/bpm/runtime:5.3.0
+docker push bpmecr.azurecr.io/bpm/runtime:5.3.0
 ```
 
-To create BPM Namespace before creating the secret
+Create BPM Namespace before creating the secret
 ```
 kubectl apply -f bpm-namespace.yaml
 ```
-To create secret
+
+To create secret that is used in the bpm-deployment.yaml file execute the following line. The last line of the yaml should include the secret name - secret-acr
+  
 ```
-kubectl create secret docker-registry secret-acr --docker-server=mikebpme.azurecr.io --docker-username=mikebpme --docker-password=Ip5WbYU+5/87MvlzZgxCBCkKNH3ZIQmJ -n bpm
+kubectl create secret docker-registry secret-acr --docker-server=bpmecr.azurecr.io --docker-username=mikebpme --docker-password=Ip5WbYU+5/87MvlzZgxCBCkKNH3ZIQmJ -n bpm
 ```
 
-## Configure load balancer - public-svc.yaml (Only if you want to expose the server publically)
+## Configure load balancer - public-svc.yaml (Optional - Only if you want to expose the server publically)
 ```
 apiVersion: v1
 kind: Service
