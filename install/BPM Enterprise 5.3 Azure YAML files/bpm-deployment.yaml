@@ -66,4 +66,4 @@ spec:
           - secretRef:
               name: bpm-secrets-ldap            
       imagePullSecrets:
-      - name: secret-bpm-acr
+      - name: secret-bpme-acr
