@@ -19,7 +19,7 @@ spec:
       hostAliases:
         - ip: "40.78.225.32"
           hostnames:
-            - "bpm-postgres"
+            - "bpm-sql"
         - ip: "137.135.74.160"
           hostnames:
             - "bpm-apacheds"
@@ -55,7 +55,7 @@ spec:
           - name: JDBC_DRIVERCLASS
             value: com.microsoft.sqlserver.jdbc.SQLServerDriver
           - name: JDBC_URL
-            value: "jdbc:sqlserver://mmyburgh-aks-storage.database.windows.net:1433;database=bpm"
+            value: "jdbc:sqlserver://bpme-aks-storage.database.windows.net:1433;database=bpm"
           - name: LDAP_SYSTEM_ALIAS
             value: "system"
           - name: LDAP_SYSTEM_URL
