@@ -63,7 +63,7 @@ spec:
           - name: LDAP_EASYAS_ALIAS
             value: "easyAs"
           - name: LDAP_EASYAS_URL
-            value: "ldap://bpm-apacheds:10389/o=easyAsInsurance" 
+            value: "ldap://137.135.74.160:10389/o=easyAsInsurance" 
         envFrom:
           - secretRef:
               name: bpm-secrets-db
