@@ -126,6 +126,12 @@ VGliY29AMTIz
 
 Make sure your ldap can receive the call from the BPME server. This means you will have to open the incomming port 10389 needs to be able to receive the Outbound cluster IP address. You will have to configure an outbound ip adress for the bpm cluster running the BPM Enterprise server.
 
+Note : “&” is being treated like a variable. On the principal, it got replaced by __PRINCIPAL__. So to avoid that, we need to introduce the escape character (\) and also since it is an xml file, the & would need to be &amp;.
+ 
+So if your scring looks like this ```CN=tibco_ldap_user,OU=Application Admins,OU=Guest & App & Shared Logins,DC=incomeresearch,DC=com```  
+
+You will need to change the string into: ```CN=tibco_ldap_user,OU=Application Admins,OU=Guest \&amp; App \&amp; Shared Logins,DC=incomeresearch,DC=com```
+  
 ## Configure the Azure instance credentials  
   
 This command gets the Azure instance credentials & create a registry in Azure. This is to push the bpme runtime container to, before running yaml the files
