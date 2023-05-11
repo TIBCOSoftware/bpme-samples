@@ -93,5 +93,6 @@ c.casedata ->> 'state'::text AS state,
 
 
 
+
 Copyright (c) 2021, TIBCO Software Inc.
  
