@@ -1,0 +1,43 @@
+#!/bin/bash
+
+set -o errexit
+set -o nounset
+
+# Setup names and attributes for resources
+. ./environment
+
+
+
+# Make sure all the software we need is available
+set +o errexit
+AZ_LOC=`which az`
+if [ "$AZ_LOC" == "" ]
+then
+    echo Unable to find Azure CLI \(az\) on the path
+    exit 1
+fi
+set -o errexit
+
+
+
+# We need to get the subscription ID and use that as a way to check if
+# we are logged in
+SUB_ID=`az account show --query id --output tsv`
+if [ "$SUB_ID" == "" ]
+then
+    exit 1
+fi
+
+
+
+#
+# Find out if the resource group exists and if so delete it
+#
+BPME_GROUP_ID=`az group list \
+    --query "[?name=='$BPME_GROUP_NAME'].id" \
+    --output tsv`
+if [ "$BPME_GROUP_ID" != "" ]
+then
+    echo Deleting Resource group $BPME_GROUP_NAME
+    az group delete --name "$BPME_GROUP_NAME" --yes
+fi

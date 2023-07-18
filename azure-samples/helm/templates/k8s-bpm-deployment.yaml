@@ -1,0 +1,107 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bpm-deployment
+  namespace: {{ .Release.Namespace }}
+spec:
+  selector:
+    matchLabels:
+       app: bpm
+  template:
+    metadata:
+      labels:
+        # Apply this label to pods and default
+        # the Deployment label selector to this value
+        app: bpm
+        tier: backend
+    spec:
+      {{- if .Values.hostAliases }}
+      hostAliases:
+      {{- range .Values.hostAliases }}
+      - ip: {{ .ip | quote }}
+        hostnames:
+        {{- range .hostnames }}
+        - {{ . | quote }}
+        {{- end }}
+      {{- end }}
+      {{- end }}
+      volumes:
+      - name: bpm-secrets-ldap-volume
+        secret:
+          secretName: bpm-secrets-ldap-ssl-cert
+      containers:
+      - name: bpm
+        # Run this image
+        image: {{ .Values.repository }}/tibco/bpm/runtime:{{ .Values.imageTag }}
+        imagePullPolicy: Always
+        resources:
+          requests:
+            cpu: 200m
+        startupProbe:
+          httpGet:
+            path: /bpm/adapter/v1/readiness
+            port: 8181
+          failureThreshold: 30
+          periodSeconds: 10
+          timeoutSeconds: 5
+        livenessProbe:
+          httpGet:
+            path: /bpm/adapter/v1/liveness
+            port: 8181
+          initialDelaySeconds: 60
+          periodSeconds: 30
+          timeoutSeconds: 2
+          successThreshold: 1
+          failureThreshold: 3
+        readinessProbe:
+          httpGet:
+            path: /bpm/adapter/v1/readiness
+            port: 8181
+          initialDelaySeconds: 60
+          periodSeconds: 30
+          timeoutSeconds: 2
+          successThreshold: 1
+          failureThreshold: 3
+        ports:
+        - containerPort: 8181
+        env:
+        - name: BPMUSER_USERNAME
+          valueFrom:
+            secretKeyRef:
+              name: bpm-secrets-db
+              key: BPMUSER_USERNAME
+        - name: JDBC_USERNAME
+          value: $(BPMUSER_USERNAME)@{{ .Values.sqlServerName }}
+        - name: JDBC_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: bpm-secrets-db
+              key: BPMUSER_PASSWORD
+        - name: DBNAME
+          valueFrom:
+            secretKeyRef:
+              name: bpm-secrets-db
+              key: DBNAME
+        - name: JDBC_URL
+          value: "jdbc:sqlserver://{{ .Values.sqlServerName }}.database.windows.net:1433;database=$(DBNAME);schema=$(DBNAME);encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net"
+        - name: JDBC_DRIVERCLASS
+          value: "com.microsoft.sqlserver.jdbc.SQLServerDriver"
+        {{- range $key, $value := .Values }}
+          {{- if not (or (hasSuffix "_PRINCIPAL" $key) (hasSuffix "_CREDENTIALS" $key)) }}
+          {{- if hasPrefix "LDAP_" $key }}
+        - name: {{ $key }}
+          {{- if hasSuffix "_SSLCERT" $key }}
+          value: {{ print "/etc/bpm-secrets-ldap-volume/" $key | quote }}
+          {{- else }}
+          value: {{ $value | b64dec | quote }}
+          {{- end }}
+          {{- end }}
+          {{- end }}
+        {{- end }}
+        envFrom:
+        - secretRef:
+            name: bpm-secrets-ldap
+        volumeMounts:
+        - name: bpm-secrets-ldap-volume
+          readOnly: true
+          mountPath: "/etc/bpm-secrets-ldap-volume"

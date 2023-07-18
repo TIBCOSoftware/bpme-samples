@@ -1,0 +1,3 @@
+sqlServerName: bpme-dev-sqlserver
+
+bpmDomainName: bpm-deployment.invalid

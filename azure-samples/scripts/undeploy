@@ -1,0 +1,52 @@
+#!/bin/bash
+
+set -o errexit
+set -o nounset
+
+# Setup names and attributes for resources
+. ./environment
+
+
+
+echo ========================================
+echo
+echo Undeploying from AKS
+echo
+echo ========================================
+echo
+
+
+
+# Make sure all the software we need is available
+set +o errexit
+AZ_LOC=`which az`
+if [ "$AZ_LOC" == "" ]
+then
+    echo Unable to find Azure CLI \(az\) on the path
+    exit 1
+fi
+set -o errexit
+
+
+
+# We need to get the subscription ID and use that as a way to check if
+# we are logged in
+SUB_ID=`az account show --query id --output tsv`
+if [ "$SUB_ID" == "" ]
+then
+    exit 1
+fi
+
+
+
+# Now start undeploying the artefacts
+echo Uninstalling a helm chart
+az aks command invoke \
+    --resource-group "$BPME_GROUP_NAME" \
+    --name "$BPME_AKS_NAME" \
+    --command "helm uninstall bpme --namespace \"$BPME_K8S_NAMESPACE\""
+
+az aks command invoke \
+    --resource-group "$BPME_GROUP_NAME" \
+    --name "$BPME_AKS_NAME" \
+    --command "kubectl delete ns \"$BPME_K8S_NAMESPACE\""

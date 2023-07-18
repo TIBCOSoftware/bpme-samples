@@ -1,0 +1,47 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: setup-admin
+  namespace: {{ .Release.Namespace }}
+  annotations:
+    "helm.sh/hook": pre-install,pre-upgrade
+    "helm.sh/hook-weight": "3"
+    "helm.sh/hook-delete-policy": before-hook-creation
+spec:
+  template:
+    spec:
+      hostPID: true
+      restartPolicy: Never
+      volumes:
+      - name: sql
+        configMap:
+          name: schema-config
+      containers:
+      - name: setup-admin
+        image: {{ .Values.repository }}/tibco/bpm/utility:{{ .Values.imageTag }}
+        env:
+        - name: BPMUSER_USERNAME
+          valueFrom:
+            secretKeyRef:
+              name: bpm-secrets-db
+              key: BPMUSER_USERNAME
+        - name: BPMUSER_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: bpm-secrets-db
+              key: BPMUSER_PASSWORD
+        - name: DBNAME
+          valueFrom:
+            secretKeyRef:
+              name: bpm-secrets-db
+              key: DBNAME
+        command:
+        - utility
+        - -dbConfig
+        - url=jdbc:sqlserver://{{ .Values.sqlServerName }}.database.windows.net:1433;database=$(DBNAME);schema=$(DBNAME);encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net
+        - username=$(BPMUSER_USERNAME)@{{ .Values.sqlServerName }}
+        - password=$(BPMUSER_PASSWORD)
+        - -setupAdminUser
+        - ldapAlias={{ .Values.LDAP_SYSTEM_ALIAS | b64dec }}
+        - ldapDn={{ .Values.LDAP_SYSTEM_PRINCIPAL | b64dec }}
+        - displayName={{ .Values.LDAP_SYSTEM_DISPLAY_NAME | b64dec }}

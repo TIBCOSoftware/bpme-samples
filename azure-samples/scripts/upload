@@ -1,0 +1,74 @@
+#!/bin/bash
+
+set -o errexit
+set -o nounset
+
+# Setup names and attributes for resources
+. ./environment
+
+
+
+echo ========================================
+echo
+echo Uploading Images to ACR
+echo
+echo ========================================
+echo
+
+
+
+# Make sure all the software we need is available
+set +o errexit
+AZ_LOC=`which az`
+if [ "$AZ_LOC" == "" ]
+then
+    echo Unable to find Azure CLI \(az\) on the path
+    exit 1
+fi
+
+DOCKER_LOC=`which docker`
+if [ "$DOCKER_LOC" == "" ]
+then
+    echo Unable to find Docker CLI \(docker\) on the path
+    exit 1
+fi
+set -o errexit
+
+
+
+# We need to get the subscription ID and use that as a way to check if
+# we are logged in
+SUB_ID=`az account show --query id --output tsv`
+if [ "$SUB_ID" == "" ]
+then
+    exit 1
+fi
+
+
+
+BPME_ACR_ID=`az acr list \
+    --resource-group "$BPME_GROUP_NAME" \
+    --query "[?name=='$BPME_ACR_NAME'].id" \
+    --output tsv`
+if [ "$BPME_ACR_ID" == "" ]
+then
+    echo Container Registry $BPME_ACR_NAME not found.   Create Azure resources first!
+    exit 1
+fi
+
+
+
+# Log into ACR
+az acr login --name "$BPME_ACR_NAME"
+
+# Retag and push the utility image
+docker tag "tibco/bpm/utility:$BPM_VERSION" "$BPME_ACR_REPO/tibco/bpm/utility:$BPM_VERSION"
+docker push "$BPME_ACR_REPO/tibco/bpm/utility:$BPM_VERSION"
+docker rmi "$BPME_ACR_REPO/tibco/bpm/utility:$BPM_VERSION"
+
+# Retag and push the runtime image
+docker tag "tibco/bpm/runtime:$BPM_VERSION" "$BPME_ACR_REPO/tibco/bpm/runtime:$BPM_VERSION"
+docker push "$BPME_ACR_REPO/tibco/bpm/runtime:$BPM_VERSION"
+docker rmi "$BPME_ACR_REPO/tibco/bpm/runtime:$BPM_VERSION"
+
+docker logout "$BPME_ACR_NAME"

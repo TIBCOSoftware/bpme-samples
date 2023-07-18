@@ -1,0 +1,51 @@
+#!/bin/bash
+BPM_PREFIX=bpme
+DEV_PREFIX=dev
+
+BPME_GROUP_NAME=$BPM_PREFIX-$DEV_PREFIX-resource-group
+BPME_VNET_NAME=$BPM_PREFIX-$DEV_PREFIX-vnet
+BPME_ADDRESS_PREFIX=10.24.0.0/16
+BPME_NSG_NAME=$BPM_PREFIX-$DEV_PREFIX-nsg
+BPME_DB_SUBNET_NAME=$BPM_PREFIX-$DEV_PREFIX-db-subnet
+BPME_DB_SUBNET_PREFIX=10.24.1.0/24
+BPME_AKS_SUBNET_NAME=$BPM_PREFIX-$DEV_PREFIX-aks-subnet
+BPME_AKS_SUBNET_PREFIX=10.24.2.0/24
+BPME_APP_GATEWAY_SUBNET_NAME=$BPM_PREFIX-$DEV_PREFIX-app-gateway-subnet
+BPME_APP_GATEWAY_SUBNET_PREFIX=10.24.3.0/24
+
+BPME_ACR_NAME=${BPM_PREFIX}${DEV_PREFIX}acr
+BPME_AKS_NAME=$BPM_PREFIX-$DEV_PREFIX-aks
+BPME_APP_GATEWAY_NAME=$BPM_PREFIX-$DEV_PREFIX-app-gateway
+BPME_K8S_NAMESPACE=bpm
+
+BPME_SQLSERVER_NAME_PREFIX=$BPM_PREFIX-$DEV_PREFIX-sqlserver-
+BPME_SQLSERVER_DBNAME=bpm
+# set this variable to the name you would like to use
+BPME_SQLSERVER_ADMIN_USERNAME=bpmadmin
+# set this variable to the password you would like to use
+BPME_SQLSERVER_ADMIN_PASSWORD=
+# set this variable to the name you would like to use
+BPME_SQLSERVER_BPMUSER_USERNAME=bpmuser
+# set this variable to the password you would like to use
+BPME_SQLSERVER_BPMUSER_PASSWORD=
+
+BPME_SQLSERVER_PRIVATE_ENDPOINT_NAME=$BPM_PREFIX-$DEV_PREFIX-sqlserver-pe
+BPME_PRIVATE_DNS_LINK_NAME=$BPM_PREFIX-$DEV_PREFIX-dns-link
+
+SQL_TOOLS_IMG=mcr.microsoft.com/mssql-tools
+SQL_CMD_PATH=/opt/mssql-tools/bin/sqlcmd
+
+BPME_ACR_REPO=$BPME_ACR_NAME.azurecr.io
+BPM_VERSION=5.4.0
+
+LDAP_SYSTEM_PRINCIPAL=
+LDAP_SYSTEM_CREDENTIALS=
+# set this variable to the ldap server url, it starts from ldaps://
+LDAP_SYSTEM_URL=
+# set this variable to the file that contains a ldap server certificate
+LDAP_SYSTEM_SSLCERT=
+# do not change alias
+LDAP_SYSTEM_ALIAS=system
+# the admin name as accepted in web ui, you can change it to something else
+# for example Administrator
+LDAP_SYSTEM_DISPLAY_NAME=tibco-admin

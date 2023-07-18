@@ -1,0 +1,63 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: setup-database
+  namespace: {{ .Release.Namespace }}
+  annotations:
+    "helm.sh/hook": pre-install,pre-upgrade
+    "helm.sh/hook-weight": "2"
+    "helm.sh/hook-delete-policy": before-hook-creation
+spec:
+  template:
+    spec:
+      hostPID: true
+      restartPolicy: Never
+      volumes:
+      - name: sql
+        configMap:
+          name: schema-config
+      initContainers:
+      - name: createuser-master
+        image: mcr.microsoft.com/mssql-tools
+        envFrom:
+        - secretRef:
+            name: bpm-secrets-db
+        env:
+        - name: DBSERVER
+          value: tcp:{{ .Values.sqlServerName }}.database.windows.net,1433
+        command: ["/bin/sh", "-c"]
+        args:
+          - sed "s/%dbname%/$DBNAME/g; s/%bpmuser_username%/$BPMUSER_USERNAME/g; s/%bpmuser_password%/$BPMUSER_PASSWORD/g;" /sql/createuser-master.sql |
+            /opt/mssql-tools/bin/sqlcmd -S "$DBSERVER" -d master -U "$ADMIN_USERNAME" -P "$ADMIN_PASSWORD" -N -l 30 -i /dev/stdin
+        volumeMounts:
+        - name: sql
+          mountPath: /sql
+      - name: createuser-bpm
+        image: mcr.microsoft.com/mssql-tools
+        envFrom:
+        - secretRef:
+            name: bpm-secrets-db
+        env:
+        - name: DBSERVER
+          value: tcp:{{ .Values.sqlServerName }}.database.windows.net,1433
+        command: ["/bin/sh", "-c"]
+        args:
+          - sed "s/%dbname%/$DBNAME/g; s/%bpmuser_username%/$BPMUSER_USERNAME/g;" /sql/createuser-bpm.sql |
+            /opt/mssql-tools/bin/sqlcmd -S "$DBSERVER" -d "$DBNAME" -U "$ADMIN_USERNAME" -P "$ADMIN_PASSWORD" -N -l 30 -i /dev/stdin
+        volumeMounts:
+        - name: sql
+          mountPath: /sql
+      containers:
+      - name: setup-database
+        image: {{ .Values.repository }}/tibco/bpm/utility:{{ .Values.imageTag }}
+        envFrom:
+        - secretRef:
+            name: bpm-secrets-db
+        command:
+        - utility
+        - -dbConfig
+        - url=jdbc:sqlserver://{{ .Values.sqlServerName }}.database.windows.net:1433;database=$(DBNAME);schema=$(DBNAME);encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net
+        - username=$(BPMUSER_USERNAME)@{{ .Values.sqlServerName }}
+        - password=$(BPMUSER_PASSWORD)
+        - -setupDatabase
+        - execute

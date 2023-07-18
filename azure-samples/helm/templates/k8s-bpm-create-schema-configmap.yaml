@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: schema-config
+  namespace: {{ .Release.Namespace }}
+  annotations:
+    "helm.sh/hook": pre-install,pre-upgrade
+    "helm.sh/hook-weight": "1"
+    "helm.sh/hook-delete-policy": before-hook-creation
+    "helm.sh/resource-policy": keep
+data:
+  createuser-bpm.sql: |-
+{{ .Files.Get "resources/createuser-bpm.sql" | indent 4 }}
+
+  createuser-master.sql: |-
+{{ .Files.Get "resources/createuser-master.sql" | indent 4 }}

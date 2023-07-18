@@ -1,0 +1,529 @@
+#!/bin/bash
+
+set -o errexit
+set -o nounset
+
+# Setup names and attributes for resources
+SAVE_BPME_SQLSERVER_DBNAME=${BPME_SQLSERVER_DBNAME:-}
+SAVE_BPME_SQLSERVER_ADMIN_USERNAME=${BPME_SQLSERVER_ADMIN_USERNAME:-}
+SAVE_BPME_SQLSERVER_ADMIN_PASSWORD=${BPME_SQLSERVER_ADMIN_PASSWORD:-}
+SAVE_BPME_SQLSERVER_BPMUSER_USERNAME=${BPME_SQLSERVER_BPMUSER_USERNAME:-}
+SAVE_BPME_SQLSERVER_BPMUSER_PASSWORD=${BPME_SQLSERVER_BPMUSER_PASSWORD:-}
+. ./environment
+BPME_SQLSERVER_DBNAME=${SAVE_BPME_SQLSERVER_DBNAME:-$BPME_SQLSERVER_DBNAME}
+BPME_SQLSERVER_ADMIN_USERNAME=${SAVE_BPME_SQLSERVER_ADMIN_USERNAME:-$BPME_SQLSERVER_ADMIN_USERNAME}
+BPME_SQLSERVER_ADMIN_PASSWORD=${SAVE_BPME_SQLSERVER_ADMIN_PASSWORD:-$BPME_SQLSERVER_ADMIN_PASSWORD}
+BPME_SQLSERVER_BPMUSER_USERNAME=${SAVE_BPME_SQLSERVER_BPMUSER_USERNAME:-$BPME_SQLSERVER_BPMUSER_USERNAME}
+BPME_SQLSERVER_BPMUSER_PASSWORD=${SAVE_BPME_SQLSERVER_BPMUSER_PASSWORD:-$BPME_SQLSERVER_BPMUSER_PASSWORD}
+
+
+if [ "$BPME_SQLSERVER_DBNAME" == "" ]
+then
+    echo Set BPME_SQLSERVER_DBNAME in the environment file
+    exit 1
+fi
+if [ "$BPME_SQLSERVER_ADMIN_USERNAME" == "" ]
+then
+    echo Set BPME_SQLSERVER_ADMIN_USERNAME in the environment file
+    exit 1
+fi
+if [ "$BPME_SQLSERVER_ADMIN_PASSWORD" == "" ]
+then
+    echo Set BPME_SQLSERVER_ADMIN_PASSWORD in the environment file
+    exit 1
+fi
+if [ "$BPME_SQLSERVER_BPMUSER_USERNAME" == "" ]
+then
+    echo Set BPME_SQLSERVER_BPMUSER_USERNAME in the environment file
+    exit 1
+fi
+if [ "$BPME_SQLSERVER_BPMUSER_PASSWORD" == "" ]
+then
+    echo Set BPME_SQLSERVER_BPMUSER_PASSWORD in the environment file
+    exit 1
+fi
+
+
+
+echo ========================================
+echo
+echo Create Required Azure Resources
+echo
+echo ========================================
+echo
+
+
+
+# Make sure all the software we need is available
+set +o errexit
+AZ_LOC=`which az`
+if [ "$AZ_LOC" == "" ]
+then
+    echo Unable to find Azure CLI \(az\) on the path
+    exit 1
+fi
+set -o errexit
+
+
+
+# We need to get the subscription ID and use that as a way to check if
+# we are logged in
+SUB_ID=`az account show --query id --output tsv`
+if [ "$SUB_ID" == "" ]
+then
+    exit 1
+fi
+
+
+
+#
+# Find out if the resource group exists and if not create it
+#
+BPME_GROUP_ID=`az group list \
+    --query "[?name=='$BPME_GROUP_NAME'].id" \
+    --output tsv`
+if [ "$BPME_GROUP_ID" == "" ]
+then
+    echo Creating Resource group $BPME_GROUP_NAME
+    BPME_GROUP_ID=`az group create \
+        --name "$BPME_GROUP_NAME" \
+        --location northeurope \
+        --query id \
+        --output tsv`
+else
+    echo Resource group $BPME_GROUP_NAME already exists
+fi
+
+
+
+#
+# Find out if the vnet exists and if not create it
+#
+BPME_VNET_ID=`az network vnet list \
+    --resource-group "$BPME_GROUP_NAME" \
+    --query "[?name=='$BPME_VNET_NAME'].id" \
+    --output tsv`
+if [ "$BPME_VNET_ID" == "" ]
+then
+    echo Creating Virtual Network $BPME_VNET_NAME
+    az network vnet create \
+        --resource-group "$BPME_GROUP_NAME" \
+        --name "$BPME_VNET_NAME" \
+        --address-prefixes "$BPME_ADDRESS_PREFIX" \
+        --output none
+    BPME_VNET_ID=`az network vnet show \
+        --resource-group "$BPME_GROUP_NAME" \
+        --name "$BPME_VNET_NAME" \
+        --query id \
+        --output tsv`
+else
+    echo Virtual Network $BPME_VNET_NAME already exists
+fi
+
+
+
+#
+# Find out if the network security group exists and if not create it
+#
+BPME_NSG_ID=`az network nsg list \
+    --resource-group "$BPME_GROUP_NAME" \
+    --query "[?name=='$BPME_NSG_NAME'].id" \
+    --output tsv`
+if [ "$BPME_NSG_ID" == "" ]
+then
+    echo Creating Network Security Group $BPME_NSG_NAME
+    az network nsg create \
+        --resource-group "$BPME_GROUP_NAME" \
+        --name "$BPME_NSG_NAME" \
+        --output none
+    BPME_NSG_ID=`az network nsg list \
+        --resource-group "$BPME_GROUP_NAME" \
+        --query "[?name=='$BPME_NSG_NAME'].id" \
+        --output tsv`
+else
+    echo Network Security Group $BPME_NSG_NAME already exists
+fi
+
+
+
+DENY_RULE_ID=`az network nsg rule list \
+    --nsg-name "$BPME_NSG_NAME" \
+    --resource-group "$BPME_GROUP_NAME" \
+    --query "[?name=='DenyAllMS_SQLInbound'].id" \
+    --output tsv`
+if [ "$DENY_RULE_ID" == "" ]
+then
+    echo Creating Deny All to SQL rule
+    az network nsg rule create \
+        --name DenyAllMS_SQLInbound \
+        --nsg-name "$BPME_NSG_NAME" \
+        --priority 400 \
+        --resource-group "$BPME_GROUP_NAME" \
+        --access Deny \
+        --description 'Deny All to SQL' \
+        --direction Inbound \
+        --destination-address-prefixes "$BPME_DB_SUBNET_PREFIX" \
+        --destination-port-ranges '*' \
+        --output none
+else
+    echo Deny All to SQL rule already exists
+fi
+
+
+
+ALLOW_RULE_ID=`az network nsg rule list \
+    --nsg-name "$BPME_NSG_NAME" \
+    --resource-group "$BPME_GROUP_NAME" \
+    --query "[?name=='AllowAksMS_SQLInbound'].id" \
+    --output tsv`
+if [ "$ALLOW_RULE_ID" == "" ]
+then
+    echo Creating Allow AKS to SQL rule
+    az network nsg rule create \
+        --name AllowAksMS_SQLInbound \
+        --nsg-name "$BPME_NSG_NAME" \
+        --priority 100 \
+        --resource-group "$BPME_GROUP_NAME" \
+        --access Allow \
+        --description 'Allow AKS to SQL' \
+        --direction Inbound \
+        --protocol Tcp \
+        --destination-address-prefixes "$BPME_DB_SUBNET_PREFIX" \
+        --destination-port-ranges 1433 \
+        --source-address-prefixes "$BPME_AKS_SUBNET_PREFIX" \
+        --output none
+else
+    echo Allow AKS to SQL rule already exists
+fi
+
+
+
+BPME_DB_SUBNET_ID=`az network vnet subnet list \
+    --resource-group "$BPME_GROUP_NAME" \
+    --vnet-name "$BPME_VNET_NAME" \
+    --query "[?name=='$BPME_DB_SUBNET_NAME'].id" \
+    --output tsv`
+if [ "$BPME_DB_SUBNET_ID" == "" ]
+then
+    echo Creating Subnet $BPME_DB_SUBNET_NAME
+    BPME_DB_SUBNET_ID=`az network vnet subnet create \
+        --resource-group "$BPME_GROUP_NAME" \
+        --name "$BPME_DB_SUBNET_NAME" \
+        --vnet-name "$BPME_VNET_NAME" \
+        --address-prefixes "$BPME_DB_SUBNET_PREFIX" \
+        --disable-private-endpoint-network-policies false \
+        --network-security-group "$BPME_NSG_ID" \
+        --query id \
+        --output tsv`
+else
+    echo Subnet $BPME_DB_SUBNET_NAME already exists
+fi
+
+
+
+BPME_AKS_SUBNET_ID=`az network vnet subnet list \
+    --resource-group "$BPME_GROUP_NAME" \
+    --vnet-name "$BPME_VNET_NAME" \
+    --query "[?name=='$BPME_AKS_SUBNET_NAME'].id" \
+    --output tsv`
+if [ "$BPME_AKS_SUBNET_ID" == "" ]
+then
+    echo Creating Subnet $BPME_AKS_SUBNET_NAME
+    BPME_AKS_SUBNET_ID=`az network vnet subnet create \
+        --resource-group "$BPME_GROUP_NAME" \
+        --name "$BPME_AKS_SUBNET_NAME" \
+        --vnet-name "$BPME_VNET_NAME" \
+        --address-prefixes "$BPME_AKS_SUBNET_PREFIX" \
+        --query id \
+        --output tsv`
+else
+    echo Subnet $BPME_AKS_SUBNET_NAME already exists
+fi
+
+
+
+BPME_APP_GATEWAY_SUBNET_ID=`az network vnet subnet list \
+    --resource-group "$BPME_GROUP_NAME" \
+    --vnet-name "$BPME_VNET_NAME" \
+    --query "[?name=='$BPME_APP_GATEWAY_SUBNET_NAME'].id" \
+    --output tsv`
+if [ "$BPME_APP_GATEWAY_SUBNET_ID" == "" ]
+then
+    echo Creating Subnet $BPME_APP_GATEWAY_SUBNET_NAME
+    BPME_APP_GATEWAY_SUBNET_ID=`az network vnet subnet create \
+        --resource-group "$BPME_GROUP_NAME" \
+        --name "$BPME_APP_GATEWAY_SUBNET_NAME" \
+        --vnet-name "$BPME_VNET_NAME" \
+        --address-prefixes "$BPME_APP_GATEWAY_SUBNET_PREFIX" \
+        --query id \
+        --output tsv`
+else
+    echo Subnet $BPME_APP_GATEWAY_SUBNET_NAME already exists
+fi
+
+
+
+#
+# Find out if the acr exists and if not create it
+#
+BPME_ACR_ID=`az acr list \
+    --resource-group "$BPME_GROUP_NAME" \
+    --query "[?name=='$BPME_ACR_NAME'].id" \
+    --output tsv`
+if [ "$BPME_ACR_ID" == "" ]
+then
+    echo Creating Container Registry $BPME_ACR_NAME
+    BPME_ACR_ID=`az acr create \
+        --resource-group "$BPME_GROUP_NAME" \
+        --name "$BPME_ACR_NAME" \
+        --sku Basic \
+        --query id \
+        --output tsv`
+else
+    echo Container Registry $BPME_ACR_NAME already exists
+fi
+
+
+
+#
+# Find out if the aks exists and if not create it
+#
+BPME_AKS_ID=`az aks list \
+    --resource-group "$BPME_GROUP_NAME" \
+    --query "[?name=='$BPME_AKS_NAME'].id" \
+    --output tsv`
+if [ "$BPME_AKS_ID" == "" ]
+then
+    echo Creating Kubernetes Service $BPME_AKS_NAME
+    BPME_AKS_ID=`az aks create \
+        --yes \
+        --resource-group "$BPME_GROUP_NAME" \
+        --name "$BPME_AKS_NAME" \
+        --vnet-subnet-id "$BPME_AKS_SUBNET_ID" \
+        --enable-addons ingress-appgw \
+        --appgw-name "$BPME_APP_GATEWAY_NAME" \
+        --appgw-subnet-cidr "$BPME_APP_GATEWAY_SUBNET_PREFIX" \
+        --generate-ssh-keys \
+        --enable-private-cluster \
+        --attach-acr "$BPME_ACR_NAME" \
+        --query id \
+        --output tsv`
+else
+    echo Kubernetes Service $BPME_AKS_NAME already exists
+fi
+
+
+
+# Get the node resource group for AKS
+echo Getting AKS Resource Group ID
+AKS_NRG=`az aks show \
+    --resource-group "$BPME_GROUP_NAME" \
+    --name "$BPME_AKS_NAME" \
+    --query nodeResourceGroup \
+    --output tsv`
+echo AKS Resource Group ID is $AKS_NRG
+
+echo Wait until Application Gateway exists
+az network application-gateway wait \
+    --resource-group "$AKS_NRG" \
+    --name $BPME_APP_GATEWAY_NAME \
+    --exists
+
+echo Getting Application Gateway IP
+APP_GATEWAY_IP=`az network application-gateway show \
+    --resource-group "$AKS_NRG" \
+    --name $BPME_APP_GATEWAY_NAME \
+    --query "frontendIPConfigurations[0].publicIPAddress.id" \
+    --output tsv`
+echo Application Gateway IP is $APP_GATEWAY_IP
+
+echo Getting Application Gateway FQDN
+APP_GATEWAY_FQDN=`az network public-ip list \
+    --resource-group "$AKS_NRG" \
+    --query "[?id=='$APP_GATEWAY_IP'].dnsSettings.fqdn" \
+    --output tsv`
+
+if [ "$APP_GATEWAY_FQDN" == "" ]
+then
+    APP_GATEWAY_FQDN_SUFFIX=`cat /dev/urandom | base64 | tr -dc 'a-z0-9' | head -c 12`
+    APP_GATEWAY_LABEL="bpm-deployment-$APP_GATEWAY_FQDN_SUFFIX"
+    echo Creating label $APP_GATEWAY_LABEL
+    APP_GATEWAY_FQDN=`az network public-ip update \
+        --ids "$APP_GATEWAY_IP" \
+        --dns-name "$APP_GATEWAY_LABEL" \
+        --query "dnsSettings.fqdn" \
+        --output tsv`
+fi
+echo Application Gateway FQDN $APP_GATEWAY_FQDN
+
+
+
+echo Checking routing table used by $BPME_APP_GATEWAY_SUBNET_NAME
+APP_GATEWAY_SUBNET_ROUTE=`az network vnet subnet show \
+    --resource-group "$BPME_GROUP_NAME" \
+    --name "$BPME_APP_GATEWAY_SUBNET_NAME" \
+    --vnet-name "$BPME_VNET_NAME" \
+    --query "routeTable.id" \
+    --output tsv`
+if [ "$APP_GATEWAY_SUBNET_ROUTE" == "" ]
+then
+    AKS_SUBNET_ROUTE=`az network vnet subnet show \
+        --resource-group "$BPME_GROUP_NAME" \
+        --name "$BPME_AKS_SUBNET_NAME" \
+        --vnet-name "$BPME_VNET_NAME" \
+        --query "routeTable.id" \
+        --output tsv`
+    if [ "$AKS_SUBNET_ROUTE" = "" ]
+    then
+        echo Route table used by $BPME_AKS_SUBNET_NAME not found
+        exit 1
+    fi
+    echo Add route table to $BPME_APP_GATEWAY_SUBNET_NAME
+    az network vnet subnet update --ids "$BPME_APP_GATEWAY_SUBNET_ID" --route-table "$AKS_SUBNET_ROUTE" --output none
+fi
+
+
+
+#
+# Find out if the Azure SQL Server instance exists and if not create it
+#
+BPME_SQLSERVER_NAME=`az sql server list \
+    --resource-group "$BPME_GROUP_NAME" \
+    --query "[?starts_with(name,'$BPME_SQLSERVER_NAME_PREFIX')].name" \
+    --output tsv`
+if [ "$BPME_SQLSERVER_NAME" == "" ]
+then
+    BPME_SQLSERVER_NAME_SUFFIX=`cat /dev/urandom | base64 | tr -dc 'a-z0-9' | head -c 12`
+    BPME_SQLSERVER_NAME="$BPME_SQLSERVER_NAME_PREFIX$BPME_SQLSERVER_NAME_SUFFIX"
+    echo Creating Azure SQL Instance $BPME_SQLSERVER_NAME
+    az sql server create \
+        --resource-group "$BPME_GROUP_NAME" \
+        --name "$BPME_SQLSERVER_NAME" \
+        --admin-user "$BPME_SQLSERVER_ADMIN_USERNAME" \
+        --admin-password "$BPME_SQLSERVER_ADMIN_PASSWORD" \
+        --enable-public-network false \
+        --output none
+else
+    echo Azure SQL Instance $BPME_SQLSERVER_NAME already exists
+fi
+BPME_SQLSERVER_ID=`az sql server show \
+    --resource-group "$BPME_GROUP_NAME" \
+    --name "$BPME_SQLSERVER_NAME" \
+    --query id \
+    --output tsv`
+
+
+
+# Create the required database user and schema
+BPME_DATABASE_ID=`az sql db list \
+    --resource-group "$BPME_GROUP_NAME" \
+    --server "$BPME_SQLSERVER_NAME" \
+    --query "[?name=='$BPME_SQLSERVER_DBNAME'].id" \
+    --output tsv`
+if [ "$BPME_DATABASE_ID" == "" ]
+then
+    echo Creating Azure SQL Database $BPME_SQLSERVER_DBNAME
+    BPME_DATABASE_ID=`az sql db create \
+        --resource-group "$BPME_GROUP_NAME" \
+        --server "$BPME_SQLSERVER_NAME" \
+        --name "$BPME_SQLSERVER_DBNAME" \
+        --zone-redundant false \
+        --query id \
+        --output tsv`
+else
+    echo Azure SQL Database $BPME_SQLSERVER_DBNAME already exists
+fi
+
+
+
+BPME_SQLSERVER_PRIVATE_ENDPOINT_ID=`az network private-endpoint list \
+    --resource-group "$BPME_GROUP_NAME" \
+    --query "[?name=='$BPME_SQLSERVER_PRIVATE_ENDPOINT_NAME'].id" \
+    --output tsv`
+if [ "$BPME_SQLSERVER_PRIVATE_ENDPOINT_ID" == "" ]
+then
+    echo Creating private endpoint $BPME_SQLSERVER_PRIVATE_ENDPOINT_NAME
+    BPME_SQLSERVER_PRIVATE_ENDPOINT_ID=`az network private-endpoint create \
+        --resource-group "$BPME_GROUP_NAME" \
+        --name "$BPME_SQLSERVER_PRIVATE_ENDPOINT_NAME" \
+        --subnet "$BPME_DB_SUBNET_ID" \
+        --private-connection-resource-id "$BPME_SQLSERVER_ID" \
+        --group-id sqlServer \
+        --connection-name "$BPME_SQLSERVER_PRIVATE_ENDPOINT_NAME" \
+        --query id \
+        --output tsv`
+else
+    echo Private endpoint $BPME_SQLSERVER_PRIVATE_ENDPOINT_NAME already exists
+fi
+
+
+
+#
+# Find out if the private dns zone exists and if not create it
+#
+BPME_PRIVATE_DNS_ZONE_NAME="privatelink.database.windows.net"
+BPME_PRIVATE_DNS_ZONE_ID=`az network private-dns zone list \
+    --resource-group "$BPME_GROUP_NAME" \
+    --query "[?name=='$BPME_PRIVATE_DNS_ZONE_NAME'].id" \
+    --output tsv`
+if [ "$BPME_PRIVATE_DNS_ZONE_ID" == "" ]
+then
+    echo Creating private dns zone $BPME_PRIVATE_DNS_ZONE_NAME
+    BPME_PRIVATE_DNS_ZONE_ID=`az network private-dns zone create \
+        --resource-group "$BPME_GROUP_NAME" \
+        --name "$BPME_PRIVATE_DNS_ZONE_NAME" \
+        --query id \
+        --output tsv`
+else
+    echo Private dns zone $BPME_PRIVATE_DNS_ZONE_NAME already exists
+fi
+
+
+
+#
+# Find out if the private dns link exists and if not create it
+#
+BPME_PRIVATE_DNS_LINK_ID=`az network private-dns link vnet list \
+    --resource-group "$BPME_GROUP_NAME" \
+    --zone-name "$BPME_PRIVATE_DNS_ZONE_NAME" \
+    --query "[?virtualNetwork.id=='$BPME_VNET_ID'].id" \
+    --output tsv`
+if [ "$BPME_PRIVATE_DNS_LINK_ID" == "" ]
+then
+    echo Creating private dns link between $BPME_PRIVATE_DNS_ZONE_NAME and $BPME_VNET_NAME
+    BPME_PRIVATE_DNS_LINK_ID=`az network private-dns link vnet create \
+        --resource-group "$BPME_GROUP_NAME" \
+        --zone-name "$BPME_PRIVATE_DNS_ZONE_NAME" \
+        --name "$BPME_PRIVATE_DNS_LINK_NAME" \
+        --virtual-network "$BPME_VNET_ID" \
+        --registration-enabled false \
+        --query id \
+        --output tsv`
+else
+    echo Private private dns link between $BPME_PRIVATE_DNS_ZONE_NAME and $BPME_VNET_NAME already exists
+fi
+
+
+
+#
+# Find out if the private dns zone group exists and if not create it
+#
+BPME_DNS_ZONE_GROUP_ID=`az network private-endpoint dns-zone-group list \
+    --resource-group "$BPME_GROUP_NAME" \
+    --endpoint-name "$BPME_SQLSERVER_PRIVATE_ENDPOINT_NAME" \
+    --query "[].id" \
+    --output tsv`
+if [ "$BPME_DNS_ZONE_GROUP_ID" == "" ]
+then
+    echo Creating private dns zone group
+    BPME_DNS_ZONE_GROUP_ID=`az network private-endpoint dns-zone-group create \
+        --resource-group "$BPME_GROUP_NAME" \
+        --endpoint-name "$BPME_SQLSERVER_PRIVATE_ENDPOINT_NAME" \
+        --name default \
+        --private-dns-zone "privatelink.database.windows.net" \
+        --zone-name "privatelink-database-windows-net" \
+        --query id \
+        --output tsv`
+else
+    echo Private dns zone group already exists
+fi

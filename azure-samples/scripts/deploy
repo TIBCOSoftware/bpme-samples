@@ -1,0 +1,225 @@
+#!/bin/bash
+
+set -o errexit
+set -o nounset
+
+# Make sure we are in the right folder
+SCRIPTS_DIR=`pwd`
+PARENT_DIR=`dirname "$SCRIPTS_DIR"`
+HELM_CHART_DIR="$PARENT_DIR/helm"
+
+# Setup names and attributes for resources
+SAVE_BPME_SQLSERVER_DBNAME=${BPME_SQLSERVER_DBNAME:-}
+SAVE_BPME_SQLSERVER_ADMIN_USERNAME=${BPME_SQLSERVER_ADMIN_USERNAME:-}
+SAVE_BPME_SQLSERVER_ADMIN_PASSWORD=${BPME_SQLSERVER_ADMIN_PASSWORD:-}
+SAVE_BPME_SQLSERVER_BPMUSER_USERNAME=${BPME_SQLSERVER_BPMUSER_USERNAME:-}
+SAVE_BPME_SQLSERVER_BPMUSER_PASSWORD=${BPME_SQLSERVER_BPMUSER_PASSWORD:-}
+SAVE_LDAP_SYSTEM_PRINCIPAL=${LDAP_SYSTEM_PRINCIPAL:-}
+SAVE_LDAP_SYSTEM_CREDENTIALS=${LDAP_SYSTEM_CREDENTIALS:-}
+SAVE_LDAP_SYSTEM_URL=${LDAP_SYSTEM_URL:-}
+SAVE_LDAP_SYSTEM_SSLCERT=${LDAP_SYSTEM_SSLCERT:-}
+. ./environment
+BPME_SQLSERVER_DBNAME=${SAVE_BPME_SQLSERVER_DBNAME:-$BPME_SQLSERVER_DBNAME}
+BPME_SQLSERVER_ADMIN_USERNAME=${SAVE_BPME_SQLSERVER_ADMIN_USERNAME:-$BPME_SQLSERVER_ADMIN_USERNAME}
+BPME_SQLSERVER_ADMIN_PASSWORD=${SAVE_BPME_SQLSERVER_ADMIN_PASSWORD:-$BPME_SQLSERVER_ADMIN_PASSWORD}
+BPME_SQLSERVER_BPMUSER_USERNAME=${SAVE_BPME_SQLSERVER_BPMUSER_USERNAME:-$BPME_SQLSERVER_BPMUSER_USERNAME}
+BPME_SQLSERVER_BPMUSER_PASSWORD=${SAVE_BPME_SQLSERVER_BPMUSER_PASSWORD:-$BPME_SQLSERVER_BPMUSER_PASSWORD}
+LDAP_SYSTEM_PRINCIPAL=${SAVE_LDAP_SYSTEM_PRINCIPAL:-$LDAP_SYSTEM_PRINCIPAL}
+LDAP_SYSTEM_CREDENTIALS=${SAVE_LDAP_SYSTEM_CREDENTIALS:-$LDAP_SYSTEM_CREDENTIALS}
+LDAP_SYSTEM_URL=${SAVE_LDAP_SYSTEM_URL:-$LDAP_SYSTEM_URL}
+LDAP_SYSTEM_SSLCERT=${SAVE_LDAP_SYSTEM_SSLCERT:-$LDAP_SYSTEM_SSLCERT}
+
+
+if [ "$BPME_SQLSERVER_DBNAME" == "" ]
+then
+    echo Set BPME_SQLSERVER_DBNAME in the environment file
+    exit 1
+fi
+if [ "$BPME_SQLSERVER_ADMIN_USERNAME" == "" ]
+then
+    echo Set BPME_SQLSERVER_ADMIN_USERNAME in the environment file
+    exit 1
+fi
+if [ "$BPME_SQLSERVER_ADMIN_PASSWORD" == "" ]
+then
+    echo Set BPME_SQLSERVER_ADMIN_PASSWORD in the environment file
+    exit 1
+fi
+if [ "$BPME_SQLSERVER_BPMUSER_USERNAME" == "" ]
+then
+    echo Set BPME_SQLSERVER_BPMUSER_USERNAME in the environment file
+    exit 1
+fi
+if [ "$BPME_SQLSERVER_BPMUSER_PASSWORD" == "" ]
+then
+    echo Set BPME_SQLSERVER_BPMUSER_PASSWORD in the environment file
+    exit 1
+fi
+if [ "$LDAP_SYSTEM_PRINCIPAL" == "" ]
+then
+    echo Set LDAP_SYSTEM_PRINCIPAL in the environment file
+    exit 1
+fi
+if [ "$LDAP_SYSTEM_CREDENTIALS" == "" ]
+then
+    echo Set LDAP_SYSTEM_CREDENTIALS in the environment file
+    exit 1
+fi
+if [ "$LDAP_SYSTEM_URL" == "" ]
+then
+    echo Set LDAP_SYSTEM_URL in the environment file
+    exit 1
+fi
+if [ "$LDAP_SYSTEM_SSLCERT" == "unset" ]
+then
+    unset -v LDAP_SYSTEM_SSLCERT
+else
+    if [ "$LDAP_SYSTEM_SSLCERT" == "" ]
+    then
+        echo Set LDAP_SYSTEM_SSLCERT in the environment file
+        exit 1
+    fi
+    if [ ! -f "$LDAP_SYSTEM_SSLCERT" ]
+    then
+        echo "$LDAP_SYSTEM_SSLCERT file not found"
+        exit 1
+    fi
+fi
+
+
+
+function b64() {
+    printf '%s' "$1" | base64 | tr -d '\n'
+}
+function b64file() {
+    base64 "$1" | tr -d '\n'
+}
+
+ADDITIONAL_PARAMS=()
+while IFS='' read -r line
+do
+    if [[ $line =~ ^LDAP_([^=]*)=(.*)$ ]]
+    then
+        VAR="LDAP_${BASH_REMATCH[1]}"
+        VALUE="${BASH_REMATCH[2]}"
+        if [[ $VAR =~ _SSLCERT$  ]]
+        then
+            if [ ! -f "$VALUE" ]
+            then
+                echo "$VALUE file not found"
+                exit 1
+            fi
+            VALUE=$(b64file "$VALUE")
+        else
+            VALUE=$(b64 "$VALUE")
+        fi
+        ADDITIONAL_PARAMS+=("--set" "${VAR}=${VALUE}")
+    fi
+done < <(set -o posix ; set ) # get all shell and env variables
+
+
+
+echo ========================================
+echo
+echo Deploying to AKS
+echo
+echo ========================================
+echo
+
+
+
+# Make sure all the software we need is available
+set +o errexit
+AZ_LOC=`which az`
+if [ "$AZ_LOC" == "" ]
+then
+    echo Unable to find Azure CLI \(az\) on the path
+    exit 1
+fi
+set -o errexit
+
+
+
+# We need to get the subscription ID and use that as a way to check if
+# we are logged in
+SUB_ID=`az account show --query id --output tsv`
+if [ "$SUB_ID" == "" ]
+then
+    exit 1
+fi
+
+
+
+# Get the node resource group for AKS
+AKS_NRG=`az aks show \
+    --resource-group "$BPME_GROUP_NAME" \
+    --name "$BPME_AKS_NAME" \
+    --query nodeResourceGroup \
+    --output tsv`
+
+APP_GATEWAY_IP=`az network application-gateway list \
+    --resource-group "$AKS_NRG" \
+    --query "[?name=='$BPME_APP_GATEWAY_NAME'].frontendIPConfigurations[0].publicIPAddress.id" \
+    --output tsv`
+
+APP_GATEWAY_FQDN=`az network public-ip list \
+    --resource-group "$AKS_NRG" \
+    --query "[?id=='$APP_GATEWAY_IP'].dnsSettings.fqdn" \
+    --output tsv`
+
+if [ "$APP_GATEWAY_FQDN" == "" ]
+then
+     echo DNS host not found.   Create Azure resources first!
+     exit 1
+fi
+echo App gateway fqdn $APP_GATEWAY_FQDN
+
+
+
+BPME_SQLSERVER_NAME=`az sql server list \
+    --resource-group "$BPME_GROUP_NAME" \
+    --query "[?starts_with(name,'$BPME_SQLSERVER_NAME_PREFIX')].name" \
+    --output tsv`
+if [ "$BPME_SQLSERVER_NAME" == "" ]
+then
+    echo SQL Server not found.   Create Azure resources first!
+    exit 1
+fi
+
+
+
+BPME_DOMAIN_NAME=$APP_GATEWAY_FQDN
+
+printf -v ADDITIONAL_HELM_PARAMETERS "'%s' " "${ADDITIONAL_PARAMS[@]}"
+
+# Provision a helm chart
+echo Installing a helm chart
+(cd "$HELM_CHART_DIR" && az aks command invoke \
+    --resource-group "$BPME_GROUP_NAME" \
+    --name "$BPME_AKS_NAME" \
+    --command "helm upgrade bpme . \
+        --install \
+        --create-namespace \
+        --namespace \"$BPME_K8S_NAMESPACE\" \
+        --set \"sqlServerName=$BPME_SQLSERVER_NAME\" \
+        --set \"bpmDomainName=$BPME_DOMAIN_NAME\" \
+        --set \"repository=$BPME_ACR_REPO\" \
+        --set \"imageTag=$BPM_VERSION\" \
+        --set \"admin.username=$BPME_SQLSERVER_ADMIN_USERNAME\" \
+        --set \"admin.password=$BPME_SQLSERVER_ADMIN_PASSWORD\" \
+        --set \"bpmuser.username=$BPME_SQLSERVER_BPMUSER_USERNAME\" \
+        --set \"bpmuser.password=$BPME_SQLSERVER_BPMUSER_PASSWORD\" \
+        --set \"databaseName=$BPME_SQLSERVER_DBNAME\" \
+        --set \"${ADDITIONAL_HELM_VALUES:-}\" \
+        ${ADDITIONAL_HELM_PARAMETERS}" --file .)
+
+
+
+echo
+echo ======================================================================
+echo
+echo Give it a couple of minutes and access UI from:
+echo
+echo https://$BPME_DOMAIN_NAME/apps/login
+echo
+echo ======================================================================
