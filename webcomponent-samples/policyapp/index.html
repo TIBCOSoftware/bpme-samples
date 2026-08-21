@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html class="policy-bpm-theme">
+<head>
+
+    <title>Policy demo</title>
+    <script type="module" data-tibcowebcomponents="/apps/web-cdn/icons/"></script>
+
+    <script src="./pages/login-page.js"></script>
+    <script src="./pages/layout-page.js"></script>
+    <script src="./pages/bs-form-page.js"></script>
+    <script src="./pages/empty-state-page.js"></script>
+    <script src="./pages/withdrawal-page.js"></script>
+    <script src="./pages/cases-page.js"></script>
+    <link rel="stylesheet" href="/apps/web-cdn/fonts/Source_Sans_Pro/source-sans-pro.css"/>
+    <link rel="stylesheet" href="./assets/fonts/Libre_Baskerville/LibreBaskerville.css"/>
+    <link rel="stylesheet" href="/apps/web-cdn/styles/bpme-styles.css"/>
+    <link rel="stylesheet" href="/apps/web-cdn/styles/themes/scroll.styles.css"/>
+    <link rel="stylesheet" href="/apps/web-cdn/themes/tibco-form/formvariablesmapper.css"/>
+    <link rel="stylesheet" href="./assets/policy.theme.css">
+    <script src="/apps/web-cdn/bizcomponents/bpme-components-lib/index.js"></script>
+    <script src="/apps/bpm-forms/formsclient/formsclient.nocache.js"></script>
+</head>
+<body style="margin: 0; height: 100vh;" class="policy-bpm-theme">
+  <bpme-http-interceptor></bpme-http-interceptor>
+  <bpme-language-context>
+    <div id="application-container">
+    </div>
+  </bpme-language-context>
+
+  <script>
+    const applicationContainer = document.getElementById('application-container');
+    applicationContainer.style = 'height: 100vh;';
+
+    function routesDefinition() {
+      const hash = window.location.hash.substring(1);
+      if (hash === '/login') {
+        applicationContainer.innerHTML = '<application-login></application-login>';
+      } else {
+        applicationContainer.innerHTML = '<bpme-system-actions data=""><application-layout></application-layout></bpme-system-actions>';
+      }
+    }
+
+    window.addEventListener('hashchange', routesDefinition);
+    routesDefinition();
+  </script>
+</body>
+</html>
